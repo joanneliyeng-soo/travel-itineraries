@@ -101,7 +101,7 @@
 
   .trip {
     display: grid;
-    grid-template-columns: 80px 1fr auto;
+    grid-template-columns: 80px 1fr;
     align-items: start;
     gap: 0 1.5rem;
     padding: 1.5rem 0;
@@ -145,15 +145,20 @@
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    padding: 4px 10px;
+    padding: 3px 8px;
     border-radius: 20px;
     white-space: nowrap;
-    align-self: flex-start;
-    margin-top: 3px;
+    flex-shrink: 0;
   }
 
   .tag-nps { background: var(--nps-bg); color: var(--nps-text); }
   .tag-disney { background: var(--disney-bg); color: var(--disney-text); }
+
+  .trip-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
   footer {
     max-width: 760px;
@@ -166,7 +171,6 @@
 
   @media (max-width: 500px) {
     .trip { grid-template-columns: 60px 1fr; }
-    .trip-tag { display: none; }
   }
 </style>
 </head>
@@ -188,27 +192,33 @@
       <div class="trip-date">June<br>2026</div>
       <div class="trip-body">
         <p class="trip-title">Zion, Bryce Canyon &amp; Grand Canyon</p>
-        <p class="trip-location">Utah &amp; Arizona</p>
+        <div class="trip-meta">
+          <span class="trip-tag tag-nps">NPS</span>
+          <p class="trip-location">Utah &amp; Arizona</p>
+        </div>
       </div>
-      <span class="trip-tag tag-nps">NPS</span>
     </a>
 
     <a class="trip" href="sept2026-wdw-wish.html">
       <div class="trip-date">Sept<br>2026</div>
       <div class="trip-body">
         <p class="trip-title">Walt Disney World &amp; Disney Wish</p>
-        <p class="trip-location">Orlando, Florida</p>
+        <div class="trip-meta">
+          <span class="trip-tag tag-disney">Disney</span>
+          <p class="trip-location">Orlando, Florida</p>
+        </div>
       </div>
-      <span class="trip-tag tag-disney">Disney</span>
     </a>
 
     <a class="trip" href="oct2026-arizona-petrified-forest.html">
       <div class="trip-date">Oct<br>2026</div>
       <div class="trip-body">
         <p class="trip-title">Petrified Forest &amp; Arizona Cave Dwellings</p>
-        <p class="trip-location">Arizona</p>
+        <div class="trip-meta">
+          <span class="trip-tag tag-nps">NPS</span>
+          <p class="trip-location">Arizona</p>
+        </div>
       </div>
-      <span class="trip-tag tag-nps">NPS</span>
     </a>
 
   </div>
