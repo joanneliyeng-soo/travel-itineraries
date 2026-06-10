@@ -101,8 +101,8 @@
 
   .trip {
     display: grid;
-    grid-template-columns: 80px 1fr;
-    align-items: start;
+    grid-template-columns: 80px 1fr 16px;
+    align-items: center;
     gap: 0 1.5rem;
     padding: 1.5rem 0;
     border-top: 0.5px solid var(--rule);
@@ -114,6 +114,14 @@
   .trip:last-child { border-bottom: 0.5px solid var(--rule); }
 
   .trip:hover .trip-title { text-decoration: underline; text-underline-offset: 3px; }
+
+  .trip-caret {
+    align-self: center;
+    color: var(--ink-faint);
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
 
   .trip-date {
     font-size: 11px;
@@ -170,7 +178,7 @@
   }
 
   @media (max-width: 500px) {
-    .trip { grid-template-columns: 60px 1fr; }
+    .trip { grid-template-columns: 60px 1fr 16px; }
   }
 </style>
 </head>
@@ -197,6 +205,7 @@
           <p class="trip-location">Utah &amp; Arizona</p>
         </div>
       </div>
+      <span class="trip-caret">›</span>
     </a>
 
     <a class="trip" href="june2026-chicago-indiana-dunes.html">
@@ -208,6 +217,7 @@
           <p class="trip-location">Illinois &amp; Indiana</p>
         </div>
       </div>
+      <span class="trip-caret">›</span>
     </a>
 
     <a class="trip" href="sept2026-wdw-wish.html">
@@ -219,6 +229,7 @@
           <p class="trip-location">Orlando, Florida</p>
         </div>
       </div>
+      <span class="trip-caret">›</span>
     </a>
 
     <a class="trip" href="oct2026-arizona-petrified-forest.html">
@@ -230,6 +241,26 @@
           <p class="trip-location">Arizona</p>
         </div>
       </div>
+      <span class="trip-caret">›</span>
+    </a>
+
+  </div>
+
+  <p class="page-eyebrow" style="margin-top: 3rem;">On the list</p>
+  <p class="page-subtitle" style="margin-bottom: 1.5rem;">Trips in the works — no dates yet.</p>
+
+  <div class="trips">
+
+    <a class="trip" href="https://joanneliyeng.com/travel/Yellowstone-grand-teton.html">
+      <div class="trip-date">TBD</div>
+      <div class="trip-body">
+        <p class="trip-title">Yellowstone &amp; Grand Teton</p>
+        <div class="trip-meta">
+          <span class="trip-tag tag-nps">NPS</span>
+          <p class="trip-location">Wyoming</p>
+        </div>
+      </div>
+      <span class="trip-caret">›</span>
     </a>
 
   </div>
