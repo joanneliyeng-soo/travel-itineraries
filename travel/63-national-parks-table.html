@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>63 National Parks — Access Guide</title>
+<style>
+  html, body { background-color: #12263A !important; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px 12px 60px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #F4EFE6 !important;
+    background-color: #12263A !important;
+  }
+  h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.8rem;
+    text-align: center;
+    color: #F4EFE6 !important;
+    margin: 0 0 4px;
+    letter-spacing: 0.5px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #8FB8C7 !important;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+  }
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+    font-size: 0.78rem;
+    color: #C9D9DE !important;
+  }
+  .legend span { white-space: nowrap; }
+  .state-block {
+    max-width: 720px;
+    margin: 0 auto 22px;
+    background-color: #17324A !important;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #26495F;
+  }
+  .state-header {
+    background-color: #E8622C !important;
+    color: #12263A !important;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 8px 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  td, th {
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 0.88rem;
+    vertical-align: top;
+  }
+  tr:not(:last-child) td {
+    border-bottom: 1px solid #26495F;
+  }
+  .park-name {
+    font-weight: 600;
+    color: #F4EFE6 !important;
+    width: 34%;
+  }
+  .emoji-col {
+    font-size: 1.15rem;
+    width: 15%;
+    text-align: center;
+  }
+  .notes-col {
+    color: #B9CDD4 !important;
+    width: 51%;
+    line-height: 1.35;
+  }
+  tr.collected td {
+    background-color: #1F4A3C !important;
+  }
+  tr.collected .park-name::after {
+    content: " ✅";
+  }
+  .counter {
+    text-align: center;
+    margin: 0 auto 6px;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #6FCF97 !important;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+  .counter span {
+    color: #8FB8C7 !important;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-left: 6px;
+  }
+  .progress-bar {
+    max-width: 320px;
+    height: 10px;
+    margin: 0 auto 20px;
+    background-color: #26495F !important;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 17.5%;
+    background-color: #6FCF97 !important;
+    border-radius: 6px;
+  }
+  .legend .stamp {
+    color: #6FCF97 !important;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<h1>🏞️ All 63 National Parks</h1>
+<div class="subtitle">Organized by state — how you get there</div>
+
+<div class="counter">11<span>/ 63 visited</span></div>
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<div class="legend">
+  <span>🚗 = drive in</span>
+  <span>✈️ = fly-in only</span>
+  <span>⛵ = boat only</span>
+  <span>🚗⛵ / 🚗✈️ = mixed access</span>
+  <span class="stamp">✅ = stamp collected</span>
+</div>
+<div class="subtitle">11 of 63 stamped so far: Lassen Volcanic, Crater Lake, Pinnacles, Grand Canyon, Zion, Bryce Canyon, Indiana Dunes, Redwood, Yosemite, Sequoia, Kings Canyon</div>
+
+<div class="state-block">
+  <div class="state-header">Alaska</div>
+  <table>
+    <tr><td class="park-name">Denali</td><td class="emoji-col">🚗</td><td class="notes-col">Private vehicles limited past Mile 15; shuttle/bus deeper in.</td></tr>
+    <tr><td class="park-name">Gates of the Arctic</td><td class="emoji-col">✈️</td><td class="notes-col">Air taxi from Fairbanks, Bettles, or Coldfoot. Zero roads or trails.</td></tr>
+    <tr><td class="park-name">Glacier Bay</td><td class="emoji-col">✈️⛵</td><td class="notes-col">Fly into Gustavus, or arrive by cruise ship/tour boat.</td></tr>
+    <tr><td class="park-name">Katmai</td><td class="emoji-col">✈️</td><td class="notes-col">Float plane from King Salmon, Anchorage, or Homer. Home of the fat bears.</td></tr>
+    <tr><td class="park-name">Kenai Fjords</td><td class="emoji-col">🚗⛵</td><td class="notes-col">Drive to Exit Glacier; the fjords themselves need a boat or air tour.</td></tr>
+    <tr><td class="park-name">Kobuk Valley</td><td class="emoji-col">✈️</td><td class="notes-col">Bush plane from Kotzebue. Least-visited park in the whole system.</td></tr>
+    <tr><td class="park-name">Lake Clark</td><td class="emoji-col">✈️⛵</td><td class="notes-col">Fly or boat from Anchorage, Homer, or Kenai. No road in.</td></tr>
+    <tr><td class="park-name">Wrangell–St. Elias</td><td class="emoji-col">🚗✈️</td><td class="notes-col">Unpaved roads reach McCarthy/Kennicott; interior is fly-in only.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Arizona</div>
+  <table>
+    <tr class="collected"><td class="park-name">Grand Canyon</td><td class="emoji-col">🚗</td><td class="notes-col">South Rim easy and paved; North Rim seasonal.</td></tr>
+    <tr><td class="park-name">Petrified Forest</td><td class="emoji-col">🚗</td><td class="notes-col">Drive-through park, right off I-40.</td></tr>
+    <tr><td class="park-name">Saguaro</td><td class="emoji-col">🚗</td><td class="notes-col">Two separate districts flanking Tucson.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Arkansas</div>
+  <table>
+    <tr><td class="park-name">Hot Springs</td><td class="emoji-col">🚗</td><td class="notes-col">Sits right in the town of Hot Springs — most urban NP there is.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">California</div>
+  <table>
+    <tr><td class="park-name">Channel Islands</td><td class="emoji-col">⛵✈️</td><td class="notes-col">Concessioner ferry or small plane only — no bridge, no roads.</td></tr>
+    <tr><td class="park-name">Death Valley</td><td class="emoji-col">🚗</td><td class="notes-col">Hottest, driest, lowest — but fully drivable.</td></tr>
+    <tr><td class="park-name">Joshua Tree</td><td class="emoji-col">🚗</td><td class="notes-col">Easy drive-in from Palm Springs area.</td></tr>
+    <tr class="collected"><td class="park-name">Kings Canyon</td><td class="emoji-col">🚗</td><td class="notes-col">Paired with Sequoia; connected by road.</td></tr>
+    <tr class="collected"><td class="park-name">Lassen Volcanic</td><td class="emoji-col">🚗</td><td class="notes-col">Drive-in, scenic park road.</td></tr>
+    <tr class="collected"><td class="park-name">Pinnacles</td><td class="emoji-col">🚗</td><td class="notes-col">East and west entrances are NOT connected by road inside the park.</td></tr>
+    <tr class="collected"><td class="park-name">Redwood</td><td class="emoji-col">🚗</td><td class="notes-col">Strung along Hwy 101, mixed with state park units.</td></tr>
+    <tr class="collected"><td class="park-name">Sequoia</td><td class="emoji-col">🚗</td><td class="notes-col">Steep, winding mountain road in.</td></tr>
+    <tr class="collected"><td class="park-name">Yosemite</td><td class="emoji-col">🚗</td><td class="notes-col">Multiple entrances, some seasonal.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Colorado</div>
+  <table>
+    <tr><td class="park-name">Black Canyon of the Gunnison</td><td class="emoji-col">🚗</td><td class="notes-col">South Rim easy; North Rim road rougher, seasonal.</td></tr>
+    <tr><td class="park-name">Great Sand Dunes</td><td class="emoji-col">🚗</td><td class="notes-col">Tallest dunes in North America, right off the parking lot.</td></tr>
+    <tr><td class="park-name">Mesa Verde</td><td class="emoji-col">🚗</td><td class="notes-col">Cliff dwellings mostly require ranger-led tours/ladders once there.</td></tr>
+    <tr><td class="park-name">Rocky Mountain</td><td class="emoji-col">🚗</td><td class="notes-col">Trail Ridge Road is the highest continuous paved road in the US.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Florida</div>
+  <table>
+    <tr><td class="park-name">Biscayne</td><td class="emoji-col">🚗⛵</td><td class="notes-col">Drive to the visitor center — but ~95% of the park is water.</td></tr>
+    <tr><td class="park-name">Dry Tortugas</td><td class="emoji-col">⛵✈️</td><td class="notes-col">Yankee Freedom ferry or seaplane from Key West. No road, ever.</td></tr>
+    <tr><td class="park-name">Everglades</td><td class="emoji-col">🚗</td><td class="notes-col">Multiple separate entrances (Homestead, Shark Valley, Gulf Coast).</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Hawaiʻi</div>
+  <table>
+    <tr><td class="park-name">Haleakalā</td><td class="emoji-col">🚗</td><td class="notes-col">Summit road and separate coastal Kīpahulu section.</td></tr>
+    <tr><td class="park-name">Hawaiʻi Volcanoes</td><td class="emoji-col">🚗</td><td class="notes-col">Crater Rim Drive loops the caldera.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Indiana</div>
+  <table>
+    <tr class="collected"><td class="park-name">Indiana Dunes</td><td class="emoji-col">🚗</td><td class="notes-col">Easy Lake Michigan shoreline access.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Kentucky</div>
+  <table>
+    <tr><td class="park-name">Mammoth Cave</td><td class="emoji-col">🚗</td><td class="notes-col">Surface is drive-in; the cave itself needs a ranger-led tour.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Maine</div>
+  <table>
+    <tr><td class="park-name">Acadia</td><td class="emoji-col">🚗</td><td class="notes-col">Park Loop Road, easy drive-in from Bar Harbor.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Michigan</div>
+  <table>
+    <tr><td class="park-name">Isle Royale</td><td class="emoji-col">⛵✈️</td><td class="notes-col">No cars allowed on the island at all — ferry or seaplane only.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Minnesota</div>
+  <table>
+    <tr><td class="park-name">Voyageurs</td><td class="emoji-col">🚗⛵</td><td class="notes-col">Drive to visitor centers; most of the interior is boat/canoe only.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Missouri</div>
+  <table>
+    <tr><td class="park-name">Gateway Arch</td><td class="emoji-col">🚗</td><td class="notes-col">Smallest NP — it's downtown St. Louis, walkable from anywhere nearby.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Montana</div>
+  <table>
+    <tr><td class="park-name">Glacier</td><td class="emoji-col">🚗</td><td class="notes-col">Going-to-the-Sun Road; vehicle reservation required in peak season.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Nevada</div>
+  <table>
+    <tr><td class="park-name">Great Basin</td><td class="emoji-col">🚗</td><td class="notes-col">Remote but fully paved access; bristlecone pines and Lehman Caves.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">New Mexico</div>
+  <table>
+    <tr><td class="park-name">Carlsbad Caverns</td><td class="emoji-col">🚗</td><td class="notes-col">Surface drive-in; cavern via elevator or a walk-in natural entrance trail.</td></tr>
+    <tr><td class="park-name">White Sands</td><td class="emoji-col">🚗</td><td class="notes-col">Gypsum dune drive loop, easy access.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">North Carolina / Tennessee</div>
+  <table>
+    <tr><td class="park-name">Great Smoky Mountains</td><td class="emoji-col">🚗</td><td class="notes-col">Most-visited NP in the country; entrances on both NC and TN sides.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">North Dakota</div>
+  <table>
+    <tr><td class="park-name">Theodore Roosevelt</td><td class="emoji-col">🚗</td><td class="notes-col">Three separate units, all drive-in.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Ohio</div>
+  <table>
+    <tr><td class="park-name">Cuyahoga Valley</td><td class="emoji-col">🚗</td><td class="notes-col">No entrance fee, easy drive-in between Cleveland and Akron.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Oregon</div>
+  <table>
+    <tr class="collected"><td class="park-name">Crater Lake</td><td class="emoji-col">🚗</td><td class="notes-col">Rim Drive loops the whole caldera.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">South Carolina</div>
+  <table>
+    <tr><td class="park-name">Congaree</td><td class="emoji-col">🚗</td><td class="notes-col">Boardwalk trail right from the visitor center parking lot.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">South Dakota</div>
+  <table>
+    <tr><td class="park-name">Badlands</td><td class="emoji-col">🚗</td><td class="notes-col">Loop Road drive-through, dramatic overlooks right off pavement.</td></tr>
+    <tr><td class="park-name">Wind Cave</td><td class="emoji-col">🚗</td><td class="notes-col">Surface drive-in; cave via ranger-led tour.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Texas</div>
+  <table>
+    <tr><td class="park-name">Big Bend</td><td class="emoji-col">🚗</td><td class="notes-col">Remote but paved roads throughout.</td></tr>
+    <tr><td class="park-name">Guadalupe Mountains</td><td class="emoji-col">🚗</td><td class="notes-col">Drive-in; most interior features require hiking to reach.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Utah</div>
+  <table>
+    <tr><td class="park-name">Arches</td><td class="emoji-col">🚗</td><td class="notes-col">Timed-entry reservation required in peak season.</td></tr>
+    <tr class="collected"><td class="park-name">Bryce Canyon</td><td class="emoji-col">🚗</td><td class="notes-col">Rim drive with numerous overlooks.</td></tr>
+    <tr><td class="park-name">Canyonlands</td><td class="emoji-col">🚗</td><td class="notes-col">Island in the Sky is paved; Needles/Maze districts want high-clearance/4WD.</td></tr>
+    <tr><td class="park-name">Capitol Reef</td><td class="emoji-col">🚗</td><td class="notes-col">Scenic Drive is paved; side roads get rougher.</td></tr>
+    <tr class="collected"><td class="park-name">Zion</td><td class="emoji-col">🚗</td><td class="notes-col">Mandatory shuttle in main canyon most of the year — your placard is confirmed exempt.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Virginia</div>
+  <table>
+    <tr><td class="park-name">Shenandoah</td><td class="emoji-col">🚗</td><td class="notes-col">Skyline Drive runs the length of the park.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Washington</div>
+  <table>
+    <tr><td class="park-name">Mount Rainier</td><td class="emoji-col">🚗</td><td class="notes-col">Several entrances; Paradise area most accessible.</td></tr>
+    <tr><td class="park-name">North Cascades</td><td class="emoji-col">🚗</td><td class="notes-col">Hwy 20 corridor is drivable; most of the park's interior has no roads.</td></tr>
+    <tr><td class="park-name">Olympic</td><td class="emoji-col">🚗</td><td class="notes-col">Separate entrances reach coast, rainforest, and Hurricane Ridge — not connected internally.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">West Virginia</div>
+  <table>
+    <tr><td class="park-name">New River Gorge</td><td class="emoji-col">🚗</td><td class="notes-col">Newest NP (2020); drive-in with famous bridge overlook.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">Wyoming (+ MT / ID)</div>
+  <table>
+    <tr><td class="park-name">Grand Teton</td><td class="emoji-col">🚗</td><td class="notes-col">Easy drive-in, right next to Jackson Hole.</td></tr>
+    <tr><td class="park-name">Yellowstone</td><td class="emoji-col">🚗</td><td class="notes-col">Spans WY/MT/ID; multiple entrances, all paved.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">American Samoa</div>
+  <table>
+    <tr><td class="park-name">National Park of American Samoa</td><td class="emoji-col">✈️⛵</td><td class="notes-col">Fly to Pago Pago via Honolulu; Ofu and Ta'ū units need an extra inter-island flight or boat.</td></tr>
+  </table>
+</div>
+
+<div class="state-block">
+  <div class="state-header">U.S. Virgin Islands</div>
+  <table>
+    <tr><td class="park-name">Virgin Islands</td><td class="emoji-col">✈️⛵</td><td class="notes-col">Fly to St. Thomas, then passenger ferry to St. John.</td></tr>
+  </table>
+</div>
+
+</body>
+</html>
