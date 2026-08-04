@@ -3,345 +3,632 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Disney World & Cruise · September 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Disney World &amp; Cruise · September 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0A2342; --blue: #1565C0; --gold: #F9A825; --parchment: #F8F5F0;
-    --white: #FFFFFF; --text: #1A1A2E; --muted: #5C6B8A; --border: #D0DCF0;
+    --navy: #0B2942 !important;
+    --navy-deep: #071A2C !important;
+    --coral: #E8734A !important;
+    --coral-deep: #C85A34 !important;
+    --seafoam: #5FA895 !important;
+    --seafoam-light: #DCEEE9 !important;
+    --sand: #FBF7F1 !important;
+    --sand-card: #FFFFFF !important;
+    --text: #16283D !important;
+    --muted: #5C7186 !important;
+    --border: #E2E6EA !important;
+    --gold-star: #D4A24C !important;
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', sans-serif; background: var(--parchment); color: var(--text); font-size: 15px; line-height: 1.6; }
-  .page { max-width: 860px; margin: 0 auto; padding: 0 20px 60px; }
 
-  /* TOGGLE */
-  .lang-toggle {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--navy);
-    display: flex; justify-content: center; align-items: center;
-    padding: 10px 20px; gap: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
-  }
-  .lang-toggle span { color: rgba(255,255,255,0.6); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.5px; }
-  .toggle-btn {
-    display: flex; background: rgba(255,255,255,0.12); border-radius: 24px;
-    padding: 3px; border: 1px solid rgba(255,255,255,0.2); gap: 2px;
-  }
-  .toggle-btn button {
-    border: none; cursor: pointer; border-radius: 20px;
-    padding: 6px 18px; font-size: 0.85rem; font-weight: 600;
-    font-family: 'Inter', sans-serif; letter-spacing: 0.3px;
-    transition: all 0.2s ease;
-    background: transparent; color: rgba(255,255,255,0.65);
-  }
-  .toggle-btn button.active {
-    background: var(--gold); color: var(--navy);
+  html, body {
+    background: var(--sand) !important;
+    color: var(--text) !important;
+    color-scheme: light only;
   }
 
-  /* CONTENT SECTIONS */
-  .lang-en, .lang-vn { display: none; }
-  .lang-en.active, .lang-vn.active { display: block; }
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
 
   /* HEADER */
   .header {
-    background: var(--navy); color: white; padding: 44px 40px 36px;
-    text-align: center; border-radius: 0 0 16px 16px; margin-bottom: 32px;
-    position: relative; overflow: hidden;
+    background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%) !important;
+    color: #fff !important;
+    padding: 46px 40px 38px;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
   }
-  .header::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(ellipse at top, #1a3a6e 0%, var(--navy) 70%); z-index: 0;
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 26px;
+    background: repeating-linear-gradient(115deg, transparent 0 18px, var(--coral) 18px 19px);
+    opacity: 0.35;
   }
-  .header * { position: relative; z-index: 1; }
-  .header .emoji-row { font-size: 2.2rem; margin-bottom: 12px; letter-spacing: 6px; }
-  .header h1 { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; color: #fff; }
-  .header .subtitle { font-size: 1.05rem; color: #A8BEDE; font-weight: 300; margin-bottom: 18px; letter-spacing: 1px; text-transform: uppercase; }
-  .header .badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-  .badge { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.5px; }
-  .badge.gold { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 600; }
+  .header .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--seafoam-light) !important;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    color: #fff !important;
+  }
+  .header .subtitle {
+    font-size: 1rem;
+    color: #B9CBDB !important;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+  .header .badges {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: rgba(255,255,255,0.10) !important;
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff !important;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .badge.coral {
+    background: var(--coral) !important;
+    border-color: var(--coral);
+    font-weight: 700;
+  }
 
-  /* SECTION TITLES */
-  .section-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 14px; margin-top: 36px; padding-bottom: 8px; border-bottom: 2px solid var(--gold); display: flex; align-items: center; gap: 8px; }
+  /* AT A GLANCE */
+  .glance {
+    background: var(--sand-card) !important;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin-bottom: 34px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 20px;
+  }
+  .glance-item .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--seafoam) !important;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .glance-item .value {
+    font-size: 0.92rem;
+    color: var(--text) !important;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .glance-item .value small {
+    display: block;
+    color: var(--muted) !important;
+    font-weight: 400;
+    font-size: 0.82rem;
+    margin-top: 2px;
+  }
 
-  /* GLANCE GRID */
-  .glance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
-  @media (max-width: 600px) { .glance-grid { grid-template-columns: 1fr; } }
-  .glance-card { background: var(--white); border-radius: 10px; padding: 16px 18px; border: 1px solid var(--border); }
-  .glance-card .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
-  .glance-card .value { font-size: 0.92rem; font-weight: 500; color: var(--text); line-height: 1.5; }
-  .glance-card .value strong { color: var(--navy); }
+  /* SECTION LABEL */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 44px 0 20px;
+  }
+  .section-label .line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-label h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--navy) !important;
+    white-space: nowrap;
+  }
 
-  /* DAY CARDS */
-  .day-card { background: var(--white); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 18px; overflow: hidden; }
-  .day-header { padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-  .day-header.mk     { background: #1565C0; }
-  .day-header.epcot  { background: #00695C; }
-  .day-header.hs     { background: #6A1B9A; }
-  .day-header.ak     { background: #2E7D32; }
-  .day-header.cruise { background: #0A2342; }
-  .day-header.travel { background: #37474F; }
-  .day-header.resort { background: #4E342E; }
-  .day-header .day-label { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: white; font-weight: 600; }
-  .day-header .day-date { font-size: 0.78rem; color: rgba(255,255,255,0.75); font-weight: 400; letter-spacing: 0.5px; }
-  .day-type-badge { background: rgba(255,255,255,0.2); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 500; }
-  .day-body { padding: 0; }
-  .stop { display: flex; gap: 14px; padding: 14px 20px; border-bottom: 1px solid #F0F4FA; align-items: flex-start; }
-  .stop:last-child { border-bottom: none; }
-  .stop-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
-  .stop-content { flex: 1; }
-  .stop-name { font-weight: 600; font-size: 0.95rem; color: var(--navy); margin-bottom: 2px; }
-  .stop-detail { font-size: 0.83rem; color: var(--muted); margin-bottom: 2px; line-height: 1.5; }
-  .stop-note { font-size: 0.82rem; color: #5D4037; background: #FFF8E1; border-left: 3px solid var(--gold); padding: 5px 10px; border-radius: 0 4px 4px 0; margin-top: 6px; line-height: 1.45; }
-  .stop-alert { font-size: 0.82rem; color: #1A237E; background: #E8EAF6; border-left: 3px solid #3F51B5; padding: 5px 10px; border-radius: 0 4px 4px 0; margin-top: 6px; line-height: 1.45; }
-  .travel-row { display: flex; gap: 14px; padding: 12px 20px; align-items: center; background: #F5F7FF; border-bottom: 1px solid #F0F4FA; }
-  .travel-row:last-child { border-bottom: none; }
-  .travel-row .ticon { font-size: 1.2rem; }
-  .travel-row .ttext { font-size: 0.88rem; color: var(--text); }
-  .travel-row .ttext strong { color: var(--navy); }
+  /* DAY CARD */
+  .day-card {
+    background: var(--sand-card) !important;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 22px;
+    overflow: hidden;
+  }
+  .day-head {
+    background: var(--navy) !important;
+    color: #fff !important;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .day-head .day-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  .day-head .day-date {
+    font-size: 0.8rem;
+    color: var(--seafoam-light) !important;
+    letter-spacing: 0.5px;
+  }
+  .day-head.coastal { background: linear-gradient(120deg, var(--navy) 0%, #0E3A54 100%) !important; }
+  .day-body { padding: 22px 24px 10px; }
+  .day-note {
+    font-size: 0.88rem;
+    color: var(--muted) !important;
+    padding: 0 24px 18px;
+    font-style: italic;
+  }
 
-  /* PARTY */
-  .party-card { background: var(--white); border-radius: 12px; border: 1px solid var(--border); padding: 18px 22px; display: flex; gap: 20px; flex-wrap: wrap; }
-  .party-member { text-align: center; flex: 1; min-width: 100px; }
-  .party-member .avatar { font-size: 2rem; margin-bottom: 4px; }
-  .party-member .pname { font-weight: 600; font-size: 0.88rem; color: var(--navy); }
-  .party-member .prole { font-size: 0.78rem; color: var(--muted); }
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 4px; }
+  .stop {
+    display: grid;
+    grid-template-columns: 68px 1fr;
+    gap: 14px;
+    margin-bottom: 4px;
+    position: relative;
+  }
+  .stop-time {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--coral-deep) !important;
+    padding-top: 3px;
+    text-align: right;
+  }
+  .stop-content {
+    border-left: 2px solid var(--seafoam);
+    padding: 0 0 20px 18px;
+    position: relative;
+  }
+  .stop-content::before {
+    content: '';
+    position: absolute;
+    left: -6px; top: 2px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--seafoam) !important;
+    border: 2px solid var(--sand-card);
+  }
+  .stop:last-child .stop-content { border-left: 2px solid transparent; }
+  .stop-name {
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: var(--navy) !important;
+    margin-bottom: 2px;
+  }
+  .stop-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--coral-deep) !important;
+    background: #FBE7DD !important;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .stamp-block {
+    margin-top: 8px;
+    border: 1.5px dashed var(--coral);
+    background: #FFF9F5 !important;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+  .stamp-block .stamp-label {
+    font-weight: 700;
+    color: var(--coral-deep) !important;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+  .stamp-block .stamp-addr { color: var(--text) !important; }
+  .stamp-block .stamp-addr a {
+    color: var(--navy) !important;
+    text-decoration: none;
+    border-bottom: 1.5px dotted var(--coral);
+    font-weight: 600;
+  }
+  .stamp-block .stamp-addr a:hover { border-bottom-style: solid; }
+  .stamp-block .stamp-addr a::after {
+    content: ' ↗';
+    font-size: 0.75em;
+    color: var(--coral-deep) !important;
+  }
+  .stamp-block .stamp-hours { color: var(--muted) !important; margin-top: 2px; }
+
+  .note-line {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: var(--muted) !important;
+  }
+  .note-line.warn { color: var(--coral-deep) !important; font-weight: 500; }
+
+  .drive-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--seafoam-light) !important;
+    color: #2E6B5A !important;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin: 8px 0 8px 18px;
+  }
+
+  /* SUMMARY DAY (non-timeline, simpler) */
+  .simple-list { padding: 4px 0 14px; }
+  .simple-list li { list-style: none; margin-bottom: 8px; display: flex; gap: 10px; }
+  .simple-list .dot { color: var(--seafoam); font-weight: 700; }
+
+  /* STAMPS GRID */
+  .stamps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .stamp-card {
+    background: var(--sand-card) !important;
+    border: 1.5px dashed var(--coral);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .stamp-card .name { font-weight: 700; color: var(--navy) !important; font-size: 0.95rem; margin-bottom: 3px; }
+  .stamp-card .loc { font-size: 0.8rem; color: var(--muted) !important; }
 
   /* REMINDERS */
-  .reminders { background: var(--white); border-radius: 12px; border: 1px solid var(--border); padding: 20px 22px; margin-top: 8px; }
-  .reminder-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid #F0F4FA; font-size: 0.88rem; line-height: 1.5; align-items: flex-start; }
-  .reminder-item:last-child { border-bottom: none; }
-  .reminder-item .ricon { flex-shrink: 0; font-size: 1rem; }
+  .reminders {
+    background: var(--navy) !important;
+    color: #fff !important;
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin-top: 10px;
+  }
+  .reminders h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    margin-bottom: 14px;
+    color: #fff !important;
+  }
+  .reminders ul { padding-left: 20px; }
+  .reminders li { margin-bottom: 9px; font-size: 0.9rem; color: #DCE6EF !important; }
+  .reminders li strong { color: var(--coral) !important; }
 
-  .footer { text-align: center; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--muted); }
+  .footer-note {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: var(--muted) !important;
+  }
+
+  @media print {
+    .header { border-radius: 0; }
+    .day-card { break-inside: avoid; }
+  }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.9rem; }
+    .stop { grid-template-columns: 54px 1fr; }
+    .glance { grid-template-columns: 1fr 1fr; }
+  }
 </style>
 </head>
 <body>
-
-<!-- LANGUAGE TOGGLE -->
-<div class="lang-toggle">
-  <span>Language / Ngôn ngữ:</span>
-  <div class="toggle-btn">
-    <button id="btn-en" class="active" onclick="setLang('en')">🇺🇸 English</button>
-    <button id="btn-vn" onclick="setLang('vn')">🇻🇳 Tiếng Việt</button>
-  </div>
-</div>
-
-<!-- ============================================================ -->
-<!--  ENGLISH VERSION                                              -->
-<!-- ============================================================ -->
-<div class="lang-en active">
 <div class="page">
+
   <div class="header">
-    <div class="emoji-row">🏰 ✨ 🚢</div>
-    <h1>Walt Disney World & Disney Wish</h1>
-    <div class="subtitle">September 5 – 14, 2026 · Orlando & the Bahamas</div>
+    <div class="eyebrow">Joanne &amp; John · Jason &amp; Jenny</div>
+    <h1>Disney World &amp; Disney Wish Cruise</h1>
+    <div class="subtitle">September 5 – 14, 2026 · Orlando &amp; Port Canaveral, Florida</div>
     <div class="badges">
-      <span class="badge">Joanne & John</span>
-      <span class="badge">+ Jason & Jennythai</span>
-      <span class="badge gold">🌊 Halloween on the High Seas</span>
-      <span class="badge">Castaway Club GOLD</span>
+      <span class="badge coral">6 New NPS Stamps</span>
+      <span class="badge">4 Adults</span>
+      <span class="badge">10 Days</span>
     </div>
   </div>
 
-  <div class="section-title">✈️ At a Glance</div>
-  <div class="glance-grid">
-    <div class="glance-card"><div class="label">✈️ Outbound Flight</div><div class="value"><strong>UA583</strong> · Sat Sep 5<br>SFO 8:15AM → MCO 4:44PM<br>United Economy · Conf: JDWWKL</div></div>
-    <div class="glance-card"><div class="label">✈️ Return Flight</div><div class="value"><strong>UA425</strong> · Mon Sep 14<br>MCO 3:00PM → SFO 5:50PM<br>United Economy · Conf: JDWWKL</div></div>
-    <div class="glance-card"><div class="label">🏨 Hotel · Sep 5–7</div><div class="value"><strong>Disney's All-Star Sports Resort</strong><br>Check-in: Sat Sep 5 · Check-out: Mon Sep 7<br>Standard Room · All 4 guests</div></div>
-    <div class="glance-card"><div class="label">🏨 Hotel · Sep 7–11</div><div class="value"><strong>Disney's Saratoga Springs Resort & Spa</strong><br>Check-in: Mon Sep 7 · Check-out: Fri Sep 11<br>DVC Points · All 4 guests · Conf: 613047481895</div></div>
-    <div class="glance-card"><div class="label">🚢 Cruise · Sep 11–14</div><div class="value"><strong>Disney Wish</strong> · 3-Night Bahamian Cruise<br>Embark Port Canaveral · Sep 11<br>Joanne & John: Res# 44363623 (GTY 07A)<br>In-laws: Res# 44685575 · Stateroom 9172</div></div>
-    <div class="glance-card"><div class="label">🍴 Dining (Cruise)</div><div class="value"><strong>8:15 PM</strong> seating (both cabins)<br>Subject to change by 15 min</div></div>
+  <div class="glance">
+    <div class="glance-item">
+      <div class="label">Outbound Flight</div>
+      <div class="value">UA583 · Sat Sep 5<small>SFO 8:15AM → MCO 4:44PM · Conf JDWWKL</small></div>
+    </div>
+    <div class="glance-item">
+      <div class="label">Return Flight</div>
+      <div class="value">UA425 · Mon Sep 14<small>MCO 3:00PM → SFO 5:50PM</small></div>
+    </div>
+    <div class="glance-item">
+      <div class="label">Rental Car</div>
+      <div class="value">Pickup at MCO, Sep 5<small>Return Sunday night, Disney Car Care Center</small></div>
+    </div>
+    <div class="glance-item">
+      <div class="label">Hotels</div>
+      <div class="value">Coronado Springs, Sep 5–7<small>Saratoga Springs (DVC), Sep 7–11 · Conf #613047481895</small></div>
+    </div>
+    <div class="glance-item">
+      <div class="label">Disney Wish Cruise</div>
+      <div class="value">Sep 11–14 · Port Canaveral<small>Halloween on the High Seas</small></div>
+    </div>
+    <div class="glance-item">
+      <div class="label">Entrance Fees</div>
+      <div class="value">Covered by NPS Access Pass<small>+ America the Beautiful Pass</small></div>
+    </div>
   </div>
 
-  <div class="section-title">👥 Travel Party</div>
-  <div class="party-card">
-    <div class="party-member"><div class="avatar">👩🏻</div><div class="pname">Joanne</div><div class="prole">Trip Planner</div><div class="prole">DCL Castaway Club: Gold</div></div>
-    <div class="party-member"><div class="avatar">👨🏻</div><div class="pname">John</div><div class="prole">Working Tue–Thu</div><div class="prole">DCL Castaway Club: Gold</div></div>
-    <div class="party-member"><div class="avatar">👨🏻‍🦳</div><div class="pname">Jason Luu</div><div class="prole">Dad</div><div class="prole">DCL Castaway Club: Silver</div></div>
-    <div class="party-member"><div class="avatar">👩🏻</div><div class="pname">Jennythai Luu</div><div class="prole">Mom</div><div class="prole">DCL Castaway Club: Silver</div></div>
+  <div class="section-label"><h2>Day by Day</h2><div class="line"></div></div>
+
+  <!-- DAY 0 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div class="day-title">Day 0 — Arrival</div>
+      <div class="day-date">Saturday, September 5</div>
+    </div>
+    <div class="day-body">
+      <ul class="simple-list">
+        <li><span class="dot">●</span> Land MCO 4:44PM · pick up rental car at airport</li>
+        <li><span class="dot">●</span> Drive to Disney's Coronado Springs Resort, check in</li>
+        <li><span class="dot">●</span> Joanne bringing her own wheelchair — no ECV rental needed</li>
+        <li><span class="dot">●</span> Evening at Disney Springs — dinner and exploring, nothing planned, just food and wandering</li>
+        <li><span class="dot">●</span> Easy night otherwise — settle in for tomorrow's early 6 AM start</li>
+      </ul>
+    </div>
   </div>
 
-  <div class="section-title">📅 Day-by-Day Itinerary</div>
+  <!-- DAY 1 - COASTAL STAMP RUN -->
+  <div class="day-card">
+    <div class="day-head coastal">
+      <div class="day-title">Day 1 — Georgia/Florida Coast Stamp Run</div>
+      <div class="day-date">Sunday, September 6</div>
+    </div>
+    <div class="day-note">Route runs north-first: the long 4-hour haul to Brunswick happens right away while you're fresh, then shorter hops working back south — finishing near Disney by mid-afternoon instead of driving home at night.</div>
+    <div class="day-body">
+      <div class="timeline">
 
-  <div class="day-card"><div class="day-header travel"><div><div class="day-label">Saturday, September 5</div><div class="day-date">Travel Day · Arrival</div></div><div class="day-type-badge">✈️ Travel</div></div><div class="day-body"><div class="travel-row"><div class="ticon">🌅</div><div class="ttext"><strong>UA583</strong> departs SFO 8:15AM · arrives MCO 4:44PM</div></div><div class="travel-row"><div class="ticon">🏨</div><div class="ttext">Check in to <strong>Disney's All-Star Sports Resort</strong></div></div><div class="travel-row"><div class="ticon">🎉</div><div class="ttext">Evening: settle in, Disney Springs dinner, or early resort exploration</div></div></div></div>
+        <div class="stop">
+          <div class="stop-time">6:00 AM</div>
+          <div class="stop-content">
+            <div class="stop-name">Depart Coronado Springs</div>
+            <div class="note-line">Straight shot north on I-95 to St. Simons Island / Brunswick — the longest leg of the day, done first</div>
+            <div class="drive-pill">🚗 ~4 hrs · 227 mi</div>
+          </div>
+        </div>
 
-  <div class="day-card"><div class="day-header mk"><div><div class="day-label">Sunday, September 6</div><div class="day-date">Magic Kingdom · Full Group · Rope Drop</div></div><div class="day-type-badge">🏰 Magic Kingdom</div></div><div class="day-body">
-    <div class="stop"><div class="stop-icon">⏰</div><div class="stop-content"><div class="stop-name">Rope Drop — Arrive at Park Open</div><div class="stop-detail">Full group: Joanne, John, Jason & Jennythai. MK rewards early arrival — get the big rides done before crowds build.</div><div class="stop-note">💡 Target: Tron Lightcycle Run and Seven Dwarfs Mine Train first thing. Use Lightning Lane for anything you miss.</div></div></div>
-    <div class="stop"><div class="stop-icon">🎢</div><div class="stop-content"><div class="stop-name">Morning: Fantasyland & Tomorrowland</div><div class="stop-detail">Seven Dwarfs Mine Train · Tron Lightcycle Run · Space Mountain · Big Thunder Mountain</div></div></div>
-    <div class="stop"><div class="stop-icon">🍽️</div><div class="stop-content"><div class="stop-name">Midday: Lunch + Rest</div><div class="stop-detail">Columbia Harbour House (quick, good food, quieter upstairs) or Be Our Guest for a table service option.</div></div></div>
-    <div class="stop"><div class="stop-icon">🎡</div><div class="stop-content"><div class="stop-name">Afternoon: Main Street & Liberty Square</div><div class="stop-detail">Haunted Mansion · Pirates of the Caribbean · Carousel of Progress · Shops & Photos</div></div></div>
-    <div class="stop"><div class="stop-icon">🎆</div><div class="stop-content"><div class="stop-name">Evening: Happily Ever After Fireworks ⭐ MUST-DO</div><div class="stop-detail">Claim your spot on Main Street 45–60 min before showtime. Center of Main Street for castle projection view.</div><div class="stop-note">⭐ Don't leave early — the fireworks + projection show is a full MK sendoff.</div></div></div>
-  </div></div>
+        <div class="stop">
+          <div class="stop-time">~10:00 AM</div>
+          <div class="stop-content">
+            <div class="stop-name">Fort Frederica <span class="stop-tag">National Monument</span></div>
+            <div class="stamp-block">
+              <div class="stamp-label">Stamp Station</div>
+              <div class="stamp-addr">Visitor Center &amp; Gift Shop · <a href="https://www.google.com/maps/search/?api=1&query=6515+Frederica+Rd%2C+St.+Simons+Island%2C+GA+31522" target="_blank" rel="noopener">6515 Frederica Rd., St. Simons Island, GA</a></div>
+              <div class="stamp-hours">Open Wed–Sun, 9:00 AM – 5:00 PM (open on your Sunday visit)</div>
+            </div>
+            <div class="note-line">Northernmost stop of the day — comfortably open by the time you arrive</div>
+            <div class="drive-pill">⏱ ~20 min for stamp · depart ~10:20 AM</div>
+            <div class="drive-pill">🚗 ~51 min · 44 mi</div>
+          </div>
+        </div>
 
-  <div class="day-card"><div class="day-header epcot"><div><div class="day-label">Monday, September 7</div><div class="day-date">EPCOT Food & Wine Festival — OR — Animal Kingdom · Full Group · Later Start</div></div><div class="day-type-badge">🌍 EPCOT / AK</div></div><div class="day-body">
-    <div class="stop"><div class="stop-icon">🏨</div><div class="stop-content"><div class="stop-name">Morning: Hotel Transition</div><div class="stop-detail">Check out of All-Star Sports · Drop bags at Saratoga Springs · Head to park for a later-than-usual start</div><div class="stop-alert">ℹ️ Later start is fine for either option — Food & Wine booths are best enjoyed mid-morning onward, and Animal Kingdom stays lively all day.</div></div></div>
-    <div class="stop"><div class="stop-icon">🍷</div><div class="stop-content"><div class="stop-name">Option A: EPCOT Food & Wine Festival</div><div class="stop-detail">Walk the World Showcase grazing international food & drink booths. Catch Remy's Ratatouille Adventure and Guardians of the Galaxy: Cosmic Rewind if time allows.</div><div class="stop-note">🍴 Food & Wine runs through late fall — perfect timing. Budget $15–25/person per booth stop.</div></div></div>
-    <div class="stop"><div class="stop-icon">🦁</div><div class="stop-content"><div class="stop-name">Option B: Animal Kingdom</div><div class="stop-detail">Kilimanjaro Safaris · Avatar Flight of Passage · Gorilla Falls Trail · Animation Experience at Conservation Station (learn to draw Disney characters!)</div><div class="stop-note">🎨 The Animation Experience is a table-based drawing class led by a Disney artist — fun for all ages.</div></div></div>
-  </div></div>
+        <div class="stop">
+          <div class="stop-time">~11:10 AM</div>
+          <div class="stop-content">
+            <div class="stop-name">Cumberland Island <span class="stop-tag">National Seashore</span></div>
+            <div class="stamp-block">
+              <div class="stamp-label">Stamp Station</div>
+              <div class="stamp-addr">Mainland Visitor Center · <a href="https://www.google.com/maps/search/?api=1&query=113+St.+Marys+Street%2C+St.+Marys%2C+GA+31558" target="_blank" rel="noopener">113 St. Marys Street, St. Marys, GA</a></div>
+              <div class="stamp-hours">Open daily, 8:00 AM – 4:00 PM</div>
+            </div>
+            <div class="note-line">✔ No ferry needed — the mainland visitor center has the stamp; the island itself is boat-only but you don't need to go out there</div>
+            <div class="drive-pill">⏱ ~20 min for stamp · depart ~11:30 AM</div>
+            <div class="drive-pill">🚗 ~50 min · 38 mi</div>
+          </div>
+        </div>
 
-  <div class="day-card"><div class="day-header hs"><div><div class="day-label">Tuesday, September 8</div><div class="day-date">Hollywood Studios · Joanne Solo · John Working</div></div><div class="day-type-badge">🎬 Hollywood Studios</div></div><div class="day-body">
-    <div class="stop"><div class="stop-icon">🎸</div><div class="stop-content"><div class="stop-name">Rock 'n' Roller Coaster Starring The Muppets ⭐ MUST-DO</div><div class="stop-detail">The former Aerosmith coaster reopened May 2026 fully rethemed to The Muppets, featuring Dr. Teeth and the Electric Mayhem. Same thrilling indoor launch coaster — new Muppets experience throughout.</div><div class="stop-note">⭐ Joanne's must-do. Brand new as of May 2026 — this will feel fresh even if you rode the Aerosmith version before.</div></div></div>
-    <div class="stop"><div class="stop-icon">⚡</div><div class="stop-content"><div class="stop-name">Star Wars: Galaxy's Edge</div><div class="stop-detail">Rise of the Resistance (Lightning Lane highly recommended) · Millennium Falcon: Smugglers Run · Savi's Workshop if interested in a custom lightsaber experience</div></div></div>
-    <div class="stop"><div class="stop-icon">🗼</div><div class="stop-content"><div class="stop-name">Tower of Terror</div><div class="stop-detail">A Hollywood Studios classic on Sunset Boulevard — creepy storyline, great drop effects.</div></div></div>
-    <div class="stop"><div class="stop-icon">🆕</div><div class="stop-content"><div class="stop-name">Check Out New Renovations & Additions</div><div class="stop-detail">HS has been evolving — explore any new areas, shows, or updates. Check the My Disney Experience app for current offerings.</div><div class="stop-alert">ℹ️ Indiana Jones: The Stunt Spectacular and Beauty and the Beast Live on Stage are beloved classics worth catching.</div></div></div>
-  </div></div>
+        <div class="stop">
+          <div class="stop-time">~12:20 PM</div>
+          <div class="stop-content">
+            <div class="stop-name">Fort Caroline / Timucuan Preserve <span class="stop-tag">National Memorial</span></div>
+            <div class="stamp-block">
+              <div class="stamp-label">Stamp Station</div>
+              <div class="stamp-addr">Timucuan Preserve Visitor Center · <a href="https://www.google.com/maps/search/?api=1&query=12713+Fort+Caroline+Rd%2C+Jacksonville%2C+FL+32225" target="_blank" rel="noopener">12713 Fort Caroline Rd., Jacksonville, FL</a></div>
+              <div class="stamp-hours">Open Wed–Sun, 9:00 AM – 5:00 PM (open on your Sunday visit)</div>
+            </div>
+            <div class="note-line">Fee-free area — good lunch/break stop</div>
+            <div class="drive-pill">⏱ ~20 min for stamp · depart ~12:40 PM</div>
+            <div class="drive-pill">🚗 ~47 min · 40 mi</div>
+          </div>
+        </div>
 
-  <div class="day-card"><div class="day-header ak"><div><div class="day-label">Wednesday, September 9</div><div class="day-date">Flex Day — EPCOT or Animal Kingdom · Joanne Solo · John Working</div></div><div class="day-type-badge">🌿 Flex Day</div></div><div class="day-body">
-    <div class="stop"><div class="stop-icon">🔄</div><div class="stop-content"><div class="stop-name">Whichever park the group didn't do on Sep 7</div><div class="stop-detail">Solo flexibility — go at your own pace with no need to coordinate timing.</div></div></div>
-    <div class="stop"><div class="stop-icon">🦒</div><div class="stop-content"><div class="stop-name">Animal Kingdom Highlights (if chosen)</div><div class="stop-detail">Kilimanjaro Safaris · Avatar Flight of Passage · Pandora boat ride (Na'vi River Journey) · Gorilla Falls Exploration Trail</div></div></div>
-    <div class="stop"><div class="stop-icon">🍜</div><div class="stop-content"><div class="stop-name">EPCOT Highlights (if chosen)</div><div class="stop-detail">World Showcase countries · Remy's Ratatouille Adventure · Test Track · Mission: SPACE · Continue Food & Wine booths</div></div></div>
-  </div></div>
+        <div class="stop">
+          <div class="stop-time">~1:25 PM</div>
+          <div class="stop-content">
+            <div class="stop-name">Fort Matanzas <span class="stop-tag">National Monument</span></div>
+            <div class="stamp-block">
+              <div class="stamp-label">Stamp Station</div>
+              <div class="stamp-addr">Visitor Center on Anastasia Island · <a href="https://www.google.com/maps/search/?api=1&query=8636+A1A+South%2C+St.+Augustine%2C+FL+32080" target="_blank" rel="noopener">8636 A1A South, St. Augustine, FL</a></div>
+              <div class="stamp-hours">Open daily, 9:00 AM – 5:30 PM</div>
+            </div>
+            <div class="note-line">✔ No ferry needed for the stamp — the ferry only goes to the fort building itself, across the river</div>
+            <div class="drive-pill">⏱ ~20 min for stamp · depart ~1:45 PM</div>
+            <div class="drive-pill">🚗 ~20 min · 14 mi</div>
+          </div>
+        </div>
 
-  <div class="day-card"><div class="day-header resort"><div><div class="day-label">Thursday, September 10</div><div class="day-date">Resort Day / Light Park Day · Joanne Solo · John Working</div></div><div class="day-type-badge">🏊 Rest & Recharge</div></div><div class="day-body">
-    <div class="stop"><div class="stop-icon">🏖️</div><div class="stop-content"><div class="stop-name">Saratoga Springs Resort & Amenities</div><div class="stop-detail">Pool day · Paddleboat rentals · Disney Springs is walking distance (shopping, dining, entertainment — no park ticket needed)</div><div class="stop-note">💡 You embark the cruise tomorrow — use today to pack, rest, and recharge.</div></div></div>
-    <div class="stop"><div class="stop-icon">🛍️</div><div class="stop-content"><div class="stop-name">Disney Springs</div><div class="stop-detail">World of Disney flagship store · The BOATHOUSE restaurant · Cirque du Soleil (if tickets available) · No park ticket required</div></div></div>
-    <div class="stop"><div class="stop-icon">🧳</div><div class="stop-content"><div class="stop-name">Pack & Prep for Cruise</div><div class="stop-detail">Checkout is Fri Sep 11 — pack tonight. Have carry-on items ready for cruise day.</div></div></div>
-  </div></div>
+        <div class="stop">
+          <div class="stop-time">~2:05 PM</div>
+          <div class="stop-content">
+            <div class="stop-name">Castillo de San Marcos <span class="stop-tag">National Monument</span></div>
+            <div class="stamp-block">
+              <div class="stamp-label">Stamp Station</div>
+              <div class="stamp-addr">Bookstore/gift shop inside the fort · <a href="https://www.google.com/maps/search/?api=1&query=1+South+Castillo+Drive%2C+St.+Augustine%2C+FL+32084" target="_blank" rel="noopener">1 South Castillo Drive, St. Augustine, FL</a></div>
+              <div class="stamp-hours">Open daily, 9:00 AM – 5:15 PM</div>
+            </div>
+            <div class="note-line">No separate visitor center — the fort itself is the experience. On-site paid parking (vehicles under 21 ft) or 10-min walk from Historic Downtown Parking Facility</div>
+            <div class="drive-pill">⏱ ~20 min for stamp · depart ~2:25 PM</div>
+            <div class="drive-pill">🚗 ~1h 13m · 73 mi</div>
+          </div>
+        </div>
 
-  <div class="day-card"><div class="day-header cruise"><div><div class="day-label">Friday, September 11</div><div class="day-date">Embarkation Day · Disney Wish · Port Canaveral</div></div><div class="day-type-badge">🚢 Cruise Day 1</div></div><div class="day-body">
-    <div class="travel-row"><div class="ticon">🏨</div><div class="ttext">Check out of Saratoga Springs</div></div>
-    <div class="travel-row"><div class="ticon">🚌</div><div class="ttext">DCL motor coach transfer: MCO → Disney Wish (confirmed for all guests)</div></div>
-    <div class="travel-row"><div class="ticon">🚢</div><div class="ttext"><strong>Disney Wish</strong> embarkation · <em>Halloween on the High Seas</em> · All aboard by <strong>3:00PM</strong></div></div>
-    <div class="stop"><div class="stop-icon">🎃</div><div class="stop-content"><div class="stop-name">Joanne & John — Stateroom Details</div><div class="stop-detail">Reservation #44363623 · GTY Category 07A · Deluxe Oceanview with Navigator's Verandah · Dining: 8:15PM</div><div class="stop-alert">ℹ️ GTY = Guaranteed stateroom, specific cabin assigned closer to sail date. Watch DCL app for cabin assignment.</div></div></div>
-    <div class="stop"><div class="stop-icon">👨🏻‍🦳👩🏻</div><div class="stop-content"><div class="stop-name">Jason & Jennythai — Stateroom Details</div><div class="stop-detail">Reservation #44685575 · Stateroom 9172, Deck 9 · Deluxe Oceanview with Navigator's Verandah · Dining: 8:15PM</div></div></div>
-    <div class="stop"><div class="stop-icon">🎉</div><div class="stop-content"><div class="stop-name">First Night Onboard</div><div class="stop-detail">Explore the ship · AquaMouse · Sail-away deck party · First rotational dining dinner at 8:15PM</div></div></div>
-  </div></div>
+        <div class="stop">
+          <div class="stop-time">~3:40 PM</div>
+          <div class="stop-content">
+            <div class="stop-name">Canaveral National Seashore <span class="stop-tag">National Seashore</span></div>
+            <div class="stamp-block">
+              <div class="stamp-label">Stamp Station</div>
+              <div class="stamp-addr">Apollo Beach Visitor Center · <a href="https://www.google.com/maps/search/?api=1&query=7611+S.+Atlantic+Ave%2C+New+Smyrna+Beach%2C+FL+32169" target="_blank" rel="noopener">7611 S. Atlantic Ave, New Smyrna Beach, FL</a></div>
+              <div class="stamp-hours">Open daily, 9:00 AM – 5:00 PM</div>
+            </div>
+            <div class="note-line">Use the <strong>north (Apollo Beach)</strong> entrance only — no through-road to the southern Playalinda side, that's a dead-end detour to avoid</div>
+            <div class="note-line">Last stamp stop of the day — plenty of daylight left</div>
+            <div class="drive-pill">⏱ ~20 min for stamp · depart ~4:00 PM</div>
+            <div class="drive-pill">🚗 ~1h 15m · 71 mi</div>
+          </div>
+        </div>
 
-  <div class="day-card"><div class="day-header cruise"><div><div class="day-label">Saturday, September 12</div><div class="day-date">Nassau, Bahamas · Cruise Day 2</div></div><div class="day-type-badge">🏝️ Nassau</div></div><div class="day-body">
-    <div class="travel-row"><div class="ticon">⚓</div><div class="ttext">Ashore: <strong>9:30AM</strong> · All aboard: <strong>5:30PM</strong></div></div>
-    <div class="stop"><div class="stop-icon">🏙️</div><div class="stop-content"><div class="stop-name">Nassau Port Day</div><div class="stop-detail">Explore downtown Nassau · Atlantis Paradise Island (day pass available) · Cable Beach · Blue Lagoon Island · Shopping on Bay Street</div><div class="stop-note">⚠️ Be back onboard by 5:30PM. Nassau is walkable from the pier but September heat can be intense.</div></div></div>
-    <div class="stop"><div class="stop-icon">🎃</div><div class="stop-content"><div class="stop-name">Halloween on the High Seas Evening Events</div><div class="stop-detail">Mickey's Mouse-querade Halloween Party on deck · Villain costume contest · Trick-or-treating · Halloween-themed shows</div><div class="stop-note">🎭 Costumes encouraged! Check the DCL Navigator app for event times.</div></div></div>
-  </div></div>
+        <div class="stop">
+          <div class="stop-time">~5:15 PM</div>
+          <div class="stop-content">
+            <div class="stop-name">Return rental car — Disney Car Care Center</div>
+            <div class="note-line">Still a comfortable finish — plenty of evening left back at the resort</div>
+          </div>
+        </div>
 
-  <div class="day-card"><div class="day-header cruise"><div><div class="day-label">Sunday, September 13</div><div class="day-date">Castaway Cay · Disney's Private Island · Cruise Day 3</div></div><div class="day-type-badge">🏖️ Castaway Cay</div></div><div class="day-body">
-    <div class="travel-row"><div class="ticon">⚓</div><div class="ttext">Ashore: <strong>8:00AM</strong> · All aboard: <strong>4:30PM</strong></div></div>
-    <div class="stop"><div class="stop-icon">🏖️</div><div class="stop-content"><div class="stop-name">Castaway Cay Beach Day ⭐ Highlight</div><div class="stop-detail">Disney's private island — pristine beach, waterslides, snorkeling lagoon, bike rentals, adult-only Serenity Bay area. The ship docks directly at the island — just walk off!</div><div class="stop-note">🏝️ One of the best days of any DCL cruise. Get off early at 8AM for the best beach chairs.</div></div></div>
-    <div class="stop"><div class="stop-icon">🎭</div><div class="stop-content"><div class="stop-name">Onboard Entertainment (evening)</div><div class="stop-detail">Arendelle: A Frozen Dining Adventure · Disney Seas the Adventure show · Uncharted Adventure · AquaMouse · Adult-only areas (Quiet Cove, Palo, Enchanté)</div></div></div>
-  </div></div>
+      </div>
+    </div>
+  </div>
 
-  <div class="day-card"><div class="day-header travel"><div><div class="day-label">Monday, September 14</div><div class="day-date">Debarkation & Return Flight</div></div><div class="day-type-badge">✈️ Homeward Bound</div></div><div class="day-body">
-    <div class="travel-row"><div class="ticon">⚓</div><div class="ttext">Port Canaveral · Ashore from <strong>7:30AM</strong></div></div>
-    <div class="travel-row"><div class="ticon">🚌</div><div class="ttext">DCL motor coach transfer: Disney Wish → MCO (confirmed for all guests)</div></div>
-    <div class="travel-row"><div class="ticon">✈️</div><div class="ttext"><strong>UA425</strong> departs MCO 3:00PM · arrives SFO 5:50PM</div></div>
-    <div class="travel-row"><div class="ticon">💡</div><div class="ttext">Ashore by 7:30AM gives plenty of buffer for the motor coach to MCO and your 3PM flight. Enjoy a leisurely breakfast onboard before debark.</div></div>
-  </div></div>
+  <!-- DAY 2 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div class="day-title">Day 2 — Disney's Hollywood Studios</div>
+      <div class="day-date">Monday, September 7</div>
+    </div>
+    <div class="day-body">
+      <ul class="simple-list">
+        <li><span class="dot">●</span> Full group day — Joanne, John, Jason &amp; Jenny (John off work all week)</li>
+        <li><span class="dot">●</span> Checkout of Coronado Springs, transfer to Saratoga Springs (all 4, Sep 7–11)</li>
+        <li><span class="dot">●</span> Park tickets: not yet purchased — book ahead of this date</li>
+      </ul>
+    </div>
+  </div>
 
-  <div class="section-title">⚠️ Key Reminders</div>
+  <!-- DAY 3 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div class="day-title">Day 3 — Disney's Animal Kingdom</div>
+      <div class="day-date">Tuesday, September 8</div>
+    </div>
+    <div class="day-body">
+      <ul class="simple-list">
+        <li><span class="dot">●</span> Full group day — Joanne, John, Jason &amp; Jenny</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div class="day-title">Day 4 — EPCOT</div>
+      <div class="day-date">Wednesday, September 9</div>
+    </div>
+    <div class="day-body">
+      <ul class="simple-list">
+        <li><span class="dot">●</span> Full group day — Joanne, John, Jason &amp; Jenny</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day-card">
+    <div class="day-head">
+      <div class="day-title">Day 5 — Magic Kingdom</div>
+      <div class="day-date">Thursday, September 10</div>
+    </div>
+    <div class="day-body">
+      <ul class="simple-list">
+        <li><span class="dot">●</span> Full group day — Joanne, John, Jason &amp; Jenny</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DAY 6-9 CRUISE -->
+  <div class="day-card">
+    <div class="day-head">
+      <div class="day-title">Days 6–9 — Disney Wish Cruise</div>
+      <div class="day-date">Friday–Monday, September 11–14</div>
+    </div>
+    <div class="day-body">
+      <ul class="simple-list">
+        <li><span class="dot">●</span> Sep 11: Disney transportation from Saratoga Springs to Port Canaveral, board Disney Wish</li>
+        <li><span class="dot">●</span> Halloween on the High Seas · Joanne &amp; John: Res #44363623, GTY Cat 07A, dining 8:15 PM, Castaway Club Gold</li>
+        <li><span class="dot">●</span> Jason &amp; Jenny: Res #44685575, Stateroom 9172 Deck 9, Castaway Club Silver</li>
+        <li><span class="dot">●</span> Disney transportation confirmed both directions (Saratoga Springs ↔ Port Canaveral, and Saratoga Springs ↔ MCO on return)</li>
+        <li><span class="dot">●</span> Sep 14: Disembark, Disney transportation to MCO, fly UA425 3:00 PM → SFO</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label"><h2>Stamps This Trip</h2><div class="line"></div></div>
+
+  <div class="stamps-grid">
+    <div class="stamp-card"><div class="name">Canaveral National Seashore</div><div class="loc">New Smyrna Beach, FL</div></div>
+    <div class="stamp-card"><div class="name">Castillo de San Marcos NM</div><div class="loc">St. Augustine, FL</div></div>
+    <div class="stamp-card"><div class="name">Fort Matanzas NM</div><div class="loc">St. Augustine, FL</div></div>
+    <div class="stamp-card"><div class="name">Fort Caroline NM / Timucuan</div><div class="loc">Jacksonville, FL</div></div>
+    <div class="stamp-card"><div class="name">Cumberland Island NS</div><div class="loc">St. Marys, GA</div></div>
+    <div class="stamp-card"><div class="name">Fort Frederica NM</div><div class="loc">St. Simons Island, GA</div></div>
+  </div>
+
   <div class="reminders">
-    <div class="reminder-item"><div class="ricon">🎟️</div><div>Purchase Disney park tickets — not yet booked. Check for September discounts or multi-day ticket options. You need tickets for Sep 6, 7, 8, 9 (4 days — or 3 if Sep 10 is a resort day).</div></div>
-    <div class="reminder-item"><div class="ricon">📱</div><div>Set up <strong>My Disney Experience app</strong> and link all 4 guests. Book Lightning Lane selections starting at 7AM day-of.</div></div>
-    <div class="reminder-item"><div class="ricon">🍽️</div><div>Disney dining reservations open 60 days out. Book table service (Be Our Guest, Cinderella's Royal Table, Sci-Fi Dine-In) as soon as the window opens.</div></div>
-    <div class="reminder-item"><div class="ricon">🎃</div><div>Pack costumes for Halloween on the High Seas cruise events — adults are encouraged to participate. Mickey Mouse-querade is a highlight.</div></div>
-    <div class="reminder-item"><div class="ricon">🚢</div><div>Complete DCL online check-in as soon as it opens (GOLD members get early access ~75 days out). Upload passport photos, credit card, and select boarding time.</div></div>
-    <div class="reminder-item"><div class="ricon">🏝️</div><div>Book Castaway Cay excursions (bike rentals, snorkeling, etc.) through DCL before they sell out.</div></div>
-    <div class="reminder-item"><div class="ricon">💡</div><div>Joanne's GTY stateroom (res# 44363623) will be assigned closer to sailing — watch DCL app and email for cabin assignment notification.</div></div>
-    <div class="reminder-item"><div class="ricon">♿</div><div>Rent an ECV — arrange pickup for check-in day (Sat Sep 5, All-Star Sports) and return by Saratoga Springs checkout (Fri Sep 11). ECV does <strong>not</strong> go to the cruise. Book through an off-site vendor (e.g. ScooterBug, Apple Scooter) — typically cheaper and deliver to the resort.</div></div>
-    <div class="reminder-item"><div class="ricon">🧳</div><div>All-Star Sports bags can be stored at bell services on Sep 7 checkout while you head to Saratoga Springs. Resort-to-Resort luggage transfer available through Disney.</div></div>
+    <h2>Reminders</h2>
+    <ul>
+      <li><strong>Book park tickets</strong> for all 4 park days (Hollywood Studios, Animal Kingdom, EPCOT, Magic Kingdom) — not yet purchased.</li>
+      <li><strong>6:00 AM departure</strong> from Coronado Springs — heading straight to Brunswick first means Canaveral (the only 9 AM opener) is your last stop, not your first, so timing works cleanly.</li>
+      <li><strong>Fort Caroline/Timucuan &amp; Fort Frederica</strong> are only open Wed–Sun — you're fine on your Sunday, but there's no slack if the day slips.</li>
+      <li><strong>Mid-afternoon return</strong> to the Disney Car Care Center (~5:15 PM, now including ~20 min at each stamp stop) — no late-night driving.</li>
+      <li><strong>NPS Access Pass + America the Beautiful Pass</strong> both cover entrance fees at all six stamp stops.</li>
+    </ul>
   </div>
 
-  <div class="footer">Disney World & Disney Wish · September 5–14, 2026 · Joanne & John · Castaway Club GOLD</div>
+  <div class="footer-note">Disney World &amp; Cruise · September 2026 · Joanne &amp; John · Jason &amp; Jenny</div>
+
 </div>
-</div>
-
-<!-- ============================================================ -->
-<!--  VIETNAMESE VERSION                                           -->
-<!-- ============================================================ -->
-<div class="lang-vn">
-<div class="page">
-  <div class="header">
-    <div class="emoji-row">🏰 ✨ 🚢</div>
-    <h1>Walt Disney World & Disney Wish</h1>
-    <div class="subtitle">September 5 – 14, 2026 · Orlando & Bahamas</div>
-    <div class="badges">
-      <span class="badge">Joanne & John</span>
-      <span class="badge">+ Jason & Jennythai</span>
-      <span class="badge gold">🌊 Halloween on the High Seas</span>
-      <span class="badge">Castaway Club GOLD</span>
-    </div>
-  </div>
-
-  <div class="section-title">✈️ Thông Tin Chuyến Đi</div>
-  <div class="glance-grid">
-    <div class="glance-card"><div class="label">✈️ Chuyến Bay Đi</div><div class="value"><strong>UA583</strong> · Sat Sep 5<br>SFO 8:15 sáng → MCO 4:44 chiều<br>United Economy · Mã đặt vé: JDWWKL</div></div>
-    <div class="glance-card"><div class="label">✈️ Chuyến Bay Về</div><div class="value"><strong>UA425</strong> · Mon Sep 14<br>MCO 3:00 chiều → SFO 5:50 chiều<br>United Economy · Mã đặt vé: JDWWKL</div></div>
-    <div class="glance-card"><div class="label">🏨 Khách Sạn · 5–7/9</div><div class="value"><strong>Disney's All-Star Sports Resort</strong><br>Nhận phòng: Saturday, Sep 5 · Trả phòng: Monday, Sep 7<br>Standard Room · Cả 4 người</div></div>
-    <div class="glance-card"><div class="label">🏨 Khách Sạn · 7–11/9</div><div class="value"><strong>Disney's Saratoga Springs Resort & Spa</strong><br>Nhận phòng: Monday, Sep 7 · Trả phòng: Friday, Sep 11<br>DVC Points · Cả 4 người · Mã đặt phòng: 613047481895</div></div>
-    <div class="glance-card"><div class="label">🚢 Tàu Biển · 11–14/9</div><div class="value"><strong>Disney Wish</strong> · Hành trình 3 đêm Bahamas<br>Lên tàu tại Port Canaveral · 11/9<br>Joanne & John: Số đặt vé 44363623 (Phòng GTY 07A)<br>Ba Má: Số đặt vé 44685575 · Phòng 9172</div></div>
-    <div class="glance-card"><div class="label">🍴 Bữa Ăn (Tàu Biển)</div><div class="value"><strong>8:15 tối</strong> (cả hai phòng)<br>Có thể thay đổi trong vòng 15 phút</div></div>
-  </div>
-
-  <div class="section-title">👥 Thành Viên Trong Đoàn</div>
-  <div class="party-card">
-    <div class="party-member"><div class="avatar">👩🏻</div><div class="pname">Joanne</div><div class="prole">Người lên kế hoạch</div><div class="prole">DCL Castaway Club: Gold</div></div>
-    <div class="party-member"><div class="avatar">👨🏻</div><div class="pname">John</div><div class="prole">Làm việc Thứ 3–5</div><div class="prole">DCL Castaway Club: Gold</div></div>
-    <div class="party-member"><div class="avatar">👨🏻‍🦳</div><div class="pname">Jason Luu</div><div class="prole">Ba</div><div class="prole">DCL Castaway Club: Silver</div></div>
-    <div class="party-member"><div class="avatar">👩🏻</div><div class="pname">Jennythai Luu</div><div class="prole">Má</div><div class="prole">DCL Castaway Club: Silver</div></div>
-  </div>
-
-  <div class="section-title">📅 Lịch Trình Từng Ngày</div>
-
-  <div class="day-card"><div class="day-header travel"><div><div class="day-label">Saturday, September 5</div><div class="day-date">Ngày Di Chuyển · Đến Nơi</div></div><div class="day-type-badge">✈️ Di Chuyển</div></div><div class="day-body"><div class="travel-row"><div class="ticon">🌅</div><div class="ttext"><strong>UA583</strong> khởi hành từ SFO lúc 8:15 sáng · đến MCO lúc 4:44 chiều</div></div><div class="travel-row"><div class="ticon">🏨</div><div class="ttext">Nhận phòng tại <strong>Disney's All-Star Sports Resort</strong></div></div><div class="travel-row"><div class="ticon">🎉</div><div class="ttext">Buổi tối: nghỉ ngơi, ăn tối ở Disney Springs, hoặc khám phá khu nghỉ dưỡng</div></div></div></div>
-
-  <div class="day-card"><div class="day-header mk"><div><div class="day-label">Sunday, September 6</div><div class="day-date">Magic Kingdom · Cả Nhóm · Vào Cổng Sớm</div></div><div class="day-type-badge">🏰 Magic Kingdom</div></div><div class="day-body">
-    <div class="stop"><div class="stop-icon">⏰</div><div class="stop-content"><div class="stop-name">Vào Cổng Sớm Ngay Khi Công Viên Mở Cửa</div><div class="stop-detail">Cả nhóm: Joanne, John, Jason & Jennythai. Đến sớm để tránh đông người và trải nghiệm các trò chơi lớn trước.</div><div class="stop-note">💡 Ưu tiên: Tron Lightcycle Run và Seven Dwarfs Mine Train — hai trò này luôn đông người. Dùng Lightning Lane nếu hàng chờ quá dài.</div></div></div>
-    <div class="stop"><div class="stop-icon">🎢</div><div class="stop-content"><div class="stop-name">Buổi Sáng: Fantasyland & Tomorrowland</div><div class="stop-detail">Seven Dwarfs Mine Train · Tron Lightcycle Run · Space Mountain · Big Thunder Mountain</div></div></div>
-    <div class="stop"><div class="stop-icon">🍽️</div><div class="stop-content"><div class="stop-name">Buổi Trưa: Ăn Trưa & Nghỉ Ngơi</div><div class="stop-detail">Columbia Harbour House (nhanh, ngon, tầng trên yên tĩnh hơn) hoặc Be Our Guest nếu muốn ngồi bàn.</div></div></div>
-    <div class="stop"><div class="stop-icon">🎡</div><div class="stop-content"><div class="stop-name">Buổi Chiều: Main Street & Liberty Square</div><div class="stop-detail">Haunted Mansion · Pirates of the Caribbean · Carousel of Progress · Mua sắm & Chụp ảnh</div></div></div>
-    <div class="stop"><div class="stop-icon">🎆</div><div class="stop-content"><div class="stop-name">Buổi Tối: Pháo Hoa Happily Ever After ⭐ KHÔNG THỂ BỎ LỠ</div><div class="stop-detail">Chọn chỗ đứng trên Main Street trước 45–60 phút. Đứng giữa Main Street để xem trọn vẹn màn chiếu lên lâu đài.</div><div class="stop-note">⭐ Đây là điểm nhấn của cả nhóm. Đừng về sớm — màn pháo hoa kết hợp chiếu sáng là một trải nghiệm không thể quên.</div></div></div>
-  </div></div>
-
-  <div class="day-card"><div class="day-header epcot"><div><div class="day-label">Monday, September 7</div><div class="day-date">EPCOT Food & Wine Festival — HOẶC — Animal Kingdom · Cả Nhóm · Bắt Đầu Muộn Hơn</div></div><div class="day-type-badge">🌍 EPCOT / AK</div></div><div class="day-body">
-    <div class="stop"><div class="stop-icon">🏨</div><div class="stop-content"><div class="stop-name">Buổi Sáng: Chuyển Khách Sạn</div><div class="stop-detail">Trả phòng All-Star Sports · Gửi hành lý tại Saratoga Springs · Đi công viên, bắt đầu muộn hơn thường ngày</div><div class="stop-alert">ℹ️ Bắt đầu muộn không sao — các gian hàng Food & Wine ngon nhất từ giữa buổi sáng trở đi, và Animal Kingdom vẫn sôi động cả ngày.</div></div></div>
-    <div class="stop"><div class="stop-icon">🍷</div><div class="stop-content"><div class="stop-name">Lựa Chọn A: EPCOT Food & Wine Festival</div><div class="stop-detail">Dạo quanh World Showcase thưởng thức ẩm thực và đồ uống quốc tế. Ghé thêm Remy's Ratatouille Adventure và Guardians of the Galaxy: Cosmic Rewind nếu còn thời gian.</div><div class="stop-note">🍴 Food & Wine Festival kéo dài đến cuối mùa thu — thời điểm hoàn hảo. Mỗi gian hàng khoảng 15–25 USD/người.</div></div></div>
-    <div class="stop"><div class="stop-icon">🦁</div><div class="stop-content"><div class="stop-name">Lựa Chọn B: Animal Kingdom</div><div class="stop-detail">Kilimanjaro Safaris (xem động vật!) · Avatar Flight of Passage · Gorilla Falls Trail · Animation Experience tại Conservation Station (học vẽ nhân vật Disney — Ba Má sẽ thích lắm!)</div><div class="stop-note">🎨 Animation Experience là lớp học vẽ do nghệ sĩ Disney hướng dẫn trực tiếp — vui và ý nghĩa cho mọi lứa tuổi.</div></div></div>
-  </div></div>
-
-  <div class="day-card"><div class="day-header resort"><div><div class="day-label">Tuesday – Thursday, September 8–10</div><div class="day-date">Ngày Tự Do · Saratoga Springs Resort</div></div><div class="day-type-badge">🏊 Nghỉ Ngơi</div></div><div class="day-body">
-    <div class="stop"><div class="stop-icon">🏖️</div><div class="stop-content"><div class="stop-name">Ngày Tự Do — Khám Phá Khu Nghỉ Dưỡng</div><div class="stop-detail">Ba ngày thư giãn tại Saratoga Springs. John bận làm việc và Joanne đi gặp bạn trong những ngày này — Ba Má thoải mái nghỉ ngơi theo ý thích.</div></div></div>
-    <div class="stop"><div class="stop-icon">🏊</div><div class="stop-content"><div class="stop-name">Bơi Lội & Vui Chơi Tại Resort</div><div class="stop-detail">Hồ bơi tại Saratoga Springs · Cho thuê thuyền chèo · Disney Springs chỉ cách vài bước chân — mua sắm, ăn uống và giải trí không cần vé công viên.</div><div class="stop-note">💡 Disney Springs có rất nhiều nhà hàng ngon và cửa hàng thú vị — rất phù hợp để đi dạo buổi chiều.</div></div></div>
-    <div class="stop"><div class="stop-icon">🍽️</div><div class="stop-content"><div class="stop-name">Bữa Tối Cùng Cả Nhà</div><div class="stop-detail">Mỗi tối cả gia đình cùng ăn tối với nhau — thời gian quý báu bên nhau trước khi lên tàu.</div><div class="stop-note">❤️ Đây là những ngày sum họp ấm cúng trước chuyến hành trình trên tàu Disney Wish!</div></div></div>
-  </div></div>
-
-  <div class="day-card"><div class="day-header cruise"><div><div class="day-label">Friday, September 11</div><div class="day-date">Ngày Lên Tàu · Disney Wish · Port Canaveral</div></div><div class="day-type-badge">🚢 Ngày 1 Trên Tàu</div></div><div class="day-body">
-    <div class="travel-row"><div class="ticon">🏨</div><div class="ttext">Trả phòng tại Saratoga Springs</div></div>
-    <div class="travel-row"><div class="ticon">🚌</div><div class="ttext">Xe buýt DCL đưa đón: MCO → Disney Wish (đã xác nhận cho tất cả khách)</div></div>
-    <div class="travel-row"><div class="ticon">🚢</div><div class="ttext">Lên tàu <strong>Disney Wish</strong> · <em>Halloween on the High Seas</em> · Lên tàu trước <strong>3:00 chiều</strong></div></div>
-    <div class="stop"><div class="stop-icon">🎃</div><div class="stop-content"><div class="stop-name">Joanne & John — Thông Tin Phòng</div><div class="stop-detail">Số đặt vé #44363623 · Phòng GTY hạng 07A · Deluxe Oceanview với Navigator's Verandah · Bữa tối: 8:15 tối</div><div class="stop-alert">ℹ️ GTY = Phòng đảm bảo, số phòng cụ thể sẽ được thông báo gần ngày khởi hành. Theo dõi ứng dụng DCL để cập nhật.</div></div></div>
-    <div class="stop"><div class="stop-icon">👨🏻‍🦳👩🏻</div><div class="stop-content"><div class="stop-name">Jason & Jennythai — Thông Tin Phòng</div><div class="stop-detail">Số đặt vé #44685575 · Phòng 9172, Tầng 9 · Deluxe Oceanview với Navigator's Verandah · Bữa tối: 8:15 tối</div></div></div>
-    <div class="stop"><div class="stop-icon">🎉</div><div class="stop-content"><div class="stop-name">Buổi Tối Đầu Tiên Trên Tàu</div><div class="stop-detail">Khám phá tàu · Máng trượt nước AquaMouse · Tiệc chia tay bến cảng trên boong tàu · Bữa tối luân phiên đầu tiên lúc 8:15 tối</div></div></div>
-  </div></div>
-
-  <div class="day-card"><div class="day-header cruise"><div><div class="day-label">Saturday, September 12</div><div class="day-date">Nassau, Bahamas · Ngày 2 Trên Tàu</div></div><div class="day-type-badge">🏝️ Nassau</div></div><div class="day-body">
-    <div class="travel-row"><div class="ticon">⚓</div><div class="ttext">Lên bờ: <strong>9:30 sáng</strong> · Lên tàu trở lại: <strong>5:30 chiều</strong></div></div>
-    <div class="stop"><div class="stop-icon">🏙️</div><div class="stop-content"><div class="stop-name">Tham Quan Nassau</div><div class="stop-detail">Khám phá trung tâm Nassau · Atlantis Paradise Island · Cable Beach · Đảo Blue Lagoon · Mua sắm trên Bay Street</div><div class="stop-note">⚠️ Phải lên tàu trước 5:30 chiều. Nassau đi bộ được từ cầu cảng nhưng tháng 9 rất nóng — hãy chuẩn bị kỹ.</div></div></div>
-    <div class="stop"><div class="stop-icon">🎃</div><div class="stop-content"><div class="stop-name">Sự Kiện Halloween on the High Seas (Buổi Tối)</div><div class="stop-detail">Tiệc hóa trang Mickey's Mouse-querade trên boong · Cuộc thi trang phục phản diện · Đi xin kẹo · Các chương trình giải trí theo chủ đề Halloween</div><div class="stop-note">🎭 Khuyến khích mặc trang phục hóa trang! Xem ứng dụng DCL Navigator để biết giờ các sự kiện.</div></div></div>
-  </div></div>
-
-  <div class="day-card"><div class="day-header cruise"><div><div class="day-label">Sunday, September 13</div><div class="day-date">Castaway Cay · Đảo Riêng Của Disney · Ngày 3 Trên Tàu</div></div><div class="day-type-badge">🏖️ Castaway Cay</div></div><div class="day-body">
-    <div class="travel-row"><div class="ticon">⚓</div><div class="ttext">Lên bờ: <strong>8:00 sáng</strong> · Lên tàu trở lại: <strong>4:30 chiều</strong></div></div>
-    <div class="stop"><div class="stop-icon">🏖️</div><div class="stop-content"><div class="stop-name">Ngày Tắm Biển tại Castaway Cay ⭐ Điểm Nhấn</div><div class="stop-detail">Đảo riêng của Disney — bãi biển tuyệt đẹp, máng trượt nước, khu lặn ngắm san hô, cho thuê xe đạp, khu dành riêng cho người lớn Serenity Bay. Tàu cập cảng thẳng vào đảo — chỉ cần bước xuống!</div><div class="stop-note">🏝️ Đây là một trong những ngày đẹp nhất trên chuyến tàu Disney. Xuống bờ sớm lúc 8 giờ sáng để chọn ghế biển đẹp nhất.</div></div></div>
-    <div class="stop"><div class="stop-icon">🎭</div><div class="stop-content"><div class="stop-name">Giải Trí Trên Tàu (Buổi Tối)</div><div class="stop-detail">Disney Wish có: Arendelle: A Frozen Dining Adventure · Show Disney Seas the Adventure · Trò chơi tương tác Uncharted Adventure · AquaMouse · Khu dành cho người lớn (Quiet Cove, Palo, Enchanté)</div></div></div>
-  </div></div>
-
-  <div class="day-card"><div class="day-header travel"><div><div class="day-label">Monday, September 14</div><div class="day-date">Rời Tàu & Chuyến Bay Về Nhà</div></div><div class="day-type-badge">✈️ Về Nhà</div></div><div class="day-body">
-    <div class="travel-row"><div class="ticon">⚓</div><div class="ttext">Port Canaveral · Lên bờ từ <strong>7:30 sáng</strong></div></div>
-    <div class="travel-row"><div class="ticon">🚌</div><div class="ttext">Xe buýt DCL đưa đón: Disney Wish → MCO (đã xác nhận cho tất cả khách)</div></div>
-    <div class="travel-row"><div class="ticon">✈️</div><div class="ttext"><strong>UA425</strong> khởi hành từ MCO lúc 3:00 chiều · đến SFO lúc 5:50 chiều</div></div>
-    <div class="travel-row"><div class="ticon">💡</div><div class="ttext">Lên bờ lúc 7:30 sáng có nhiều thời gian dư để đi xe buýt về MCO và kịp chuyến bay 3 giờ chiều. Không cần vội — có thể ăn sáng thư thái trên tàu trước khi rời.</div></div>
-  </div></div>
-
-  <div class="footer">Disney World & Disney Wish · September 5–14, 2026 · Joanne & John · Castaway Club GOLD</div>
-</div>
-</div>
-
-<script>
-function setLang(lang) {
-  document.querySelector('.lang-en').classList.toggle('active', lang === 'en');
-  document.querySelector('.lang-vn').classList.toggle('active', lang === 'vn');
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  document.getElementById('btn-vn').classList.toggle('active', lang === 'vn');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-</script>
 </body>
 </html>
