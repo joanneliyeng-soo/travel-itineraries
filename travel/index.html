@@ -3,272 +3,262 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel · Joanne Liyeng</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Travel — Joanne Ly Yeng</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --cream: #F7F4EE;
-    --ink: #1C1C1A;
-    --ink-muted: #6B6B67;
-    --ink-faint: #B0AFA8;
-    --rule: #D8D5CE;
-    --nps-bg: #EAF3DE;
-    --nps-text: #27500A;
-    --disney-bg: #EEEDFE;
-    --disney-text: #3C3489;
-    --card-bg: #FFFFFF;
-  }
-
+  html, body { background: #0D1712 !important; }
+  * { box-sizing: border-box; }
   body {
-    background: var(--cream);
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    min-height: 100vh;
-    padding: 0 1.5rem;
+    margin: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #EDE6D6 !important;
+    background:
+      linear-gradient(rgba(8,14,11,0.55), rgba(8,14,11,0.55)),
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 5px),
+      linear-gradient(180deg, #0D1712 0%, #163D30 24%, #2F6E5C 46%, #6B7A3E 66%, #A67C3D 84%, #C97B4A 100%) !important;
+    background-attachment: fixed !important;
+    padding: 0 0 60px;
   }
 
-  header {
-    max-width: 760px;
+  /* ---- Hero ---- */
+  .hero {
+    max-width: 720px;
     margin: 0 auto;
-    padding: 3rem 0 2rem;
-    border-bottom: 0.5px solid var(--rule);
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
+    padding: 48px 20px 32px;
+    text-align: center;
   }
-
-  .site-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-  }
-
-  .site-name span {
-    color: var(--ink-muted);
-    font-style: italic;
-  }
-
-  nav a {
-    font-size: 13px;
-    color: var(--ink-muted);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-  }
-
-  nav a:hover { color: var(--ink); }
-
-  main {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 3rem 0 5rem;
-  }
-
-  .page-eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-bottom: 0.75rem;
+    color: #6FAF95 !important;
+    margin-bottom: 10px;
   }
-
-  .page-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 5vw, 42px);
-    font-weight: 400;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.5rem;
+  .hero-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.9rem;
+    margin: 0 0 22px;
+    color: #EDE6D6 !important;
   }
-
-  .page-subtitle {
-    font-size: 15px;
-    color: var(--ink-muted);
-    line-height: 1.6;
-    margin-bottom: 3rem;
-    max-width: 480px;
-  }
-
-  .trips {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .trip {
-    display: grid;
-    grid-template-columns: 80px 1fr 16px;
-    align-items: center;
-    gap: 0 1.5rem;
-    padding: 1.5rem 0;
-    border-top: 0.5px solid var(--rule);
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.1s;
-  }
-
-  .trip:last-child { border-bottom: 0.5px solid var(--rule); }
-
-  .trip:hover .trip-title { text-decoration: underline; text-underline-offset: 3px; }
-
-  .trip-caret {
-    align-self: center;
-    color: var(--ink-faint);
-    font-size: 22px;
+  .stamp-counter {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 3.4rem;
+    font-weight: 800;
+    color: #6FAF95 !important;
     line-height: 1;
-    flex-shrink: 0;
+  }
+  .stamp-counter span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #C97B4A !important;
+    margin-left: 8px;
+  }
+  .hero-progress-bar {
+    max-width: 340px;
+    height: 10px;
+    margin: 16px auto 8px;
+    background-color: #16332B !important;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .hero-progress-fill {
+    height: 100%;
+    width: 17.5%;
+    background-color: #6FAF95 !important;
+    border-radius: 6px;
+  }
+  .hero-caption {
+    font-size: 0.82rem;
+    color: #C97B4A !important;
+  }
+  .hero-cta {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 10px 22px;
+    border: 1px solid #6FAF95;
+    border-radius: 999px;
+    color: #EDE6D6 !important;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: background 0.2s ease;
+  }
+  .hero-cta:hover {
+    background-color: #1B3A30 !important;
   }
 
-  .trip-date {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
+  /* ---- Section labels ---- */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 8px 20px 0;
+  }
+  .section-title {
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--ink-faint);
-    padding-top: 3px;
+    color: #9FBF9C !important;
+    margin: 40px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1B3A30;
+  }
+
+  /* ---- Tile grid ---- */
+  .tile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .tile {
+    display: block;
+    text-decoration: none;
+    background-color: #14261F !important;
+    border: 1px solid #1B3A30;
+    border-radius: 10px;
+    padding: 18px 18px 16px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .tile:hover {
+    transform: translateY(-2px);
+    border-color: #6FAF95;
+  }
+  .tile-icon {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .tile-status {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .status-booked { background-color: #C97B4A !important; color: #0D1712 !important; }
+  .status-planning { background-color: #2F6E5C !important; color: #EDE6D6 !important; }
+  .status-tool { background-color: #6B7A3E !important; color: #EDE6D6 !important; }
+  .tile-name {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #EDE6D6 !important;
+    margin-bottom: 4px;
+  }
+  .tile-sub {
+    font-size: 0.8rem;
+    color: #9FBF9C !important;
     line-height: 1.4;
   }
 
-  .trip-body { display: flex; flex-direction: column; gap: 6px; }
-
-  .trip-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-  }
-
-  .trip-location {
-    font-size: 13px;
-    color: var(--ink-muted);
-  }
-
-  .trip-tag {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 20px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .tag-nps { background: var(--nps-bg); color: var(--nps-text); }
-  .tag-disney { background: var(--disney-bg); color: var(--disney-text); }
-
-  .trip-meta {
+  .featured-tile {
+    grid-column: 1 / -1;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    background-color: #16332B !important;
+    border: 1px solid #6FAF95;
   }
-
-  footer {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 1.5rem 0;
-    border-top: 0.5px solid var(--rule);
-    font-size: 12px;
-    color: var(--ink-faint);
-  }
-
-  @media (max-width: 500px) {
-    .trip { grid-template-columns: 60px 1fr 16px; }
+  .featured-tile .tile-name { font-size: 1.15rem; }
+  .featured-tile .stamp-mini {
+    font-family: Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #C97B4A !important;
+    white-space: nowrap;
   }
 </style>
 </head>
 <body>
 
-<header>
-  <p class="site-name">Joanne Liyeng <span>/ travel</span></p>
-  <nav><a href="/">home</a></nav>
-</header>
+<div class="hero">
+  <div class="hero-eyebrow">Joanne &amp; John's Travels</div>
+  <div class="hero-title">Chasing every National Park Service stamp, one road trip at a time</div>
+  <div class="stamp-counter">11<span>/ 63 parks</span></div>
+  <div class="hero-progress-bar"><div class="hero-progress-fill"></div></div>
+  <div class="hero-caption">National Park stamps collected so far</div>
+  <a href="63-national-parks-table.html" class="hero-cta">View the full stamp tracker →</a>
+</div>
 
-<main>
-  <p class="page-eyebrow">Itineraries</p>
-  <h1 class="page-title">Places I've been,<br>roads I'm taking.</h1>
-  <p class="page-subtitle">Chasing national park passport stamps and crossing off the Disney bucket list, one trip at a time.</p>
-
-  <div class="trips">
-
-    <a class="trip" href="june2026-zion-bryce-grandcanyon.html">
-      <div class="trip-date">June<br>2026</div>
-      <div class="trip-body">
-        <p class="trip-title">Zion, Bryce Canyon &amp; Grand Canyon</p>
-        <div class="trip-meta">
-          <span class="trip-tag tag-nps">NPS</span>
-          <p class="trip-location">Utah &amp; Arizona</p>
-        </div>
-      </div>
-      <span class="trip-caret">›</span>
+<div class="section">
+  <div class="section-title">Upcoming trips</div>
+  <div class="tile-grid">
+    <a href="sept2026-wdw-wish.html" class="tile">
+      <span class="tile-status status-booked">Booked</span>
+      <span class="tile-icon">🏰</span>
+      <span class="tile-name">Disney World + Cruise</span>
+      <span class="tile-sub">Sep 5–14, 2026 · Coastal NPS stamp run + Disney Wish, Halloween on the High Seas</span>
     </a>
-
-    <a class="trip" href="june2026-chicago-indiana-dunes.html">
-      <div class="trip-date">June<br>2026</div>
-      <div class="trip-body">
-        <p class="trip-title">Chicago &amp; Indiana Dunes</p>
-        <div class="trip-meta">
-          <span class="trip-tag tag-nps">NPS</span>
-          <p class="trip-location">Illinois &amp; Indiana</p>
-        </div>
-      </div>
-      <span class="trip-caret">›</span>
+    <a href="oct2026-arizona-petrified-forest.html" class="tile">
+      <span class="tile-status status-planning">Planning</span>
+      <span class="tile-icon">🌵</span>
+      <span class="tile-name">Arizona — Columbus Day</span>
+      <span class="tile-sub">Oct 9–12, 2026 · Flagstaff base, Wupatki, Tuzigoot, Montezuma Castle</span>
     </a>
-
-    <a class="trip" href="sept2026-wdw-wish.html">
-      <div class="trip-date">Sept<br>2026</div>
-      <div class="trip-body">
-        <p class="trip-title">Walt Disney World &amp; Disney Wish</p>
-        <div class="trip-meta">
-          <span class="trip-tag tag-disney">Disney</span>
-          <p class="trip-location">Orlando, Florida</p>
-        </div>
-      </div>
-      <span class="trip-caret">›</span>
+    <a href="#" class="tile">
+      <span class="tile-status status-planning">Planning</span>
+      <span class="tile-icon">🌋</span>
+      <span class="tile-name">Big Island, Hawaiʻi — Thanksgiving</span>
+      <span class="tile-sub">Nov 21–28, 2026 · Kona base, Hawaiʻi Volcanoes, remote work days</span>
     </a>
-
-    <a class="trip" href="oct2026-arizona-petrified-forest.html">
-      <div class="trip-date">Oct<br>2026</div>
-      <div class="trip-body">
-        <p class="trip-title">Petrified Forest &amp; Arizona Cave Dwellings</p>
-        <div class="trip-meta">
-          <span class="trip-tag tag-nps">NPS</span>
-          <p class="trip-location">Arizona</p>
-        </div>
-      </div>
-      <span class="trip-caret">›</span>
+    <a href="Yellowstone-grand-teton.html" class="tile">
+      <span class="tile-status status-planning">Planning</span>
+      <span class="tile-icon">🦬</span>
+      <span class="tile-name">Yellowstone &amp; Grand Teton</span>
+      <span class="tile-sub">Dates TBD · Old Faithful, Teton overlooks, day-loop routing</span>
     </a>
-
   </div>
+</div>
 
-  <p class="page-eyebrow" style="margin-top: 3rem;">On the list</p>
-  <p class="page-subtitle" style="margin-bottom: 1.5rem;">Trips in the works — no dates yet.</p>
-
-  <div class="trips">
-
-    <a class="trip" href="https://joanneliyeng.com/travel/Yellowstone-grand-teton.html">
-      <div class="trip-date">TBD</div>
-      <div class="trip-body">
-        <p class="trip-title">Yellowstone &amp; Grand Teton</p>
-        <div class="trip-meta">
-          <span class="trip-tag tag-nps">NPS</span>
-          <p class="trip-location">Wyoming</p>
-        </div>
-      </div>
-      <span class="trip-caret">›</span>
+<div class="section">
+  <div class="section-title">Past trips</div>
+  <div class="tile-grid">
+    <a href="june2026-zion-bryce-grandcanyon.html" class="tile">
+      <span class="tile-icon">🏜️</span>
+      <span class="tile-name">Juneteenth — Utah &amp; Arizona</span>
+      <span class="tile-sub">Completed · Zion, Bryce, Grand Canyon North Rim + 4 more stamps</span>
     </a>
-
+    <a href="june2026-chicago-indiana-dunes.html" class="tile">
+      <span class="tile-icon">🌊</span>
+      <span class="tile-name">Chicago &amp; Indiana Dunes</span>
+      <span class="tile-sub">Completed · Indiana Dunes NP stamp</span>
+    </a>
+    <a href="#" class="tile">
+      <span class="tile-icon">🌲</span>
+      <span class="tile-name">Redwoods &amp; Oregon Caves</span>
+      <span class="tile-sub">Completed · 3 stamps</span>
+    </a>
+    <a href="#" class="tile">
+      <span class="tile-icon">🏔️</span>
+      <span class="tile-name">Yosemite, Sequoia &amp; Kings Canyon</span>
+      <span class="tile-sub">Completed · 3 stamps</span>
+    </a>
   </div>
-</main>
+</div>
 
-<footer>
-  <p>© 2026 Joanne Liyeng</p>
-</footer>
+<div class="section">
+  <div class="section-title">Planning tools &amp; trackers</div>
+  <div class="tile-grid">
+    <a href="63-national-parks-table.html" class="tile featured-tile">
+      <span>
+        <span class="tile-status status-tool">Tracker</span>
+        <span class="tile-name">📖 All 63 National Parks — Access Guide</span>
+        <span class="tile-sub">Every park, how to get there, nearest airport, and stamp progress by state</span>
+      </span>
+      <span class="stamp-mini">11 / 63</span>
+    </a>
+    <a href="#" class="tile">
+      <span class="tile-status status-tool">Map</span>
+      <span class="tile-icon">🗺️</span>
+      <span class="tile-name">Google My Maps — All 50 States</span>
+      <span class="tile-sub">KML layers of every NPS passport stamp location, nationwide</span>
+    </a>
+  </div>
+</div>
 
 </body>
 </html>
