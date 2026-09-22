@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arizona · Verde Valley to Painted Desert · Oct 9–12, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    background: #7A5C3C !important;
+    color: #2A2A1E !important;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: 'Karla', sans-serif;
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 18px 60px;
+  }
+
+  /* ===== Masthead ===== */
+  .masthead {
+    background: #33402A;
+    color: #7A5C3C;
+    margin: 0 -18px 24px;
+    padding: 40px 28px 32px;
+    border-bottom: 6px solid #C1652E;
+  }
+  .masthead .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: #8FA06C;
+    margin: 0 0 10px;
+  }
+  .masthead h1 {
+    font-family: 'Bitter', serif;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 1.15;
+    margin: 0 0 12px;
+    color: #FBF6E8;
+  }
+  .masthead .byline {
+    font-size: 15px;
+    color: #D9D9C0;
+    margin: 0 0 18px;
+  }
+  .masthead .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid #6E7A52;
+    color: #7A5C3C;
+  }
+  .chip.solid {
+    background: #C1652E;
+    border-color: #C1652E;
+    color: #FBF6E8;
+  }
+  .chip.gold {
+    background: #8FA06C;
+    border-color: #8FA06C;
+    color: #33402A;
+  }
+
+  /* ===== Panels ===== */
+  .panel {
+    background: #FFFFFF;
+    border: 1px solid #E4D8C4;
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin-bottom: 20px;
+  }
+  .panel h2, .day-head h2 {
+    font-family: 'Bitter', serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0 0 16px;
+    color: #33402A;
+  }
+  .glance-row {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px dotted #DCCDB0;
+  }
+  .glance-row:last-child { border-bottom: none; }
+  .glance-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.02em;
+    color: #8A7A63;
+    width: 92px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .glance-val { flex: 1; font-size: 14.5px; }
+  .glance-val strong { color: #33402A; }
+  .glance-val .sub {
+    display: block;
+    font-size: 13px;
+    color: #6B6350;
+    margin-top: 2px;
+  }
+  .tbd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: #E8DAB8;
+    border: 1px dashed #C1652E;
+    color: #C1652E;
+    padding: 2px 7px;
+    border-radius: 5px;
+  }
+
+  /* ===== Day cards ===== */
+  .day-card {
+    background: #FFFFFF;
+    border: 1px solid #E4D8C4;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+  .day-head {
+    background: #33402A;
+    color: #7A5C3C;
+    padding: 18px 24px;
+  }
+  .day-head .day-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #8FA06C;
+    margin: 0 0 4px;
+  }
+  .day-head h2 {
+    color: #FBF6E8;
+    margin: 0;
+    font-size: 21px;
+  }
+  .day-body { padding: 22px 24px 8px; }
+
+  .timeline { position: relative; }
+  .stop {
+    display: flex;
+    gap: 16px;
+    padding-bottom: 20px;
+    position: relative;
+  }
+  .stop-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: #8A7A63;
+    width: 66px;
+    flex-shrink: 0;
+    padding-top: 3px;
+    text-align: right;
+  }
+  .stop-body { flex: 1; border-left: 2px solid #E4D8C4; padding-left: 18px; position: relative; }
+  .stop-body::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #33402A;
+  }
+  .stop-body.stamp::before { background: #C1652E; }
+  .stop-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #33402A;
+    margin: 0 0 4px;
+  }
+  .stop-note { font-size: 14px; color: #4A4636; margin: 0 0 6px; }
+  .stop-note .warn { color: #C1652E; font-weight: 600; }
+  .stampblock {
+    border: 1.5px dashed #C1652E;
+    background: #E8DAB8;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #7A3A1E;
+    margin-top: 6px;
+  }
+  .stampblock strong { color: #C1652E; }
+
+  .drivepill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: #E8DAB8;
+    border: 1px solid #8FA06C;
+    color: #33402A;
+    padding: 4px 11px;
+    border-radius: 999px;
+    margin: 0 0 16px 82px;
+  }
+  .drivepill a { color: #33402A; text-decoration: underline; }
+
+  /* ===== Stamps summary ===== */
+  .stamp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+  }
+  .stamp-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 14px;
+    padding: 6px 0;
+    border-bottom: 1px dotted #E4D8C4;
+  }
+  .stamp-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #C1652E;
+    width: 18px;
+    flex-shrink: 0;
+  }
+  @media (max-width: 480px) {
+    .stamp-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== Reminders ===== */
+  ul.reminders { margin: 0; padding: 0; list-style: none; }
+  ul.reminders li {
+    padding: 10px 0 10px 22px;
+    border-bottom: 1px dotted #E4D8C4;
+    font-size: 14px;
+    position: relative;
+  }
+  ul.reminders li:last-child { border-bottom: none; }
+  ul.reminders li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid #C1652E;
+  }
+  ul.reminders li strong { color: #33402A; }
+
+  footer {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #E8DAB8;
+    text-transform: uppercase;
+    margin-top: 30px;
+  }
+
+  @media print {
+    html, body { background: #FFFFFF !important; }
+    .masthead { background: #33402A !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .day-head { background: #33402A !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .stampblock, .chip.solid, .chip.gold { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html, body { background: #7A5C3C !important; color: #2A2A1E !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <p class="kicker">National Park Passport · Stamp Run</p>
+    <h1>Verde Valley to<br>Painted Desert</h1>
+    <p class="byline">Arizona · Columbus Day Weekend · Joanne &amp; John</p>
+    <div class="chips">
+      <span class="chip solid">11 NPS stamps</span>
+      <span class="chip gold">Fri Oct 9 – Mon Oct 12, 2026</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>At a Glance</h2>
+    <div class="glance-row">
+      <div class="glance-label">OUTBOUND</div>
+      <div class="glance-val"><strong>OAK → PHX</strong> · Fri Oct 9, 8:15 – 10:15 PM · nonstop, 2h
+        <span class="sub">Flight 768 · Liyeng Soo, John Luu</span>
+      </div>
+    </div>
+    <div class="glance-row">
+      <div class="glance-label">RETURN</div>
+      <div class="glance-val"><strong>PHX → OAK</strong> · Mon Oct 12, 8:40 – 10:40 PM · nonstop, 2h
+        <span class="sub">Flight 2959 · Liyeng Soo, John Luu</span>
+      </div>
+    </div>
+    <div class="glance-row">
+      <div class="glance-label">CAR</div>
+      <div class="glance-val"><strong>Enterprise, Intermediate</strong> · via Costco Travel · $288.13
+        <span class="sub">Costco conf. C501639346 · Enterprise conf. 2136301872 · driver: John Luu</span>
+      </div>
+    </div>
+    <div class="glance-row">
+      <div class="glance-label">HOTEL · NIGHT 1</div>
+      <div class="glance-val"><strong>Best Western Plus Executive Residency</strong> Phoenix North Happy Valley
+        <span class="sub">Fri Oct 9 – Sat Oct 10 · 2108 W Whispering Wind Dr, Phoenix · (623) 259-9300 · conf. 350113568</span>
+      </div>
+    </div>
+    <div class="glance-row">
+      <div class="glance-label">HOTEL · NIGHT 2</div>
+      <div class="glance-val"><strong>SureStay by Best Western</strong> Chambers Petrified Forest
+        <span class="sub">Sat Oct 10 – Sun Oct 11 · I-40 &amp; Hwy 191 Exit 333, Chambers · (928) 688-6880 · conf. 550113363</span>
+      </div>
+    </div>
+    <div class="glance-row">
+      <div class="glance-label">HOTEL · NIGHT 3</div>
+      <div class="glance-val"><span class="tbd">TBD</span> Booking day-of, based on how far south you get Sunday night
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 0 ===== -->
+  <div class="day-card">
+    <div class="day-head">
+      <p class="day-label">DAY 0 · FRI OCT 9</p>
+      <h2>Travel Day</h2>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">8:15p</div>
+          <div class="stop-body">
+            <p class="stop-title">Depart OAK</p>
+            <p class="stop-note">Flight 768, nonstop → PHX, arrive 10:15p</p>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">10:15p</div>
+          <div class="stop-body">
+            <p class="stop-title">Arrive PHX · pick up rental car</p>
+            <p class="stop-note">Enterprise, Intermediate — Costco conf. C501639346</p>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~30 min · PHX → Happy Valley hotel</div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time"></div>
+          <div class="stop-body">
+            <p class="stop-title">Check in — Best Western Plus Executive Residency, Happy Valley</p>
+            <p class="stop-note">No sightseeing — pure travel day</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 1 ===== -->
+  <div class="day-card">
+    <div class="day-head">
+      <p class="day-label">DAY 1 · SAT OCT 10 · 5 STAMPS</p>
+      <h2>Verde Valley → Flagstaff</h2>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">7:30a</div>
+          <div class="stop-body">
+            <p class="stop-title">Depart Happy Valley hotel</p>
+            <p class="stop-note">Long day — 5 stops, ~5.5 hrs of driving. Early start protects Sunset Crater's 4:30p close.</p>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~1h20 · I-17 N to Exit 289 <a href="https://www.google.com/maps/dir/Happy+Valley+Rd,+Phoenix,+AZ/Montezuma+Castle+National+Monument" target="_blank">map</a></div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">8:50a</div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Montezuma Castle NM</p>
+            <p class="stop-note">Opens 8a · paved 0.3-mi loop trail, no climbing into the dwelling</p>
+            <div class="stampblock"><strong>Stamp:</strong> visitor center desk</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~20 min · same unit, separate entrance</div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">10:00a</div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Montezuma Well</p>
+            <p class="stop-note">No fee · short paved path to the sinkhole overlook</p>
+            <div class="stampblock"><strong>Stamp:</strong> entrance station</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~30 min · Rimrock → Clarkdale</div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">11:00a</div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Tuzigoot NM</p>
+            <p class="stop-note">8a–5p daily · overlook trail around the pueblo ruin, paved</p>
+            <div class="stampblock"><strong>Stamp:</strong> visitor center desk</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~55 min · 89A through Sedona, or I-17 direct</div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">12:15p</div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Walnut Canyon NM <span style="font-weight:400;color:#8A7A63;">+ lunch in Flagstaff</span></p>
+            <p class="stop-note">9a–5p (fall hours) · rim overlook is paved and accessible; the canyon-floor loop is stairs/steep, skip it</p>
+            <div class="stampblock"><strong>Stamp:</strong> visitor center desk</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~25 min · north on Hwy 89</div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">2:45p</div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Sunset Crater Volcano NM</p>
+            <p class="stop-note"><span class="warn">Closes 4:30p</span> — tightest stop of the day. Visitor center + short paved overlook near the Lava Flow trailhead.</p>
+            <div class="stampblock"><strong>Stamp:</strong> visitor center desk</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~2h10 · I-40 E to Chambers <a href="https://www.google.com/maps/dir/Sunset+Crater+Volcano+National+Monument/Chambers,+AZ" target="_blank">map</a></div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">~5:45p</div>
+          <div class="stop-body">
+            <p class="stop-title">Check in — SureStay Chambers Petrified Forest</p>
+            <p class="stop-note">Right at the park's north-end exit — a 10-minute drive to tomorrow's first stop</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 2 ===== -->
+  <div class="day-card">
+    <div class="day-head">
+      <p class="day-label">DAY 2 · SUN OCT 11 · 4 STAMPS</p>
+      <h2>Petrified Forest → Navajo Nation</h2>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">7:30a</div>
+          <div class="stop-body">
+            <p class="stop-title">Check out · depart Chambers</p>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~10 min · Chambers → north entrance</div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">7:45a</div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Petrified Forest NP</p>
+            <p class="stop-note">Gates 8a–5p sharp, <span class="warn">locked at close</span> — Painted Desert Inn 9a–4p. Drive the 28-mi park road south, exit near Rainbow Forest.</p>
+            <div class="stampblock"><strong>Stamp:</strong> Painted Desert VC and Rainbow Forest Museum — both ends</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~58 min · south exit, I-40 E, Hwy 191 N to Ganado</div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">~10:30a</div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Hubbell Trading Post NHS</p>
+            <p class="stop-note">8a–5p · <span class="warn">Navajo Nation clock is 1 hr ahead of Chambers/AZ time from here on</span> · working trading post, barn, and guest hogan, all flat and paved</p>
+            <div class="stampblock"><strong>Stamp:</strong> visitor center desk</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~39 min · Hwy 191 N to Chinle</div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">~12:00p</div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Canyon de Chelly NM</p>
+            <p class="stop-note">Overlooks open year-round, no fixed hours — South Rim Drive overlooks are all roadside pull-offs, no hiking needed</p>
+            <div class="stampblock"><strong>Stamp:</strong> visitor center desk</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~1h50 · Chinle → Kayenta via Tsaile/Rough Rock <a href="https://www.google.com/maps/dir/Canyon+de+Chelly+National+Monument/Navajo+National+Monument" target="_blank">map</a></div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">~2:30p</div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Navajo National Monument</p>
+            <p class="stop-note"><span class="warn">Visitor center — and the stamp — closes 5p Navajo time (4p AZ clock).</span> Sandal Trail overlook stays open till sunset, but budget Canyon de Chelly tightly if the stamp matters.</p>
+            <div class="stampblock"><strong>Stamp:</strong> visitor center desk</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~4h03 · Kayenta → Tuba City → I-17 S toward Phoenix <a href="https://www.google.com/maps/dir/Navajo+National+Monument/Phoenix,+AZ" target="_blank">map</a></div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time"></div>
+          <div class="stop-body">
+            <p class="stop-title">Drive south — stop wherever you land</p>
+            <p class="stop-note">Book Night 3 same-day based on how far John wants to drive</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DAY 3 ===== -->
+  <div class="day-card">
+    <div class="day-head">
+      <p class="day-label">DAY 3 · MON OCT 12 · 2 STAMPS</p>
+      <h2>South of Phoenix → Fly Home</h2>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time">morning</div>
+          <div class="stop-body">
+            <p class="stop-title">Depart hotel <span class="tbd">TBD</span></p>
+            <p class="stop-note">Assumes you're near Phoenix by Sunday night — times below shift with wherever you actually land</p>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~50 min · I-10 E to Coolidge</div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time"></div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Casa Grande Ruins NM</p>
+            <p class="stop-note">9a–5p (Oct–Apr hours) · free entry · flat, paved paths around the Great House</p>
+            <div class="stampblock"><strong>Stamp:</strong> visitor center desk</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~1h · I-10 E to Tucson</div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time"></div>
+          <div class="stop-body stamp">
+            <p class="stop-title">Saguaro NP</p>
+            <p class="stop-note">Pick one district — Red Hills VC (West) or Rincon Mtn VC (East) — both have paved scenic loop drives</p>
+            <div class="stampblock"><strong>Stamp:</strong> visitor center desk</div>
+          </div>
+        </div>
+      </div>
+      <div class="drivepill">🚗 ~1h45–2h · back to PHX <a href="https://www.google.com/maps/dir/Saguaro+National+Park/Phoenix+Sky+Harbor+International+Airport" target="_blank">map</a></div>
+      <div class="timeline">
+        <div class="stop">
+          <div class="stop-time"></div>
+          <div class="stop-body">
+            <p class="stop-title">Drop rental car at PHX</p>
+          </div>
+        </div>
+        <div class="stop">
+          <div class="stop-time">8:40p</div>
+          <div class="stop-body">
+            <p class="stop-title">Depart PHX</p>
+            <p class="stop-note">Flight 2959, nonstop → OAK, arrive 10:40p</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Stamps This Trip</h2>
+    <div class="stamp-grid">
+      <div class="stamp-item"><span class="stamp-num">01</span> Montezuma Castle NM</div>
+      <div class="stamp-item"><span class="stamp-num">02</span> Montezuma Well</div>
+      <div class="stamp-item"><span class="stamp-num">03</span> Tuzigoot NM</div>
+      <div class="stamp-item"><span class="stamp-num">04</span> Walnut Canyon NM</div>
+      <div class="stamp-item"><span class="stamp-num">05</span> Sunset Crater Volcano NM</div>
+      <div class="stamp-item"><span class="stamp-num">06</span> Petrified Forest NP</div>
+      <div class="stamp-item"><span class="stamp-num">07</span> Hubbell Trading Post NHS</div>
+      <div class="stamp-item"><span class="stamp-num">08</span> Canyon de Chelly NM</div>
+      <div class="stamp-item"><span class="stamp-num">09</span> Navajo National Monument</div>
+      <div class="stamp-item"><span class="stamp-num">10</span> Casa Grande Ruins NM</div>
+      <div class="stamp-item"><span class="stamp-num">11</span> Saguaro NP</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Reminders</h2>
+    <ul class="reminders">
+      <li><strong>Tonto NM (stretch goal) doesn't fit Day 3 as planned</strong> — it's northeast toward Globe, opposite direction from Casa Grande/Saguaro to the south. Swapping it in means dropping one of the two southern stops, not adding a third.</li>
+      <li><strong>Navajo Nation runs 1 hr ahead</strong> of Flagstaff/Phoenix/Chambers time from Hubbell through Navajo National Monument on Day 2 — all times above already account for this, but worth knowing on the ground.</li>
+      <li><strong>Petrified Forest gates lock at 5p sharp.</strong> Be moving toward an exit well before then.</li>
+      <li><strong>Navajo NM's stamp desk closes 5p Navajo time (4p AZ clock).</strong> If Canyon de Chelly runs long, the overlook stays open till sunset but the stamp may not.</li>
+      <li>America the Beautiful pass covers entrance fees everywhere on this trip except Casa Grande, Hubbell, Canyon de Chelly, and Navajo NM — all four are already free.</li>
+      <li>Night 3 hotel and the exact Day 3 start time are open — pin both down once you know where you stopped Sunday night.</li>
+    </ul>
+  </div>
+
+  <footer>Joanne &amp; John · Arizona · Oct 2026</footer>
+
+</div>
+</body>
+</html>
