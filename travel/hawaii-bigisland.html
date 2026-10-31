@@ -1,0 +1,215 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Big Island Loop</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Karla:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: single column, timestamp gutter, stops on a vertical line (same build as the Denver run).
+   Palette: basalt night, molten orange, lava gold. Hardcoded single dark theme. */
+:root{--display:'Fraunces',Georgia,serif;--body:'Karla','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace;color-scheme:dark}
+html,body{background:#1B2129 !important;color:#EEF1F4 !important}
+body{font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:28px 56px}
+a{color:#FF9F4A}
+header{display:grid;gap:10px;padding-bottom:22px;border-bottom:2px solid #FF9F4A}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#FFD166}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,7.5vw,52px);line-height:1.02;margin:0;color:#FF9F4A;text-wrap:balance}
+.sub{color:#A9B3BF;margin:0;max-width:60ch}
+.placeholder{display:inline-flex;gap:6px;align-items:center;font-family:var(--mono);font-size:12px;background:#252D38;border:1px dashed #FFD166;color:#FFD166;padding:4px 10px;border-radius:999px;width:max-content;max-width:100%}
+.ridge{display:block;width:100%;height:auto;max-width:100%;margin-top:4px}
+.ridge-back{fill:#2F3946}.ridge-front{fill:#FF9F4A}.ridge-glow{fill:#FFD166}.ridge-sea{fill:#252D38}.ridge-plume{fill:#3A4452}.ridge-plume2{fill:#4A5563}.ridge-dark{fill:#1B2129}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:#A9B3BF}
+.facts b{color:#EEF1F4}
+
+.cal{margin:20px 0 4px;display:grid;gap:12px}
+.cal-days{display:grid;grid-template-columns:repeat(auto-fill,minmax(98px,1fr));gap:6px}
+.cal-day{border-radius:8px;padding:8px 10px 10px;display:grid;gap:2px;align-content:start;min-width:0}
+.cal-dow{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.cal-what{font-weight:700;font-size:14px;line-height:1.25}
+.cal-sub{font-size:11px}
+.c-plain{background:#252D38;color:#EEF1F4}.c-plain .cal-dow,.c-plain .cal-sub{color:#A9B3BF}
+.c-stamp{background:#FF9F4A;color:#1B2129}.c-stamp .cal-dow,.c-stamp .cal-sub{color:#5C3410}
+.cal-legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:12px;color:#A9B3BF}
+.cal-legend span{display:inline-flex;align-items:center;gap:6px}
+.cal-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.cal-legend i.c-plain{border:1px solid #3A4452}
+
+h2{font-family:var(--display);font-weight:600;font-size:24px;margin:36px 0 4px;color:#EEF1F4;text-wrap:balance}
+.daynote{color:#A9B3BF;margin:0 0 16px;font-size:15px}
+.daynote a{font-family:var(--mono);font-size:13px}
+.tl{display:grid;gap:0}
+.row,.drive{display:grid;grid-template-columns:64px 1fr;gap:14px}
+.time{font-family:var(--mono);font-size:13px;color:#FF9F4A;padding-top:14px;text-align:right;font-variant-numeric:tabular-nums}
+.stop{position:relative;border-left:2px solid #3A4452;padding:10px 0 18px 18px;min-width:0}
+.stop::before{content:"";position:absolute;left:-7px;top:16px;width:12px;height:12px;border-radius:50%;background:#252D38;border:2px solid #FF9F4A}
+.stop.st::before{background:#FFD166;border-color:#FFD166}
+.stop h3{margin:0 0 4px;font-size:17px;font-weight:700;color:#EEF1F4}
+.stop p{margin:0;color:#A9B3BF;font-size:15px}
+.stamp{margin-top:10px;border:2px dashed #FFD166;border-radius:10px;padding:10px 12px;background:#252D38;font-size:14px;color:#EEF1F4}
+.stamp b{color:#FFD166;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px}
+.callout{background:#252D38;border-left:4px solid #FF9F4A;padding:10px 14px;border-radius:0 6px 6px 0;font-size:14px;color:#EEF1F4;margin:10px 0 0}
+.drive .gap{border-left:2px solid #3A4452;padding:4px 0 4px 16px;min-width:0}
+.pill{display:inline-block;font-family:var(--mono);font-size:12px;background:#2F3946;color:#FF9F4A;padding:4px 12px;border-radius:999px}
+.est{color:#FFD166}
+.night{font-family:var(--mono);font-size:12px;color:#A9B3BF;padding:6px 0 0 16px;border-left:2px solid transparent}
+.checklist{display:grid;gap:8px;padding:0;margin:12px 0 0;list-style:none}
+.checklist li{display:flex;gap:10px;font-size:15px}
+.checklist li::before{content:"☐";color:#FF9F4A}
+.stamps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-top:12px}
+.s{border:2px dashed #FFD166;background:#252D38;border-radius:10px;padding:10px 12px;min-width:0}
+.s .d{font-family:var(--mono);font-size:11px;color:#FFD166;letter-spacing:.08em}
+.s b{display:block;font-size:15px}
+.s span{font-size:13px;color:#A9B3BF}
+footer{margin-top:40px;font-size:13px;color:#A9B3BF;border-top:1px solid #3A4452;padding-top:14px}
+a:focus-visible{outline:2px solid #FFD166;outline-offset:2px}
+@media (max-width:480px){.row,.drive{grid-template-columns:48px 1fr;gap:10px}.time{font-size:12px}}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">NPS Passport Run · Hawaiʻi Island</div>
+  <h1>Big Island Loop</h1>
+  <p class="sub">Seven days around the island from Kona, clockwise with no backtracking. Kohala and Hāmākua, two nights at the volcano, then Kaʻū and South Kona.</p>
+  <span class="placeholder">◌ Placeholder — on hold until airfares ease</span>
+  <svg class="ridge" viewBox="0 0 760 130" aria-hidden="true">
+    <circle class="ridge-plume" cx="466" cy="26" r="10"/>
+    <circle class="ridge-plume" cx="480" cy="16" r="13"/>
+    <circle class="ridge-plume" cx="500" cy="10" r="11"/>
+    <circle class="ridge-plume" cx="520" cy="8" r="8"/>
+    <circle class="ridge-plume2" cx="474" cy="24" r="6"/>
+    <circle class="ridge-plume2" cx="492" cy="14" r="6"/>
+    <path class="ridge-back" d="M0 130 L0 96 C110 70 200 58 280 62 C340 66 380 80 400 90 L560 86 C620 66 690 62 760 74 L760 130Z"/>
+    <path class="ridge-front" d="M0 130 L0 116 C120 112 230 114 300 110 C370 102 418 74 444 40 L454 34 L462 41 L478 41 L486 34 L496 40 C522 74 570 102 640 110 C700 114 740 114 760 114 L760 130Z"/>
+    <path class="ridge-dark" d="M455 35 L462 41 L478 41 L485 35 C476 38 464 38 455 35Z"/>
+    <path class="ridge-glow" d="M459 37 L463 41 L477 41 L481 37 C474 39 466 39 459 37Z"/>
+    <path class="ridge-glow" d="M465 41 C461 60 452 80 436 104 L443 104 C458 82 467 62 470 41Z"/>
+    <path class="ridge-glow" d="M474 41 C480 62 494 84 516 106 L523 105 C503 84 488 62 478 41Z"/>
+    <path class="ridge-glow" d="M469 60 C470 76 470 92 474 108 L479 108 C475 92 474 76 472 60Z"/>
+    <rect class="ridge-sea" x="0" y="122" width="760" height="8"/>
+  </svg>
+  <div class="facts">
+    <span><b>Fly</b> Bay Area ⇄ KOA</span>
+    <span><b>Car</b> Costco Travel rental at KOA</span>
+    <span><b>New sites</b> 5 units</span>
+    <span><b>Stamp stations</b> 6</span>
+  </div>
+</header>
+
+<section class="cal" aria-label="Trip at a glance">
+  <div class="cal-days">
+    <div class="cal-day c-stamp"><div class="cal-dow">Day 1 · Sun</div><div class="cal-what">Land in Kona</div><div class="cal-sub">Kaloko-Honokōhau</div></div>
+    <div class="cal-day c-stamp"><div class="cal-dow">Day 2 · Mon</div><div class="cal-what">Kohala → Hilo</div><div class="cal-sub">Puʻukoholā</div></div>
+    <div class="cal-day c-stamp"><div class="cal-dow">Day 3 · Tue</div><div class="cal-what">Up to Volcano</div><div class="cal-sub">HAVO summit</div></div>
+    <div class="cal-day c-plain"><div class="cal-dow">Day 4 · Wed</div><div class="cal-what">Chain of Craters</div><div class="cal-sub">Scenic day</div></div>
+    <div class="cal-day c-stamp"><div class="cal-dow">Day 5 · Thu</div><div class="cal-what">Kaʻū → Kona</div><div class="cal-sub">Kahuku · Hōnaunau</div></div>
+    <div class="cal-day c-plain"><div class="cal-dow">Day 6 · Fri</div><div class="cal-what">Slow Kona day</div><div class="cal-sub">Stamp buffer</div></div>
+    <div class="cal-day c-plain"><div class="cal-dow">Day 7 · Sat</div><div class="cal-what">Fly home</div><div class="cal-sub">KOA → Bay Area</div></div>
+  </div>
+  <div class="cal-legend"><span><i class="c-stamp"></i>Stamp days</span><span><i class="c-plain"></i>Scenic, buffer, travel</span></div>
+</section>
+
+<h2>Day 1 · Land in Kona</h2>
+<p class="daynote">Start on a Sunday so Kahuku (open Thu–Sun only) lands on Day 5. <a href="https://www.google.com/maps/dir/?api=1&origin=Kona+International+Airport&destination=Kailua-Kona+HI&waypoints=Kaloko-Hono%CA%BBk%C5%8Dhau+National+Historical+Park+Visitor+Center" target="_blank" rel="noopener">Day 1 in Google Maps ↗</a></p>
+<div class="tl">
+  <div class="row"><div class="time">1:00</div><div class="stop"><h3>Arrive KOA · pick up rental</h3><p>Morning nonstop from the Bay Area on United, Alaska or Southwest.</p></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~10 min · KOA → Hale Hoʻokipa</span></div></div>
+  <div class="row"><div class="time">2:00</div><div class="stop st"><h3>Kaloko-Honokōhau NHP</h3><p>Hale Hoʻokipa visitor center, half a mile north of the Honokōhau Harbor entrance.</p>
+    <div class="stamp"><b>Stamp · daily 8:30–4:00</b>Kaloko-Honokōhau NHP, plus the Ala Kahakai NHT cancellation</div>
+    <div class="callout">Cars at the visitor center lot must be out by 4:00. Arrive by 3:15 at the latest.</div></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~15 min · → Kailua-Kona</span></div></div>
+  <div class="row"><div class="time">eve</div><div class="stop"><h3>Kailua Village seawall</h3><p>Dinner on Aliʻi Drive and sunset over the water.</p></div></div>
+  <div class="drive"><div></div><div class="night">Night 1 · Holiday Inn Express &amp; Suites Kailua-Kona</div></div>
+</div>
+
+<h2>Day 2 · Kohala, Waimea, Hāmākua</h2>
+<p class="daynote">The longest driving day. <a href="https://www.google.com/maps/dir/?api=1&origin=Kailua-Kona+HI&destination=Hilo+HI&waypoints=Pu%CA%BBukohol%C4%81+Heiau+National+Historic+Site|Pololu+Valley+Lookout|Waimea+HI|Waipio+Valley+Lookout|Onomea+Scenic+Drive" target="_blank" rel="noopener">Day 2 in Google Maps ↗</a></p>
+<div class="tl">
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~45 min · Kona → Kawaihae</span></div></div>
+  <div class="row"><div class="time">8:30</div><div class="stop st"><h3>Puʻukoholā Heiau NHS</h3><p>The heiau is in view from the visitor center lanai. The paved path down is a steep climb back up.</p>
+    <div class="stamp"><b>Stamp · daily 8:30–4:30</b>Puʻukoholā Heiau NHS, plus Ala Kahakai. Parking lot closes at 4:00.</div></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~45 min <span class="est">(verify)</span> · → Pololū Valley</span></div></div>
+  <div class="row"><div class="time">10:30</div><div class="stop"><h3>Pololū Valley Lookout · Hāwī</h3><p>Roadside lookout at the end of Hwy 270. Optional if running late.</p></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~40 min <span class="est">(verify)</span> · Kohala Mountain Rd → Waimea</span></div></div>
+  <div class="row"><div class="time">12:30</div><div class="stop"><h3>Lunch in Waimea</h3><p>Upcountry ranch town at 2,600 ft.</p></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~45 min · → Waipiʻo Lookout</span></div></div>
+  <div class="row"><div class="time">2:00</div><div class="stop"><h3>Waipiʻo Valley Lookout</h3><p>Overlook a few steps from parking at the end of Hwy 240.</p></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~1 hr · Hāmākua Coast → Hilo</span></div></div>
+  <div class="row"><div class="time">4:00</div><div class="stop"><h3>Onomea Scenic Drive</h3><p>Four-mile rainforest loop just north of Hilo, seen from the car.</p></div></div>
+  <div class="drive"><div></div><div class="night">Night 2 · Hilo, hotel TBD</div></div>
+</div>
+
+<h2>Day 3 · Up to Kīlauea</h2>
+<p class="daynote"><a href="https://www.google.com/maps/dir/?api=1&origin=Rainbow+Falls+Hilo&destination=Volcano+HI&waypoints=Lili%CA%BBuokalani+Gardens|Kilauea+Military+Camp" target="_blank" rel="noopener">Day 3 in Google Maps ↗</a></p>
+<div class="tl">
+  <div class="row"><div class="time">8:30</div><div class="stop"><h3>Rainbow Falls · Liliʻuokalani Gardens</h3><p>Falls overlook beside the parking lot; flat paved garden paths on the bayfront.</p></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~45 min · Hilo → Hawaiʻi Volcanoes</span></div></div>
+  <div class="row"><div class="time">11:00</div><div class="stop st"><h3>Hawaiʻi Volcanoes NP</h3><p>1.2 miles past the entrance at Kilauea Military Camp. Park at the ballfield, not the KMC front lot.</p>
+    <div class="stamp"><b>Stamp · daily 9:00–4:45</b>Hawaiʻi Volcanoes NP at the temporary Welcome Center</div>
+    <div class="callout">Kīlauea Visitor Center is due to reopen in late 2026. If it has, the stamp moves back there.</div></div></div>
+  <div class="row"><div class="time">1:00</div><div class="stop"><h3>Crater Rim Drive overlooks</h3><p>Steam Vents and Kīlauea Iki Overlook. Uēkahuna and Kīlauea Overlook were closed for part of 2026; check what's open.</p></div></div>
+  <div class="row"><div class="time">dark</div><div class="stop"><h3>Lava glow, if erupting</h3><p>Kīlauea has been erupting in episodes inside Halemaʻumaʻu. Check USGS before heading back out.</p></div></div>
+  <div class="drive"><div></div><div class="night">Nights 3–4 · Volcano Inn (accessible room) or Volcano Village Lodge</div></div>
+</div>
+
+<h2>Day 4 · Chain of Craters Road</h2>
+<p class="daynote">No stamps today. Bring water and food; there are no services below the summit.</p>
+<div class="tl">
+  <div class="row"><div class="time">9:00</div><div class="stop"><h3>Chain of Craters Road</h3><p>About 19 miles down 3,700 ft to the coast. Pull-offs at Pauahi Crater and Kealakomo overlook.</p></div></div>
+  <div class="row"><div class="time">11:30</div><div class="stop"><h3>Hōlei Sea Arch</h3><p>Lava sea arch at the end of the road.</p></div></div>
+  <div class="row"><div class="time">2:00</div><div class="stop"><h3>Thurston Lava Tube · optional</h3><p>Short but uneven, with steps through the tube. Easy to skip.</p></div></div>
+  <div class="row"><div class="time">eve</div><div class="stop"><h3>Dinner at Volcano House</h3><p>The Rim restaurant on the crater edge. Reserve ahead at (808) 930-6910.</p></div></div>
+</div>
+
+<h2>Day 5 · Kaʻū to the Place of Refuge</h2>
+<p class="daynote"><a href="https://www.google.com/maps/dir/?api=1&origin=Volcano+HI&destination=Kailua-Kona+HI&waypoints=Punaluu+Black+Sand+Beach|Kahuku+Unit+Hawaii+Volcanoes+National+Park|Pu%CA%BBuhonua+o+H%C5%8Dnaunau+National+Historical+Park" target="_blank" rel="noopener">Day 5 in Google Maps ↗</a></p>
+<div class="tl">
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~40 min <span class="est">(verify)</span> · Volcano → Punaluʻu</span></div></div>
+  <div class="row"><div class="time">8:15</div><div class="stop"><h3>Punaluʻu Black Sand Beach</h3><p>Black sand and basking sea turtles, a short walk from parking.</p></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~25 min <span class="est">(verify)</span> · → Kahuku, Hwy 11 mile 70.5</span></div></div>
+  <div class="row"><div class="time">9:30</div><div class="stop st"><h3>Hawaiʻi Volcanoes · Kahuku Unit</h3><p>Former cattle ranch on the slopes of Mauna Loa. Free entry.</p>
+    <div class="stamp"><b>Stamp · Thu–Sun 8:00–4:00</b>Kahuku cancellation, separate from the summit</div>
+    <div class="callout">Reopened Sept 3, 2026 after hurricane damage; upper Kahuku Road stays closed. Confirm before going.</div></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~1 hr 15 min <span class="est">(verify)</span> · → Hōnaunau</span></div></div>
+  <div class="row"><div class="time">12:00</div><div class="stop st"><h3>Puʻuhonua o Hōnaunau NHP</h3><p>The Place of Refuge: royal grounds, Hale o Keawe and the great wall.</p>
+    <div class="stamp"><b>Stamp · daily 8:30–4:30</b>Puʻuhonua o Hōnaunau NHP, plus Ala Kahakai</div></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~40 min · → Kailua-Kona</span></div></div>
+  <div class="drive"><div></div><div class="night">Nights 5–6 · Kona, same hotel as Night 1</div></div>
+</div>
+
+<h2>Day 6 · Slow Kona day</h2>
+<p class="daynote">Kahuku is still open Friday if Thursday fell through. Hōnaunau and Kaloko-Honokōhau are each under 45 minutes away.</p>
+<div class="tl">
+  <div class="row"><div class="time">am</div><div class="stop"><h3>Hulihēʻe Palace</h3><p>Royal summer palace on Aliʻi Drive in Kailua Village.</p></div></div>
+  <div class="row"><div class="time">pm</div><div class="stop"><h3>Farewell sunset on the Kona coast</h3><p>Pack for tomorrow.</p></div></div>
+</div>
+
+<h2>Day 7 · Fly home</h2>
+<div class="tl">
+  <div class="row"><div class="time">am</div><div class="stop"><h3>Return rental · KOA → Bay Area</h3><p>About 15 minutes from Kailua-Kona. Midday nonstop home.</p></div></div>
+</div>
+
+<h2>Stamps this trip</h2>
+<div class="stamps">
+  <div class="s"><div class="d">DAY 1</div><b>Kaloko-Honokōhau NHP</b><span>Hale Hoʻokipa visitor center</span></div>
+  <div class="s"><div class="d">DAY 2</div><b>Puʻukoholā Heiau NHS</b><span>Visitor center, Kawaihae</span></div>
+  <div class="s"><div class="d">DAY 3</div><b>Hawaiʻi Volcanoes NP</b><span>KMC Welcome Center or reopened KVC</span></div>
+  <div class="s"><div class="d">DAY 5</div><b>Hawaiʻi Volcanoes · Kahuku</b><span>Kahuku Visitor Contact Station</span></div>
+  <div class="s"><div class="d">DAY 5</div><b>Puʻuhonua o Hōnaunau NHP</b><span>Visitor center</span></div>
+  <div class="s"><div class="d">DAYS 1 · 2 · 5</div><b>Ala Kahakai NHT</b><span>At the three Kona-side units</span></div>
+</div>
+
+<h2>To lock in</h2>
+<ul class="checklist">
+  <li>Pick a Sunday-to-Saturday week once KOA fares come down</li>
+  <li>Flights on Google Flights (Bay Area ⇄ KOA)</li>
+  <li>Rental via Costco Travel</li>
+  <li>Hotels: Kona (Nights 1, 5–6), Hilo (Night 2), Volcano Inn accessible room (Nights 3–4)</li>
+  <li>Volcano House dinner for Day 4</li>
+  <li>Check KVC reopening, Kahuku status and open overlooks in the NPS app</li>
+  <li>Verify the drive times marked "verify" in Google Maps</li>
+</ul>
+
+<footer>Placeholder itinerary. Hours checked against NPS pages in Oct 2026; confirm everything once dates are set.</footer>
+</div>
+
+</body></html>
