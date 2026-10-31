@@ -1,0 +1,196 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Denver Rocky Mountain Run</title>
+<script>document.documentElement.classList.add("t-dusk")</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Karla:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: single column, timestamp gutter, stops on a vertical line. Six hardcoded Rocky Mountain palettes, switched by a class on <html>. */
+:root{--display:'Fraunces',Georgia,serif;--body:'Karla','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',ui-monospace,monospace}
+
+.picker{display:grid;gap:8px;margin:0 0 22px}
+.picker-label{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.picker-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.picker button{display:flex;gap:10px;align-items:center;text-align:left;padding:8px 10px;border:1.5px solid;border-radius:10px;cursor:pointer;font:600 14px var(--body)}
+.picker .dots{display:flex;flex:none}
+.picker .dots i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(128,128,128,.4);margin-left:-4px}
+.picker .dots i:first-child{margin-left:0}
+.picker .nm{display:grid;line-height:1.2;min-width:0}
+.picker small{font-weight:400;font-size:12px}
+.picker button:focus-visible,.tabs button:focus-visible{outline:3px solid;outline-offset:2px}
+.ridge{display:block;width:100%;height:auto;max-width:100%;margin-top:4px}
+body{font-family:var(--body);font-size:16px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+header{display:grid;gap:10px;padding-bottom:22px;border-bottom:2px solid}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:inherit}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,7vw,46px);line-height:1.05;margin:0;color:inherit;text-wrap:balance}
+.sub{color:inherit;margin:0;max-width:60ch}
+.placeholder{display:inline-flex;gap:6px;align-items:center;font-family:var(--mono);font-size:12px;background:inherit;border:1px dashed currentColor;color:inherit;padding:4px 10px;border-radius:999px;width:max-content}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:inherit}
+.facts b{color:inherit}
+h2{font-family:var(--display);font-weight:600;font-size:24px;margin:36px 0 4px;color:inherit;text-wrap:balance}
+.daynote{color:inherit;margin:0 0 16px;font-size:15px}
+.tl{display:grid;gap:0}
+.row{display:grid;grid-template-columns:64px 1fr;gap:14px}
+.time{font-family:var(--mono);font-size:13px;color:inherit;padding-top:14px;text-align:right;font-variant-numeric:tabular-nums}
+.stop{position:relative;border-left:2px solid currentColor;padding:10px 0 18px 18px;min-width:0}
+.stop::before{content:"";position:absolute;left:-7px;top:16px;width:12px;height:12px;border-radius:50%;background:inherit;border:2px solid currentColor}
+.stop h3{margin:0 0 4px;font-size:17px;font-weight:700;color:inherit}
+.stop p{margin:0;color:inherit;font-size:15px}
+.stamp{margin-top:10px;border:2px dashed currentColor;border-radius:10px;padding:10px 12px;background:inherit;font-size:14px;color:inherit}
+.stamp b{color:inherit;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:2px}
+.drive{display:grid;grid-template-columns:64px 1fr;gap:14px}
+.drive span.pill{justify-self:start;margin:2px 0 2px -1px;font-family:var(--mono);font-size:12px;background:inherit;color:inherit;padding:4px 12px;border-radius:999px;border-left:2px solid currentColor}
+.drive .gap{border-left:2px solid currentColor;padding:4px 0 4px 16px}
+.drive a{color:inherit}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px}
+.tabs button{font:600 14px var(--body);padding:8px 14px;border-radius:8px;border:1.5px solid currentColor;background:inherit;color:inherit;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:inherit;color:inherit}
+.tabs button:focus-visible{outline:3px solid currentColor;outline-offset:2px}
+.callout{background:inherit;border-left:4px solid currentColor;padding:12px 14px;border-radius:6px;font-size:14px;color:inherit;margin:12px 0}
+.checklist{display:grid;gap:8px;padding:0;margin:12px 0 0;list-style:none}
+.checklist li{display:flex;gap:10px;font-size:15px}
+.checklist li::before{content:"☐";color:inherit}
+footer{margin-top:40px;font-size:13px;color:inherit;border-top:1px solid currentColor;padding-top:14px}
+@media (max-width:480px){.row,.drive{grid-template-columns:48px 1fr;gap:10px}.time{font-size:12px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+html.t-dusk, html.t-dusk body{background:#2B2440 !important;color:#F1ECF7 !important;color-scheme:dark}
+html.t-dusk .eyebrow, html.t-dusk .stamp b{color:#F07167}
+html.t-dusk h1, html.t-dusk .time, html.t-dusk .drive a, html.t-dusk .checklist li::before{color:#F2B880}
+html.t-dusk .sub, html.t-dusk .facts, html.t-dusk .daynote, html.t-dusk .stop p, html.t-dusk footer, html.t-dusk .picker-label{color:#B9AFCB}
+html.t-dusk .facts b, html.t-dusk h2, html.t-dusk .stop h3, html.t-dusk .stamp, html.t-dusk .callout{color:#F1ECF7}
+html.t-dusk .placeholder{background:#372F52;border-color:#F07167;color:#F07167}
+html.t-dusk header{border-bottom-color:#F2B880}
+html.t-dusk .stop, html.t-dusk .drive .gap{border-left-color:#54476F}
+html.t-dusk .stop::before{background:#372F52;border-color:#F2B880}
+html.t-dusk .stamp{border-color:#F07167;background:#372F52}
+html.t-dusk .drive span.pill{background:#45395F;color:#F2B880;border-left-color:#54476F}
+html.t-dusk .tabs button{border-color:#F2B880;background:#372F52;color:#F2B880}
+html.t-dusk .tabs button[aria-pressed="true"]{background:#F2B880;color:#2B2440}
+html.t-dusk button:focus-visible{outline-color:#F07167}
+html.t-dusk .callout{background:#372F52;border-left-color:#F07167}
+html.t-dusk footer{border-top-color:#54476F}
+html.t-dusk .ridge-back{fill:#45395F}
+html.t-dusk .ridge-front{fill:#F2B880}
+html.t-dusk .ridge-snow{fill:#372F52}
+html.t-dusk .picker button{background:#372F52;color:#F1ECF7;border-color:#54476F}
+html.t-dusk .picker button[aria-pressed="true"]{border-color:#F07167;box-shadow:0 0 0 1px #F07167}
+html.t-dusk .picker small{color:#B9AFCB}
+
+.cal{margin:20px 0 4px;display:grid;gap:12px}
+.cal-days{display:grid;grid-template-columns:repeat(3,minmax(0,128px));gap:6px}
+.cal-day{border-radius:8px;padding:8px 10px 10px;display:grid;gap:2px;align-content:start}
+.cal-dow{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.cal-what{font-weight:700;font-size:14px;line-height:1.25}
+.cal-sub{font-size:11px}
+.cal-legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:12px}
+.cal-legend span{display:inline-flex;align-items:center;gap:6px}
+.cal-legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+html.t-dusk .cal-day.c-fly{background:#372F52;color:#F1ECF7}
+html.t-dusk .cal-day.c-fly .cal-dow, html.t-dusk .cal-day.c-fly .cal-sub{color:#B9AFCB}
+html.t-dusk .cal-day.c-stamp{background:#F2B880;color:#2B2440}
+html.t-dusk .cal-day.c-stamp .cal-dow, html.t-dusk .cal-day.c-stamp .cal-sub{color:#5A3F3A}
+html.t-dusk .cal-legend{color:#B9AFCB}
+html.t-dusk .cal-legend i.c-fly{background:#372F52;border:1px solid #54476F}
+html.t-dusk .cal-legend i.c-stamp{background:#F2B880}
+
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">NPS Passport Run · Colorado</div>
+  <h1>Denver Rocky Mountain Run</h1>
+  <p class="sub">Regular-weekend fly-in. Rocky Mountain NP on Saturday, Florissant Fossil Beds on Sunday, home Sunday night.</p>
+  <span class="placeholder">◌ Placeholder — dates, flights and hotels not booked</span>
+  <svg class="ridge" viewBox="0 0 760 70" aria-hidden="true"><path class="ridge-back" d="M0 70 L0 48 L70 30 L130 44 L210 12 L280 38 L350 22 L430 46 L520 8 L600 36 L680 20 L760 40 L760 70Z"/><path class="ridge-front" d="M0 70 L0 58 L90 42 L160 56 L250 28 L330 52 L410 36 L480 54 L560 26 L640 50 L720 38 L760 50 L760 70Z"/><path class="ridge-snow" d="M250 28 L236 36 L246 34 L252 38 L262 33 Z M560 26 L546 35 L556 33 L563 37 L572 32 Z"/></svg>
+  <div class="facts">
+    <span><b>Fly</b> OAK ⇄ DEN</span>
+    <span><b>Car</b> Costco Travel rental at DEN</span>
+    <span><b>New sites</b> 2 (ROMO, FLFO)</span>
+    <span><b>Stamp stations</b> 3–5</span>
+  </div>
+</header>
+
+<section class="cal" aria-label="Trip at a glance">
+  <div class="cal-days">
+    <div class="cal-day c-fly"><div class="cal-dow">Fri · TBD</div><div class="cal-what">Fly OAK–DEN</div><div class="cal-sub">Night in Longmont</div></div>
+    <div class="cal-day c-stamp"><div class="cal-dow">Sat · TBD</div><div class="cal-what">Rocky Mountain</div><div class="cal-sub">Up to 4 stamps</div></div>
+    <div class="cal-day c-stamp"><div class="cal-dow">Sun · TBD</div><div class="cal-what">Florissant</div><div class="cal-sub">Fly DEN–OAK tonight</div></div>
+  </div>
+  <div class="cal-legend"><span><i class="c-fly"></i>Flying</span><span><i class="c-stamp"></i>Stamp days</span></div>
+</section>
+
+<h2>Friday · Day 0</h2>
+<p class="daynote">After work. Arrive late, no activities.</p>
+<div class="tl">
+  <div class="row"><div class="time">eve</div><div class="stop"><h3>OAK → DEN</h3><p>Flight TBD. Pick up rental at DEN.</p></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~45 min · DEN → Longmont</span></div></div>
+  <div class="row"><div class="time">late</div><div class="stop"><h3>Best Western Plus Plaza Hotel, Longmont</h3><p>1900 Ken Pratt Blvd. Positions you for Estes Park in the morning.</p></div></div>
+</div>
+
+<h2>Saturday · Rocky Mountain NP</h2>
+<p class="daynote">Pick the version that matches Trail Ridge Road's status. Call (970) 586-1222 the morning before.</p>
+<div class="tabs" role="group" aria-label="Trail Ridge Road status">
+  <button id="tabA" aria-pressed="true" data-v="A">A · Trail Ridge open</button>
+  <button id="tabB" aria-pressed="false" data-v="B">B · Trail Ridge closed</button>
+</div>
+
+<div id="planA" class="tl">
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~1 hr · Longmont → Estes Park (verify)</span></div></div>
+  <div class="row"><div class="time">8:00</div><div class="stop"><h3>Beaver Meadows Visitor Center</h3><p>Opens 8 am. Park film, relief map, accessible restrooms.</p><div class="stamp"><b>Stamp</b>Rocky Mountain NP — Beaver Meadows VC</div></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~10 min</span></div></div>
+  <div class="row"><div class="time">9:00</div><div class="stop"><h3>Fall River Visitor Center</h3><p>Open on select dates only in fall. Skip if closed.</p><div class="stamp"><b>Stamp · if open</b>Rocky Mountain NP — Fall River VC</div></div></div>
+  <div class="row"><div class="time">9:30</div><div class="stop"><h3>Trail Ridge Road overlooks</h3><p>Enter at Fall River. Rainbow Curve, Forest Canyon Overlook, roadside pull-outs.</p></div></div>
+  <div class="row"><div class="time">11:00</div><div class="stop"><h3>Alpine Visitor Center</h3><p>11,796 ft. Open only while Trail Ridge is open. Fall hours start later in the morning.</p><div class="stamp"><b>Stamp</b>Rocky Mountain NP — Alpine VC</div></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 West side descent (verify)</span></div></div>
+  <div class="row"><div class="time">1:00</div><div class="stop"><h3>Kawuneeche Visitor Center</h3><p>West entrance near Grand Lake. Lunch in Grand Lake.</p><div class="stamp"><b>Stamp</b>Rocky Mountain NP — Kawuneeche VC</div></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 Grand Lake → Berthoud Pass → I-70 → Golden (verify)</span> · <a href="https://www.google.com/maps/dir/Beaver+Meadows+Visitor+Center,+Estes+Park,+CO/Alpine+Visitor+Center,+CO/Kawuneeche+Visitor+Center,+Grand+Lake,+CO/Golden,+CO" target="_blank" rel="noopener">Route A in Google Maps</a></div></div>
+  <div class="row"><div class="time">eve</div><div class="stop"><h3>Hotel in Golden or Lakewood</h3><p>Best Western preferred. TBD.</p></div></div>
+</div>
+
+<div id="planB" class="tl" hidden>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~1 hr · Longmont → Estes Park (verify)</span></div></div>
+  <div class="row"><div class="time">8:00</div><div class="stop"><h3>Beaver Meadows Visitor Center</h3><p>Opens 8 am, year-round.</p><div class="stamp"><b>Stamp</b>Rocky Mountain NP — Beaver Meadows VC</div></div></div>
+  <div class="row"><div class="time">9:00</div><div class="stop"><h3>Bear Lake Road · Sprague Lake</h3><p>Scenic drive with a flat, easy lakeside loop.</p><div class="callout">Bear Lake Road needs a timed-entry permit (5 am–6 pm) through Oct 19, 2026. $2 on recreation.gov.</div></div></div>
+  <div class="row"><div class="time">11:00</div><div class="stop"><h3>Fall River Visitor Center</h3><p>Open on select dates only in fall and winter.</p><div class="stamp"><b>Stamp · if open</b>Rocky Mountain NP — Fall River VC</div></div></div>
+  <div class="row"><div class="time">11:45</div><div class="stop"><h3>Alluvial Fan · Trail Ridge to Many Parks Curve</h3><p>Drive up to the winter closure gate for the valley view.</p></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 Peak to Peak Byway → Nederland → Boulder Canyon → Golden (verify)</span> · <a href="https://www.google.com/maps/dir/Estes+Park,+CO/Nederland,+CO/Golden,+CO" target="_blank" rel="noopener">Route B in Google Maps</a></div></div>
+  <div class="row"><div class="time">eve</div><div class="stop"><h3>Hotel in Golden or Lakewood</h3><p>Best Western preferred. TBD. Kawuneeche is skipped in this version.</p></div></div>
+</div>
+
+<h2>Sunday · Florissant, then home</h2>
+<p class="daynote">Head south, then north to DEN on a different road. No backtracking.</p>
+<div class="tl">
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~2 hr · Golden → Florissant</span></div></div>
+  <div class="row"><div class="time">9:30</div><div class="stop"><h3>Florissant Fossil Beds Visitor Center</h3><p>Open about 9 am–4:30 pm. Giant petrified redwood stumps right behind the visitor center.</p><div class="stamp"><b>Stamp</b>Florissant Fossil Beds NM</div></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 ~46 min · → Colorado Springs</span></div></div>
+  <div class="row"><div class="time">12:30</div><div class="stop"><h3>Garden of the Gods Visitor Center</h3><p>City park, no NPS stamp. Paved central loop among the red rock fins. Lunch nearby.</p></div></div>
+  <div class="drive"><div></div><div class="gap"><span class="pill">🚗 I-25 north → DEN (verify)</span> · <a href="https://www.google.com/maps/dir/Golden,+CO/Florissant+Fossil+Beds+Visitor+Center/Garden+of+the+Gods+Visitor+Center/Denver+International+Airport" target="_blank" rel="noopener">Sunday route in Google Maps</a></div></div>
+  <div class="row"><div class="time">eve</div><div class="stop"><h3>Return rental · DEN → OAK</h3><p>Allow 2+ hours for the drive and rental return. Aim for a flight around 7 pm or later.</p></div></div>
+</div>
+
+<h2>To lock in</h2>
+<ul class="checklist">
+  <li>Pick the weekend</li>
+  <li>Flights on Google Flights (OAK ⇄ DEN)</li>
+  <li>Rental via Costco Travel</li>
+  <li>Hotels: Longmont (Fri), Golden/Lakewood (Sat)</li>
+  <li>Bear Lake Road permit, only if the weekend is on or before Oct 19</li>
+  <li>Check Trail Ridge status and visitor center hours in the NPS app</li>
+  <li>Verify the drive times marked "verify" in Google Maps</li>
+</ul>
+
+<footer>Placeholder itinerary. Times are approximate and will be confirmed once dates are set.</footer>
+</div>
+
+<script>
+
+document.querySelectorAll('.tabs button').forEach(function(b){
+  b.addEventListener('click',function(){
+    var v=b.dataset.v;
+    document.querySelectorAll('.tabs button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
+    document.getElementById('planA').hidden = v!=='A';
+    document.getElementById('planB').hidden = v!=='B';
+  });
+});
+</script>
+
+</body></html>
