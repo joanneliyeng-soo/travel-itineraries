@@ -1,0 +1,475 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>NYC Stamp Run</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: harbor-ticket header, at-a-glance cards, then one vertical timeline per day
+   (time column | rail | stop), Uber/walk connector pills between stops, dashed stamp blocks.
+   Palette (hardcoded hex, single light theme): ink #1A2233, harbor navy #1F2A44,
+   Liberty verdigris #3F8C7E, copper #B5652A, stone #EEF1F3, card #FFFFFF */
+html, body { background: #EEF1F3 !important; color: #1A2233 !important; color-scheme: light; }
+body { font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 15px; line-height: 1.5; }
+* { box-sizing: border-box; }
+a { color: #2F6F63; }
+a:focus-visible { outline: 2px solid #B5652A; outline-offset: 2px; }
+.wrap { max-width: 860px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* Header */
+.hero { background: #1F2A44; color: #FFFFFF; }
+.hero .wrap { padding-block: 36px 30px; display: flex; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #9FC9BF; }
+h1 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: clamp(40px, 8vw, 64px); line-height: .95; margin: 6px 0 8px; letter-spacing: .01em; text-wrap: balance; color: #FFFFFF; }
+h1 span { color: #E39A62; }
+.byline { color: #C9D2E0; font-size: 15px; }
+.badge { width: 118px; height: 118px; border-radius: 50%; border: 3px solid #3F8C7E; outline: 1px dashed #9FC9BF; outline-offset: -10px; display: grid; place-content: center; text-align: center; flex: none; background: #24324F; }
+.badge b { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 44px; line-height: 1; color: #FFFFFF; }
+.badge small { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #9FC9BF; }
+
+main.wrap { padding-block: 28px 56px; display: grid; gap: 40px; }
+h2 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 600; font-size: 28px; letter-spacing: .02em; margin: 0 0 14px; color: #1F2A44; text-wrap: balance; }
+
+/* At a glance */
+.glance { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.card { background: #FFFFFF; border: 1px solid #D6DCE3; border-radius: 6px; padding: 16px; min-width: 0; }
+.card h3 { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #6A7487; margin: 0 0 8px; font-weight: 500; }
+.card p { margin: 0 0 4px; }
+.card .big { font-weight: 600; font-size: 16px; }
+.muted { color: #5C667A; font-size: 13.5px; }
+.mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+/* Day ticket */
+.day { display: grid; gap: 0; }
+.ticket { display: flex; align-items: stretch; background: #FFFFFF; border: 2px solid #1F2A44; border-radius: 6px; overflow: hidden; margin-bottom: 18px; }
+.ticket .date { background: #1F2A44; color: #FFFFFF; padding: 10px 16px; text-align: center; display: grid; place-content: center; min-width: 88px; }
+.ticket .date .dow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .14em; color: #9FC9BF; }
+.ticket .date .num { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 36px; font-weight: 700; line-height: 1; }
+.ticket .date .mon { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .14em; color: #E39A62; }
+.ticket .info { padding: 12px 16px; display: grid; align-content: center; gap: 2px; min-width: 0; border-left: 2px dashed #1F2A44; }
+.ticket .info b { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 24px; font-weight: 600; color: #1F2A44; line-height: 1.1; }
+.ticket .info span { color: #5C667A; font-size: 14px; }
+.ticket .count { margin-left: auto; padding: 12px 16px; display: grid; place-content: center; text-align: center; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .1em; color: #2F6F63; text-transform: uppercase; }
+.ticket .count b { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 30px; color: #3F8C7E; letter-spacing: 0; }
+
+/* Timeline */
+.tl { display: grid; }
+.row { display: grid; grid-template-columns: 64px 22px minmax(0, 1fr); column-gap: 10px; }
+.time { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: #1F2A44; text-align: right; padding-top: 12px; font-variant-numeric: tabular-nums; }
+.rail { position: relative; }
+.rail::before { content: ""; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #C3CBD5; }
+.row:first-child .rail::before { top: 18px; }
+.row:last-child .rail::before { bottom: calc(100% - 18px); }
+.dot { position: absolute; left: 4px; top: 13px; width: 14px; height: 14px; border-radius: 50%; background: #FFFFFF; border: 2px solid #6A7487; }
+.row.stamp .dot { background: #B5652A; border-color: #B5652A; }
+.row.bonus .dot { background: #FFFFFF; border-color: #B5652A; }
+.stop { padding-block: 8px 10px; min-width: 0; }
+.stop h4 { margin: 0; font-size: 16px; font-weight: 600; color: #1A2233; }
+.stop p { margin: 2px 0 0; color: #3E485C; font-size: 14px; }
+.tag { display: inline-block; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; vertical-align: 2px; margin-left: 6px; background: #E3EDEA; color: #2F6F63; }
+.tag.copper { background: #F5E6DA; color: #8E4A1C; }
+
+.stampblock { margin-top: 8px; border: 2px dashed #B5652A; border-radius: 6px; background: #FFFFFF; padding: 10px 12px; display: grid; gap: 4px; }
+.stampblock .lbl { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #8E4A1C; }
+.stampblock div { font-size: 14px; color: #1A2233; }
+.stampblock .hrs { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; color: #3E485C; }
+.alert { margin-top: 6px; font-size: 13.5px; color: #7A3A12; background: #FBF1E8; border-left: 3px solid #B5652A; padding: 6px 10px; border-radius: 0 4px 4px 0; }
+
+.conn .stop { padding-block: 2px 6px; }
+.pill { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; background: #1F2A44; color: #FFFFFF; padding: 4px 10px; border-radius: 999px; }
+.pill.walk { background: #3F8C7E; }
+.pill.ferry { background: #2C5A86; }
+.pill a { color: #F2C6A3; text-decoration: none; }
+.pill a:hover { text-decoration: underline; }
+
+.quiet { background: #FFFFFF; border: 1px solid #D6DCE3; border-radius: 6px; padding: 14px 16px; color: #3E485C; }
+
+/* Stamps list */
+.stamps { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.st { display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 2px dashed #B5652A; border-radius: 6px; padding: 10px 12px; min-width: 0; }
+.st.bonus { border-color: #C3CBD5; }
+.st .seal { width: 34px; height: 34px; border-radius: 50%; border: 2px solid #B5652A; display: grid; place-content: center; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; color: #B5652A; flex: none; }
+.st.bonus .seal { border-color: #8E99AA; color: #6A7487; }
+.st b { display: block; font-size: 14.5px; }
+.st span { font-size: 12.5px; color: #5C667A; }
+
+ul.rem { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+ul.rem li { background: #FFFFFF; border: 1px solid #D6DCE3; border-radius: 6px; padding: 10px 14px; display: flex; gap: 10px; }
+ul.rem li .box { width: 16px; height: 16px; border: 2px solid #1F2A44; border-radius: 3px; flex: none; margin-top: 3px; }
+ul.rem li div { min-width: 0; }
+footer { font-size: 12.5px; color: #6A7487; }
+
+@media (max-width: 480px) {
+  .row { grid-template-columns: 50px 20px minmax(0, 1fr); column-gap: 6px; }
+  .time { font-size: 12px; }
+  .ticket .count { display: none; }
+  .badge { width: 96px; height: 96px; }
+  .badge b { font-size: 36px; }
+}
+@media print {
+  html, body { background: #FFFFFF !important; }
+  .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .day { break-inside: auto; }
+  .row { break-inside: avoid; }
+}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">National Parks of New York Harbor</div>
+      <h1>NYC <span>Stamp Run</span></h1>
+      <div class="byline">Joanne · Sat Nov 7 – Sat Nov 14, 2026 · solo, by Uber</div>
+    </div>
+    <div class="badge" aria-label="9 new NPS stamps"><b>9</b><small>New stamps</small></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section aria-labelledby="glance">
+    <h2 id="glance">At a Glance</h2>
+    <div class="glance">
+      <div class="card">
+        <h3>Outbound flight</h3>
+        <p class="big">Alaska AS 211</p>
+        <p class="mono">Sat Nov 7 · SFO 7:00 AM → JFK 3:35 PM</p>
+        <p class="muted">Seat 26F · Confirmation UZNDJS</p>
+      </div>
+      <div class="card">
+        <h3>Return flight</h3>
+        <p class="big">Alaska AS 41</p>
+        <p class="mono">Sat Nov 14 · JFK 4:27 PM → SFO 8:00 PM</p>
+        <p class="muted">Seat 29F · Wheelchair assistance is on the reservation</p>
+      </div>
+      <div class="card">
+        <h3>Night 1 · Nov 7</h3>
+        <p class="big">Best Western Plus Soho</p>
+        <p>88 Walker St, New York, NY 10013</p>
+        <p class="muted">Confirmation 791146498 · bags held Sunday until ~2:30 PM</p>
+      </div>
+      <div class="card">
+        <h3>Nov 8 – 14</h3>
+        <p class="big">Hotel Henri</p>
+        <p>37 W 24th St, New York, NY 10010</p>
+        <p class="muted">Near the Patlytics office · bags held Saturday morning</p>
+      </div>
+      <div class="card">
+        <h3>Fees</h3>
+        <p>Every NPS site on this trip is free to enter.</p>
+        <p class="muted">The Statue of Liberty / Ellis Island ferry is a separate ticket from Statue City Cruises. Your parks pass doesn't cover it.</p>
+      </div>
+      <div class="card">
+        <h3>Getting around</h3>
+        <p>Uber for every leg except two short walks.</p>
+        <p class="muted">For transit, tap your phone or card (OMNY). Use the same device every time so transfers and the fare cap count.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAT NOV 7 -->
+  <section class="day" aria-labelledby="d1">
+    <div class="ticket">
+      <div class="date"><span class="dow">SAT</span><span class="num">7</span><span class="mon">NOV</span></div>
+      <div class="info"><b id="d1">Arrival</b><span>Fly in, check in, rest</span></div>
+      <div class="count"><b>0</b>stamps</div>
+    </div>
+    <div class="tl">
+      <div class="row">
+        <div class="time">7:00a</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>AS 211 departs SFO</h4></div>
+      </div>
+      <div class="row">
+        <div class="time">3:35p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>Land at JFK</h4><p>Wheelchair assistance meets you at the gate.</p></div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill">Uber · JFK → Soho <a href="https://www.google.com/maps/dir/?api=1&amp;origin=JFK+Airport&amp;destination=88+Walker+St,+New+York,+NY&amp;travelmode=driving" target="_blank" rel="noopener">Check time ↗</a></span></div>
+      </div>
+      <div class="row">
+        <div class="time">eve</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>Check in · Best Western Plus Soho</h4><p>No stamps today. Every site closes by 4–5 PM.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUN NOV 8 -->
+  <section class="day" aria-labelledby="d2">
+    <div class="ticket">
+      <div class="date"><span class="dow">SUN</span><span class="num">8</span><span class="mon">NOV</span></div>
+      <div class="info"><b id="d2">Lower Manhattan &amp; the Harbor</b><span>Battery → Liberty → Ellis → Wall St → Village → Flatiron</span></div>
+      <div class="count"><b>5</b>stamps</div>
+    </div>
+    <div class="tl">
+      <div class="row">
+        <div class="time">8:15a</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>Check out · leave bags at BW Soho</h4><p>Confirm at check-in that they'll hold them until about 2:30 PM.</p></div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill">Uber · Soho → Battery Park <a href="https://www.google.com/maps/dir/?api=1&amp;origin=88+Walker+St,+New+York,+NY&amp;destination=Castle+Clinton+National+Monument&amp;travelmode=driving" target="_blank" rel="noopener">Check time ↗</a></span></div>
+      </div>
+      <div class="row stamp">
+        <div class="time">8:40a</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>Castle Clinton <span class="tag">NM</span></h4>
+          <p>Ferry ticket windows and security are inside the fort.</p>
+          <div class="stampblock">
+            <span class="lbl">◈ Stamp station</span>
+            <div>Bookshop inside the fort</div>
+            <span class="hrs">Daily · 7:45 AM – 5:00 PM</span>
+          </div>
+          <p class="muted" style="margin-top:6px">Fully accessible, including exhibits and restrooms.</p>
+        </div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill ferry">Ferry · 9:00 AM first departure · reserved ticket</span></div>
+      </div>
+      <div class="row stamp">
+        <div class="time">9:15a</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>Statue of Liberty <span class="tag">NM</span></h4>
+          <p>Battery Park ferries always stop at Liberty Island first.</p>
+          <div class="stampblock">
+            <span class="lbl">◈ Stamp station</span>
+            <div>Information Center, just inside the door, a few moments from the dock</div>
+            <span class="hrs">Daily · hours follow the boat schedule</span>
+          </div>
+          <p class="muted" style="margin-top:6px">Ramp to the right of the Information Center.</p>
+        </div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill ferry">Ferry · Liberty → Ellis</span></div>
+      </div>
+      <div class="row bonus">
+        <div class="time">10:45a</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>Ellis Island <span class="tag copper">Bonus</span></h4>
+          <p>Part of Statue of Liberty NM. Ask a ranger for the Ellis Island cancellation for your extra-cancellations page. Keep it to the stamp and a quick look; the afternoon is timed.</p>
+        </div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill ferry">Ferry · Ellis → Battery Park</span></div>
+      </div>
+      <div class="row">
+        <div class="time">12:45p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>Back at the Battery</h4><p>Grab lunch on the way to Wall St.</p></div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill walk">Walk · ~0.6 mi <a href="https://www.google.com/maps/dir/?api=1&amp;origin=Castle+Clinton+National+Monument&amp;destination=15+Pine+St,+New+York,+NY&amp;travelmode=walking" target="_blank" rel="noopener">Route ↗</a></span></div>
+      </div>
+      <div class="row stamp">
+        <div class="time">1:00p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>Federal Hall <span class="tag">N Mem</span></h4>
+          <div class="stampblock">
+            <span class="lbl">◈ Stamp station</span>
+            <div>Visitor entrance at 15 Pine St (the Wall St side has steps)</div>
+            <span class="hrs">Wed – Sun · 10:00 AM – 4:00 PM</span>
+          </div>
+          <div class="alert">⚠ Some older sources list weekday-only hours. Confirm in the NPS app before Sunday.</div>
+        </div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill">Uber · Wall St → Christopher St <a href="https://www.google.com/maps/dir/?api=1&amp;origin=15+Pine+St,+New+York,+NY&amp;destination=51+Christopher+St,+New+York,+NY&amp;travelmode=driving" target="_blank" rel="noopener">Check time ↗</a></span></div>
+      </div>
+      <div class="row stamp">
+        <div class="time">1:45p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>Stonewall <span class="tag">NM</span></h4>
+          <div class="stampblock">
+            <span class="lbl">◈ Stamp station</span>
+            <div>Stonewall National Monument Visitor Center, 51 Christopher St</div>
+            <span class="hrs">Tue – Sun · 10:00 AM – 4:00 PM (per NPS)</span>
+          </div>
+          <div class="alert">⚠ Google lists it as closed Sundays. Call (212) 355-6295. If it's closed, move Stonewall to Saturday between Hamilton Grange and Henri.</div>
+          <p class="muted" style="margin-top:6px">Wheelchair accessible. Christopher Park's accessible entrance is on W 4th St.</p>
+        </div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill">Uber · Village → Soho <a href="https://www.google.com/maps/dir/?api=1&amp;origin=51+Christopher+St,+New+York,+NY&amp;destination=88+Walker+St,+New+York,+NY&amp;travelmode=driving" target="_blank" rel="noopener">Check time ↗</a></span></div>
+      </div>
+      <div class="row">
+        <div class="time">2:30p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>Pick up bags · BW Soho</h4></div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill">Uber · Soho → Flatiron <a href="https://www.google.com/maps/dir/?api=1&amp;origin=88+Walker+St,+New+York,+NY&amp;destination=37+W+24th+St,+New+York,+NY&amp;travelmode=driving" target="_blank" rel="noopener">Check time ↗</a></span></div>
+      </div>
+      <div class="row">
+        <div class="time">3:00p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>Drop bags · Hotel Henri</h4><p>Check in or leave bags at the desk and head straight out.</p></div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill walk">Walk · ~0.4 mi <a href="https://www.google.com/maps/dir/?api=1&amp;origin=37+W+24th+St,+New+York,+NY&amp;destination=28+E+20th+St,+New+York,+NY&amp;travelmode=walking" target="_blank" rel="noopener">Route ↗</a></span></div>
+      </div>
+      <div class="row stamp">
+        <div class="time">3:15p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>Theodore Roosevelt Birthplace <span class="tag">NHS</span></h4>
+          <div class="stampblock">
+            <span class="lbl">◈ Stamp station</span>
+            <div>Visitor center, 28 E 20th St</div>
+            <span class="hrs">Wed – Sun · 10:00 AM – 4:00 PM (Google) · 5 PM per NPS</span>
+          </div>
+          <div class="alert">⚠ Plan on 4 PM. If Sunday runs late, TR is also open Saturday morning.</div>
+        </div>
+      </div>
+      <div class="row bonus">
+        <div class="time">opt.</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>Tenement Museum <span class="tag copper">Bonus</span></h4>
+          <p>103 Orchard St · daily 10 AM – 6 PM. NPS affiliated area, not in your book's New York pages. Goes in extra cancellations. Uber from Henri if you have energy left.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEEK -->
+  <section class="day" aria-labelledby="dw">
+    <div class="ticket">
+      <div class="date"><span class="dow">MON–FRI</span><span class="num">9–13</span><span class="mon">NOV</span></div>
+      <div class="info"><b id="dw">Work week</b><span>Patlytics office · nothing planned</span></div>
+    </div>
+    <p class="quiet">Every stamp site closes by 4–5 PM, so weekday evenings won't work for stamps.</p>
+  </section>
+
+  <!-- SAT NOV 14 -->
+  <section class="day" aria-labelledby="d3">
+    <div class="ticket">
+      <div class="date"><span class="dow">SAT</span><span class="num">14</span><span class="mon">NOV</span></div>
+      <div class="info"><b id="d3">Uptown, then out to JFK</b><span>Broadway → Morningside → Hamilton Heights → Henri → Queens</span></div>
+      <div class="count"><b>4</b>stamps</div>
+    </div>
+    <div class="tl">
+      <div class="row">
+        <div class="time">9:30a</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>Check out · leave bags at Henri front desk</h4></div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill">Uber · Flatiron → Foley Sq <a href="https://www.google.com/maps/dir/?api=1&amp;origin=37+W+24th+St,+New+York,+NY&amp;destination=290+Broadway,+New+York,+NY&amp;travelmode=driving" target="_blank" rel="noopener">Check time ↗</a></span></div>
+      </div>
+      <div class="row stamp">
+        <div class="time">10:00a</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>African Burial Ground <span class="tag">NM</span></h4>
+          <div class="stampblock">
+            <span class="lbl">◈ Stamp station</span>
+            <div>Visitor center, 290 Broadway, inside the Ted Weiss Federal Building</div>
+            <span class="hrs">Tue – Sat · 10:00 AM – 4:00 PM · closed Sun &amp; Mon</span>
+          </div>
+          <div class="alert">⚠ Airport-style security to enter. Today is your only chance at this stamp.</div>
+        </div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill">Uber · Foley Sq → Riverside &amp; 122nd <a href="https://www.google.com/maps/dir/?api=1&amp;origin=290+Broadway,+New+York,+NY&amp;destination=General+Grant+National+Memorial&amp;travelmode=driving" target="_blank" rel="noopener">Check time ↗</a></span></div>
+      </div>
+      <div class="row stamp">
+        <div class="time">11:00a</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>General Grant <span class="tag">N Mem</span></h4>
+          <div class="stampblock">
+            <span class="lbl">◈ Stamp station</span>
+            <div>Visitor center, Riverside Dr &amp; W 122nd St</div>
+            <span class="hrs">Wed – Sun · 10:00 AM – 4:00 PM</span>
+          </div>
+        </div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill">Uber · uphill to St. Nicholas Park <a href="https://www.google.com/maps/dir/?api=1&amp;origin=General+Grant+National+Memorial&amp;destination=414+W+141st+St,+New+York,+NY&amp;travelmode=driving" target="_blank" rel="noopener">Check time ↗</a></span></div>
+      </div>
+      <div class="row stamp">
+        <div class="time">11:40a</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>Hamilton Grange <span class="tag">N Mem</span></h4>
+          <div class="stampblock">
+            <span class="lbl">◈ Stamp station</span>
+            <div>Visitor center, lower level of The Grange, 414 W 141st St</div>
+            <span class="hrs">Wed – Sun · 10:00 AM – 4:00 PM</span>
+          </div>
+          <p class="muted" style="margin-top:6px">The house sits on a steep bluff. Have the Uber drop you at the W 141st St entrance.</p>
+        </div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill">Uber · back to Flatiron <a href="https://www.google.com/maps/dir/?api=1&amp;origin=414+W+141st+St,+New+York,+NY&amp;destination=37+W+24th+St,+New+York,+NY&amp;travelmode=driving" target="_blank" rel="noopener">Check time ↗</a></span></div>
+      </div>
+      <div class="row">
+        <div class="time">12:30p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>Pick up bags · Hotel Henri</h4></div>
+      </div>
+      <div class="row conn">
+        <div class="time"></div><div class="rail"></div>
+        <div class="stop"><span class="pill">Uber with a stop · Henri → Jamaica Bay → JFK <a href="https://www.google.com/maps/dir/?api=1&amp;origin=37+W+24th+St,+New+York,+NY&amp;destination=JFK+Airport&amp;waypoints=Jamaica+Bay+Wildlife+Refuge+Visitor+Center&amp;travelmode=driving" target="_blank" rel="noopener">Check time ↗</a></span></div>
+      </div>
+      <div class="row stamp">
+        <div class="time">1:30p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop">
+          <h4>Gateway <span class="tag">NRA</span></h4>
+          <div class="stampblock">
+            <span class="lbl">◈ Stamp station</span>
+            <div>Jamaica Bay Wildlife Refuge Visitor Center, Cross Bay Blvd, Queens</div>
+            <span class="hrs">Sat – Sun · 10:00 AM – 4:00 PM</span>
+          </div>
+          <p class="muted" style="margin-top:6px">Book the Uber from Henri with JFK as the destination and the refuge as a stop. Tell the driver you need about 10 minutes; your bags stay in the car. If running late, skip this stop.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="time">~2:00p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>JFK</h4><p>Check your terminal for AS 41 in the Alaska app.</p></div>
+      </div>
+      <div class="row">
+        <div class="time">4:27p</div><div class="rail"><span class="dot"></span></div>
+        <div class="stop"><h4>AS 41 departs JFK</h4><p>Lands SFO 8:00 PM.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="stamps">
+    <h2 id="stamps">Stamps This Trip</h2>
+    <div class="stamps">
+      <div class="st"><span class="seal">1</span><div><b>Castle Clinton NM</b><span>Sun · Battery Park</span></div></div>
+      <div class="st"><span class="seal">2</span><div><b>Statue of Liberty NM</b><span>Sun · Liberty Island</span></div></div>
+      <div class="st"><span class="seal">3</span><div><b>Federal Hall N Mem</b><span>Sun · Wall St</span></div></div>
+      <div class="st"><span class="seal">4</span><div><b>Stonewall NM</b><span>Sun · Christopher St</span></div></div>
+      <div class="st"><span class="seal">5</span><div><b>Theodore Roosevelt Birthplace NHS</b><span>Sun · E 20th St</span></div></div>
+      <div class="st"><span class="seal">6</span><div><b>African Burial Ground NM</b><span>Sat · 290 Broadway</span></div></div>
+      <div class="st"><span class="seal">7</span><div><b>General Grant N Mem</b><span>Sat · Riverside Dr</span></div></div>
+      <div class="st"><span class="seal">8</span><div><b>Hamilton Grange N Mem</b><span>Sat · W 141st St</span></div></div>
+      <div class="st"><span class="seal">9</span><div><b>Gateway NRA</b><span>Sat · Jamaica Bay, Queens</span></div></div>
+      <div class="st bonus"><span class="seal">+</span><div><b>Ellis Island</b><span>Bonus cancellation</span></div></div>
+      <div class="st bonus"><span class="seal">+</span><div><b>Tenement Museum</b><span>Optional · affiliated area</span></div></div>
+    </div>
+    <p class="muted" style="margin-top:10px">49 collected → <b>58</b> after this trip. Not on this trip: Governors Island NM (off-season from Nov 1) and Saint Paul's Church NHS in Mount Vernon.</p>
+  </section>
+
+  <section aria-labelledby="rem">
+    <h2 id="rem">Before You Go</h2>
+    <ul class="rem">
+      <li><span class="box"></span><div><b>Book the 9:00 AM ferry</b> from Battery Park for Sun Nov 8 on statuecitycruises.com. Buy only from the official site or the windows inside Castle Clinton.</div></li>
+      <li><span class="box"></span><div><b>Call Stonewall</b> at (212) 355-6295 to confirm Sunday hours.</div></li>
+      <li><span class="box"></span><div><b>Check Federal Hall's hours</b> in the NPS app.</div></li>
+      <li><span class="box"></span><div><b>Ask BW Soho</b> to hold your bags until about 2:30 PM Sunday.</div></li>
+      <li><span class="box"></span><div><b>Ask Hotel Henri</b> to hold your bags Saturday morning after checkout.</div></li>
+      <li><span class="box"></span><div><b>Check every Uber leg</b> in Google Maps the night before. Times on this page are planning estimates.</div></li>
+      <li><span class="box"></span><div><b>Confirm your JFK terminal</b> for AS 41 in the Alaska app.</div></li>
+      <li><span class="box"></span><div><b>Pack your passport book</b> and a pen. Ask at every stop for any bonus cancellations.</div></li>
+    </ul>
+  </section>
+
+  <footer>Hours from NPS, Google Maps and park listings as of Oct 23, 2026. The NPS app is the final word on day-of hours.</footer>
+</main>
+
+</body></html>
