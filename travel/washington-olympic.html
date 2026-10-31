@@ -1,0 +1,273 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Washington Long Weekend</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rokkitt:wght@500;700&family=Nunito+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: glacier-ice ground, slate ink; each stamp owns one color — Rainier red, Olympic Sound blue, Klondike gold. Single light look, hardcoded hex (Joanne's convention). */
+html, body { background:#F1F4F6 !important; color:#1D2A38 !important; color-scheme: light !important; }
+body { font-family:"Nunito Sans", "Helvetica Neue", Arial, sans-serif; font-size:15px; line-height:1.55; padding-inline:16px; padding-block:24px 56px; }
+.wrap { max-width:860px; margin:0 auto; display:flex; flex-direction:column; gap:28px; }
+h1, h2, h3 { font-family:"Rokkitt", Georgia, serif; color:#1D2A38; text-wrap:balance; margin:0; }
+a { color:#A8322F; font-weight:700; text-underline-offset:3px; }
+a:focus-visible { outline:2px solid #A8322F; outline-offset:2px; }
+.mono { font-family:"JetBrains Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums; }
+
+.hero { background:#1D2A38; color:#F1F4F6; border-radius:14px; padding:26px 22px; display:flex; flex-direction:column; gap:14px; }
+.hero .eyebrow { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#E3B75A; font-weight:800; }
+.hero h1 { color:#FFFFFF; font-size:clamp(34px, 7vw, 54px); line-height:1; }
+.hero p { margin:0; color:#CFD8E0; max-width:62ch; }
+.fu { display:flex; flex-wrap:wrap; gap:10px; }
+.fu span { font-family:"Rokkitt", Georgia, serif; font-size:17px; font-weight:700; border-radius:6px; padding:4px 10px; }
+.fu .r { background:#C8423E; color:#FFFFFF; }
+.fu .o { background:#2F6B8A; color:#FFFFFF; }
+.fu .k { background:#E3B75A; color:#1D2A38; }
+.meta { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { font-size:13px; font-weight:700; padding:5px 11px; border-radius:999px; background:#2E3F52; color:#F1F4F6; }
+.chip.tbd { background:transparent; border:1.5px dashed #E3B75A; color:#F1F4F6; }
+
+section { display:flex; flex-direction:column; gap:14px; }
+h2 { font-size:26px; }
+.sub { color:#566575; margin:0; }
+
+/* Day tiles (after the Florida page) */
+.days { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; }
+.tile { border-radius:10px; padding:12px 12px 14px; display:flex; flex-direction:column; gap:6px; min-width:0; min-height:96px; }
+.tile .dl { font-family:"JetBrains Mono", monospace; font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; }
+.tile b { font-size:17px; font-weight:800; line-height:1.2; overflow-wrap:anywhere; }
+.tile.trv { background:#1D2A38; color:#F1F4F6; } .tile.trv .dl { color:#AEBAC6; }
+.tile.r { background:#C8423E; color:#FFFFFF; } .tile.r .dl { color:#F7D3D1; }
+.tile.o { background:#2F6B8A; color:#FFFFFF; } .tile.o .dl { color:#CFE3EE; }
+.tile.k { background:#E3B75A; color:#1D2A38; } .tile.k .dl { color:#5E4410; }
+.keys { display:flex; flex-wrap:wrap; gap:8px 18px; font-size:14px; color:#34424F; }
+.keys span { display:flex; align-items:center; gap:7px; }
+.keys i { width:13px; height:13px; border-radius:3px; flex:0 0 13px; }
+@media (max-width:420px){ .days { grid-template-columns:repeat(2, 1fr); } }
+
+.glance { display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:12px; }
+.g { background:#FFFFFF; border:1px solid #D5DDE4; border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:4px; min-width:0; }
+.g .lbl { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#A8322F; font-weight:800; }
+.g small { color:#566575; font-size:13px; }
+
+.flag { background:#FDF1EF; border:1px solid #E6B3AE; border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:8px; }
+.flag h3 { font-size:19px; color:#8E2A27; }
+.flag p { margin:0; }
+.flag ul { margin:0; padding-left:20px; display:flex; flex-direction:column; gap:4px; }
+
+.day-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; border-bottom:3px solid #1D2A38; padding-bottom:8px; }
+.day-head.r { border-color:#C8423E; } .day-head.o { border-color:#2F6B8A; } .day-head.k { border-color:#E3B75A; }
+.day-head .dnum { font-family:"JetBrains Mono", monospace; font-size:13px; font-weight:600; color:#FFFFFF; background:#1D2A38; padding:3px 9px; border-radius:4px; }
+.day-head h2 { font-size:28px; }
+.maps { font-size:14px; margin:0; }
+
+.tl { display:flex; flex-direction:column; }
+.row { display:grid; grid-template-columns:76px 1fr; gap:14px; }
+.time { font-family:"JetBrains Mono", monospace; font-size:13px; font-weight:600; color:#1D2A38; padding-top:14px; text-align:right; font-variant-numeric:tabular-nums; }
+.stop { position:relative; border-left:2px solid #B4C0CB; padding:10px 0 14px 18px; display:flex; flex-direction:column; gap:6px; min-width:0; }
+.stop::before { content:""; position:absolute; left:-7px; top:17px; width:12px; height:12px; border-radius:50%; background:#F1F4F6; border:2px solid #1D2A38; }
+.stop.r::before { background:#C8423E; border-color:#C8423E; }
+.stop.o::before { background:#2F6B8A; border-color:#2F6B8A; }
+.stop.k::before { background:#E3B75A; border-color:#C99A3A; }
+.stop h3 { font-size:21px; line-height:1.15; }
+.tag { display:inline-block; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:4px; background:#C8423E; color:#FFFFFF; vertical-align:middle; margin-left:6px; }
+.tag.gold { background:#E3B75A; color:#1D2A38; }
+.tag.opt { background:#E2E8EE; color:#2E3F52; }
+.stop p { margin:0; max-width:66ch; }
+.stamp { border:2px dashed #C8423E; background:#FFF7F5; border-radius:8px; padding:9px 12px; display:flex; flex-direction:column; gap:2px; }
+.stamp .s1 { font-weight:800; color:#8E2A27; }
+.stamp .s2 { font-size:13.5px; color:#34424F; }
+.warn { font-size:13.5px; color:#5E4410; background:#FBF1DC; border-radius:6px; padding:6px 10px; }
+.drive { display:grid; grid-template-columns:76px 1fr; gap:14px; }
+.drive > div:last-child { border-left:2px dotted #B4C0CB; padding:4px 0 4px 18px; }
+.pill { display:inline-flex; flex-wrap:wrap; gap:4px 8px; align-items:center; background:#1D2A38; color:#F1F4F6; font-size:13px; padding:5px 12px; border-radius:999px; max-width:100%; }
+.pill .mono { color:#E3B75A; }
+.pill.ferry { background:#2F6B8A; }
+.pill.ferry .mono { color:#FFFFFF; }
+
+.stamps { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; }
+.sc { border:2px dashed #C8423E; border-radius:10px; background:#FFFFFF; padding:14px; display:flex; flex-direction:column; gap:4px; }
+.sc .t { font-family:"Rokkitt", Georgia, serif; font-size:20px; font-weight:700; color:#1D2A38; line-height:1.15; }
+.sc .w { font-size:13px; color:#566575; }
+.sc .d { font-family:"JetBrains Mono", monospace; font-size:12px; font-weight:600; }
+
+ul.rem { margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px; }
+ul.rem li { max-width:70ch; }
+.src { font-size:13px; color:#566575; }
+.src ul { margin:6px 0 0; padding-left:18px; }
+
+@media (max-width:520px){
+  .row, .drive { grid-template-columns:56px 1fr; gap:10px; }
+  .time { font-size:12px; }
+  .hero { padding:20px 16px; }
+}
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">NPS passport run · Joanne &amp; John · future long weekend</div>
+  <h1>Washington Long Weekend</h1>
+  <p>A ready-to-date loop for a late-spring to early-fall three-day weekend: Paradise on Mount Rainier on Day 1, across the water to Olympic on Day 2, and the Klondike's gold in Seattle on Day 3. Two national parks, three new stamps, no backtracking.</p>
+  <div class="fu" aria-label="Themes"><span class="r">Paradise · Day 1</span><span class="o">Olympus · Day 2</span><span class="k">Gold · Day 3</span></div>
+  <div class="meta">
+    <span class="chip tbd">Dates TBD · Day 0 + 3 days</span>
+    <span class="chip">2 national parks · 3 new stamps · 38 → 41</span>
+    <span class="chip">Best mid-June to September</span>
+  </div>
+</header>
+
+<section>
+  <h2>The weekend at a glance</h2>
+  <div class="days">
+    <div class="tile trv"><span class="dl">Day 0</span><b>Arrive Seattle</b></div>
+    <div class="tile r"><span class="dl">Day 1</span><b>Mount Rainier · Paradise</b></div>
+    <div class="tile o"><span class="dl">Day 2</span><b>Olympic · Hurricane Ridge</b></div>
+    <div class="tile k"><span class="dl">Day 3</span><b>Ferry · Klondike · head home</b></div>
+  </div>
+  <div class="keys">
+    <span><i style="background:#1D2A38"></i>Travel days</span>
+    <span><i style="background:#C8423E"></i>Mount Rainier NP</span>
+    <span><i style="background:#2F6B8A"></i>Olympic NP</span>
+    <span><i style="background:#E3B75A"></i>Klondike Gold Rush NHP</span>
+  </div>
+</section>
+
+<section>
+  <h2>Details</h2>
+  <div class="glance">
+    <div class="g"><span class="lbl">Car</span><b>Round-trip rental from Seattle-Tacoma</b><small>Costco Travel. Any car works on these roads in summer.</small></div>
+    <div class="g"><span class="lbl">Night 0</span><b>Best Western Seattle Airport Hotel</b><small>SeaTac. Skips downtown traffic on the drive to Rainier.</small></div>
+    <div class="g"><span class="lbl">Night 1</span><b>National Park Inn, Longmire</b><small>Inside Mount Rainier, open year-round. Small; book first.</small></div>
+    <div class="g"><span class="lbl">Night 2</span><b>Olympic Lodge by Ayres, Port Angeles</b><small>No Best Western in Port Angeles.</small></div>
+  </div>
+</section>
+
+<div class="flag">
+  <h3>The one scheduling rule</h3>
+  <p>Klondike Gold Rush is open Wednesday–Sunday, so Day 3 needs to land on one of those days. Day 0 on a Thursday is the cleanest fit, putting Day 3 on a Sunday.</p>
+  <p>Mount Rainier has used timed-entry reservations for the Paradise area in some recent summers. Check once dates are set.</p>
+</div>
+
+<!-- DAY 0 -->
+<section>
+  <div class="day-head"><span class="dnum">DAY 0</span><h2>Arrive in Seattle</h2></div>
+  <div class="tl">
+    <div class="row"><div class="time">evening</div><div class="stop"><h3>Pick up the rental car</h3><p>Mostly an evening to get settled.</p></div></div>
+    <div class="row"><div class="time">late</div><div class="stop"><h3>Best Western Seattle Airport Hotel</h3><p>Early start tomorrow: summer weekends at Paradise fill the parking lots by late morning.</p></div></div>
+  </div>
+</section>
+
+<!-- DAY 1 -->
+<section>
+  <div class="day-head r"><span class="dnum">DAY 1</span><h2>Mount Rainier and Paradise</h2></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Best+Western+Seattle+Airport+Hotel/Longmire+Museum,+Mount+Rainier/Henry+M.+Jackson+Memorial+Visitor+Center,+Paradise/National+Park+Inn,+Longmire" target="_blank" rel="noopener">Open Day 1 in Google Maps</a> · about 3 hours at the wheel</p>
+  <div class="tl">
+    <div class="row"><div class="time">7:30</div><div class="stop"><h3>Depart SeaTac</h3><p>Getting to Paradise before late morning beats the summer parking crunch.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 45m</span> to the Nisqually Entrance, about 80 mi</span></div></div>
+
+    <div class="row"><div class="time">9:30</div><div class="stop r">
+      <h3>Longmire Museum <span class="tag">New park</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Mount Rainier National Park</span><span class="s2">Open daily in summer. Stamp here on the way up.</span></div>
+      <p>Drop the bags at the National Park Inn next door.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~30m</span> up the Paradise road</span></div></div>
+
+    <div class="row"><div class="time">10:30</div><div class="stop r">
+      <h3>Paradise + Jackson Visitor Center <span class="tag gold">Paradise</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Mount Rainier NP · Paradise</span><span class="s2">Open daily in summer.</span></div>
+      <p>Mount Rainier straight from the parking lot, with wildflower meadows from mid-July into August. Paved paths start right behind the visitor center; go as far as feels good. Lunch at the historic Paradise Inn, open in summer.</p>
+    </div></div>
+
+    <div class="row"><div class="time">3:30</div><div class="stop">
+      <h3>Head down from Paradise</h3>
+      <p>No rush in summer; stay longer for evening light on the mountain if you like.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~30m</span> back down to Longmire</span></div></div>
+
+    <div class="row"><div class="time">4:15</div><div class="stop"><h3>Check in: National Park Inn</h3><p>Dinner at the inn's dining room.</p></div></div>
+  </div>
+</section>
+
+<!-- DAY 2 -->
+<section>
+  <div class="day-head o"><span class="dnum">DAY 2</span><h2>Over the water to the Olympics</h2></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/National+Park+Inn,+Longmire/Olympic+National+Park+Visitor+Center,+Port+Angeles/Hurricane+Ridge/Olympic+Lodge+by+Ayres,+Port+Angeles" target="_blank" rel="noopener">Open Day 2 in Google Maps</a> · about 4¾ hours at the wheel</p>
+  <div class="tl">
+    <div class="row"><div class="time">8:00</div><div class="stop"><h3>Depart Longmire</h3></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~3h 15m</span> Tacoma Narrows Bridge → Hood Canal Bridge → US-101, about 158 mi</span></div></div>
+
+    <div class="row"><div class="time">11:15</div><div class="stop"><h3>Lunch in Port Angeles</h3></div></div>
+
+    <div class="row"><div class="time">12:15</div><div class="stop o">
+      <h3>Olympic National Park Visitor Center <span class="tag">New park</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Olympic National Park</span><span class="s2">Open daily. Confirm hours in the NPS app.</span></div>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~40m</span> Hurricane Ridge Rd, 17 mi</span></div></div>
+
+    <div class="row"><div class="time">1:30</div><div class="stop o">
+      <h3>Hurricane Ridge</h3>
+      <p>The Olympic range spread out from the parking area, often with deer grazing the meadows. The road is open daily in summer. The old lodge burned in 2023; temporary trailers have restrooms and a contact station. Bring water and snacks.</p>
+      <div class="warn">Your phone may roam onto Canadian networks up here.</div>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~40m</span> down to Port Angeles</span></div></div>
+
+    <div class="row"><div class="time">4:00</div><div class="stop"><h3>Check in: Olympic Lodge by Ayres</h3></div></div>
+  </div>
+</section>
+
+<!-- DAY 3 -->
+<section>
+  <div class="day-head k"><span class="dnum">DAY 3</span><h2>Ferry to the gold</h2></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Olympic+Lodge+by+Ayres,+Port+Angeles/Bainbridge+Island+Ferry+Terminal/Klondike+Gold+Rush+National+Historical+Park,+Seattle" target="_blank" rel="noopener">Open Day 3 in Google Maps</a> · about 2 hours at the wheel plus the ferry</p>
+  <div class="tl">
+    <div class="row"><div class="time">8:30</div><div class="stop"><h3>Depart Port Angeles</h3></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 40m</span> to the Bainbridge Island ferry terminal, about 71 mi</span></div></div>
+    <div class="drive"><div></div><div><span class="pill ferry"><span class="mono">~35m</span> Washington State Ferry to Colman Dock, downtown Seattle</span></div></div>
+
+    <div class="row"><div class="time">11:15</div><div class="stop k">
+      <h3>Klondike Gold Rush NHP, Seattle Unit <span class="tag">New stamp</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Klondike Gold Rush – Seattle Unit NHP</span><span class="s2">Open Wednesday–Sunday, 10:00–5:00.</span></div>
+      <p>319 Second Ave S in Pioneer Square, a few blocks from the ferry dock. The 22-minute gold rush film runs every half hour.</p>
+    </div></div>
+
+    <div class="row"><div class="time">12:30</div><div class="stop"><h3>Lunch in Pioneer Square</h3></div></div>
+    <div class="row"><div class="time">afternoon</div><div class="stop"><h3>Return the rental car and head home</h3></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Stamps this trip</h2>
+  <p class="sub">All three are new; the two national parks count toward your 63.</p>
+  <div class="stamps">
+    <div class="sc"><span class="d" style="color:#A8322F">DAY 1 · 9:30</span><span class="t">Mount Rainier NP</span><span class="w">Longmire Museum · Paradise variant at Jackson VC</span></div>
+    <div class="sc"><span class="d" style="color:#2F6B8A">DAY 2 · 12:15</span><span class="t">Olympic NP</span><span class="w">Olympic NP Visitor Center, Port Angeles</span></div>
+    <div class="sc"><span class="d" style="color:#9A7020">DAY 3 · 11:15</span><span class="t">Klondike Gold Rush – Seattle NHP</span><span class="w">Pioneer Square visitor center</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>To do before the trip</h2>
+  <ul class="rem">
+    <li><b>Once dates are set:</b> confirm Day 3 falls Wednesday–Sunday, then book the National Park Inn for Night 1 first. Summer rooms go months ahead.</li>
+    <li><b>Once dates are set:</b> check whether Mount Rainier needs a timed-entry reservation on your dates.</li>
+    <li><b>Once dates are set:</b> book Olympic Lodge by Ayres and the Best Western at SeaTac.</li>
+    <li><b>Rental:</b> reserve a round-trip car through Costco Travel.</li>
+    <li><b>Morning of each park day:</b> glance at road status. Rainier 360-569-2211, Hurricane Ridge 360-565-3131. Summer wildfire smoke can also close roads or hide the views.</li>
+    <li><b>Week before:</b> recheck visitor center hours in the NPS app and pull NWS forecasts for Paradise and Port Angeles.</li>
+    <li>Confirm drive times in Google Maps. The ones here come from NPS and travel guides.</li>
+  </ul>
+</section>
+
+<footer class="src">
+  Hours and rules last checked Sept 28, 2026, from these sources. Recheck once dates are set:
+  <ul>
+    <li><a href="https://www.nps.gov/mora/planyourvisit/hours.htm" target="_blank" rel="noopener">Mount Rainier operating hours</a></li>
+    <li><a href="https://www.nps.gov/olym/planyourvisit/visitorcenters.htm" target="_blank" rel="noopener">Olympic visitor centers</a></li>
+    <li><a href="https://visitseattle.org/members/klondike-gold-rush-nhp-seattle/" target="_blank" rel="noopener">Klondike Gold Rush NHP–Seattle (Visit Seattle)</a></li>
+  </ul>
+</footer>
+
+</div>
+
+</body></html>
