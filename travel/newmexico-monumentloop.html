@@ -1,0 +1,234 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>New Mexico Stamp Loop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: dark plum-brown masthead, then one vertical timeline per day — time column, dot rail, stop cards, drive pills, dashed stamp blocks.
+   Palette (hardcoded hex per Joanne's rule): night #1E2A4A, sky #F5F7FB, card #FFFFFF, ink #1B2233, muted #5B6478,
+   turquoise #17807E, ristra red #B3362B, sandstone #E8DCC8, pill #E4EEF0 */
+html, body { background: #F5F7FB !important; color: #1B2233 !important; color-scheme: light !important; }
+body { font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif; font-size: 16px; line-height: 1.5; }
+* { box-sizing: border-box; }
+a { color: #17807E; }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 16px; padding-block: 0 48px; }
+.mast { background: #1E2A4A; color: #F5F7FB; padding-block: 36px 30px; padding-inline: 16px; }
+.mast .in { max-width: 860px; margin: 0 auto; }
+.eyebrow { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #9FD3CF; }
+h1 { font-family: "Zilla Slab", Georgia, serif; font-weight: 700; font-size: clamp(34px, 7vw, 54px); line-height: 1.05; margin: 8px 0 10px; text-wrap: balance; color: #FFFFFF; }
+.sub { color: #C9D2E6; margin: 0; max-width: 60ch; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.badge { border: 1.5px dashed #9FD3CF; color: #E6F4F3; border-radius: 4px; padding: 4px 10px; font-size: 13px; font-weight: 600; }
+.badge.red { border-color: #F0A79E; color: #FBE3DF; }
+h2 { font-family: "Zilla Slab", Georgia, serif; font-size: 26px; margin: 40px 0 12px; text-wrap: balance; color: #1E2A4A; }
+.glance { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.g { background: #FFFFFF; border: 1px solid #DDE3EE; border-radius: 8px; padding: 14px 16px; min-width: 0; }
+.g h3 { margin: 0 0 6px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: #5B6478; }
+.g p { margin: 0 0 4px; }
+.mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; font-size: 14px; }
+.muted { color: #5B6478; font-size: 14px; }
+.day { margin-top: 44px; }
+.dayhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; border-bottom: 2px solid #1E2A4A; padding-bottom: 8px; }
+.dayhead .d { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; background: #1E2A4A; color: #FFFFFF; padding: 3px 8px; border-radius: 3px; letter-spacing: .06em; }
+.dayhead h2 { margin: 0; font-size: 24px; }
+.dayhead .map { margin-left: auto; font-size: 14px; font-weight: 600; }
+.tl { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 0; }
+.row { display: grid; grid-template-columns: 64px 18px 1fr; gap: 0 12px; }
+.t { font-family: "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; font-size: 13px; color: #5B6478; text-align: right; padding-top: 14px; }
+.rail { position: relative; }
+.rail::before { content: ""; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #C9D2E6; }
+.rail::after { content: ""; position: absolute; left: 3px; top: 17px; width: 12px; height: 12px; border-radius: 50%; background: #FFFFFF; border: 2px solid #1E2A4A; }
+.row.drive .rail::after { display: none; }
+.row.stamp .rail::after { background: #B3362B; border-color: #B3362B; }
+.card { padding: 10px 0 14px; min-width: 0; }
+.card h3 { margin: 0; font-size: 18px; font-weight: 700; color: #1B2233; }
+.type { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #17807E; margin-left: 6px; vertical-align: 2px; }
+.card p { margin: 4px 0 0; }
+.stampbox { margin-top: 8px; border: 2px dashed #B3362B; border-radius: 6px; padding: 8px 12px; background: #FFFFFF; }
+.stampbox b { color: #B3362B; }
+.warn { margin-top: 6px; font-size: 14px; color: #7A4A0B; background: #FBF1DE; border-radius: 4px; padding: 6px 10px; }
+.pill { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0; background: #E4EEF0; color: #10504F; border-radius: 999px; padding: 4px 12px; font-size: 13px; font-weight: 600; }
+.stamps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.st { border: 2px dashed #B3362B; border-radius: 6px; padding: 10px 12px; background: #FFFFFF; min-width: 0; }
+.st b { display: block; color: #1B2233; }
+.st span { font-size: 14px; color: #5B6478; }
+ul.rem { padding-left: 20px; margin: 0; display: grid; gap: 6px; max-width: 70ch; }
+@media (max-width: 480px) { .row { grid-template-columns: 50px 18px 1fr; gap: 0 8px; } .t { font-size: 12px; } .dayhead .map { margin-left: 0; width: 100%; } }
+
+/* Day strip calendar */
+.cal { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.cell { border-radius: 8px; padding: 12px 14px 14px; min-width: 0; color: #FFFFFF; background: #17807E; }
+.cell.fly { background: #1E2A4A; }
+.cell .dl { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+.cell .ct { font-weight: 700; font-size: 17px; line-height: 1.2; margin-top: 6px; }
+.cell .cs { font-size: 13px; margin-top: 4px; opacity: .9; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; color: #5B6478; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; background: #17807E; }
+.legend i.fly { background: #1E2A4A; }
+@media (max-width: 560px) { .cal { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+
+/* ---- Midnight Mesa (dark plum-brown, dusty rose, gold stamps) ---- */
+html, html body { background: #1A1420 !important; color: #F1E9F0 !important; color-scheme: dark !important; }
+html .mast { background: #0F0A14; border-bottom: 1px solid #3E3049; }
+html .eyebrow { color: #E7B4C2; }
+html .sub { color: #B3A3B6; }
+html .badge { border-color: #E7B4C2; color: #F1E9F0; }
+html .badge.red { border-color: #E8B04A; color: #F1E9F0; }
+html h2 { color: #F1E9F0; }
+html .g, html .stampbox, html .st { background: #261D2E; border-color: #3E3049; color: #F1E9F0; }
+html .g h3, html .muted, html .t, html .legend, html .st span { color: #B3A3B6; }
+html .card h3, html .st b { color: #F1E9F0; }
+html a, html .type { color: #E39AAE; }
+html .dayhead { border-bottom-color: #3E3049; }
+html .dayhead .d { background: #E39AAE; color: #1A1420; }
+html .rail::before { background: #3E3049; }
+html .rail::after { background: #1A1420; border-color: #E39AAE; }
+html .row.stamp .rail::after { background: #E8B04A; border-color: #E8B04A; }
+html .stampbox, html .st { border-color: #E8B04A; }
+html .stampbox b { color: #E8B04A; }
+html .pill { background: #33243A; color: #F0C3D0; }
+html .warn { background: #3A2E18; color: #F2D9A6; }
+html .cell, html .legend i { background: #A8537A; color: #FFFFFF; }
+html .cell.fly, html .legend i.fly { background: #3E3049; }
+</style>
+
+<header class="mast"><div class="in">
+  <div class="eyebrow">Joanne &amp; John · Placeholder · long weekend, dates TBD</div>
+  <h1>Land of Enchantment: a New Mexico stamp loop</h1>
+  <p class="sub">Albuquerque → Jemez Mountains → Santa Fe → Salt Missions → the old Zuni–Acoma trail. A Thursday-night-to-Sunday-night fly-in, ready to drop onto any long weekend.</p>
+  <div class="badges"><span class="badge">8 NPS units · up to 10 stamps</span><span class="badge">All times Mountain</span><span class="badge red">3 nights · 1 rental car</span></div>
+</div></header>
+
+
+<main class="wrap">
+  <h2>At a glance</h2>
+  <div class="cal" aria-label="Trip days">
+    <div class="cell fly"><div class="dl">Thu · Day 0</div><div class="ct">Fly OAK–ABQ</div><div class="cs">After work</div></div>
+    <div class="cell"><div class="dl">Fri · Day 1</div><div class="ct">Jemez &amp; Bandelier</div><div class="cs">Valles Caldera · Los Alamos · Bandelier</div></div>
+    <div class="cell"><div class="dl">Sat · Day 2</div><div class="ct">Salt Missions</div><div class="cs">Pecos · Quarai · Mountainair · Abó</div></div>
+    <div class="cell"><div class="dl">Sun · Day 3</div><div class="ct">West &amp; fly home</div><div class="cs">El Morro · El Malpais · Petroglyph · ABQ–OAK 7:50p</div></div>
+  </div>
+  <div class="legend"><span><i class="fly"></i>Flying</span><span><i></i>Stamp days</span></div>
+
+  <div class="glance">
+    <div class="g"><h3>Outbound · Thursday evening</h3><p class="mono">OAK ~6:00 PM PT → ABQ ~9:15 PM MT</p><p class="muted">Southwest nonstop · ~2 h 15 min. Sample timing; confirm once dates are picked.</p></div>
+    <div class="g"><h3>Return · Sunday evening</h3><p class="mono">ABQ ~7:50 PM MT → OAK ~11:30 PM PT</p><p class="muted">Southwest, often via SAN · ~4 h 30 min. Sample timing.</p></div>
+    <div class="g"><h3>Hotels</h3><p><b>Nights 1 &amp; 3:</b> Best Western Airport Albuquerque InnSuites, 2400 Yale Blvd SE</p><p><b>Night 2:</b> Best Western Plus Inn of Santa Fe, 3650 Cerrillos Rd</p></div>
+    <div class="g"><h3>Car &amp; passes</h3><p>Rental car via Costco Travel, pick up at the ABQ Sunport Rental Car Center (shuttle from terminal).</p><p class="muted">America the Beautiful + Access Pass cover entrance fees.</p></div>
+  </div>
+
+  <!-- DAY 0 -->
+  <section class="day">
+    <div class="dayhead"><span class="d">DAY 0 · THURSDAY</span><h2>Fly in after work</h2></div>
+    <ol class="tl">
+      <li class="row"><div class="t">6:00p PT</div><div class="rail"></div><div class="card"><h3>Depart Oakland</h3><p class="muted">Southwest nonstop to Albuquerque.</p></div></li>
+      <li class="row"><div class="t">9:15p</div><div class="rail"></div><div class="card"><h3>Land ABQ Sunport</h3><p>Shuttle to the Rental Car Center and pick up the car tonight, so Friday can start early.</p></div></li>
+      <li class="row"><div class="t">10:15p</div><div class="rail"></div><div class="card"><h3>Check in · Best Western Airport InnSuites</h3><p class="muted">No activities.</p></div></li>
+    </ol>
+  </section>
+
+  <!-- DAY 1 -->
+  <section class="day">
+    <div class="dayhead"><span class="d">DAY 1 · FRIDAY</span><h2>Caldera to cliff dwellings</h2>
+      <a class="map" href="https://www.google.com/maps/dir/Best+Western+Airport+Albuquerque+InnSuites/Valles+Caldera+National+Preserve/Manhattan+Project+National+Historical+Park+Los+Alamos/Bandelier+National+Monument/Best+Western+Plus+Inn+of+Santa+Fe" target="_blank" rel="noopener">Open route in Google Maps ↗</a></div>
+    <ol class="tl">
+      <li class="row"><div class="t">7:00a</div><div class="rail"></div><div class="card"><h3>Leave hotel</h3><p class="muted">Pack snacks and water; Jemez Springs is the last easy stop for gas.</p></div></li>
+      <li class="row drive"><div class="t"></div><div class="rail"></div><div class="card"><span class="pill">Drive ~2 hr · I-25 → US-550 → NM-4 Jemez Mountain Trail</span><p class="muted">Red cliffs at Jemez Pueblo, then Soda Dam roadside pullout.</p></div></li>
+      <li class="row stamp"><div class="t">9:00a</div><div class="rail"></div><div class="card"><h3>Valles Caldera<span class="type">National Preserve</span></h3>
+        <div class="stampbox"><b>Stamp:</b> Volcano Discovery Center, 4 miles down the entrance road in the Cabin District. Vehicle gate 9 AM – 5 PM most of the year (8 AM – 6 PM Memorial Day to Labor Day).</div>
+        <p>Drive-up views of the Valle Grande; the eruption show runs every hour on the half hour.</p>
+        <div class="warn">⚠ In winter, snow can close or delay the gate. Check park alerts the night before.</div></div></li>
+      <li class="row drive"><div class="t"></div><div class="rail"></div><div class="card"><span class="pill">Drive ~30 min · NM-4 → NM-501 into Los Alamos</span></div></li>
+      <li class="row stamp"><div class="t">10:45a</div><div class="rail"></div><div class="card"><h3>Los Alamos · Manhattan Project<span class="type">National Historical Park</span></h3>
+        <div class="stampbox"><b>Stamp:</b> Visitor Center, 475 20th St (Fri–Mon 10 AM – 3 PM). Includes one-third of the three-part Los Alamos / Oak Ridge / Hanford stamp.</div>
+        <div class="warn">⚠ If the NPS desk is closed, stamps are kept at the Los Alamos County Visitor Center in the same building. Call (505) 661-6277 the week before.</div>
+        <p>Lunch in Los Alamos, 11:30 – 12:20.</p></div></li>
+      <li class="row drive"><div class="t"></div><div class="rail"></div><div class="card"><span class="pill">Drive ~30 min · NM-501 → NM-4</span></div></li>
+      <li class="row stamp"><div class="t">1:00p</div><div class="rail"></div><div class="card"><h3>Bandelier<span class="type">National Monument</span></h3>
+        <div class="stampbox"><b>Stamp:</b> Frijoles Canyon Visitor Center, open daily 9 AM – 5 PM (closed Christmas).</div>
+        <p>Main Loop Trail's first stretch passes the Big Kiva and Tyuonyi village; the cliff dwellings need ladders, so enjoy them from below.</p>
+        <div class="warn">⚠ Mid-May to mid-October, cars arriving 9 AM – 3 PM must park at the White Rock Visitor Center and ride the shuttle in. Off-season, drive straight to the canyon.</div></div></li>
+      <li class="row drive"><div class="t">3:00p</div><div class="rail"></div><div class="card"><span class="pill">Drive ~1 hr · NM-4 → NM-502 → US-84/285</span></div></li>
+      <li class="row"><div class="t">4:00p</div><div class="rail"></div><div class="card"><h3>Check in · Best Western Plus Inn of Santa Fe</h3><p class="muted">Evening: dinner around the Santa Fe Plaza, ~15 min north.</p></div></li>
+    </ol>
+  </section>
+
+  <!-- DAY 2 -->
+  <section class="day">
+    <div class="dayhead"><span class="d">DAY 2 · SATURDAY</span><h2>Pecos and the Salt Missions</h2>
+      <a class="map" href="https://www.google.com/maps/dir/Best+Western+Plus+Inn+of+Santa+Fe/Pecos+National+Historical+Park/Moriarty+NM/Quarai+Ruins/Salinas+Pueblo+Missions+National+Monument+Visitor+Center+Mountainair/Abo+Ruins/Best+Western+Airport+Albuquerque+InnSuites" target="_blank" rel="noopener">Open route in Google Maps ↗</a></div>
+    <ol class="tl">
+      <li class="row"><div class="t">8:25a</div><div class="rail"></div><div class="card"><h3>Check out, leave Santa Fe</h3></div></li>
+      <li class="row drive"><div class="t"></div><div class="rail"></div><div class="card"><span class="pill">Drive ~35 min · I-25 north to Pecos</span></div></li>
+      <li class="row stamp"><div class="t">9:00a</div><div class="rail"></div><div class="card"><h3>Pecos<span class="type">National Historical Park</span></h3>
+        <div class="stampbox"><b>Stamp:</b> E.E. Fogelson Visitor Center, 9 AM – 4 PM in winter, 8:30 AM – 4 PM May to October.</div>
+        <p>Museum and film. The 1.25-mile Ancestral Sites Trail to the mission church is optional.</p></div></li>
+      <li class="row drive"><div class="t">10:15a</div><div class="rail"></div><div class="card"><span class="pill">Drive ~50 min · I-25 → US-285 → NM-41 south</span></div></li>
+      <li class="row"><div class="t">11:05a</div><div class="rail"></div><div class="card"><h3>Lunch in Moriarty</h3><p class="muted">Route 66 town, right on the way. Leave by 11:50.</p></div></li>
+      <li class="row drive"><div class="t"></div><div class="rail"></div><div class="card"><span class="pill">Drive ~40 min · NM-41 → Estancia → NM-55 south</span></div></li>
+      <li class="row stamp"><div class="t">12:30p</div><div class="rail"></div><div class="card"><h3>Quarai<span class="type">Salinas Pueblo Missions NM</span></h3>
+        <div class="stampbox"><b>Stamp:</b> Quarai contact station. Salinas hours are 9 AM – 4 PM Nov–Mar and 10 AM – 5 PM Apr–Oct.</div>
+        <p>Red sandstone mission church on a short half-mile loop.</p></div></li>
+      <li class="row drive"><div class="t"></div><div class="rail"></div><div class="card"><span class="pill">Drive ~15 min · NM-55 south</span></div></li>
+      <li class="row stamp"><div class="t">1:25p</div><div class="rail"></div><div class="card"><h3>Mountainair Headquarters<span class="type">Salinas Pueblo Missions NM</span></h3>
+        <div class="stampbox"><b>Stamp:</b> Main visitor center, 105 S Ripley Ave. Ask whether they also hold the Gran Quivira stamp.</div>
+        <p class="muted">Optional: Gran Quivira is 25 miles south and back, adding about 1.5 hours round trip.</p></div></li>
+      <li class="row drive"><div class="t"></div><div class="rail"></div><div class="card"><span class="pill">Drive ~10 min · US-60 west</span></div></li>
+      <li class="row stamp"><div class="t">2:05p</div><div class="rail"></div><div class="card"><h3>Abó<span class="type">Salinas Pueblo Missions NM</span></h3>
+        <div class="stampbox"><b>Stamp:</b> Abó contact station.</div></div></li>
+      <li class="row drive"><div class="t">2:40p</div><div class="rail"></div><div class="card"><span class="pill">Drive ~1 hr 20 min · US-60 → I-25 north</span></div></li>
+      <li class="row"><div class="t">4:00p</div><div class="rail"></div><div class="card"><h3>Check in · Best Western Airport InnSuites</h3><p class="muted">Evening: dinner in Old Town Albuquerque.</p></div></li>
+    </ol>
+  </section>
+
+  <!-- DAY 3 -->
+  <section class="day">
+    <div class="dayhead"><span class="d">DAY 3 · SUNDAY</span><h2>Inscriptions, lava, petroglyphs</h2>
+      <a class="map" href="https://www.google.com/maps/dir/Best+Western+Airport+Albuquerque+InnSuites/El+Morro+National+Monument/El+Malpais+National+Monument+Visitor+Center+Grants/Petroglyph+National+Monument+Visitor+Center/Boca+Negra+Canyon/Albuquerque+Sunport+Rental+Car+Center" target="_blank" rel="noopener">Open route in Google Maps ↗</a></div>
+    <ol class="tl">
+      <li class="row"><div class="t">7:00a</div><div class="rail"></div><div class="card"><h3>Check out, leave with luggage</h3><p class="muted">Gas up in Grants on the way; stations are sparse west of it.</p></div></li>
+      <li class="row drive"><div class="t"></div><div class="rail"></div><div class="card"><span class="pill">Drive ~2 hr · I-40 west → exit 81 → NM-53</span></div></li>
+      <li class="row stamp"><div class="t">9:00a</div><div class="rail"></div><div class="card"><h3>El Morro<span class="type">National Monument</span></h3>
+        <div class="stampbox"><b>Stamp:</b> Visitor center, 9 AM – 5 PM. Open daily late May to mid-October; Thursday–Monday the rest of the year (Sunday is always open).</div>
+        <p>The half-mile Inscription Loop passes the pool and centuries of carved signatures. Start it by 2:30 PM; trail status (505) 783-4226 x801.</p></div></li>
+      <li class="row drive"><div class="t">10:15a</div><div class="rail"></div><div class="card"><span class="pill">Drive ~45 min · NM-53 back to I-40 exit 85</span></div></li>
+      <li class="row stamp"><div class="t">11:00a</div><div class="rail"></div><div class="card"><h3>El Malpais<span class="type">National Monument</span></h3>
+        <div class="stampbox"><b>Stamp:</b> Visitor center, 1900 E Santa Fe Ave, Grants (I-40 exit 85), 9 AM – 5 PM.</div>
+        <p>Lunch in Grants, 11:30 – 12:15.</p></div></li>
+      <li class="row drive"><div class="t">12:15p</div><div class="rail"></div><div class="card"><span class="pill">Drive ~1 hr 15 min · I-40 east → Unser Blvd</span></div></li>
+      <li class="row stamp"><div class="t">1:30p</div><div class="rail"></div><div class="card"><h3>Petroglyph<span class="type">National Monument</span></h3>
+        <div class="stampbox"><b>Stamp:</b> Information Center, 6510 Western Trail NW, 8:30 AM – 4:30 PM. No petroglyphs here; it's the stamp and map stop.</div></div></li>
+      <li class="row drive"><div class="t"></div><div class="rail"></div><div class="card"><span class="pill">Drive ~5 min · Unser Blvd north</span></div></li>
+      <li class="row"><div class="t">2:10p</div><div class="rail"></div><div class="card"><h3>Boca Negra Canyon</h3><p>About 100 petroglyphs close to the parking areas. The Macaw Trail is a 5-minute walk; paths are partly paved but not wheelchair accessible. Last entry 4 PM.</p></div></li>
+      <li class="row drive"><div class="t">3:00p</div><div class="rail"></div><div class="card"><span class="pill">Drive ~20 min · to Old Town</span></div></li>
+      <li class="row"><div class="t">3:20p</div><div class="rail"></div><div class="card"><h3>Old Town Albuquerque &amp; early dinner</h3><p class="muted">San Felipe de Neri church and the plaza.</p></div></li>
+      <li class="row"><div class="t">5:30p</div><div class="rail"></div><div class="card"><h3>Return car · Sunport Rental Car Center</h3><p class="muted">Shuttle to the terminal; aim to be at security by 6:15.</p></div></li>
+      <li class="row"><div class="t">7:50p</div><div class="rail"></div><div class="card"><h3>Depart ABQ → OAK</h3><p class="muted">Home around 11:30 PM PT.</p></div></li>
+    </ol>
+  </section>
+
+  <h2>Stamps this trip</h2>
+  <div class="stamps">
+    <div class="st"><b>Valles Caldera NPres</b><span>Day 1 · Volcano Discovery Center</span></div>
+    <div class="st"><b>Manhattan Project NHP</b><span>Day 1 · Los Alamos</span></div>
+    <div class="st"><b>Bandelier NM</b><span>Day 1 · Frijoles Canyon VC</span></div>
+    <div class="st"><b>Pecos NHP</b><span>Day 2 · Fogelson VC</span></div>
+    <div class="st"><b>Salinas Pueblo Missions NM</b><span>Day 2 · Quarai, Mountainair HQ, Abó</span></div>
+    <div class="st"><b>El Morro NM</b><span>Day 3 · Visitor center</span></div>
+    <div class="st"><b>El Malpais NM</b><span>Day 3 · Grants visitor center</span></div>
+    <div class="st"><b>Petroglyph NM</b><span>Day 3 · Information Center</span></div>
+  </div>
+
+  <h2>Before picking dates</h2>
+  <ul class="rem">
+    <li><b>Skip Thanksgiving and Christmas weekends.</b> Most of these stops close on those holidays.</li>
+    <li><b>Season changes the plan.</b> Mid-May to mid-October means the Bandelier shuttle; November to April means possible snow on NM-4 and the Valles Caldera gate.</li>
+    <li><b>Book 2 hotel reservations:</b> the Airport InnSuites for nights 1 and 3, and Santa Fe for night 2.</li>
+    <li><b>Check hours in the NPS app the week before</b>, especially Valles Caldera and the Manhattan Project desk.</li>
+    <li><b>Day 3 is an out-and-back on I-40</b> (El Morro is a dead end off NM-53). It's the only backtrack of the trip.</li>
+    <li><b>Timezone:</b> New Mexico is one hour ahead of California.</li>
+  </ul>
+</main>
+
+</body></html>
