@@ -1,0 +1,260 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Mighty Five Long Weekend</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:wght@400;500;600;700;800&family=Fragment+Mono&display=swap">
+<style>
+/* Layout: gold on desert night blue. Deep slate-navy ground like Utah's night sky, lighter blue cards, pale sand text, warm gold accent; parks in gold, amber and pale sand. Single dark look on purpose, hardcoded hex (Joanne's convention). */
+html, body { background:#1B2A3F !important; color:#F3E9D6 !important; color-scheme: dark !important; }
+body { font-family:"Public Sans", "Helvetica Neue", Arial, sans-serif; font-size:15.5px; line-height:1.6; padding-inline:16px; padding-block:24px 56px; }
+.wrap { max-width:860px; margin:0 auto; display:flex; flex-direction:column; gap:30px; }
+h1, h2, h3 { font-family:"Young Serif", Georgia, serif; color:#F3E9D6; text-wrap:balance; margin:0; font-weight:400; }
+a { color:#F0C460; font-weight:700; text-underline-offset:3px; }
+a:focus-visible { outline:2px solid #F0C460; outline-offset:2px; }
+.mono { font-family:"Fragment Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums; }
+b, strong { color:#FFF7E8; }
+
+.hero { background:#25385A; border:1px solid #34507A; border-radius:14px; padding:28px 22px; display:flex; flex-direction:column; gap:14px; }
+.hero .eyebrow { font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:#E8B84A; font-weight:800; }
+.hero h1 { font-size:clamp(32px, 7vw, 54px); line-height:1.04; color:#F3E9D6; }
+.hero p { margin:0; color:#C9D2E0; max-width:62ch; }
+.five { display:flex; flex-wrap:wrap; gap:6px; }
+.five span { font-size:14px; font-weight:700; padding:4px 10px; border-radius:4px; }
+.five .have { border:1px solid #4A6290; color:#8FA0BC; }
+.five .get { background:#E8B84A; color:#1B2A3F; }
+.meta { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { font-size:13px; font-weight:700; padding:5px 11px; border-radius:999px; background:#34507A; color:#F3E9D6; }
+.chip.tbd { background:transparent; border:1.5px dashed #E8B84A; color:#F3E9D6; }
+.tbd-i { border-bottom:1.5px dashed #E8B84A; color:#F0C460; font-weight:700; }
+
+section { display:flex; flex-direction:column; gap:14px; }
+h2 { font-size:26px; }
+.sub { color:#AEBBCF; margin:0; }
+
+/* Day tiles (after the Florida page) */
+.days { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; }
+.tile { border-radius:10px; padding:12px 12px 16px; display:flex; flex-direction:column; gap:6px; min-width:0; min-height:96px; }
+.tile .dl { font-family:"Fragment Mono", monospace; font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; }
+.tile b { font-size:17px; font-weight:800; line-height:1.2; overflow-wrap:anywhere; color:inherit; }
+.tile.fly { background:#2E4468; color:#F3E9D6; } .tile.fly .dl { color:#AEBBCF; }
+.tile.ar { background:#E8B84A; color:#1B2A3F; } .tile.ar .dl { color:#4A3A12; }
+.tile.cy { background:#C98A2E; color:#1B2A3F; } .tile.cy .dl { color:#3E2A0C; }
+.tile.cr { background:#EAD9B4; color:#1B2A3F; } .tile.cr .dl { color:#5A4A2A; }
+.keys { display:flex; flex-wrap:wrap; gap:8px 18px; font-size:14px; color:#C9D2E0; }
+.keys span { display:flex; align-items:center; gap:7px; }
+.keys i { width:13px; height:13px; border-radius:3px; flex:0 0 13px; }
+@media (max-width:420px){ .days { grid-template-columns:repeat(2, 1fr); } }
+
+.glance { display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:12px; }
+.g { background:#25385A; border:1px solid #34507A; border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:4px; min-width:0; }
+.g .lbl { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#E8B84A; font-weight:800; }
+.g small { color:#AEBBCF; font-size:13px; }
+
+.flag { background:#2A3550; border:1px solid #8C7434; border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; }
+.flag h3 { font-size:19px; color:#E8B84A; }
+.flag p { margin:0; }
+
+.day-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; border-bottom:2px solid #E8B84A; padding-bottom:8px; }
+.day-head .dnum { font-family:"Fragment Mono", monospace; font-size:13px; color:#1B2A3F; background:#E8B84A; padding:3px 9px; border-radius:4px; }
+.day-head h2 { font-size:28px; }
+.day-head .date { color:#AEBBCF; font-weight:700; }
+.maps { font-size:14px; margin:0; color:#AEBBCF; }
+
+.tl { display:flex; flex-direction:column; }
+.row { display:grid; grid-template-columns:76px 1fr; gap:14px; }
+.time { font-family:"Fragment Mono", monospace; font-size:13px; color:#F0C460; padding-top:14px; text-align:right; }
+.stop { position:relative; border-left:2px solid #3D5580; padding:10px 0 14px 18px; display:flex; flex-direction:column; gap:6px; min-width:0; }
+.stop::before { content:""; position:absolute; left:-7px; top:17px; width:12px; height:12px; border-radius:50%; background:#1B2A3F; border:2px solid #AEBBCF; }
+.stop.ar::before { background:#E8B84A; border-color:#E8B84A; }
+.stop.cy::before { background:#C98A2E; border-color:#C98A2E; }
+.stop.cr::before { background:#EAD9B4; border-color:#EAD9B4; }
+.stop h3 { font-size:21px; line-height:1.2; }
+.tag { display:inline-block; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:4px; background:#E8B84A; color:#1B2A3F; vertical-align:middle; margin-left:6px; }
+.tag.opt { background:#34507A; color:#D9DFEA; }
+.stop p { margin:0; max-width:66ch; color:#E3E8F0; }
+.stamp { border:2px dashed #E8B84A; background:#213252; border-radius:8px; padding:9px 12px; display:flex; flex-direction:column; gap:2px; }
+.stamp .s1 { font-weight:800; color:#F0C460; }
+.stamp .s2 { font-size:14px; color:#D9DFEA; }
+.warn { font-size:14px; color:#F3E9D6; background:#2C3B58; border-left:3px solid #E8B84A; border-radius:0; padding:6px 10px; }
+.drive { display:grid; grid-template-columns:76px 1fr; gap:14px; }
+.drive > div:last-child { border-left:2px dotted #3D5580; padding:4px 0 4px 18px; }
+.pill { display:inline-flex; flex-wrap:wrap; gap:4px 8px; align-items:center; background:#2E4468; border:1px solid #3D5580; color:#F3E9D6; font-size:13px; padding:5px 12px; border-radius:999px; max-width:100%; }
+.pill .mono { color:#E8B84A; }
+
+.stamps { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; }
+.sc { border:2px dashed #E8B84A; border-radius:10px; background:#25385A; padding:14px; display:flex; flex-direction:column; gap:4px; }
+.sc .t { font-family:"Young Serif", Georgia, serif; font-size:20px; line-height:1.2; color:#F3E9D6; }
+.sc .w { font-size:13px; color:#AEBBCF; }
+.sc .d { font-family:"Fragment Mono", monospace; font-size:12px; color:#F0C460; }
+
+ul.rem { margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px; color:#E3E8F0; }
+ul.rem li { max-width:70ch; }
+ul.rem li::marker { color:#E8B84A; }
+.src { font-size:13px; color:#AEBBCF; }
+.src ul { margin:6px 0 0; padding-left:18px; }
+
+@media (max-width:520px){
+  .row, .drive { grid-template-columns:56px 1fr; gap:10px; }
+  .time { font-size:12px; }
+  .hero { padding:22px 16px; }
+}
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">NPS passport run · Joanne &amp; John · future long weekend</div>
+  <h1>Mighty Five Long Weekend</h1>
+  <p>A ready-to-date plan to finish Utah's five national parks over any three-day weekend: Arches on Day 1, Canyonlands and Capitol Reef on Day 2, home from Salt Lake City on Day 3. One loop, no backtracking.</p>
+  <div class="five" aria-label="Utah's Mighty Five">
+    <span class="have">Zion ✓</span><span class="have">Bryce Canyon ✓</span><span class="get">Arches</span><span class="get">Canyonlands</span><span class="get">Capitol Reef</span>
+  </div>
+  <div class="meta">
+    <span class="chip tbd">Dates TBD · Day 0 + 3 days</span>
+    <span class="chip">3 new national parks · 38 → 41 stamps</span>
+    <span class="chip">Mountain time · 1 hr ahead of home</span>
+  </div>
+</header>
+
+<section>
+  <h2>The weekend at a glance</h2>
+  <div class="days">
+    <div class="tile fly"><span class="dl">Day 0</span><b>Fly OAK–SLC</b></div>
+    <div class="tile ar"><span class="dl">Day 1</span><b>Arches</b></div>
+    <div class="tile cy"><span class="dl">Day 2</span><b>Canyonlands → Capitol Reef</b></div>
+    <div class="tile cr"><span class="dl">Day 3</span><b>Capitol Reef · fly home</b></div>
+  </div>
+  <div class="keys">
+    <span><i style="background:#2E4468;border:1px solid #4A6290"></i>Flying</span>
+    <span><i style="background:#E8B84A"></i>Arches NP</span>
+    <span><i style="background:#C98A2E"></i>Canyonlands NP</span>
+    <span><i style="background:#EAD9B4"></i>Capitol Reef NP</span>
+  </div>
+</section>
+
+<section>
+  <h2>Details</h2>
+  <div class="glance">
+    <div class="g"><span class="lbl">Flights</span><b>OAK → SLC · <span class="tbd-i">Day 0</span> evening</b><b>SLC → OAK · <span class="tbd-i">Day 3</span></b><small>Home flight any time after about 3:30 pm Mountain.</small></div>
+    <div class="g"><span class="lbl">Car</span><b>Round-trip rental from SLC, ideally AWD</b><small>Costco Travel. AWD matters most in winter, for the mountain passes in and out.</small></div>
+    <div class="g"><span class="lbl">Night 0</span><b>Best Western Plus Airport Inn &amp; Suites</b><small>5433 W Wiley Post Way, Salt Lake City</small></div>
+    <div class="g"><span class="lbl">Night 1</span><b>Best Western Plus Canyonlands Inn</b><small>16 S Main St, Moab</small></div>
+    <div class="g"><span class="lbl">Night 2</span><b>Capitol Reef Resort, Torrey</b><small>Long listed as a Best Western; confirm the brand when booking.</small></div>
+    <div class="g"><span class="lbl">Passes</span><b>America the Beautiful / Access Pass</b><small>Covers entrance fees at all three parks.</small></div>
+  </div>
+</section>
+
+<div class="flag">
+  <h3>If the long weekend includes a holiday</h3>
+  <p>Arches and Island in the Sky list Christmas as their only closed day, so they can take a holiday Day 1. Capitol Reef's visitor center may close on major holidays, so keep it on a non-holiday day, as this plan does.</p>
+</div>
+
+<!-- DAY 0 -->
+<section>
+  <div class="day-head"><span class="dnum">DAY 0</span><h2>Fly to Salt Lake</h2><span class="date tbd-i">Date TBD</span></div>
+  <div class="tl">
+    <div class="row"><div class="time">evening</div><div class="stop"><h3>Fly OAK → SLC after work</h3><p>Clocks jump an hour forward. Pick up the rental at SLC.</p></div></div>
+    <div class="row"><div class="time">late</div><div class="stop"><h3>Best Western Plus Airport Inn &amp; Suites</h3><p>In winter, check UDOT road conditions before bed for the drive over Soldier Summit.</p></div></div>
+  </div>
+</section>
+
+<!-- DAY 1 -->
+<section>
+  <div class="day-head"><span class="dnum">DAY 1</span><h2>Arches</h2><span class="date tbd-i">Date TBD</span></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Best+Western+Plus+Airport+Inn+%26+Suites,+Salt+Lake+City/Arches+National+Park+Visitor+Center/Best+Western+Plus+Canyonlands+Inn,+Moab" target="_blank" rel="noopener">Open Day 1 in Google Maps</a> · about 4½ hours at the wheel with the park drive</p>
+  <div class="tl">
+    <div class="row"><div class="time">8:00</div><div class="stop"><h3>Depart Salt Lake City</h3><p>In winter, sunrise is just before 8:00.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~3h 30m</span> I-15 → US-6 over Soldier Summit → I-70 → US-191</span></div></div>
+
+    <div class="row"><div class="time">11:30</div><div class="stop ar">
+      <h3>Arches Visitor Center <span class="tag">New park</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Arches National Park</span><span class="s2">Winter hours 9:00–4:30 daily, longer the rest of the year; closed only on Christmas.</span></div>
+      <p>Timed-entry reservations weren't required in 2026. Check the current rules once dates are set; they have applied in busy months in past years.</p>
+    </div></div>
+
+    <div class="row"><div class="time">12:15</div><div class="stop ar">
+      <h3>Arches Scenic Drive</h3>
+      <p>Park Avenue viewpoint, Balanced Rock right beside the road, then the Windows section, where the arches are visible from the parking area. Finish at the Delicate Arch lower viewpoint, a short walk from its lot.</p>
+      <div class="warn">Roads and viewpoints can ice over or close after snow. Check the park's alerts that morning.</div>
+    </div></div>
+
+    <div class="row"><div class="time">3:30</div><div class="stop"><h3>Back to Moab · Best Western Plus Canyonlands Inn</h3><p>Downtown on Main Street. Dinner within walking distance.</p></div></div>
+  </div>
+</section>
+
+<!-- DAY 2 -->
+<section>
+  <div class="day-head"><span class="dnum">DAY 2</span><h2>Island in the Sky, then Capitol Reef</h2><span class="date tbd-i">Date TBD</span></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Best+Western+Plus+Canyonlands+Inn,+Moab/Island+in+the+Sky+Visitor+Center/Capitol+Reef+Visitor+Center/Torrey,+UT" target="_blank" rel="noopener">Open Day 2 in Google Maps</a> · about 4 hours at the wheel</p>
+  <div class="tl">
+    <div class="row"><div class="time">8:20</div><div class="stop"><h3>Depart Moab</h3><p>Fill the tank first; there's no gas inside Canyonlands.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~40m</span> US-191 N → Scenic Byway 313, 32 mi</span></div></div>
+
+    <div class="row"><div class="time">9:00</div><div class="stop cy">
+      <h3>Island in the Sky Visitor Center <span class="tag">New park</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Canyonlands National Park</span><span class="s2">Winter hours 9:00–4:00, longer the rest of the year; closed only on Christmas. The Needles district closes in winter, so Island in the Sky is the reliable stop.</span></div>
+      <p>The Shafer Canyon overlook is next to the visitor center. Drive on to Grand View Point at the end of the road, where the canyons open up below a short walk from the car.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~3h</span> back to US-191 → I-70 → UT-24 via Hanksville</span></div></div>
+
+    <div class="row"><div class="time">2:00</div><div class="stop cr">
+      <h3>Capitol Reef Visitor Center <span class="tag">New park</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Capitol Reef National Park</span><span class="s2">Open daily, with shorter hours in winter. Call 435-425-3791 the week before to confirm.</span></div>
+      <p>The Fremont petroglyph panel is along UT-24 just east of the visitor center, with a short boardwalk from its parking area.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~15m</span> UT-24 W to Torrey</span></div></div>
+    <div class="row"><div class="time">3:30</div><div class="stop"><h3>Check in: Capitol Reef Resort</h3><p>The sandstone cliffs behind Torrey glow red at sunset.</p></div></div>
+  </div>
+</section>
+
+<!-- DAY 3 -->
+<section>
+  <div class="day-head"><span class="dnum">DAY 3</span><h2>A slow morning, then home</h2><span class="date tbd-i">Date TBD</span></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Torrey,+UT/Capitol+Reef+Visitor+Center/Salt+Lake+City+International+Airport" target="_blank" rel="noopener">Open Day 3 in Google Maps</a> · about 4 hours at the wheel</p>
+  <div class="tl">
+    <div class="row"><div class="time">8:30</div><div class="stop cr">
+      <h3>Capitol Reef Scenic Drive <span class="tag opt">Weather permitting</span></h3>
+      <p>The paved first stretch runs past the Fruita orchards and under the Waterpocket Fold cliffs. Turn back when it suits you. The Gifford House and its pies are open mid-March to late November only.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~3h 30m</span> UT-24 → UT-72 → I-70 → US-50 → I-15 N</span></div></div>
+    <div class="row"><div class="time">1:30</div><div class="stop"><h3>Lunch in Salt Lake, return the car, fly home</h3><p>No gas between Salina and Loa on the way out, so fill up in Torrey. You land back on Pacific time, an hour earlier by the clock.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Stamps this trip</h2>
+  <p class="sub">All three are new, all three count toward your 63, and together they finish Utah.</p>
+  <div class="stamps">
+    <div class="sc"><span class="d" style="color:#E8B84A">DAY 1 · 11:30</span><span class="t">Arches NP</span><span class="w">Arches Visitor Center</span></div>
+    <div class="sc"><span class="d" style="color:#C98A2E">DAY 2 · 9:00</span><span class="t">Canyonlands NP</span><span class="w">Island in the Sky Visitor Center</span></div>
+    <div class="sc"><span class="d" style="color:#EAD9B4">DAY 2 · 2:00</span><span class="t">Capitol Reef NP</span><span class="w">Capitol Reef Visitor Center</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>To do before the trip</h2>
+  <ul class="rem">
+    <li><b>Once dates are set:</b> book OAK ⇄ SLC flights and the three hotels. Confirm whether Capitol Reef Resort still carries the Best Western name.</li>
+    <li><b>Once dates are set:</b> reserve a round-trip AWD rental from SLC on Costco Travel.</li>
+    <li><b>Once dates are set:</b> check whether Arches requires timed entry on your dates.</li>
+    <li><b>Week before:</b> call Capitol Reef (435-425-3791) for hours, recheck Arches and Canyonlands in the NPS app, and pull NWS forecasts for Moab and Torrey.</li>
+    <li><b>Each driving morning (winter):</b> check UDOT road conditions. Soldier Summit (US-6) and the high road between Loa and I-70 are the snow risks.</li>
+    <li>Confirm drive times in Google Maps. The ones here come from NPS and travel guides.</li>
+  </ul>
+</section>
+
+<footer class="src">
+  Hours last checked Sept 29, 2026, from these sources. Recheck once dates are set:
+  <ul>
+    <li><a href="https://www.moabtimes.com/articles/southeast-utah-group-national-parks-announce-winter-visitor-center-hours-temporary-closures/" target="_blank" rel="noopener">Moab Times: Arches &amp; Canyonlands winter hours</a></li>
+    <li><a href="https://www.discovermoab.com/places-to-go/national-parks/arches-national-park/reservations/" target="_blank" rel="noopener">Discover Moab: Arches timed entry</a></li>
+    <li><a href="https://www.nps.gov/care/planyourvisit/hours.htm" target="_blank" rel="noopener">Capitol Reef operating hours</a></li>
+    <li><a href="https://www.moabadventurecenter.com/canyonlands-national-park/island-in-the-sky" target="_blank" rel="noopener">Moab Adventure Center: Island in the Sky</a></li>
+    <li><a href="https://cameraandacanvas.com/driving-from-moab-to-capitol-reef-national-park-utah/" target="_blank" rel="noopener">Camera and a Canvas: Moab to Capitol Reef</a></li>
+  </ul>
+</footer>
+
+</div>
+
+</body></html>
