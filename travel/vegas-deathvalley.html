@@ -1,0 +1,292 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Death Valley Long Weekend</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: salt-flat ground, dusk-indigo ink, Artists Palette accents. Single light look, hardcoded hex (Joanne's convention). */
+html, body { background:#EDEFF3 !important; color:#23263B !important; color-scheme: light !important; }
+body { font-family:"Figtree", "Helvetica Neue", Arial, sans-serif; font-size:15px; line-height:1.55; padding-inline:16px; padding-block:24px 56px; }
+.wrap { max-width:860px; margin:0 auto; display:flex; flex-direction:column; gap:28px; }
+h1, h2, h3 { font-family:"Zilla Slab", Georgia, serif; color:#23263B; text-wrap:balance; margin:0; }
+a { color:#6A4C93; font-weight:600; text-underline-offset:3px; }
+a:focus-visible { outline:2px solid #6A4C93; outline-offset:2px; }
+.mono { font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums; }
+
+/* Header */
+.hero { background:#23263B; color:#EDEFF3; border-radius:14px; padding:26px 22px; display:flex; flex-direction:column; gap:14px; }
+.hero .eyebrow { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#B9A6D6; font-weight:600; }
+.hero h1 { color:#FFFFFF; font-size:clamp(30px, 6vw, 46px); line-height:1.05; }
+.hero p { margin:0; color:#D4D7E3; max-width:62ch; }
+.band { display:flex; height:8px; border-radius:4px; overflow:hidden; }
+.band span { flex:1; }
+.meta { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { font-size:13px; font-weight:600; padding:5px 11px; border-radius:999px; background:#34385A; color:#EDEFF3; }
+.chip.hot { background:#B9A6D6; color:#23263B; }
+.chip.tbd { background:transparent; border:1.5px dashed #B9A6D6; color:#EDEFF3; }
+.tbd-i { border-bottom:1.5px dashed #9C8BC0; color:#4E3778; font-weight:700; }
+
+/* Sections */
+section { display:flex; flex-direction:column; gap:14px; }
+h2 { font-size:24px; }
+.sub { color:#5B5F76; margin:0; }
+.glance { display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:12px; }
+.g { background:#FFFFFF; border:1px solid #D7DAE3; border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:4px; min-width:0; }
+.g .lbl { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#6A4C93; font-weight:700; }
+.g b { font-weight:700; }
+.g small { color:#5B5F76; font-size:13px; }
+
+.flag { background:#FFF6E6; border:1px solid #E9C98F; border-radius:10px; padding:14px 16px; display:flex; flex-direction:column; gap:6px; }
+.flag h3 { font-size:17px; color:#7A4A10; }
+.flag p { margin:0; }
+
+/* Day */
+.day-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; border-bottom:2px solid #23263B; padding-bottom:8px; }
+.day-head .dnum { font-family:"IBM Plex Mono", monospace; font-size:13px; font-weight:600; color:#FFFFFF; background:#23263B; padding:3px 9px; border-radius:4px; }
+.day-head h2 { font-size:26px; }
+.day-head .date { color:#5B5F76; font-weight:600; }
+.maps { font-size:14px; }
+
+.tl { display:flex; flex-direction:column; }
+.row { display:grid; grid-template-columns:76px 1fr; gap:14px; }
+.time { font-family:"IBM Plex Mono", monospace; font-size:13px; font-weight:600; color:#23263B; padding-top:14px; text-align:right; font-variant-numeric:tabular-nums; }
+.stop { position:relative; border-left:2px solid #B7BCCB; padding:10px 0 14px 18px; display:flex; flex-direction:column; gap:6px; min-width:0; }
+.stop::before { content:""; position:absolute; left:-7px; top:17px; width:12px; height:12px; border-radius:50%; background:#EDEFF3; border:2px solid #23263B; }
+.stop.nps::before { background:#6A4C93; border-color:#6A4C93; }
+.stop h3 { font-size:19px; line-height:1.2; }
+.tag { display:inline-block; font-family:"Figtree", sans-serif; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:4px; background:#E4E0F0; color:#4E3778; vertical-align:middle; margin-left:6px; }
+.tag.new { background:#2F8F7D; color:#FFFFFF; }
+.tag.opt { background:#E6E8EE; color:#4A4E64; }
+.stop p { margin:0; max-width:66ch; }
+.stamp { border:2px dashed #6A4C93; background:#F6F3FB; border-radius:8px; padding:9px 12px; display:flex; flex-direction:column; gap:2px; }
+.stamp .s1 { font-weight:700; color:#4E3778; }
+.stamp .s2 { font-size:13.5px; color:#3C3F55; }
+.warn { font-size:13.5px; color:#7A4A10; background:#FFF6E6; border-radius:6px; padding:6px 10px; }
+.drive { display:grid; grid-template-columns:76px 1fr; gap:14px; }
+.drive > div:last-child { border-left:2px dotted #B7BCCB; padding:4px 0 4px 18px; }
+.pill { display:inline-flex; flex-wrap:wrap; gap:4px 8px; align-items:center; background:#23263B; color:#EDEFF3; font-size:13px; padding:5px 12px; border-radius:999px; max-width:100%; }
+.pill .mono { color:#B9A6D6; }
+
+/* Stamps list */
+.stamps { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:12px; }
+.sc { border:2px dashed #6A4C93; border-radius:10px; background:#FFFFFF; padding:14px; display:flex; flex-direction:column; gap:4px; }
+.sc .t { font-family:"Zilla Slab", Georgia, serif; font-size:18px; font-weight:700; color:#23263B; line-height:1.2; }
+.sc .w { font-size:13px; color:#5B5F76; }
+.sc .d { font-family:"IBM Plex Mono", monospace; font-size:12px; color:#2F8F7D; font-weight:600; }
+
+ul.rem { margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px; }
+ul.rem li { max-width:70ch; }
+.src { font-size:13px; color:#5B5F76; }
+.src ul { margin:6px 0 0; padding-left:18px; }
+
+@media (max-width:520px){
+  .row, .drive { grid-template-columns:56px 1fr; gap:10px; }
+  .time { font-size:12px; }
+  .hero { padding:20px 16px; }
+}
+@media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">NPS passport run · Joanne &amp; John · future long weekend</div>
+  <h1>Death Valley Long Weekend</h1>
+  <p>A ready-to-date plan for any three-day weekend: fly into Las Vegas the evening before, cross the Mojave into Death Valley, climb out to Lone Pine and Manzanar, and fly home from Bishop. One direction the whole way.</p>
+  <div class="band" aria-hidden="true"><span style="background:#C58B3E"></span><span style="background:#D9A3B8"></span><span style="background:#B9A6D6"></span><span style="background:#7FC1B0"></span><span style="background:#8EA3C9"></span></div>
+  <div class="meta">
+    <span class="chip tbd">Dates TBD · Day 0 + 3 days</span>
+    <span class="chip hot">4 new stamps · 38 → 42</span>
+    <span class="chip">Pacific time throughout</span>
+    <span class="chip">Best Oct–Apr (summer heat)</span>
+  </div>
+</header>
+
+<section>
+  <h2>At a glance</h2>
+  <div class="glance">
+    <div class="g"><span class="lbl">Fly in</span><b>OAK → LAS · <span class="tbd-i">Day 0</span></b><small>After work, evening flight.</small></div>
+    <div class="g"><span class="lbl">Fly out</span><b>BIH → SFO · <span class="tbd-i">Day 3</span></b><small>United flies year-round: daily in summer and winter, four days a week in spring and fall. Check the day works.</small></div>
+    <div class="g"><span class="lbl">Car</span><b>One-way rental LAS → Bishop (BIH)</b><small>Check Costco Travel first. Enterprise and National operate at BIH; supply is limited.</small></div>
+    <div class="g"><span class="lbl">Night 0</span><b>Best Western Plus Las Vegas South Henderson</b><small>3041 St. Rose Pkwy · about 7 mi from LAS, off the Strip</small></div>
+    <div class="g"><span class="lbl">Night 1</span><b>The Ranch at Death Valley (Furnace Creek)</b><small>No Best Western inside the park. Backup: Stovepipe Wells Village.</small></div>
+    <div class="g"><span class="lbl">Night 2</span><b>Best Western Plus Frontier Motel</b><small>1008 S Main St, Lone Pine · breakfast included</small></div>
+    <div class="g"><span class="lbl">Passes</span><b>America the Beautiful / Access Pass</b><small>Covers the Death Valley entrance fee. Mojave and Manzanar are free.</small></div>
+  </div>
+</section>
+
+<div class="flag">
+  <h3>Two things decide whether this exact plan works</h3>
+  <p><b>One-way car drop at Bishop.</b> Flying home from Bishop is what lets the route run in one direction. If Costco Travel won't do LAS → BIH or the drop fee is steep, use the fallback on Day 3 and fly home from Las Vegas.</p>
+  <p><b>The Bishop flight day and time.</b> Service is daily only in summer and winter. Day 3 is kept loose so any departure after late morning works.</p>
+</div>
+
+<!-- DAY 0 -->
+<section>
+  <div class="day-head"><span class="dnum">DAY 0</span><h2>Evening arrival</h2><span class="date tbd-i">Date TBD</span></div>
+  <div class="tl">
+    <div class="row"><div class="time">evening</div><div class="stop">
+      <h3>Fly OAK → Las Vegas (LAS)</h3>
+      <p>Travel after work, no sightseeing. Pick up the rental at the LAS Rent-A-Car Center.</p>
+      <div class="warn">If Day 0 lands on a big Vegas night (New Year's Eve, a major fight or convention), skip the Strip entirely and take I-215 straight to Henderson.</div>
+    </div></div>
+    <div class="row"><div class="time">late</div><div class="stop">
+      <h3>Best Western Plus Las Vegas South Henderson</h3>
+      <p>Sleep. Tomorrow starts at 7:00.</p>
+    </div></div>
+  </div>
+</section>
+
+<!-- DAY 1 -->
+<section>
+  <div class="day-head"><span class="dnum">DAY 1</span><h2>Mojave to the valley floor</h2><span class="date tbd-i">Date TBD</span></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Best+Western+Plus+Las+Vegas+South+Henderson/Essex,+CA/Hole-in-the-Wall+Information+Center,+Mojave+National+Preserve/Kelso+Depot,+Kelso,+CA/Baker,+CA/Shoshone,+CA/Badwater+Basin/Furnace+Creek+Visitor+Center" target="_blank" rel="noopener">Open Day 1 in Google Maps</a> · longest driving day, about 7¼ hours at the wheel</p>
+  <div class="tl">
+    <div class="row"><div class="time">7:00</div><div class="stop"><h3>Depart Henderson</h3><p>Eat at the hotel. Pack water and snacks: there is no food or gas inside Mojave National Preserve.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~2h 45m</span> US-95 S → I-40 W → Essex Rd → Black Canyon Rd</span></div></div>
+
+    <div class="row"><div class="time">9:45</div><div class="stop nps">
+      <h3>Hole-in-the-Wall Information Center <span class="tag">Mojave NPres</span></h3>
+      <div class="stamp"><span class="s1">Stamps: Mojave National Preserve + Castle Mountains NM</span><span class="s2">Both sets live here. A self-service stamp station on the front porch works even when the building is closed, so any day works.</span></div>
+      <p>Keep it to about 25 minutes. Look up at the pocked volcanic walls of Banshee Canyon from the picnic area. The Rings Loop climbs with metal rings, so skip it.</p>
+      <div class="warn">Use the paved Essex Road approach. NPS says not to follow GPS onto dirt roads here; the northern routes in via Cedar Canyon are unpaved.</div>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 20m</span> Essex Rd → I-40 W → Kelbaker Rd N</span></div></div>
+
+    <div class="row"><div class="time">11:30</div><div class="stop">
+      <h3>Kelso Depot <span class="tag opt">Photo + restroom stop</span></h3>
+      <p>The 1924 Union Pacific depot. The indoor visitor center was closed for HVAC repairs as of Sept 2026; if it has reopened, it has a Mojave stamp too. Outdoor areas, restrooms and water are open.</p>
+      <div class="warn">NPS warns of delays up to an hour at the Kelso railroad crossing. If a train is parked across it, cut this stop and head on to Baker.</div>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~40m</span> Kelbaker Rd N, 34 mi</span></div></div>
+
+    <div class="row"><div class="time">12:25</div><div class="stop"><h3>Baker: quick lunch + fill the tank</h3><p>Next gas is Shoshone, then Furnace Creek (expensive).</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~55m</span> CA-127 N, 56 mi</span></div></div>
+
+    <div class="row"><div class="time">1:55</div><div class="stop"><h3>Shoshone <span class="tag opt">Quick stop</span></h3><p>Restroom and a gas top-off. Turn onto CA-178 one mile north of town.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 10m</span> CA-178 over Jubilee Pass → Badwater Rd, 57 mi</span></div></div>
+
+    <div class="row"><div class="time">3:15</div><div class="stop nps">
+      <h3>Badwater Basin <span class="tag">Death Valley NP</span></h3>
+      <p>282 feet below sea level. Flat boardwalk out onto the salt; no need to go further than it runs.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~15m</span> Badwater Rd N</span></div></div>
+
+    <div class="row"><div class="time">3:55</div><div class="stop nps">
+      <h3>Artists Drive + Artists Palette</h3>
+      <p>9-mile one-way paved loop heading north. Pull over at Artists Palette for the pastel hillside, then rejoin Badwater Rd.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~15m</span> Badwater Rd → CA-190</span></div></div>
+
+    <div class="row"><div class="time">4:40</div><div class="stop nps">
+      <h3>Furnace Creek Visitor Center <span class="tag new">New park</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Death Valley National Park</span><span class="s2">Winter hours 8:00–5:00 daily; summer hours differ. This is tight. If you miss it, it's the first stop tomorrow at 8:00.</span></div>
+    </div></div>
+
+    <div class="row"><div class="time">4:50</div><div class="stop">
+      <h3>Zabriskie Point sunset <span class="tag opt">Optional</span></h3>
+      <p>About 3 miles up CA-190. Short paved but steep walk to the overlook. Winter sunset is around 4:50; later in spring and fall.</p>
+    </div></div>
+
+    <div class="row"><div class="time">5:15</div><div class="stop"><h3>Check in: The Ranch at Death Valley</h3><p>Dinner at the Ranch. Book early; long-weekend rooms go fast.</p></div></div>
+  </div>
+</section>
+
+<!-- DAY 2 -->
+<section>
+  <div class="day-head"><span class="dnum">DAY 2</span><h2>Across to the Sierra</h2><span class="date tbd-i">Date TBD</span></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Furnace+Creek+Visitor+Center/Harmony+Borax+Works/Mesquite+Flat+Sand+Dunes/Stovepipe+Wells+Village/Father+Crowley+Vista+Point/Eastern+Sierra+Interagency+Visitor+Center/Manzanar+National+Historic+Site/Best+Western+Plus+Frontier+Motel,+Lone+Pine" target="_blank" rel="noopener">Open Day 2 in Google Maps</a> · about 3 hours at the wheel</p>
+  <div class="tl">
+    <div class="row"><div class="time">8:00</div><div class="stop nps">
+      <h3>Furnace Creek Visitor Center <span class="tag opt">If missed yesterday</span></h3>
+      <p>Stamp, museum and the 20-minute park film. Otherwise start at Harmony Borax.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~5m</span> CA-190 N, 2 mi</span></div></div>
+
+    <div class="row"><div class="time">8:30</div><div class="stop nps"><h3>Harmony Borax Works</h3><p>Short paved path past the ruins and a 20-mule-team wagon.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~25m</span> CA-190 W</span></div></div>
+
+    <div class="row"><div class="time">9:15</div><div class="stop nps"><h3>Mesquite Flat Sand Dunes</h3><p>Morning light on the ripples, seen from the parking lot.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~5m</span> CA-190 W</span></div></div>
+
+    <div class="row"><div class="time">9:40</div><div class="stop nps">
+      <h3>Stovepipe Wells Ranger Station <span class="tag">Bonus cancellation</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Death Valley NP · Stovepipe Wells</span><span class="s2">Open only when staffed. Last gas before Panamint Springs.</span></div>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~50m</span> CA-190 W over Towne Pass</span></div></div>
+
+    <div class="row"><div class="time">10:45</div><div class="stop nps"><h3>Father Crowley Vista Point</h3><p>Paved lot overlooking Rainbow Canyon, your last big Death Valley view.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h</span> CA-190 → CA-136 to Lone Pine</span></div></div>
+
+    <div class="row"><div class="time">11:50</div><div class="stop">
+      <h3>Eastern Sierra InterAgency Visitor Center <span class="tag">Bonus cancellation</span></h3>
+      <div class="stamp"><span class="s1">Extra Death Valley cancellation</span><span class="s2">Open 8:30–4:30; closed on federal holidays, so keep this day off the holiday itself.</span></div>
+      <p>First full view of Mt. Whitney.</p>
+    </div></div>
+
+    <div class="row"><div class="time">12:30</div><div class="stop"><h3>Lunch in Lone Pine</h3></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~15m</span> US-395 N, 9 mi</span></div></div>
+
+    <div class="row"><div class="time">1:45</div><div class="stop nps">
+      <h3>Manzanar National Historic Site <span class="tag new">New stamp</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Manzanar NHS</span><span class="s2">Visitor center open Fri–Mon 9:00–4:30 (closed Tue–Thu and Dec 25). Block 14 barracks and mess hall open daily 9:00–4:15. Any Fri–Mon long weekend fits.</span></div>
+      <p>Visitor center first for the stamp and exhibits, then Block 14. The 3.2-mile driving tour is on a gravel road; decide on arrival.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~15m</span> US-395 S</span></div></div>
+
+    <div class="row"><div class="time">4:30</div><div class="stop"><h3>Check in: Best Western Plus Frontier Motel</h3><p>Watch the Sierra light up at sunset from the motel.</p></div></div>
+  </div>
+</section>
+
+<!-- DAY 3 -->
+<section>
+  <div class="day-head"><span class="dnum">DAY 3</span><h2>Whitney morning, home from Bishop</h2><span class="date tbd-i">Date TBD</span></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Best+Western+Plus+Frontier+Motel,+Lone+Pine/Eastern+Sierra+Regional+Airport,+Bishop" target="_blank" rel="noopener">Open Day 3 in Google Maps</a> · about 1 hour at the wheel</p>
+  <div class="tl">
+    <div class="row"><div class="time">sunrise</div><div class="stop"><h3>Mt. Whitney alpenglow</h3><p>Pink first light on the crest, visible from Lone Pine or the paved Whitney Portal Rd. Movie Road in the Alabama Hills is dirt, so skip it.</p></div></div>
+    <div class="row"><div class="time">morning</div><div class="stop"><h3>Hotel breakfast, easy start</h3><p>If Manzanar got cut short on Day 2, its visitor center reopens at 9:00 (Fri–Mon) and sits on the way north.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h</span> US-395 N, about 61 mi</span></div></div>
+    <div class="row"><div class="time">TBD</div><div class="stop"><h3>Return car at BIH, fly United to SFO</h3><p>Then home to Castro Valley. Arrive at the airport an hour ahead; it's a small terminal.</p></div></div>
+  </div>
+  <div class="flag">
+    <h3>Fallback if the Bishop one-way doesn't work</h3>
+    <p>Lone Pine → CA-190 → Stovepipe Wells → Daylight Pass → Beatty → US-95 → LAS, about 4 hours, then fly LAS → OAK. This repeats the Lone Pine–Stovepipe stretch from Day 2 but returns by a new road after that.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Stamps this trip</h2>
+  <p class="sub">None of these are in the 38 already collected.</p>
+  <div class="stamps">
+    <div class="sc"><span class="d">DAY 1 · 9:45</span><span class="t">Mojave National Preserve</span><span class="w">Hole-in-the-Wall porch station</span></div>
+    <div class="sc"><span class="d">DAY 1 · 9:45</span><span class="t">Castle Mountains NM</span><span class="w">Hole-in-the-Wall porch station</span></div>
+    <div class="sc"><span class="d">DAY 1 · 4:40</span><span class="t">Death Valley NP</span><span class="w">Furnace Creek VC · plus Stovepipe Wells and Lone Pine variants Day 2</span></div>
+    <div class="sc"><span class="d">DAY 2 · 1:45</span><span class="t">Manzanar NHS</span><span class="w">Manzanar Visitor Center</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>To do before the trip</h2>
+  <ul class="rem">
+    <li><b>Once dates are set:</b> book The Ranch at Death Valley (or Stovepipe Wells) for Night 1 and the two Best Westerns.</li>
+    <li><b>Once dates are set:</b> price a one-way LAS pickup / BIH drop on Costco Travel, then call the Bishop counter to confirm a car will be there.</li>
+    <li><b>Flights:</b> confirm United flies BIH → SFO on your Day 3, then book it with the OAK → LAS flight for Day 0 evening.</li>
+    <li><b>Week before:</b> recheck hours in the NPS app (Hole-in-the-Wall, Furnace Creek, Manzanar) and the Mojave road conditions page. Pull NWS forecasts for Furnace Creek and Lone Pine; Towne Pass can get snow in winter, and summer heat makes this route unsafe.</li>
+    <li><b>Confirm drive times</b> in Google Maps. The ones here come from NPS and road guides and are close, not exact.</li>
+    <li>Download offline maps: cell service is spotty or absent in both parks.</li>
+  </ul>
+</section>
+
+<footer class="src">
+  Hours and road status last checked Sept 28, 2026, from these sources. Recheck once dates are set:
+  <ul>
+    <li><a href="https://www.nps.gov/moja/planyourvisit/conditions.htm" target="_blank" rel="noopener">Mojave NPres alerts &amp; conditions</a></li>
+    <li><a href="https://www.nps.gov/manz/planyourvisit/operating-hours-seasons.htm" target="_blank" rel="noopener">Manzanar operating hours</a></li>
+    <li><a href="https://www.fs.usda.gov/r05/inyo/offices/eastern-sierra-interagency-visitor-center" target="_blank" rel="noopener">Eastern Sierra InterAgency Visitor Center</a></li>
+    <li><a href="https://www.inyocounty.us/bishop-airport" target="_blank" rel="noopener">Bishop Airport air service</a></li>
+  </ul>
+</footer>
+
+</div>
+
+</body></html>
