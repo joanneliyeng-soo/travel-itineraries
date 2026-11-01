@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>National Park Service Passport Stamp Collection</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;700&family=Oswald:wght@500&display=swap">
 <style>
 /* Layout: 1930s park-poster print — navy title band with region stacked bar, flat color blocks for regions/types, square state tiles, solid-ink unit chips. Single light look by design. */
 :root{color-scheme:light;--paper:#F3E6D2;--paper-2:#EADBC3;--card:#F6EBDA;--fg:#2B1F33;--fg-2:#5A4A5E;--line:#CDB99C;--todo:#B9A88E;--faint:#BFAE94;--muted:#8A7A80;--band:#2E4F6E;--band-rule:#2B1F33;--rest:#3F6585;--block:#2B1F33;--block-fg:#F6EBDA;--block-2:#B8A9B6;--block-track:#5A4A5E;--keep:100%;--display:'Archivo Black','Arial Black',Impact,sans-serif;--body:'Archivo','Helvetica Neue',Arial,sans-serif}
@@ -15,7 +15,11 @@ body{font-family:var(--body);font-size:15px}
 *{box-sizing:border-box}
 .band{background:var(--band);color:#F6EBDA;border-bottom:6px solid var(--band-rule)}
 .inner{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.band .inner{padding-block:34px 26px}
+.band .inner{padding-block:34px 26px;position:relative}
+.cancel{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:50%;width:clamp(170px,22vw,230px);height:auto;transform:translateY(-58%) rotate(-11deg);color:#E2A23B;opacity:.94;pointer-events:none}
+.band h1,.big,.stack,.stack-key,.eyebrow{position:relative}
+@media (min-width:761px){.band .inner>.stack,.band .inner>.stack-key{margin-right:calc(clamp(170px,22vw,230px) + 28px)}}
+@media (max-width:760px){.cancel{position:static;display:block;width:128px;margin:18px 0 0 auto;transform:rotate(-9deg)}}
 .eyebrow{font:700 .72rem var(--body);letter-spacing:.22em;text-transform:uppercase;color:#E2A23B;margin:0 0 10px}
 h1{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,6vw,3.3rem);line-height:.98;letter-spacing:-.005em;text-transform:uppercase;margin:0;color:#F6EBDA;text-wrap:balance;max-width:22ch}
 .big{display:flex;flex-wrap:wrap;gap:10px 34px;margin:24px 0 14px}
@@ -104,6 +108,19 @@ footer a:focus-visible{outline:3px solid #E2A23B;outline-offset:3px}
 </head>
 <body>
 <header class="band"><div class="inner">
+<svg class="cancel" viewBox="0 0 240 240" role="img" aria-label="Passport cancellation stamp: National Park Service, May 2026, Visited">
+<defs>
+<filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" result="d"/><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="1" seed="3" result="g"/><feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.55" result="m"/><feComposite in="d" in2="m" operator="in"/></filter>
+<path id="arc-top" d="M30,120 a90,90 0 0,1 180,0"/>
+<path id="arc-bot" d="M23,120 a97,97 0 0,0 194,0"/>
+</defs>
+<g filter="url(#ink)" fill="currentColor">
+<circle cx="120" cy="120" r="111" fill="none" stroke="currentColor" stroke-width="6"/>
+<text font-family="Archivo,'Helvetica Neue',Arial,sans-serif" font-weight="500" font-size="19.5" letter-spacing=".6"><textPath href="#arc-top" startOffset="50%" text-anchor="middle">National Park Service</textPath></text>
+<text x="120" y="134" text-anchor="middle" font-family="Oswald,'Arial Narrow',sans-serif" font-weight="500" font-size="40" letter-spacing="3" transform="translate(0 -16) scale(1 1.14)">MAY 2026</text>
+<text font-family="Archivo,'Helvetica Neue',Arial,sans-serif" font-weight="500" font-size="19.5" letter-spacing="1.2"><textPath href="#arc-bot" startOffset="50%" text-anchor="middle">Visited</textPath></text>
+</g>
+</svg>
 <p class="eyebrow">Passport to your national parks · 418 units</p>
 <h1>National Park Service Passport Stamp Collection</h1>
 <div class="big"><div><b>49</b><span>stamped</span></div><div><b>369</b><span>to go</span></div><div><b>8</b><span>states started</span></div><div><b>0</b><span>states complete</span></div></div>
