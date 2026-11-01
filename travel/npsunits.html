@@ -56,10 +56,10 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,6vw,3.3rem)
 .tile span{position:relative}
 .tile.empty{color:var(--faint);border:1.5px dashed var(--line)}
 .tile.none{background:var(--paper);color:var(--fg);border:2px solid var(--fg)}
-.tile.some{background:var(--paper);color:var(--fg);border:2px solid var(--fg)}
+.tile.some{background:var(--paper);color:var(--fg);border:2px solid var(--ink)}
 .tile.some::before{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--p);background:var(--ink)}
 .tile.some b,.tile.some span{background:var(--paper);padding:0 3px}
-.tile.done{background:var(--ink);color:var(--on);border:2px solid var(--fg)}
+.tile.done{background:var(--ink);color:var(--on);border:2px solid var(--ink)}
 .tile:hover,.tile:focus-visible{outline:3px solid #E2A23B;outline-offset:1px}
 .legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;font:500 .78rem var(--body);color:var(--fg-2);justify-content:center}
 .legend span{display:flex;align-items:center;gap:7px;white-space:nowrap}
@@ -125,7 +125,6 @@ footer a:focus-visible{outline:3px solid #E2A23B;outline-offset:3px}
 <h1>National Park Service Passport Stamp Collection</h1>
 <div class="big"><div><b>49</b><span>stamped</span></div><div><b>369</b><span>to go</span></div><div><b>8</b><span>states started</span></div><div><b>0</b><span>states complete</span></div></div>
 <div class="stack" role="img" aria-label="49 of 418 units stamped, colored by passport region"><span style="flex:4;background:#B5527A" title="Southeast: 4"></span><span style="flex:3;background:#9A7432" title="Midwest: 3"></span><span style="flex:15;background:#D46A35" title="Southwest: 15"></span><span style="flex:4;background:#E2A23B" title="Rocky Mountain: 4"></span><span style="flex:21;background:#5E8C5A" title="Western: 21"></span><span style="flex:2;background:#2F7A9E" title="Pacific NW &amp; Alaska: 2"></span><span class="rest" style="flex:369"></span></div>
-<div class="stack-key">Colored segments are stamps by passport region; the blue remainder is still to go.</div>
 </div></header>
 
 <main class="inner wrap">
