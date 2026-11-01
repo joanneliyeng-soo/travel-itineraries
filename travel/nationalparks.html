@@ -48,6 +48,9 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:clamp(1.8rem,5
 .filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 22px}
 .filters button{background:transparent;color:#C9D3EA;border:1px solid #2C3658;border-radius:999px;padding:6px 14px;font:600 .82rem 'Karla',sans-serif;cursor:pointer}
 .filters button[aria-pressed="true"]{background:#E6E9F2;color:#0E1324;border-color:#E6E9F2}
+.filters button{display:inline-flex;align-items:center;gap:7px}
+.cnt{min-width:22px;padding:1px 7px;border-radius:999px;background:#2C3658;color:#E6E9F2;font-size:.74rem;font-weight:700;font-variant-numeric:tabular-nums;text-align:center}
+.filters button[aria-pressed="true"] .cnt{background:#0E1324;color:#E6E9F2}
 .filters button:focus-visible{outline:2px solid #E8B04B;outline-offset:2px}
 .state{margin:0 0 24px;scroll-margin-top:16px}
 .state-head{display:flex;align-items:center;gap:10px 12px;flex-wrap:wrap;border-bottom:1px solid #2C3658;padding:4px 2px 8px;cursor:pointer;list-style:none;border-radius:6px 6px 0 0}
@@ -107,10 +110,10 @@ footer a:focus-visible{outline:2px solid #E8B04B;outline-offset:3px}
 
 <div class="filters" role="group" aria-label="Filter parks">
 <button id="f-all" data-f="all" aria-pressed="true">All</button>
-<button id="f-visited" data-f="visited" aria-pressed="false">Visited</button>
-<button id="f-todo" data-f="todo" aria-pressed="false">Not yet</button>
-<button id="f-drive" data-f="drive" aria-pressed="false">🚗 Drive-in</button>
-<button id="f-far" data-f="far" aria-pressed="false">✈️⛵ Fly or boat</button>
+<button id="f-visited" data-f="visited" aria-pressed="false">Visited<span class="cnt">15</span></button>
+<button id="f-todo" data-f="todo" aria-pressed="false">Not yet<span class="cnt">49</span></button>
+<button id="f-drive" data-f="drive" aria-pressed="false">🚗 Drive-in<span class="cnt">50</span></button>
+<button id="f-far" data-f="far" aria-pressed="false">✈️⛵ Fly or boat<span class="cnt">14</span></button>
 </div>
 <div class="toggle-all"><button id="expand-all" type="button">Expand all</button><button id="collapse-all" type="button">Collapse all</button></div>
 
