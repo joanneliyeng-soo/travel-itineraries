@@ -1,0 +1,363 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Western Colorado Stamp Run</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: canyon-strata header band → day-tile calendar → vertical timelines per day (time column · rail · stop cards) → stamps + reminders.
+   Single deliberate light look, all colors hardcoded hex per Joanne's itinerary convention. */
+html, body { background: #EDEBF2 !important; color: #23243A !important; color-scheme: light; }
+body { margin: 0; font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif; font-size: 16px; line-height: 1.55; }
+.wrap { max-width: 880px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 56px; }
+h1, h2, h3 { font-family: "Zilla Slab", Rockwell, Georgia, serif; text-wrap: balance; margin: 0; }
+.mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; }
+a { color: #9E3D24; }
+a:focus-visible, button:focus-visible { outline: 2px solid #2B7A9B; outline-offset: 2px; }
+
+/* Header: rock strata */
+.hero { background: #23243A; color: #F4F1F7; }
+.hero .wrap { padding-block: 36px 0; }
+.eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 700; color: #E9A27F; }
+.hero h1 { font-size: clamp(32px, 6vw, 50px); line-height: 1.05; margin-top: 8px; color: #FFFFFF; }
+.hero p { margin: 10px 0 0; color: #CFCDE0; max-width: 62ch; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding-bottom: 26px; }
+.chip { font-size: 13px; padding: 4px 11px; border-radius: 999px; background: #34364F; color: #F4F1F7; border: 1px solid #4A4C68; }
+.chip b { color: #FFFFFF; }
+.strata { height: 34px; background: linear-gradient(180deg, #3A3550 0 25%, #8C3B26 25% 45%, #C4542F 45% 62%, #D98A5B 62% 78%, #E6C29A 78% 100%); }
+
+section { margin-top: 36px; }
+.sec-h { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.sec-h h2 { font-size: 26px; color: #23243A; }
+.sec-h span { color: #5E5F78; font-size: 14px; }
+
+/* Calendar at a glance */
+.cal { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 680px) { .cal { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tile { background: #FFFFFF; border: 1px solid #D7D4E2; border-radius: 10px; padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.tile .dlabel { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; color: #7A6F8E; }
+.tile .dname { font-family: "Zilla Slab", Georgia, serif; font-weight: 700; font-size: 19px; line-height: 1.15; color: #23243A; }
+.tile .droute { font-size: 13px; color: #5E5F78; }
+.dots { display: flex; flex-wrap: wrap; gap: 5px; margin-top: auto; padding-top: 6px; }
+.dot { font-size: 11px; font-weight: 700; color: #FFFFFF; padding: 2px 7px; border-radius: 4px; }
+.dot.none { background: #E4E1EC; color: #6B6C84; }
+.key { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 14px; font-size: 14px; color: #3B3C55; }
+.key i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+/* stamp colors */
+.c-colm { background: #C4542F !important; } .t-colm { border-color: #C4542F !important; color: #9E3D24; }
+.c-blca { background: #3A3550 !important; } .t-blca { border-color: #3A3550 !important; color: #3A3550; }
+.c-cure { background: #2B7A9B !important; } .t-cure { border-color: #2B7A9B !important; color: #1F5F79; }
+.c-hove { background: #A8722A !important; } .t-hove { border-color: #A8722A !important; color: #84581F; }
+.c-meve { background: #4F7A3A !important; } .t-meve { border-color: #4F7A3A !important; color: #3D602C; }
+.c-yuho { background: #8A5A8C !important; } .t-yuho { border-color: #8A5A8C !important; color: #6E446F; }
+
+/* Logistics */
+.logi { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 680px) { .logi { grid-template-columns: 1fr; } }
+.box { background: #FFFFFF; border: 1px solid #D7D4E2; border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.box h3 { font-size: 17px; color: #23243A; margin-bottom: 6px; }
+.box ul { margin: 0; padding-left: 18px; }
+.box li { margin: 3px 0; }
+.small { font-size: 14px; color: #5E5F78; }
+
+/* Day timelines */
+.day { margin-top: 40px; }
+.dayhead { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; border-bottom: 2px solid #23243A; padding-bottom: 8px; margin-bottom: 14px; }
+.dayhead .dlabel { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; color: #9E3D24; }
+.dayhead h2 { font-size: 26px; color: #23243A; }
+.dayhead a { font-size: 14px; font-weight: 600; white-space: nowrap; }
+.tl { display: grid; grid-template-columns: 64px 18px minmax(0, 1fr); column-gap: 10px; }
+.time { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; color: #5E5F78; text-align: right; padding-top: 12px; font-variant-numeric: tabular-nums; }
+.rail { position: relative; }
+.rail::before { content: ""; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #C9C5D8; }
+.rail::after { content: ""; position: absolute; left: 3px; top: 15px; width: 12px; height: 12px; border-radius: 50%; background: #EDEBF2; border: 2px solid #23243A; }
+.rail.drive::after { display: none; }
+.stop { padding: 8px 0 12px; min-width: 0; }
+.stop h3 { font-size: 18px; color: #23243A; }
+.stop p { margin: 3px 0 0; }
+.tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 1px 7px; border-radius: 4px; background: #E4E1EC; color: #4A4B66; margin-left: 6px; vertical-align: 2px; }
+.pillrow { padding: 2px 0 8px; }
+.pill { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; color: #3B3C55; background: #FFFFFF; border: 1px solid #D7D4E2; border-radius: 999px; padding: 3px 12px; }
+.pill b { font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 500; color: #23243A; }
+.stamp { margin-top: 10px; border: 2px dashed; border-radius: 8px; padding: 10px 12px; background: #FFFFFF; }
+.stamp .st { font-weight: 700; font-size: 14px; letter-spacing: .03em; }
+.stamp .st::before { content: "◈ "; }
+.stamp p { color: #3B3C55; font-size: 15px; margin: 3px 0 0; }
+.warn { margin-top: 8px; font-size: 14px; color: #7A3A1C; background: #F6E6DE; border-radius: 6px; padding: 6px 10px; }
+.opt { margin-top: 8px; font-size: 14px; color: #3B3C55; background: #E6EEF2; border-radius: 6px; padding: 6px 10px; }
+
+/* Stamps list */
+.stamps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 680px) { .stamps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .stamps { grid-template-columns: 1fr; } }
+.sbadge { border: 2px dashed; border-radius: 10px; padding: 12px; background: #FFFFFF; min-width: 0; }
+.sbadge .nm { font-family: "Zilla Slab", Georgia, serif; font-weight: 700; font-size: 17px; line-height: 1.2; }
+.sbadge .where { font-size: 13px; color: #5E5F78; margin-top: 4px; }
+.tally { margin-top: 12px; font-size: 15px; color: #3B3C55; }
+
+.rem { background: #FFFFFF; border: 1px solid #D7D4E2; border-radius: 10px; padding: 14px 18px; }
+.rem ul { margin: 0; padding-left: 18px; }
+.rem li { margin: 6px 0; }
+footer { margin-top: 32px; font-size: 13px; color: #6B6C84; }
+@media (max-width: 480px) { .tl { grid-template-columns: 52px 18px minmax(0, 1fr); column-gap: 6px; } .time { font-size: 12px; } }
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Placeholder · undated long weekend · Fri–Mon</div>
+    <h1>Western Colorado Stamp Run</h1>
+    <p>Grand Junction in, Durango out. Red-rock rims, the Black Canyon, Blue Mesa and the Ancestral Puebloan towers of the Four Corners, in one southbound line with almost no doubling back.</p>
+    <div class="chips">
+      <span class="chip"><b>6</b> new stamps</span>
+      <span class="chip"><b>2</b> national parks</span>
+      <span class="chip">GJT → DRO one-way</span>
+      <span class="chip">Mountain Time</span>
+    </div>
+  </div>
+  <div class="strata" aria-hidden="true"></div>
+</header>
+
+<main class="wrap">
+
+<section aria-labelledby="glance">
+  <div class="sec-h"><h2 id="glance">At a glance</h2><span>Day 0 is travel only</span></div>
+  <div class="cal">
+    <div class="tile">
+      <div class="dlabel">Day 0 · Fri</div>
+      <div class="dname">Fly to Grand Junction</div>
+      <div class="droute">After work, land late</div>
+      <div class="dots"><span class="dot none">No stops</span></div>
+    </div>
+    <div class="tile">
+      <div class="dlabel">Day 1 · Sat</div>
+      <div class="dname">Rims &amp; reservoirs</div>
+      <div class="droute">Grand Junction → Montrose</div>
+      <div class="dots"><span class="dot c-colm">COLM</span><span class="dot c-cure">CURE</span><span class="dot c-blca">BLCA</span></div>
+    </div>
+    <div class="tile">
+      <div class="dlabel">Day 2 · Sun</div>
+      <div class="dname">San Juan Skyway</div>
+      <div class="droute">Montrose → Cortez</div>
+      <div class="dots"><span class="dot c-hove">HOVE</span></div>
+    </div>
+    <div class="tile">
+      <div class="dlabel">Day 3 · Mon</div>
+      <div class="dname">Mesa Verde &amp; home</div>
+      <div class="droute">Cortez → Durango airport</div>
+      <div class="dots"><span class="dot c-meve">MEVE</span><span class="dot c-yuho">YUHO</span></div>
+    </div>
+  </div>
+  <div class="key">
+    <span><i class="c-colm"></i>Colorado NM</span>
+    <span><i class="c-cure"></i>Curecanti NRA</span>
+    <span><i class="c-blca"></i>Black Canyon of the Gunnison NP</span>
+    <span><i class="c-hove"></i>Hovenweep NM</span>
+    <span><i class="c-meve"></i>Mesa Verde NP</span>
+    <span><i class="c-yuho"></i>Yucca House NM</span>
+  </div>
+</section>
+
+<section aria-labelledby="logistics">
+  <div class="sec-h"><h2 id="logistics">Logistics</h2><span>Nothing booked yet</span></div>
+  <div class="logi">
+    <div class="box">
+      <h3>Flights</h3>
+      <ul>
+        <li><b>Out (Day 0):</b> Breeze runs a summer-seasonal SFO → GJT nonstop on limited days (it launched on Wed/Sat). If it doesn't fall on a Friday, United SFO → DEN → GJT.</li>
+        <li><b>Home (Day 3):</b> DRO → DEN → SFO on United, or DRO → PHX → SFO/OAK on American. Aim for a mid-afternoon departure or later.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Car &amp; hotels</h3>
+      <ul>
+        <li><b>Rental:</b> one-way GJT pickup, DRO drop via Costco Travel. Check the one-way drop fee.</li>
+        <li><b>Fri:</b> Best Western Grande River Inn &amp; Suites, Clifton (Grand Junction)</li>
+        <li><b>Sat:</b> SureStay Plus by Best Western Montrose</li>
+        <li><b>Sun:</b> Best Western Turquoise Inn &amp; Suites, 535 E Main St, Cortez</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>When to go</h3>
+      <ul>
+        <li><b>Best:</b> Memorial Day (May 29–31, 2027) through Labor Day (Sep 4–6, 2027). All visitor centers run daily hours and Black Canyon's South Rim Drive is open.</li>
+        <li><b>Fall color:</b> Columbus Day (Oct 9–11, 2027) works, but Curecanti's Elk Creek VC has cut to weekdays-only in past Octobers and the Mesa Verde Museum shortens hours from Oct 22. Re-check before choosing it.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Pass &amp; access</h3>
+      <ul>
+        <li>America the Beautiful + Access Pass cover entrance fees at Colorado NM, Black Canyon and Mesa Verde.</li>
+        <li>Every stop is a visitor center, scenic drive or roadside overlook. No cliff-dwelling tours (ladders) and no trails needed.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DAY 0 -->
+<section class="day" aria-labelledby="d0">
+  <div class="dayhead"><div><div class="dlabel">Day 0 · Friday</div><h2 id="d0">Fly to Grand Junction</h2></div></div>
+  <div class="tl">
+    <div class="time">Evening</div><div class="rail"></div>
+    <div class="stop"><h3>SFO → GJT</h3><p>Leave after work. Pick up the one-way rental, drive to the hotel, sleep. No activities.</p></div>
+    <div class="time">Late</div><div class="rail"></div>
+    <div class="stop"><h3>Best Western Grande River Inn &amp; Suites <span class="tag">Hotel</span></h3><p class="small">Clifton, on the east side of Grand Junction.</p></div>
+  </div>
+</section>
+
+<!-- DAY 1 -->
+<section class="day" aria-labelledby="d1">
+  <div class="dayhead">
+    <div><div class="dlabel">Day 1 · Saturday</div><h2 id="d1">Rims &amp; reservoirs</h2></div>
+    <a href="https://www.google.com/maps/dir/Grand+Junction,+CO/Saddlehorn+Visitor+Center,+Colorado+National+Monument/Delta,+CO/Crawford,+CO/Elk+Creek+Visitor+Center,+Curecanti/South+Rim+Visitor+Center,+Black+Canyon+of+the+Gunnison/Montrose,+CO" target="_blank" rel="noopener">Day 1 in Google Maps ↗</a>
+  </div>
+  <div class="tl">
+    <div class="time">8:00</div><div class="rail"></div>
+    <div class="stop"><h3>Colorado NM · East entrance <span class="tag">Scenic drive</span></h3><p>Enter from the Grand Junction side and drive Rim Rock Drive west. Pull off at Cold Shivers Point, Independence Monument View and Grand View.</p></div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 <b>18 mi</b> on Rim Rock Drive to the visitor center · allow ~1 hr with overlooks</span></div>
+
+    <div class="time">9:15</div><div class="rail"></div>
+    <div class="stop"><h3>Saddlehorn Visitor Center</h3>
+      <div class="stamp t-colm"><div class="st">Colorado National Monument</div><p>Stamp at Saddlehorn VC. Open daily 9–4, extended to 5 in summer. Paved ramp and accessible restrooms.</p></div>
+    </div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 <b>4 mi</b> to the Fruita exit, then <b>~1 hr</b> to Delta via I-70 / US-50</span></div>
+
+    <div class="time">11:00</div><div class="rail"></div>
+    <div class="stop"><h3>Delta <span class="tag">Lunch</span></h3><p>Eat and fuel up. Cell service is spotty for the next stretch, so download offline maps here.</p></div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 <b>CO-92, 73 mi</b> via Hotchkiss &amp; Crawford (West Elk Loop) · winding · allow ~2 hr</span></div>
+
+    <div class="time">1:30</div><div class="rail"></div>
+    <div class="stop"><h3>Pioneer Point &amp; Blue Mesa Dam overlooks <span class="tag">Curecanti</span></h3><p>CO-92 runs along the canyon rim above Morrow Point Reservoir, then crosses Blue Mesa Dam to US-50.</p></div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 <b>~15 mi</b> east on US-50 along Blue Mesa Reservoir</span></div>
+
+    <div class="time">2:00</div><div class="rail"></div>
+    <div class="stop"><h3>Elk Creek Visitor Center</h3>
+      <div class="stamp t-cure"><div class="st">Curecanti National Recreation Area</div><p>Stamp at Elk Creek VC, open daily 8–5 (NPS, May 2026).</p></div>
+      <div class="warn">This short spur east and back is the trip's only real backtrack. Cimarron VC (closer to Montrose) has carried a Curecanti stamp too, but it's seasonal and often unstaffed, so plan on Elk Creek.</div>
+    </div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 <b>~47 mi</b> west on US-50, north on CO-347 · ~1 hr</span></div>
+
+    <div class="time">3:30</div><div class="rail"></div>
+    <div class="stop"><h3>South Rim Visitor Center · Gunnison Point</h3>
+      <div class="stamp t-blca"><div class="st">Black Canyon of the Gunnison National Park</div><p>Stamp at South Rim VC. Post-fire summer hours were 8–5 daily; fall hours drop to 9–4 with a lunch break. Gunnison Point overlook is right behind the building.</p></div>
+    </div>
+    <div class="time">4:00</div><div class="rail"></div>
+    <div class="stop"><h3>South Rim Drive <span class="tag">Scenic drive</span></h3><p>7 miles, 12 overlooks. Chasm View and Painted Wall are the must-stops; most are a few steps from parking.</p>
+      <div class="opt">The July 2025 South Rim Fire burned near here. The drive and VC have reopened, but South Rim Campground is still closed. Check park alerts before the trip.</div>
+    </div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 <b>14 mi</b> to Montrose · ~25 min</span></div>
+
+    <div class="time">6:00</div><div class="rail"></div>
+    <div class="stop"><h3>SureStay Plus by Best Western Montrose <span class="tag">Hotel</span></h3></div>
+  </div>
+</section>
+
+<!-- DAY 2 -->
+<section class="day" aria-labelledby="d2">
+  <div class="dayhead">
+    <div><div class="dlabel">Day 2 · Sunday</div><h2 id="d2">San Juan Skyway to the towers</h2></div>
+    <a href="https://www.google.com/maps/dir/Montrose,+CO/Ridgway,+CO/Telluride,+CO/Lizard+Head+Pass,+CO/Dolores,+CO/Hovenweep+National+Monument+Visitor+Center/Cortez,+CO" target="_blank" rel="noopener">Day 2 in Google Maps ↗</a>
+  </div>
+  <div class="tl">
+    <div class="time">7:30</div><div class="rail"></div>
+    <div class="stop"><h3>Leave Montrose</h3><p>US-550 south to Ridgway, then west on CO-62 over Dallas Divide (Mt. Sneffels pullout).</p></div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 <b>Montrose → Telluride 67 mi</b> · ~1.5 hr</span></div>
+
+    <div class="time">9:15</div><div class="rail"></div>
+    <div class="stop"><h3>Telluride <span class="tag">Optional</span></h3><p>A short spur into the box canyon to see Bridal Veil Falls from town. Skip it to keep the day moving.</p></div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 CO-145 over <b>Lizard Head Pass (10,222 ft)</b> to Dolores</span></div>
+
+    <div class="time">11:15</div><div class="rail"></div>
+    <div class="stop"><h3>Dolores <span class="tag">Lunch</span></h3><p>Last easy food and fuel before Hovenweep, which has none.</p></div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 CO-184 → US-491 → <b>Pleasant View road</b> to Hovenweep (paved)</span></div>
+
+    <div class="time">12:45</div><div class="rail"></div>
+    <div class="stop"><h3>Hovenweep Visitor Center</h3>
+      <div class="stamp t-hove"><div class="st">Hovenweep National Monument</div><p>Stamp inside the VC by the Square Tower Group. A short walk from the VC reaches the first canyon overlook toward Hovenweep Castle.</p></div>
+      <div class="warn">VC hours have been cut for staffing before (one season ran 10–3, closed Tue/Wed). A Sunday early-afternoon arrival is the safe window. Confirm in the NPS app or at (970) 233-9167. The VC is in Utah but on Mountain Time like the rest of the trip.</div>
+    </div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 Out the other side via <b>McElmo Canyon Rd</b> (paved) to Cortez · ~1 hr</span></div>
+
+    <div class="time">3:00</div><div class="rail"></div>
+    <div class="stop"><h3>Best Western Turquoise Inn &amp; Suites <span class="tag">Hotel</span></h3><p class="small">535 E Main St, Cortez. Free afternoon.</p></div>
+  </div>
+</section>
+
+<!-- DAY 3 -->
+<section class="day" aria-labelledby="d3">
+  <div class="dayhead">
+    <div><div class="dlabel">Day 3 · Monday</div><h2 id="d3">Mesa Verde &amp; fly home</h2></div>
+    <a href="https://www.google.com/maps/dir/Cortez,+CO/Mesa+Verde+Visitor+and+Research+Center/Mesa+Verde+Museum/Durango,+CO/Durango-La+Plata+County+Airport" target="_blank" rel="noopener">Day 3 in Google Maps ↗</a>
+  </div>
+  <div class="tl">
+    <div class="time">8:15</div><div class="rail"></div>
+    <div class="stop"><h3>Leave Cortez</h3></div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 <b>~12 mi</b> east on US-160 · ~15 min</span></div>
+
+    <div class="time">8:30</div><div class="rail"></div>
+    <div class="stop"><h3>Mesa Verde Visitor &amp; Research Center</h3>
+      <div class="stamp t-meve"><div class="st">Mesa Verde National Park</div><p>Stamp at the Visitor &amp; Research Center by the park entrance, open daily 8:30–4.</p></div>
+      <div class="stamp t-yuho"><div class="st">Yucca House National Monument</div><p>No facilities at the site itself. NPS keeps its stamp at this same Mesa Verde visitor center.</p></div>
+    </div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 Park road up to Chapin Mesa · allow <b>~1 hr</b> with Park Point overlook</span></div>
+
+    <div class="time">9:45</div><div class="rail"></div>
+    <div class="stop"><h3>Mesa Verde Museum <span class="tag">Bonus stamp</span></h3><p>Open 8:30–4:30 May 4–Oct 21 (2026 hours). The Spruce Tree House overlook is next to it.</p></div>
+    <div class="time">10:30</div><div class="rail"></div>
+    <div class="stop"><h3>Mesa Top Loop <span class="tag">Scenic drive</span></h3><p>Drive-up overlooks: Square Tower House, Sun Point, and Sun Temple with the view across to Cliff Palace.</p></div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 Back down the same park road (it's a dead end) · then <b>~45 min</b> to Durango</span></div>
+
+    <div class="time">1:00</div><div class="rail"></div>
+    <div class="stop"><h3>Durango <span class="tag">Lunch</span></h3></div>
+    <div class="time"></div><div class="rail drive"></div>
+    <div class="pillrow"><span class="pill">🚗 <b>~19 mi</b> to DRO · ~30 min</span></div>
+
+    <div class="time">2:30</div><div class="rail"></div>
+    <div class="stop"><h3>Durango–La Plata County Airport (DRO)</h3><p>Return the rental and fly home via Denver or Phoenix.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="stamps">
+  <div class="sec-h"><h2 id="stamps">Stamps this trip</h2><span>All new; none are in the collected list</span></div>
+  <div class="stamps">
+    <div class="sbadge t-colm"><div class="nm">Colorado NM</div><div class="where">Saddlehorn VC · Day 1</div></div>
+    <div class="sbadge t-cure"><div class="nm">Curecanti NRA</div><div class="where">Elk Creek VC · Day 1</div></div>
+    <div class="sbadge t-blca"><div class="nm">Black Canyon of the Gunnison NP</div><div class="where">South Rim VC · Day 1</div></div>
+    <div class="sbadge t-hove"><div class="nm">Hovenweep NM</div><div class="where">Hovenweep VC · Day 2</div></div>
+    <div class="sbadge t-meve"><div class="nm">Mesa Verde NP</div><div class="where">Visitor &amp; Research Center · Day 3</div></div>
+    <div class="sbadge t-yuho"><div class="nm">Yucca House NM</div><div class="where">Mesa Verde VC · Day 3</div></div>
+  </div>
+  <p class="tally">Collection goes from <b class="mono">49</b> to <b class="mono">55</b> units, and adds Black Canyon and Mesa Verde toward the 64 national parks.</p>
+</section>
+
+<section aria-labelledby="rem">
+  <div class="sec-h"><h2 id="rem">Before booking</h2></div>
+  <div class="rem">
+    <ul>
+      <li>Price the one-way GJT → DRO rental on Costco Travel; the drop fee decides whether open-jaw still makes sense.</li>
+      <li>Check whether Breeze's seasonal SFO–GJT days line up with a Friday departure.</li>
+      <li>Confirm every visitor center's hours in the NPS app the week before, especially Hovenweep and Elk Creek.</li>
+      <li>Check Black Canyon alerts for any remaining South Rim Fire closures.</li>
+      <li>Verify each drive leg in Google Maps. Times here come from published sources and are rounded.</li>
+      <li>Altitude runs 8,000–10,200 ft on Days 1–2; pack layers and water (Black Canyon has no water October–April).</li>
+      <li>Optional add-on if the flight is late: Aztec Ruins NM is south of Durango, but it may belong with the Albuquerque placeholder instead.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>Placeholder itinerary · built Nov 1, 2026 · hours from NPS pages current as of 2026</footer>
+</main>
+
+</body></html>
