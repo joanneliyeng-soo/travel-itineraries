@@ -1,0 +1,445 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Southern Arizona New Year's</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: twilight header band, calendar tiles, then one vertical timeline per day with a time column, drive pills and dashed stamp blocks.
+   Palette (hardcoded hex, single light look): pale dusk mauve ground, deep twilight ink, one color per stamp.
+   Organ Pipe #2f7d7a  Tumacácori #c0623a  Coronado #3d6fb6  Chiricahua #b8862a  Fort Bowie #7a4fa0 */
+html, body { background: #f1eaf2 !important; color: #2b2240 !important; }
+body {
+  margin: 0;
+  font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  font-size: 16px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; }
+a { color: #3d6fb6; }
+a:focus-visible { outline: 2px solid #7a4fa0; outline-offset: 2px; }
+.wrap {
+  max-width: 820px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Header band */
+.hero {
+  background: #2b2240;
+  background-image: linear-gradient(180deg, #2b2240 0%, #4a3360 55%, #a4566a 88%, #e19a6a 100%);
+  color: #f7eef4;
+}
+.hero .wrap { padding-block: 40px 30px; }
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: #e8c9d8; margin: 0 0 10px;
+}
+h1 {
+  font-family: "Zilla Slab", Georgia, serif; font-weight: 700;
+  font-size: clamp(34px, 7vw, 54px); line-height: 1.05; margin: 0 0 12px; text-wrap: balance;
+  color: #fff7f2;
+}
+.sub { margin: 0; color: #f3dde6; max-width: 60ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 20px; }
+.fact {
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px;
+  background: rgba(255,247,242,0.14); border: 1px solid rgba(255,247,242,0.28);
+  color: #fff7f2; padding: 5px 10px; border-radius: 999px; white-space: nowrap;
+}
+.ridge { position: relative; display: block; width: 100%; height: 40px; background: #e19a6a; overflow: hidden; }
+.ridge .land { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ridge .cacti-wrap {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 36px;
+  max-width: 820px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.ridge .cacti { display: block; width: 100%; height: 36px; }
+
+main { padding-block: 28px 56px; }
+h2 {
+  font-family: "Zilla Slab", Georgia, serif; font-weight: 700; font-size: 26px;
+  margin: 0 0 4px; text-wrap: balance; color: #2b2240;
+}
+.section-label {
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #7a6a86; margin: 0 0 14px;
+}
+section + section { margin-top: 44px; }
+
+/* Calendar at a glance */
+.cal { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 640px) { .cal { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tile {
+  background: #fbf7fb; border: 1px solid #ddd0e0; border-radius: 10px; padding: 12px 12px 14px;
+  display: flex; flex-direction: column; gap: 6px; min-width: 0;
+}
+.tile .dow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #7a6a86; }
+.tile .date { font-family: "Zilla Slab", Georgia, serif; font-weight: 700; font-size: 28px; line-height: 1; color: #2b2240; }
+.tile .what { font-size: 14px; color: #4b3f5c; }
+.dots { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; padding-top: 4px; }
+.dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+.tile.quiet { background: #f5eff6; }
+.tile.quiet .date { color: #7a6a86; }
+
+.key { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 14px; font-size: 14px; }
+.key span { display: inline-flex; align-items: center; gap: 7px; }
+.c-orpi { background: #2f7d7a; } .c-tuma { background: #c0623a; } .c-coro { background: #3d6fb6; }
+.c-chir { background: #b8862a; } .c-fobo { background: #7a4fa0; }
+
+/* Day timelines */
+.day-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 14px; }
+.maplink {
+  font-size: 14px; font-weight: 700; text-decoration: none; color: #3d6fb6;
+  border: 1px solid #b9c8e6; background: #f4f7fd; padding: 5px 11px; border-radius: 999px;
+}
+.maplink:hover { background: #e7eefb; }
+.timeline { position: relative; }
+.row { display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: 14px; position: relative; }
+.row + .row { margin-top: 10px; }
+.time {
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; font-variant-numeric: tabular-nums;
+  color: #5c4d6b; text-align: right; padding-top: 3px; white-space: nowrap;
+}
+.body { min-width: 0; border-left: 2px solid #d7c8dc; padding: 0 0 4px 16px; position: relative; }
+.body::before {
+  content: ""; position: absolute; left: -7px; top: 7px; width: 12px; height: 12px; border-radius: 50%;
+  background: #f1eaf2; border: 2px solid #8a7898;
+}
+.body h3 { font-family: "Zilla Slab", Georgia, serif; font-weight: 700; font-size: 19px; margin: 0; line-height: 1.3; color: #2b2240; }
+.body p { margin: 4px 0 0; color: #4b3f5c; font-size: 15px; }
+.drive .body::before { display: none; }
+.pill {
+  display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 13px; font-variant-numeric: tabular-nums;
+  background: #e7dcea; color: #4b3f5c; padding: 4px 11px; border-radius: 999px;
+}
+.pill b { font-weight: 500; color: #2b2240; }
+
+.stamp {
+  margin-top: 8px; border: 2px dashed currentColor; border-radius: 10px; padding: 10px 12px;
+  background: #fbf7fb;
+}
+.stamp .label { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
+.stamp p { color: #4b3f5c; margin-top: 3px; }
+.stamp dl { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 2px 12px; margin: 6px 0 0; font-size: 14px; color: #4b3f5c; }
+.stamp dt { font-weight: 700; color: #2b2240; }
+.stamp dd { margin: 0; }
+.s-orpi { color: #2f7d7a; } .s-tuma { color: #c0623a; } .s-coro { color: #3d6fb6; } .s-chir { color: #b8862a; } .s-fobo { color: #7a4fa0; }
+.row.stop.orpi .body::before { border-color: #2f7d7a; background: #2f7d7a; }
+.row.stop.tuma .body::before { border-color: #c0623a; background: #c0623a; }
+.row.stop.coro .body::before { border-color: #3d6fb6; background: #3d6fb6; }
+.row.stop.chir .body::before { border-color: #b8862a; background: #b8862a; }
+.row.stop.fobo .body::before { border-color: #7a4fa0; background: #7a4fa0; }
+
+.flag {
+  margin-top: 8px; font-size: 14px; color: #6a3d2a; background: #fbeee4; border: 1px solid #efcdb5;
+  border-radius: 8px; padding: 7px 10px;
+}
+
+/* Notes */
+.notes { display: grid; gap: 10px; }
+.note { background: #fbf7fb; border: 1px solid #ddd0e0; border-radius: 10px; padding: 12px 14px; }
+.note h3 { font-family: "Zilla Slab", Georgia, serif; font-size: 17px; margin: 0 0 3px; color: #2b2240; }
+.note p { margin: 0; font-size: 15px; color: #4b3f5c; }
+.flights { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+@media (max-width: 560px) { .flights { grid-template-columns: 1fr; } .row { grid-template-columns: 62px minmax(0,1fr); gap: 10px; } }
+.flight { background: #fbf7fb; border: 1px solid #ddd0e0; border-radius: 10px; padding: 12px 14px; }
+.flight .num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: #7a6a86; letter-spacing: 0.06em; }
+.flight .route { font-family: "Zilla Slab", Georgia, serif; font-weight: 700; font-size: 20px; color: #2b2240; }
+.flight .times { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 14px; font-variant-numeric: tabular-nums; color: #4b3f5c; }
+footer { font-size: 13px; color: #7a6a86; padding-top: 30px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">NPS passport run · New Year's 2026–27</p>
+    <h1>Southern Arizona New Year's</h1>
+    <p class="sub">Finishing the southern Arizona stamps: the border country on New Year's Day, then the three Cochise County parks on Jan 2 once their visitor centers reopen.</p>
+    <div class="facts">
+      <span class="fact">Dec 31 – Jan 3</span>
+      <span class="fact">5 new stamps</span>
+      <span class="fact">49 → 54</span>
+      <span class="fact">744 mi loop from PHX</span>
+      <span class="fact">All times MST</span>
+    </div>
+  </div>
+</header>
+<div class="ridge" aria-hidden="true">
+  <svg class="land" viewBox="0 0 800 40" preserveAspectRatio="none">
+    <path d="M0 40 L0 28 L50 25 L95 27 L150 20 L190 25 L240 22 L290 27 L340 23 L375 18 L410 24 L470 26 L520 21 L560 25 L620 23 L670 27 L720 21 L760 24 L800 22 L800 40 Z" fill="#c98a73"/>
+    <path d="M0 40 L0 36 L120 34.5 L260 36.5 L400 35 L540 36.5 L680 34.5 L800 35.5 L800 40 Z" fill="#f1eaf2"/>
+  </svg>
+  <div class="cacti-wrap">
+  <svg class="cacti" viewBox="0 0 1600 72" preserveAspectRatio="xMidYMax meet">
+    <g transform="translate(0,6)" fill="none" stroke="#f1eaf2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- saguaro, two arms -->
+      <path d="M176 60 V18" stroke-width="9"/>
+      <path d="M172 42 H162 V27" stroke-width="6"/>
+      <path d="M180 35 H189 V22" stroke-width="6"/>
+      <!-- small saguaro -->
+      <path d="M424 62 V38" stroke-width="6"/>
+      <path d="M427 50 H433 V41" stroke-width="4"/>
+      <!-- organ pipe cluster -->
+      <path d="M660 61 C658 50 652 42 650 30" stroke-width="5"/>
+      <path d="M663 61 C663 48 660 36 660 22" stroke-width="5"/>
+      <path d="M666 61 C667 48 670 38 671 26" stroke-width="5"/>
+      <path d="M669 61 C672 52 678 44 681 34" stroke-width="5"/>
+      <path d="M657 61 C653 54 645 49 642 40" stroke-width="4"/>
+      <!-- tall saguaro, three arms -->
+      <path d="M1040 61 V10" stroke-width="10"/>
+      <path d="M1035 38 H1023 V20" stroke-width="7"/>
+      <path d="M1045 30 H1057 V16" stroke-width="7"/>
+      <path d="M1045 46 H1053 V38" stroke-width="5"/>
+      <!-- saguaro, one arm -->
+      <path d="M1352 60 V28" stroke-width="7"/>
+      <path d="M1348 46 H1340 V35" stroke-width="5"/>
+      <!-- small organ pipe -->
+      <path d="M1496 61 C1494 54 1490 48 1489 40" stroke-width="4"/>
+      <path d="M1499 61 C1499 52 1498 44 1498 35" stroke-width="4"/>
+      <path d="M1502 61 C1504 54 1507 48 1508 41" stroke-width="4"/>
+    </g>
+  </svg>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section aria-labelledby="glance">
+    <h2 id="glance">At a glance</h2>
+    <p class="section-label">Four days · stamps by color</p>
+    <div class="cal">
+      <div class="tile quiet">
+        <span class="dow">Thu</span><span class="date">Dec 31</span>
+        <span class="what">Fly OAK → PHX, sleep in Goodyear</span>
+        <div class="dots"></div>
+      </div>
+      <div class="tile">
+        <span class="dow">Fri · New Year's Day</span><span class="date">Jan 1</span>
+        <span class="what">Organ Pipe, Tumacácori → Sierra Vista</span>
+        <div class="dots"><span class="dot c-orpi" title="Organ Pipe Cactus"></span><span class="dot c-tuma" title="Tumacácori"></span></div>
+      </div>
+      <div class="tile">
+        <span class="dow">Sat</span><span class="date">Jan 2</span>
+        <span class="what">Coronado, Chiricahua, Fort Bowie → Phoenix</span>
+        <div class="dots"><span class="dot c-coro" title="Coronado"></span><span class="dot c-chir" title="Chiricahua"></span><span class="dot c-fobo" title="Fort Bowie"></span></div>
+      </div>
+      <div class="tile quiet">
+        <span class="dow">Sun</span><span class="date">Jan 3</span>
+        <span class="what">5:30 AM flight home</span>
+        <div class="dots"></div>
+      </div>
+    </div>
+    <div class="key">
+      <span><i class="dot c-orpi"></i>Organ Pipe Cactus NM</span>
+      <span><i class="dot c-tuma"></i>Tumacácori NHP</span>
+      <span><i class="dot c-coro"></i>Coronado N Mem</span>
+      <span><i class="dot c-chir"></i>Chiricahua NM</span>
+      <span><i class="dot c-fobo"></i>Fort Bowie NHS</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="d0">
+    <div class="day-head">
+      <h2 id="d0">Thu Dec 31 · Arrive</h2>
+    </div>
+    <div class="timeline">
+      <div class="row">
+        <div class="time">8:40 PM</div>
+        <div class="body"><h3>Southwest WN296 departs OAK</h3><p>7:40 PM Pacific. Basic fare, seats assigned at check-in, so check in right at the 24-hour mark.</p></div>
+      </div>
+      <div class="row">
+        <div class="time">10:40 PM</div>
+        <div class="body"><h3>Land at PHX, pick up rental car</h3></div>
+      </div>
+      <div class="row drive">
+        <div class="time"></div>
+        <div class="body"><span class="pill"><b>25 min</b> · 22 mi · I-10 W</span></div>
+      </div>
+      <div class="row">
+        <div class="time">~11:30 PM</div>
+        <div class="body"><h3>Best Western Phoenix Goodyear Inn</h3><p>55 N Litchfield Rd, Goodyear. West side puts you straight onto AZ-85 in the morning.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="d1">
+    <div class="day-head">
+      <h2 id="d1">Fri Jan 1 · Border country</h2>
+      <a class="maplink" href="https://www.google.com/maps/dir/Best+Western+Phoenix+Goodyear+Inn,+55+N+Litchfield+Rd,+Goodyear,+AZ+85338/Organ+Pipe+Cactus+National+Monument,+10+Organ+Pipe+Dr,+Ajo,+AZ+85321/Tumacacori+National+Historical+Park,+1891+I-19+Frontage+Rd,+Tumacacori,+AZ+85640/Best+Western+Plus+Sun+Canyon,+260+N+Garden+Ave,+Sierra+Vista,+AZ+85635" target="_blank" rel="noopener">Open day's route in Maps ↗</a>
+    </div>
+    <div class="timeline">
+      <div class="row">
+        <div class="time">7:10 AM</div>
+        <div class="body"><h3>Leave Goodyear</h3><p>I-10 W to AZ-85 S through Gila Bend, Ajo and Why.</p></div>
+      </div>
+      <div class="row drive">
+        <div class="time"></div>
+        <div class="body"><span class="pill"><b>1 hr 50 min</b> · 111 mi</span></div>
+      </div>
+      <div class="row stop orpi">
+        <div class="time">9:00 AM</div>
+        <div class="body">
+          <h3>Organ Pipe Cactus National Monument</h3>
+          <div class="stamp s-orpi">
+            <div class="label">Stamp · Kris Eggle Visitor Center</div>
+            <dl><dt>Hours</dt><dd>Open New Year's Day; closes only Thanksgiving and Christmas. Posted hours vary by source (8 or 9 AM open), so confirm in the NPS app.</dd>
+            <dt>Also</dt><dd>Accessible paved nature trail behind the visitor center.</dd></dl>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="time">9:45 AM</div>
+        <div class="body"><h3>Leave Organ Pipe</h3><p>North on AZ-85, then AZ-86 east across the Tohono O'odham Nation. Services are sparse for about 100 miles, so top up gas in Why.</p></div>
+      </div>
+      <div class="row drive">
+        <div class="time"></div>
+        <div class="body"><span class="pill"><b>2 hr 38 min</b> · 166 mi</span></div>
+      </div>
+      <div class="row stop tuma">
+        <div class="time">12:25 PM</div>
+        <div class="body">
+          <h3>Tumacácori National Historical Park</h3>
+          <div class="stamp s-tuma">
+            <div class="label">Stamp · Visitor Center &amp; Museum</div>
+            <dl><dt>Hours</dt><dd>9 AM – 5 PM. Open New Year's Day.</dd>
+            <dt>Also</dt><dd>Mission church and grounds are on a short, mostly level path from the museum.</dd></dl>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="time">1:15 PM</div>
+        <div class="body"><h3>Leave Tumacácori</h3><p>I-19 S to Rio Rico, then AZ-82 E through Patagonia and AZ-90 to Sierra Vista.</p></div>
+      </div>
+      <div class="row drive">
+        <div class="time"></div>
+        <div class="body"><span class="pill"><b>1 hr 24 min</b> · 74 mi</span></div>
+      </div>
+      <div class="row">
+        <div class="time">2:40 PM</div>
+        <div class="body"><h3>Best Western Plus Sun Canyon</h3><p>260 N Garden Ave, Sierra Vista. Free afternoon.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="d2">
+    <div class="day-head">
+      <h2 id="d2">Sat Jan 2 · Cochise County</h2>
+      <a class="maplink" href="https://www.google.com/maps/dir/Best+Western+Plus+Sun+Canyon,+260+N+Garden+Ave,+Sierra+Vista,+AZ+85635/Coronado+National+Memorial,+4101+E+Montezuma+Canyon+Rd,+Hereford,+AZ+85615/Chiricahua+National+Monument+Visitor+Center,+Willcox,+AZ/Fort+Bowie+National+Historic+Site,+3500+S+Apache+Pass+Rd,+Bowie,+AZ+85605/Phoenix+Sky+Harbor+International+Airport" target="_blank" rel="noopener">Open day's route in Maps ↗</a>
+    </div>
+    <div class="timeline">
+      <div class="row">
+        <div class="time">7:30 AM</div>
+        <div class="body"><h3>Leave Sierra Vista</h3></div>
+      </div>
+      <div class="row drive">
+        <div class="time"></div>
+        <div class="body"><span class="pill"><b>28 min</b> · 21 mi</span></div>
+      </div>
+      <div class="row stop coro">
+        <div class="time">8:00 AM</div>
+        <div class="body">
+          <h3>Coronado National Memorial</h3>
+          <div class="stamp s-coro">
+            <div class="label">Stamp · Visitor Center</div>
+            <dl><dt>Hours</dt><dd>8 AM – 4 PM. Closed New Year's Day, which is why it's on Jan 2.</dd>
+            <dt>Road</dt><dd>Visitor center is on the paved section, about 2 mi in. No need to continue up to Montezuma Pass.</dd></dl>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="time">8:30 AM</div>
+        <div class="body"><h3>Leave Coronado</h3><p>AZ-92 to Bisbee, Double Adobe Rd, US-191 N, AZ-181 E.</p></div>
+      </div>
+      <div class="row drive">
+        <div class="time"></div>
+        <div class="body"><span class="pill"><b>1 hr 47 min</b> · 95 mi</span></div>
+      </div>
+      <div class="row stop chir">
+        <div class="time">10:15 AM</div>
+        <div class="body">
+          <h3>Chiricahua National Monument</h3>
+          <div class="stamp s-chir">
+            <div class="label">Stamp · Visitor Center</div>
+            <dl><dt>Hours</dt><dd>8:30 AM – 4:30 PM. Closed Jan 1 last year, so Jan 2 is the safe day.</dd>
+            <dt>Also</dt><dd>Bonita Canyon Drive to Massai Point overlook if time allows; can close for snow and ice.</dd></dl>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="time">11:00 AM</div>
+        <div class="body"><h3>Leave Chiricahua</h3><p>AZ-181 W, AZ-186 W, then gravel Apache Pass Rd to the trailhead.</p></div>
+      </div>
+      <div class="row drive">
+        <div class="time"></div>
+        <div class="body"><span class="pill"><b>48 min</b> · 28 mi</span></div>
+      </div>
+      <div class="row stop fobo">
+        <div class="time">11:50 AM</div>
+        <div class="body">
+          <h3>Fort Bowie National Historic Site</h3>
+          <div class="stamp s-fobo">
+            <div class="label">Stamp · Fort Bowie Visitor Center</div>
+            <dl><dt>Hours</dt><dd>Fri – Mon, 8:30 AM – 4 PM. Saturday is covered, but this schedule has changed often; recheck the week before.</dd>
+            <dt>Access</dt><dd>1.5 mi walk each way from the trailhead to the visitor center.</dd></dl>
+          </div>
+          <div class="flag">Call the park (520-847-2500) to ask about drive-in access to the visitor center for visitors with limited mobility.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="time">~2:15 PM</div>
+        <div class="body"><h3>Back at the car, leave Fort Bowie</h3><p>Leaves the gravel road in daylight. Apache Pass Rd to Bowie, then I-10 W.</p></div>
+      </div>
+      <div class="row drive">
+        <div class="time"></div>
+        <div class="body"><span class="pill"><b>3 hr 28 min</b> · 229 mi</span></div>
+      </div>
+      <div class="row">
+        <div class="time">~5:45 PM</div>
+        <div class="body"><h3>Phoenix, near the airport</h3><p>Hotel close to PHX for the early flight.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="d3">
+    <div class="day-head">
+      <h2 id="d3">Sun Jan 3 · Home</h2>
+    </div>
+    <div class="timeline">
+      <div class="row">
+        <div class="time">~4:15 AM</div>
+        <div class="body"><h3>Return rental car</h3></div>
+      </div>
+      <div class="row">
+        <div class="time">5:30 AM</div>
+        <div class="body"><h3>Southwest WN3468 departs PHX</h3><p>Lands OAK 6:30 AM Pacific.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="fl">
+    <h2 id="fl">Flights</h2>
+    <p class="section-label">Southwest · Booked · Confirmation 2CH258 · Basic · seats at check-in</p>
+    <div class="flights">
+      <div class="flight"><div class="num">WN296 · Thu Dec 31</div><div class="route">OAK → PHX</div><div class="times">7:40 PM PT → 10:40 PM MST</div></div>
+      <div class="flight"><div class="num">WN3468 · Sun Jan 3</div><div class="route">PHX → OAK</div><div class="times">5:30 AM MST → 6:30 AM PT</div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="nt">
+    <h2 id="nt">Before you go</h2>
+    <p class="section-label">Holiday hours and checks</p>
+    <div class="notes">
+      <div class="note"><h3>New Year's Day closures</h3><p>Organ Pipe and Tumacácori stay open Jan 1. Coronado, Chiricahua and Fort Bowie visitor centers closed Jan 1 last year, so all three are on Jan 2.</p></div>
+      <div class="note"><h3>Time zone</h3><p>Arizona stays on MST all year, one hour ahead of California in winter.</p></div>
+      <div class="note"><h3>Hotels</h3><p>Book around Dec 17 along with the rental car: Goodyear (Dec 31), Sierra Vista (Jan 1), near PHX (Jan 2).</p></div>
+      <div class="note"><h3>Week-before checks</h3><p>Confirm all five visitor center hours in the NPS app, especially Fort Bowie and Organ Pipe.</p></div>
+    </div>
+  </section>
+
+  <footer>Drive times from Google Maps. Stop lengths are estimates.</footer>
+</main>
+
+</body></html>
