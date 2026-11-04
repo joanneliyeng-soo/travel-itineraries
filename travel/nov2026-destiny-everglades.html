@@ -30,20 +30,6 @@ a{color:#2F5E8C;}
 .badge{background:#2A3658;color:#C6D2E8;border:1px solid #3C4C78;border-radius:999px;padding:6px 13px;font-size:12px;font-weight:600;}
 .badge.hot{background:#D94F70;border-color:#D94F70;color:#FFF0F3;}
 
-/* ---------- Language toggle: pure CSS :target, no script ---------- */
-.pane{scroll-margin-top:10px;}
-#vi{display:none;}
-#vi:target{display:block;}
-#vi:target ~ #en{display:none;}
-
-.langbar{display:flex;justify-content:flex-end;margin:-2px 0 10px;}
-.langbar .seg{display:inline-flex;gap:2px;background:#FFFFFF;border:1px solid #E6D9C6;border-radius:999px;padding:2px;}
-.langbar .seg a,.langbar .seg span{
-  text-decoration:none;border-radius:999px;padding:3px 9px;
-  font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.06em;line-height:1.6;color:#9A8A72;
-}
-.langbar .seg span{background:#1A2340;color:#FDF8F0;}
-
 .sec{margin:30px 0 0;}
 .sec > h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#2F5E8C;font-family:'Inter',sans-serif;font-weight:700;margin-bottom:12px;}
 .card{background:#FFFFFF;border:1px solid #E6D9C6;border-radius:14px;padding:16px 18px;margin-bottom:12px;}
@@ -118,7 +104,6 @@ ul.checks li strong{color:#1A2340;}
 @media print{
   html,body{background:#FFFFFF !important;}
   body{padding:0;max-width:none;font-size:11pt;}
-  .langbar{display:none;}
   .hdr,.sea,.wd{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   .day,.card,.srow,.sea{break-inside:avoid;page-break-inside:avoid;}
 }
@@ -138,325 +123,9 @@ ul.checks li strong{color:#1A2340;}
   </div>
 </div>
 
-<!-- ============ TIẾNG VIỆT ============ -->
-<div class="pane" id="vi">
 
-<nav class="langbar"><span class="seg"><a href="#en">EN</a><span>VI</span></span></nav>
+<div>
 
-<div class="sec">
-  <h2>Tổng quan</h2>
-  <div class="card">
-    <div class="kv"><div class="k">Chuyến đi</div><div class="v">United · SFO 21:38 Thứ Hai 23/11 → <strong>MIA 6:00 sáng Thứ Ba 24/11</strong> · mã HZQNNS</div></div>
-    <div class="kv"><div class="k">Chuyến về</div><div class="v">United UA 1141 · <strong>MIA 16:40 Thứ Ba 1/12</strong> → SFO 20:10 · 6 giờ 30 · vé Basic Economy</div></div>
-    <div class="kv"><div class="k">Du thuyền</div><div class="v"><strong>Disney Destiny</strong> · 5 đêm Very Merrytime đi Bahamas · 25–30/11 · khứ hồi từ Fort Lauderdale · đặt chỗ 45253279 · phòng Oceanview GTY</div></div>
-    <div class="kv"><div class="k">Xe 1</div><div class="v"><strong>Budget · SUV cỡ trung</strong> (Mazda CX-50 hoặc tương tự) · nhận ở MIA 6:00 sáng Thứ Ba 24/11 (3900 NW 25th St, mở 24 giờ) → trả ở <strong>Ft Lauderdale Cruiseport Shuttle</strong>, 2520 Miami Rd, 12:00 trưa Thứ Tư 25/11 (chi nhánh mở 8:00–18:00) · tài xế John, mang thẻ Costco · Costco C509701153 / Budget 06734143US3 · $151.29 trả tại quầy, hủy miễn phí</div></div>
-    <div class="kv"><div class="k">Xe 2</div><div class="v">Nhận ở Fort Lauderdale 30/11 → trả ở MIA 1/12 · <em>cần đặt</em></div></div>
-    <div class="kv"><div class="k">Đêm 1</div><div class="v"><strong>Best Western Fort Lauderdale Airport/Cruise Port</strong> · 1221 W State Road 84 · Thứ Ba 24/11, nhận phòng 15:00 → trả phòng 11:00 Thứ Tư · một phòng, Accessible 2 giường Queen, 4 người lớn, có bữa sáng · mã 148156597 · đã trả trước, không hoàn tiền</div></div>
-    <div class="kv"><div class="k">Đêm 2</div><div class="v">Naples · Thứ Hai 30/11 · <em>cần đặt, hai phòng</em></div></div>
-    <div class="kv"><div class="k">Hành lý</div><div class="v">Vé Basic Economy chiều về — $50 kiện đầu, $60 kiện thứ hai, tối đa 23 kg mỗi kiện. Nên so với giá nâng hạng vé cho bốn người.</div></div>
-  </div>
-
-  <div class="week">
-    <div class="wd travel"><span class="dw">T2</span><span class="dn">23</span><span class="dl">Bay đi</span></div>
-    <div class="wd park"><span class="dw">T3</span><span class="dn">24</span><span class="dl">Homestead</span></div>
-    <div class="wd sea"><span class="dw">T4</span><span class="dn">25</span><span class="dl">Lên tàu</span></div>
-    <div class="wd sea"><span class="dw">T5</span><span class="dn">26</span><span class="dl">Lễ Tạ ơn</span></div>
-    <div class="wd sea"><span class="dw">T6</span><span class="dn">27</span><span class="dl">Trên tàu</span></div>
-    <div class="wd sea"><span class="dw">T7</span><span class="dn">28</span><span class="dl">Trên tàu</span></div>
-    <div class="wd sea"><span class="dw">CN</span><span class="dn">29</span><span class="dl">Trên tàu</span></div>
-    <div class="wd park"><span class="dw">T2</span><span class="dn">30</span><span class="dl">Tamiami</span></div>
-    <div class="wd travel"><span class="dw">T3</span><span class="dn">1</span><span class="dl">Bay về</span></div>
-  </div>
-  <div class="callegend">
-    <span><i style="background:#F2A65A"></i>Ngày bay</span>
-    <span><i style="background:#D94F70"></i>Ngày săn dấu</span>
-    <span><i style="background:#1A2340"></i>Trên tàu Destiny</span>
-  </div>
-</div>
-
-<div class="day">
-  <div class="daystamp">
-    <div class="dnum">Ngày 1</div>
-    <div class="ddate">T2 · 23/11</div>
-    <div class="dsub">Bay đêm từ SFO</div>
-  </div>
-  <div class="timeline">
-    <div class="stop">
-      <div class="time">21:38 · SFO</div>
-      <h3>Bay đêm tới Miami</h3>
-      <p>Bốn người, hành lý cho cả chuyến du thuyền, hạ cánh lúc 6 giờ sáng. Ngủ được trên máy bay thì ngủ — ngày mai lấy năm con dấu trước bữa trưa.</p>
-    </div>
-  </div>
-</div>
-
-<div class="day">
-  <div class="daystamp">
-    <div class="dnum">Ngày 2</div>
-    <div class="ddate">T3 · 24/11</div>
-    <div class="dsub">Quét vùng Homestead — tất cả phía nam và phía đông</div>
-  </div>
-
-  <div class="timeline">
-    <div class="stop">
-      <div class="time">6:00 SÁNG · ĐÃ HẠ CÁNH MIA</div>
-      <h3>Lấy hành lý, nhận xe, ăn sáng ở Homestead</h3>
-      <p>Tính đến khoảng 7:15 cho bốn người và quầy thuê xe. Homestead cách 45 phút về phía nam và không nơi nào mở cửa trước 9 giờ, nên hôm nay có hẳn một bữa sáng ngồi ăn tử tế. Cứ thong thả — đây là giờ nhàn rỗi cuối cùng trước khi lên tàu.</p>
-    </div>
-
-    <div class="drive">🚗 MIA → VQG Biscayne · ~35 dặm · 45 phút <a href="https://www.google.com/maps/dir/?api=1&origin=Miami+International+Airport&destination=9700+SW+328th+St,+Homestead,+FL+33033">Bản đồ</a></div>
-
-    <div class="stop hot">
-      <div class="time">9:00–9:30 SÁNG</div>
-      <span class="type">Vườn Quốc gia Biscayne</span>
-      <h3>Trung tâm Du khách Dante Fascell</h3>
-      <p class="addr">9700 SW 328th St, Homestead, FL 33033</p>
-      <div class="stampbox">
-        <div class="lbl">◈ Nơi đóng dấu</div>
-        <p>Con dấu <strong>VQG Biscayne</strong> ở quầy lưu niệm / bàn thông tin. <strong>Mở cửa 9:00–17:00, cả 7 ngày.</strong> Không mất phí vào cửa.</p>
-      </div>
-      <p>Có dốc và thang máy, cửa tự động, lối trải nhựa từ bãi xe vào tận cửa — điểm dừng đầu tiên nhẹ nhàng cho bốn người sau chuyến bay đêm.</p>
-    </div>
-
-    <div class="drive">🚗 Biscayne → TTDK Ernest Coe · ~13 dặm · 25 phút</div>
-
-    <div class="stop hot">
-      <div class="time">9:55–10:35 SÁNG · HAI CON DẤU</div>
-      <span class="type">VQG Dry Tortugas + VQG Everglades</span>
-      <h3>Trung tâm Du khách Ernest F. Coe &amp; Trụ sở Vườn</h3>
-      <p class="addr">40001 State Road 9336, Homestead, FL 33034 · (305) 242-7700</p>
-      <div class="stampbox">
-        <div class="lbl">◈ Hai con dấu tại đây</div>
-        <p><strong>VQG Dry Tortugas</strong> — đã gọi điện xác nhận con dấu có ở khu này. Hỏi ở nhà sách Coe trước.</p>
-        <p><strong>VQG Everglades — TTDK Ernest F. Coe</strong> tại quầy Everglades Association.</p>
-        <p><strong>TTDK Coe mở 9:00–17:00 hàng ngày</strong>, nhà sách từ 9:30. Nằm ngoài cổng thu phí.</p>
-      </div>
-      <div class="note"><strong>Thứ Ba là ngày đúng để làm việc này.</strong> Nếu con dấu Dry Tortugas nằm ở bàn tiếp tân của Trụ sở chứ không phải nhà sách, thì Trụ sở chỉ mở giờ hành chính các ngày trong tuần — và hôm nay là ngày trong tuần. Chuyến này không có cơ hội thứ hai.</div>
-      <div class="note"><strong>Nhân tiện hỏi luôn</strong> xem trạm Royal Palm có người trực và có đóng dấu không.</div>
-    </div>
-
-    <div class="drive">🚗 TTDK Coe → Royal Palm · 4 dặm · 8 phút</div>
-
-    <div class="stop hot">
-      <div class="time">10:45–11:00 SÁNG · CHỈ KHI CÓ NGƯỜI TRỰC</div>
-      <span class="type">VQG Everglades · dấu thêm</span>
-      <h3>Trạm Royal Palm</h3>
-      <p>Đi vòng thêm tám phút. Chỉ đáng nếu bên Coe xác nhận có người ở đó đóng dấu — nếu không thì đi thẳng tới Flamingo.</p>
-      <div class="stampbox">
-        <div class="lbl">◈ Con dấu có thể lấy thêm</div>
-        <p><strong>VQG Everglades — Royal Palm</strong>, khi trạm có người trực.</p>
-      </div>
-    </div>
-
-    <div class="drive">🚗 Royal Palm → Flamingo · ~38 dặm · 50 phút <a href="https://www.google.com/maps/dir/?api=1&origin=Royal+Palm+Visitor+Center,+Homestead,+FL&destination=1+Flamingo+Lodge+Hwy,+Homestead,+FL+33034">Bản đồ</a></div>
-
-    <div class="stop hot">
-      <div class="time">11:55 – 12:25 TRƯA</div>
-      <span class="type">Vườn Quốc gia Everglades</span>
-      <h3>Trung tâm Du khách Guy Bradley · Flamingo</h3>
-      <p class="addr">1 Flamingo Lodge Hwy, Homestead, FL 33034</p>
-      <div class="stampbox">
-        <div class="lbl">◈ Nơi đóng dấu</div>
-        <p>Con dấu <strong>VQG Everglades — Flamingo</strong>. <strong>Mùa khô mở 8:00–17:00.</strong> Có thang máy lên khu trưng bày tầng trên.</p>
-      </div>
-      <p>Mũi cực nam của đất liền, và là nơi duy nhất trong cả nước mà cá sấu mõm ngắn và cá sấu mõm dài sống chung một vùng nước. Trên đường ra xe, nhìn xuống bến thuyền từ boong — cá sấu thường nằm phơi ở bờ đó — rồi quay lại.</p>
-    </div>
-
-    <div class="drive">🚗 Flamingo → Fort Lauderdale · ~110 dặm · 2 giờ 15 <a href="https://www.google.com/maps/dir/?api=1&origin=1+Flamingo+Lodge+Hwy,+Homestead,+FL&destination=1221+W+State+Road+84,+Fort+Lauderdale,+FL+33315">Bản đồ</a></div>
-
-    <div class="stop">
-      <div class="time">~15:00</div>
-      <h3>Best Western Fort Lauderdale Airport/Cruise Port · nhận phòng</h3>
-      <p>Ăn trưa ở Florida City trên đường ra. Nhận phòng từ 15:00. Khách sạn nằm trên State Road 84, cách Port Everglades vài phút, nên sáng mai lên tàu rất gần. Một phòng cho cả bốn người (2 giường Queen), có bữa sáng. Đỗ xe $7/đêm, và sẽ bị giữ $50 tiền đặt cọc khi nhận phòng. Mã 148156597.</p>
-      <div class="note"><strong>Đổ xăng tối nay</strong> và xác nhận giờ mở cửa buổi sáng của chi nhánh thuê xe — xe phải trả trước khi lên tàu.</div>
-    </div>
-  </div>
-</div>
-
-<div class="day">
-  <div class="daystamp">
-    <div class="dnum">Ngày 3–8</div>
-    <div class="ddate">T4 25 – T2 30/11</div>
-    <div class="dsub">Disney Destiny · 5 đêm Very Merrytime đi Bahamas</div>
-  </div>
-
-  <div class="timeline" style="margin-top:16px;">
-    <div class="sea">
-      <div class="time">T4 · 25/11</div>
-      <h3>Trả xe · lên tàu tại Port Everglades</h3>
-      <p>Trả xe ở chi nhánh Budget Ft Lauderdale Cruiseport Shuttle (2520 Miami Rd) trước 12:00 trưa, rồi đi một đoạn ngắn tới bến — cảng cách sân bay FLL khoảng 10 phút. Có mặt đúng Giờ Đến Cảng được phân; giờ lên tàu cuối thường là <strong>15:45</strong>. Very Merrytime nghĩa là tàu đã trang trí Giáng sinh đầy đủ ngay từ ngày đầu.</p>
-    </div>
-    <div class="sea">
-      <div class="time">T5 · 26/11 · LỄ TẠ ƠN</div>
-      <h3>Lễ Tạ ơn trên tàu</h3>
-      <p>Thực đơn ngày lễ trên toàn đội tàu. Tối đầu tiên hỏi phục vụ xem nhà hàng luân phiên nào phục vụ gà tây để sắp lịch xoay vòng cho khớp — đáng làm khi có bốn người cùng bàn.</p>
-    </div>
-    <div class="sea">
-      <div class="time">T6 27 – CN 29/11</div>
-      <h3>Bahamas</h3>
-      <p>Các chuyến 5 đêm đi Bahamas thường kết hợp Nassau, Disney Castaway Cay và Lookout Cay at Lighthouse Point, cộng một ngày trên biển. <strong>Xác nhận thứ tự trên đặt chỗ 45253279</strong> — lịch khác nhau theo từng chuyến.</p>
-    </div>
-    <div class="sea">
-      <div class="time">T2 · 30/11</div>
-      <h3>Rời tàu · từ 7:30 sáng</h3>
-      <p>Tự xách hành lý xuống cho nhanh. Còn bốn con dấu nữa ở phía tây, và phải lấy xe trước đã.</p>
-    </div>
-  </div>
-
-  <div class="note" style="margin-top:14px;">
-    <strong>Giấy tờ:</strong> hộ chiếu cho cả bốn người (hoặc giấy khai sinh có công chứng kèm giấy tờ tuỳ thân có ảnh cho chuyến khứ hồi cùng một cảng, nhưng hộ chiếu tiện hơn nhiều). Kiểm tra hạn ngay từ bây giờ.
-  </div>
-  <div class="note">
-    <strong>Tàu mới cho danh sách:</strong> Destiny gia nhập cùng Wonder, Wish, Dream và Magic.
-  </div>
-</div>
-
-<div class="day">
-  <div class="daystamp">
-    <div class="dnum">Ngày 8</div>
-    <div class="ddate">T2 · 30/11</div>
-    <div class="dsub">Đi tây theo Tamiami Trail — bốn con dấu, xong trước trưa</div>
-  </div>
-
-  <div class="timeline">
-    <div class="stop">
-      <div class="time">7:30–8:45 SÁNG</div>
-      <h3>Xuống tàu, nhận xe số 2</h3>
-      <p>Đặt xe trước — sáng Thứ Hai ra quầy gần cảng với hành lý của bốn người thì không ổn. Lên đường hướng tây trước 8:45.</p>
-      <p><strong>Cả hai trung tâm Big Cypress đóng cửa lúc 16:30 và Gulf Coast lúc 17:00</strong>, nhưng với nhịp chỉ lấy dấu thì xong hết trước 13:00.</p>
-    </div>
-
-    <div class="drive">🚗 Port Everglades → Shark Valley · ~62 dặm · 1 giờ 15 <a href="https://www.google.com/maps/dir/?api=1&origin=Port+Everglades,+Fort+Lauderdale,+FL&destination=36000+SW+8th+St,+Miami,+FL+33194">Bản đồ</a></div>
-
-    <div class="stop hot">
-      <div class="time">10:05–10:30 SÁNG</div>
-      <span class="type">Vườn Quốc gia Everglades</span>
-      <h3>Trung tâm Du khách Shark Valley</h3>
-      <p class="addr">36000 SW 8th St (Tamiami Trail), Miami, FL 33194</p>
-      <div class="stampbox">
-        <div class="lbl">◈ Nơi đóng dấu</div>
-        <p>Con dấu <strong>VQG Everglades — Shark Valley</strong> ở quầy cửa hàng lưu niệm. <strong>Trung tâm mở 9:00–17:00; cổng 8:30–18:00.</strong></p>
-      </div>
-    </div>
-
-    <div class="drive">🚗 Shark Valley → TTDK Oasis · ~30 dặm · 35 phút</div>
-
-    <div class="stop hot">
-      <div class="time">11:05–11:25 SÁNG</div>
-      <span class="type">Khu Bảo tồn QG Big Cypress</span>
-      <h3>Trung tâm Du khách Oasis</h3>
-      <p class="addr">52105 Tamiami Trail E, Ochopee, FL 34141 · (239) 695-4111</p>
-      <div class="stampbox">
-        <div class="lbl">◈ Nơi đóng dấu</div>
-        <p>Con dấu <strong>Khu BTQG Big Cypress — TTDK Oasis</strong>. <strong>Mở 9:00–16:30 hàng ngày.</strong></p>
-      </div>
-      <p>Vốn là trạm xăng sân bay cũ được cải tạo. Trên đường về xe nhìn qua lan can — dưới kênh thường có cả chục con cá sấu.</p>
-    </div>
-
-    <div class="drive">🚗 Oasis → TTDK Nathaniel P. Reed · 19 dặm · 20 phút</div>
-
-    <div class="stop hot">
-      <div class="time">11:45 – 12:05 TRƯA</div>
-      <span class="type">Khu Bảo tồn QG Big Cypress</span>
-      <h3>Trung tâm Du khách Nathaniel P. Reed</h3>
-      <p class="addr">33000 Tamiami Trail E, Ochopee, FL 34141 · (239) 695-4758</p>
-      <div class="stampbox">
-        <div class="lbl">◈ Nơi đóng dấu</div>
-        <p>Con dấu <strong>Khu BTQG Big Cypress — TTDK Nathaniel P. Reed</strong> — mẫu khác với Oasis. <strong>Mở 9:00–16:30 hàng ngày.</strong> Kiểm tra đã có đủ cả hai mẫu trước khi đi.</p>
-      </div>
-    </div>
-
-    <div class="drive">🚗 TTDK Reed → TTDK Gulf Coast · ~10 dặm · 15 phút</div>
-
-    <div class="stop hot">
-      <div class="time">12:20–12:45 TRƯA</div>
-      <span class="type">Vườn Quốc gia Everglades</span>
-      <h3>TTDK Marjory Stoneman Douglas · Gulf Coast</h3>
-      <p class="addr">815 Oyster Bar Ln, Everglades City, FL 34139 · (239) 695-3311</p>
-      <div class="stampbox">
-        <div class="lbl">◈ Nơi đóng dấu</div>
-        <p>Con dấu <strong>VQG Everglades — Gulf Coast</strong> — con dấu cuối cùng của chuyến đi. <strong>Mở 9:00–17:00 hàng ngày.</strong></p>
-      </div>
-      <p>Vẫn nên gọi trước vào sáng hôm đó — nơi này ít nhân viên hơn các trung tâm khác và giờ giấc hay thay đổi. Ăn trưa ở Everglades City sau đó; mùa cua đá đã mở từ tháng 10.</p>
-    </div>
-
-    <div class="drive">🚗 Everglades City → Naples · ~35 dặm · 50 phút <a href="https://www.google.com/maps/dir/?api=1&origin=Everglades+City,+FL&destination=Naples,+FL">Bản đồ</a></div>
-
-    <div class="stop">
-      <div class="time">~14:00</div>
-      <h3>Naples · nghỉ đêm, hai phòng</h3>
-      <p>Về tới nơi đầu giờ chiều, trống cả buổi tối, và gần Miami hơn Fort Myers 50 phút. Cầu tàu Naples lúc hoàng hôn là một đêm cuối dễ chịu cho bốn người vừa xuống tàu.</p>
-    </div>
-  </div>
-</div>
-
-<div class="day">
-  <div class="daystamp">
-    <div class="dnum">Ngày 9</div>
-    <div class="ddate">T3 · 1/12</div>
-    <div class="dsub">Qua Alligator Alley rồi về nhà</div>
-  </div>
-
-  <div class="timeline">
-    <div class="stop">
-      <div class="time">BUỔI SÁNG · KHÔNG CÓ LỊCH</div>
-      <h3>Ngủ nướng</h3>
-      <p>Chuyến bay mãi 16:40 và Miami cách hai tiếng. Trả phòng muộn, ăn sáng thong thả, không lái xe trước trưa.</p>
-    </div>
-
-    <div class="drive">🚗 Naples → MIA · ~110 dặm · 2 giờ qua I-75 Alligator Alley <a href="https://www.google.com/maps/dir/?api=1&origin=Naples,+FL&destination=Miami+International+Airport">Bản đồ</a></div>
-
-    <div class="stop">
-      <div class="time">RỜI TRƯỚC 12:00 · TỚI MIA LÚC 14:00</div>
-      <h3>Trả xe · bay về</h3>
-      <p>Hai tiếng rưỡi trước giờ bay, vừa đủ cho bốn người ký gửi hành lý với vé Basic Economy. Hạ cánh SFO lúc 20:10.</p>
-      <div class="note"><strong>Alligator Alley có rất ít lối ra và nhiều đoạn dài không có dịch vụ gì.</strong> Đổ xăng và đi vệ sinh trước khi vào I-75, đừng để sau.</div>
-    </div>
-  </div>
-</div>
-
-<div class="sec">
-  <h2>Các con dấu chuyến này</h2>
-  <div class="stamps">
-    <div class="srow"><div class="num">01</div><div><div class="name">VQG Biscayne</div><div class="where">TTDK Dante Fascell · T3 24/11, 9:00 sáng</div></div></div>
-    <div class="srow"><div class="num">02</div><div><div class="name">VQG Dry Tortugas</div><div class="where">TTDK Coe / khu Trụ sở, Homestead · T3 24/11 — ngày trong tuần, quan trọng nếu dấu ở bàn Trụ sở</div></div></div>
-    <div class="srow"><div class="num">03</div><div><div class="name">VQG Everglades — TTDK Ernest F. Coe</div><div class="where">Cùng điểm dừng · T3 24/11</div></div></div>
-    <div class="srow opt"><div class="num">04</div><div><div class="name">VQG Everglades — Royal Palm</div><div class="where">Nếu trạm có người trực · T3 24/11</div></div></div>
-    <div class="srow"><div class="num">05</div><div><div class="name">VQG Everglades — Flamingo</div><div class="where">TTDK Guy Bradley · T3 24/11, giữa trưa</div></div></div>
-    <div class="srow"><div class="num">06</div><div><div class="name">VQG Everglades — Shark Valley</div><div class="where">Tamiami Trail · T2 30/11, buổi sáng</div></div></div>
-    <div class="srow"><div class="num">07</div><div><div class="name">Khu BTQG Big Cypress — TTDK Oasis</div><div class="where">Ochopee · T2 30/11</div></div></div>
-    <div class="srow"><div class="num">08</div><div><div class="name">Khu BTQG Big Cypress — TTDK Nathaniel P. Reed</div><div class="where">Ochopee · T2 30/11</div></div></div>
-    <div class="srow"><div class="num">09</div><div><div class="name">VQG Everglades — Gulf Coast</div><div class="where">Everglades City · T2 30/11, giữa trưa</div></div></div>
-  </div>
-  <div class="note" style="margin-top:12px;">
-    <strong>Đơn vị mới: 4</strong> — VQG Biscayne, VQG Dry Tortugas, VQG Everglades, Khu BTQG Big Cypress. Bốn trong năm mẫu dấu của Everglades chỉ trong hai ngày, cộng cả hai trung tâm Big Cypress.
-  </div>
-</div>
-
-<div class="sec">
-  <h2>Còn phải đặt</h2>
-  <ul class="checks">
-    <li><strong>Xe thuê một chiều Fort Lauderdale → MIA (30/11 – 1/12).</strong> Qua Costco Travel, và chọn xe to: bốn người lớn cộng hành lý du thuyền cần SUV hoặc minivan. (Chặng 24–25/11 đã đặt: Budget SUV cỡ trung, Costco C509701153.)</li>
-    <li><strong>Khách sạn Naples, 30/11</strong> — hai phòng. (Đêm 24/11 đã đặt: Best Western Fort Lauderdale Airport/Cruise Port, mã 148156597.)</li>
-    <li><strong>Tính kỹ tiền hành lý.</strong> Basic Economy $50 kiện đầu và $60 kiện thứ hai, nhân bốn người, nhân lượng hành lý của cả một chuyến du thuyền. Nâng hạng vé rất có thể còn rẻ hơn.</li>
-    <li><strong>Kiểm tra hạn hộ chiếu của cả bốn người.</strong></li>
-    <li><strong>Gọi TTDK Gulf Coast</strong> (239) 695-3311 vào sáng Thứ Hai — ít nhân viên, giờ giấc linh hoạt.</li>
-    <li><strong>Không bắt buộc: gọi De Soto</strong> (941) 792-0458 hỏi xem con dấu có lấy được ở đâu đó trong khuôn viên không, khi trung tâm du khách vẫn đóng. Chỉ đáng đổi lịch nếu câu trả lời là chắc chắn có.</li>
-    <li><strong>Xác nhận Giờ Đến Cảng</strong> trên ứng dụng DCL khi mở, và thứ tự các cảng Bahamas.</li>
-    <li><strong>Cuối tháng 11 là cao điểm mùa khô</strong> — nhiệt độ cao nhất khoảng 27–29°C, ít muỗi, và là lúc ngắm động vật hoang dã đẹp nhất năm khi chúng dồn về quanh những vũng nước đang cạn.</li>
-    <li><strong>Mỗi điểm dừng đều là một toà nhà ngay cạnh chỗ đậu xe.</strong> Không đường mòn, không cầu gỗ, không xe tham quan.</li>
-  </ul>
-</div>
-
-<div class="foot">
-  Bản thay thế cho các bản nháp trước (Port Canaveral / Disney Fantasy, phương án bay vào Tampa và phương án đi công viên trước) — tất cả đã bỏ sau khi đặt chuyến Destiny và vé United. Giờ mở cửa và thời gian lái xe kiểm tra tháng 10/2026 theo nguồn của NPS và bản đồ đường đi; nên xem lại ứng dụng NPS một tuần trước chuyến đi và lấy dự báo thời tiết NWS mới khi gần ngày. Soạn cho Joanne, John, Jason và Jenny.
-</div>
-
-</div><!-- /vi -->
-
-<!-- ============ ENGLISH ============ -->
-<div class="pane" id="en">
-
-<nav class="langbar"><span class="seg"><span>EN</span><a href="#vi">VI</a></span></nav>
 
 <div class="sec">
   <h2>At a glance</h2>
@@ -464,7 +133,7 @@ ul.checks li strong{color:#1A2340;}
     <div class="kv"><div class="k">Outbound</div><div class="v">United · SFO 9:38 PM Mon Nov 23 → <strong>MIA 6:00 AM Tue Nov 24</strong> · conf. HZQNNS</div></div>
     <div class="kv"><div class="k">Return</div><div class="v">United UA 1141 · <strong>MIA 4:40 PM Tue Dec 1</strong> → SFO 8:10 PM · 6h30 · Basic Economy</div></div>
     <div class="kv"><div class="k">Cruise</div><div class="v"><strong>Disney Destiny</strong> · 5-Night Very Merrytime Bahamian · Nov 25–30 · round-trip Fort Lauderdale · res. 45253279 · Oceanview GTY</div></div>
-    <div class="kv"><div class="k">Car 1</div><div class="v"><strong>Budget · Intermediate SUV</strong> (Mazda CX-50 or similar) · pick up MIA 6:00 AM Tue Nov 24 (3900 NW 25th St, open 24h) → drop <strong>Ft Lauderdale Cruiseport Shuttle</strong>, 2520 Miami Rd, 12:00 PM Wed Nov 25 (branch open 8 AM–6 PM) · driver John, bring Costco card · Costco C509701153 / Budget 06734143US3 · $151.29 due at counter, free cancellation</div></div>
+    <div class="kv"><div class="k">Car 1</div><div class="v"><strong>Budget · Intermediate SUV</strong> (Mazda CX-50 or similar) · pick up MIA 6:00 AM Tue Nov 24 (3900 NW 25th St, open 24h) → drop <strong>Ft Lauderdale Cruiseport Shuttle</strong>, 2520 Miami Rd, 12:00 PM Wed Nov 25 (branch open 8 AM–6 PM) · driver John, bring Costco card · Costco C509701153 / Budget 06734143US3 · $151.29 due at counter, free cancellation · fits the two large suitcases and the folding wheelchair</div></div>
     <div class="kv"><div class="k">Car 2</div><div class="v">Fort Lauderdale pickup Nov 30 → drop MIA Dec 1 · <em>to book</em></div></div>
     <div class="kv"><div class="k">Night 1</div><div class="v"><strong>Best Western Fort Lauderdale Airport/Cruise Port</strong> · 1221 W State Road 84 · Tue Nov 24, check-in 3 PM → out 11 AM Wed · one room, Accessible 2 Queen, 4 adults, breakfast · conf. 148156597 · prepaid, non-refundable</div></div>
     <div class="kv"><div class="k">Night 2</div><div class="v">Naples · Mon Nov 30 · <em>to book, two rooms</em></div></div>
@@ -757,7 +426,7 @@ ul.checks li strong{color:#1A2340;}
 <div class="sec">
   <h2>Still to book</h2>
   <ul class="checks">
-    <li><strong>One-way rental Fort Lauderdale → MIA (Nov 30 – Dec 1).</strong> Costco Travel, and size up: four adults plus cruise luggage wants an SUV or minivan. (Nov 24–25 is booked: Budget Intermediate SUV, Costco C509701153.)</li>
+    <li><strong>One-way rental Fort Lauderdale → MIA (Nov 30 – Dec 1).</strong> Costco Travel. Another intermediate SUV is enough for two large suitcases and the folding wheelchair. (Nov 24–25 is booked: Budget Intermediate SUV, Costco C509701153.)</li>
     <li><strong>Naples hotel, Nov 30</strong> — two rooms. (Nov 24 is booked: Best Western Fort Lauderdale Airport/Cruise Port, conf. 148156597.)</li>
     <li><strong>Price the bag situation.</strong> Basic Economy at $50 first bag and $60 second, times four people, times a cruise's worth of luggage. An upgraded fare may well come out cheaper.</li>
     <li><strong>Check passport expiry for all four.</strong></li>
@@ -773,7 +442,7 @@ ul.checks li strong{color:#1A2340;}
   Replaces the earlier Port Canaveral / Disney Fantasy draft and its Tampa and parks-first variants — all superseded once the Destiny sailing and the United flights were booked. Hours and drive times verified October 2026 against NPS and route sources; re-check the NPS app a week out and pull a fresh NWS point forecast as the trip approaches. Prepared for Joanne, John, Jason and Jenny.
 </div>
 
-</div><!-- /en -->
+</div>
 
 </body>
 </html>
