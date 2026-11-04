@@ -59,6 +59,7 @@ h2 { font-size:26px; }
 
 .day-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; border-bottom:3px solid #211D2F; padding-bottom:8px; }
 .day-head.ws { border-color:#6FA3C7; } .day-head.cc { border-color:#4A3C78; }
+.flag ul { margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px; }
 .day-head .dnum { font-family:"DM Mono", monospace; font-size:13px; color:#FFFFFF; background:#211D2F; padding:3px 9px; border-radius:4px; }
 .day-head h2 { font-size:28px; }
 .maps { font-size:14px; margin:0; }
@@ -107,166 +108,186 @@ ul.rem li { max-width:70ch; }
 <div class="wrap">
 
 <header class="hero">
-  <div class="eyebrow">NPS passport run · Joanne &amp; John · future long weekend</div>
+  <div class="eyebrow">NPS passport run · MLK long weekend · Jan 15–18, 2027</div>
   <h1>El Paso Long Weekend</h1>
-  <p>A ready-to-date loop for any three-day weekend: White Sands on Day 1, then Carlsbad Caverns, Guadalupe Mountains and Chamizal on one Day 2 sweep back to El Paso. Four new stamps, three of them national parks, no road repeated, and a free last morning.</p>
+  <p>White Sands, Chamizal and the drive east to Carlsbad on Saturday, then Carlsbad Caverns and Guadalupe Mountains on the way back to El Paso Sunday. Four new stamps, three of them national parks, and Monday free for the flight home.</p>
   <div class="quad">
-    <div class="c-ws"><small>Day 1</small><b>White Sands NP</b></div>
-    <div class="c-cc"><small>Day 2</small><b>Carlsbad Caverns NP</b></div>
-    <div class="c-gm"><small>Day 2</small><b>Guadalupe Mountains NP</b></div>
-    <div class="c-ch"><small>Day 2</small><b>Chamizal NMem</b></div>
+    <div class="c-ws"><small>Sat</small><b>White Sands NP</b></div>
+    <div class="c-ch"><small>Sat</small><b>Chamizal NMem</b></div>
+    <div class="c-cc"><small>Sun</small><b>Carlsbad Caverns NP</b></div>
+    <div class="c-gm"><small>Sat or Sun</small><b>Guadalupe Mountains NP</b></div>
   </div>
   <div class="meta">
-    <span class="chip tbd">Dates TBD · Day 0 + 3 days</span>
-    <span class="chip">4 new stamps · 38 → 42</span>
+    <span class="chip">Fri Jan 15 – Mon Jan 18, 2027</span>
+    <span class="chip">4 new stamps · 49 → 53</span>
     <span class="chip">Mountain time · 1 hr ahead of home</span>
+    <span class="chip tbd">Flights not booked yet</span>
   </div>
 </header>
 
 <section>
   <h2>The weekend at a glance</h2>
   <div class="days">
-    <div class="tile trv"><span class="dl">Day 0</span><b>Arrive El Paso</b></div>
-    <div class="tile ws"><span class="dl">Day 1</span><b>White Sands</b></div>
-    <div class="tile tri"><span class="dl">Day 2</span><b>Caverns · Guadalupe · Chamizal</b><span class="bars" aria-hidden="true"><i style="background:#4A3C78"></i><i style="background:#B5532E"></i><i style="background:#2F7F6F"></i></span></div>
-    <div class="tile trv"><span class="dl">Day 3</span><b>Free morning · head home</b></div>
+    <div class="tile trv"><span class="dl">Fri Jan 15</span><b>Fly to El Paso</b></div>
+    <div class="tile tri"><span class="dl">Sat Jan 16</span><b>White Sands · Chamizal · east to Carlsbad</b><span class="bars" aria-hidden="true"><i style="background:#6FA3C7"></i><i style="background:#2F7F6F"></i><i style="background:#B5532E"></i></span></div>
+    <div class="tile tri"><span class="dl">Sun Jan 17</span><b>Caverns · Guadalupe · back to El Paso</b><span class="bars" aria-hidden="true"><i style="background:#4A3C78"></i><i style="background:#B5532E"></i></span></div>
+    <div class="tile trv"><span class="dl">Mon Jan 18</span><b>Slow morning · fly home</b></div>
   </div>
   <div class="keys">
     <span><i style="background:#211D2F"></i>Travel days</span>
     <span><i style="background:#6FA3C7"></i>White Sands NP</span>
+    <span><i style="background:#2F7F6F"></i>Chamizal NMem</span>
     <span><i style="background:#4A3C78"></i>Carlsbad Caverns NP</span>
     <span><i style="background:#B5532E"></i>Guadalupe Mountains NP</span>
-    <span><i style="background:#2F7F6F"></i>Chamizal NMem</span>
   </div>
 </section>
 
 <section>
   <h2>Details</h2>
   <div class="glance">
+    <div class="g"><span class="lbl">Flights</span><b>Bay Area → El Paso, Fri evening; back Mon</b><small>Friday-evening options: American SJC 7:21 PM (lands 11:59 PM, 25-min Phoenix connection) or Southwest OAK 5:30 PM (lands 12:05 AM). Not booked yet.</small></div>
     <div class="g"><span class="lbl">Car</span><b>Round-trip rental from El Paso</b><small>Costco Travel. No chains or one-way fees.</small></div>
-    <div class="g"><span class="lbl">Night 0</span><b>Best Western Plus El Paso Airport Hotel</b><small>Easy first night in El Paso.</small></div>
-    <div class="g"><span class="lbl">Night 1</span><b>Best Western Plus Executive Residency Carlsbad</b><small>2601 Patrick St, Carlsbad, NM</small></div>
-    <div class="g"><span class="lbl">Night 2</span><b>Best Western Plus El Paso Airport Hotel</b><small>Back where you started, handy for heading home.</small></div>
+    <div class="g"><span class="lbl">Fri Jan 15</span><b>Best Western Plus El Paso Airport Hotel</b><small>Late arrival, straight to bed.</small></div>
+    <div class="g"><span class="lbl">Sat Jan 16</span><b>Best Western Plus Executive Residency Carlsbad</b><small>2601 Patrick St, Carlsbad, NM</small></div>
+    <div class="g"><span class="lbl">Sun Jan 17</span><b>Best Western Plus El Paso Airport Hotel</b><small>Back where you started, handy for Monday's flight.</small></div>
     <div class="g"><span class="lbl">Passes</span><b>America the Beautiful / Access Pass</b><small>Covers entrance fees at all three parks. Chamizal is free.</small></div>
   </div>
 </section>
 
 <div class="flag">
-  <h3>The one scheduling rule</h3>
-  <p>Chamizal's visitor center is open Tuesday through Saturday only, so Day 2 needs to land on one of those days. Day 0 on a Thursday is the cleanest fit, putting Day 2 on a Saturday. The other three stamps are open daily; check the NPS app for any closures on your dates.</p>
+  <h3>Why the days fall this way</h3>
+  <ul>
+    <li><b>Chamizal</b>'s visitor center is open Tuesday–Saturday only, so Saturday is its only day this weekend.</li>
+    <li><b>Guadalupe's</b> Pine Springs visitor center is closed on MLK Day, so it has to be Saturday or Sunday. The route passes it both days, so if wind or snow closes it Saturday, you get a second try Sunday morning.</li>
+    <li><b>White Sands</b> and <b>Carlsbad Caverns</b> are open all weekend, including MLK Day.</li>
+  </ul>
 </div>
 
 <!-- DAY 0 -->
 <section>
-  <div class="day-head"><span class="dnum">DAY 0</span><h2>Arrive in El Paso</h2></div>
+  <div class="day-head"><span class="dnum">FRI JAN 15</span><h2>Fly to El Paso after work</h2></div>
   <div class="tl">
-    <div class="row"><div class="time">evening</div><div class="stop"><h3>Pick up the rental car</h3><p>Mountain time from here on.</p></div></div>
+    <div class="row"><div class="time">evening</div><div class="stop"><h3>Bay Area → El Paso</h3><p>Lands around midnight. Pick up the rental at ELP; Mountain time from here on.</p></div></div>
     <div class="row"><div class="time">late</div><div class="stop"><h3>Best Western Plus El Paso Airport Hotel</h3></div></div>
   </div>
 </section>
 
 <!-- DAY 1 -->
 <section>
-  <div class="day-head ws"><span class="dnum">DAY 1</span><h2>White Sands, then over the mountains</h2></div>
-  <p class="maps"><a href="https://www.google.com/maps/dir/Best+Western+Plus+El+Paso+Airport+Hotel/White+Sands+National+Park+Visitor+Center/Cloudcroft,+NM/Best+Western+Plus+Executive+Residency+Carlsbad" target="_blank" rel="noopener">Open Day 1 in Google Maps</a> · about 5 hours at the wheel</p>
+  <div class="day-head ws"><span class="dnum">SAT JAN 16</span><h2>White Sands, Chamizal, then east</h2></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Best+Western+Plus+El+Paso+Airport+Hotel/White+Sands+National+Park+Visitor+Center/Chamizal+National+Memorial/Pine+Springs+Visitor+Center,+Guadalupe+Mountains+National+Park/Best+Western+Plus+Executive+Residency+Carlsbad" target="_blank" rel="noopener">Open Saturday in Google Maps</a> · about 6 hours at the wheel</p>
   <div class="tl">
-    <div class="row"><div class="time">8:30</div><div class="stop"><h3>Depart El Paso</h3><p>Check the White Sands closures page the night before (link below).</p></div></div>
+    <div class="row"><div class="time">7:30</div><div class="stop"><h3>Depart El Paso</h3><p>Check the White Sands closures page the night before (link below).</p></div></div>
     <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 30m</span> El Paso → White Sands visitor center</span></div></div>
 
-    <div class="row"><div class="time">10:00</div><div class="stop ws">
+    <div class="row"><div class="time">9:00</div><div class="stop ws">
       <h3>White Sands Visitor Center <span class="tag">New park</span></h3>
-      <div class="stamp"><span class="s1">Stamp: White Sands National Park</span><span class="s2">Open daily; hours vary by season. Confirm in the NPS app.</span></div>
+      <div class="stamp"><span class="s1">Stamp: White Sands National Park</span><span class="s2">Open every day except Thanksgiving and Christmas. Winter visitor center hours vary; confirm the opening time in the NPS app.</span></div>
       <div class="warn">Missile tests on the neighboring range can close the park and US-70 for up to three hours. Check the closures page before you go.</div>
     </div></div>
 
-    <div class="row"><div class="time">10:30</div><div class="stop ws">
+    <div class="row"><div class="time">9:30</div><div class="stop ws">
       <h3>Dunes Drive + Interdune Boardwalk</h3>
       <p>Drive into the gypsum dunes; the pavement turns to packed sand, fine for a regular car. The Interdune Boardwalk is short and raised, with dune views from its end.</p>
     </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 30m</span> Back south to El Paso</span></div></div>
 
-    <div class="row"><div class="time">12:45</div><div class="stop"><h3>Lunch in Alamogordo</h3><p>Fill the tank before the mountains.</p></div></div>
-    <div class="drive"><div></div><div><span class="pill"><span class="mono">~3h 20m</span> US-82 over Cloudcroft → Artesia → US-285 S</span></div></div>
+    <div class="row"><div class="time">12:15</div><div class="stop ch">
+      <h3>Chamizal National Memorial <span class="tag">New stamp</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Chamizal National Memorial</span><span class="s2">Visitor center open Tuesday–Saturday, 10:00–5:00. Today is the only day it's open this weekend.</span></div>
+      <p>800 S San Marcial St. It marks the 1963 settlement of a century-long border dispute between the US and Mexico over the shifting Rio Grande.</p>
+    </div></div>
 
-    <div class="row"><div class="time">5:00</div><div class="stop"><h3>Best Western Plus Executive Residency Carlsbad</h3><p>Early dinner and bed. Tomorrow is the big day.</p></div></div>
+    <div class="row"><div class="time">12:45</div><div class="stop"><h3>Quick lunch in El Paso</h3><p>Fill the tank too. There's little along US-62/180 until Carlsbad.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 50m</span> US-62/180 east, 110 mi</span></div></div>
+
+    <div class="row"><div class="time">3:15</div><div class="stop gm">
+      <h3>Pine Springs Visitor Center <span class="tag opt">If time allows</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Guadalupe Mountains National Park</span><span class="s2">Open 8:00–4:30 Mountain time. If you're running late, skip it; you'll pass again Sunday morning.</span></div>
+      <p>El Capitan's cliff face stands right over the road. Guadalupe Peak behind it is the highest point in Texas.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 15m</span> US-62/180 north into New Mexico</span></div></div>
+
+    <div class="row"><div class="time">5:00</div><div class="stop"><h3>Best Western Plus Executive Residency Carlsbad</h3><p>Early dinner and bed.</p></div></div>
   </div>
 </section>
 
 <!-- DAY 2 -->
 <section>
-  <div class="day-head cc"><span class="dnum">DAY 2</span><h2>Caverns, mountains, river: three stamps home</h2></div>
-  <p class="maps"><a href="https://www.google.com/maps/dir/Best+Western+Plus+Executive+Residency+Carlsbad/Carlsbad+Caverns+National+Park+Visitor+Center/Pine+Springs+Visitor+Center,+Guadalupe+Mountains+National+Park/Chamizal+National+Memorial/Best+Western+Plus+El+Paso+Airport+Hotel" target="_blank" rel="noopener">Open Day 2 in Google Maps</a> · about 3 hours at the wheel · done by early afternoon</p>
+  <div class="day-head cc"><span class="dnum">SUN JAN 17</span><h2>Caverns and mountains on the way back</h2></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Best+Western+Plus+Executive+Residency+Carlsbad/Carlsbad+Caverns+National+Park+Visitor+Center/Pine+Springs+Visitor+Center,+Guadalupe+Mountains+National+Park/Best+Western+Plus+El+Paso+Airport+Hotel" target="_blank" rel="noopener">Open Sunday in Google Maps</a> · about 3 hours at the wheel · done by early afternoon</p>
   <div class="tl">
-    <div class="row"><div class="time">8:30</div><div class="stop"><h3>Depart Carlsbad</h3><p>Hotel breakfast first. Pack snacks; the next real meal is El Paso.</p></div></div>
+    <div class="row"><div class="time">7:30</div><div class="stop"><h3>Depart Carlsbad</h3><p>Hotel breakfast first. Pack snacks; the next real meal is El Paso.</p></div></div>
     <div class="drive"><div></div><div><span class="pill"><span class="mono">~30m</span> US-62/180 south to the Caverns</span></div></div>
 
-    <div class="row"><div class="time">9:00</div><div class="stop cc">
+    <div class="row"><div class="time">8:00</div><div class="stop cc">
       <h3>Carlsbad Caverns Visitor Center <span class="tag">New park</span></h3>
-      <div class="stamp"><span class="s1">Stamp: Carlsbad Caverns National Park</span><span class="s2">Visitor center opens at 9:00. No timed-entry reservation needed just for the visitor center; those are for going into the cave.</span></div>
+      <div class="stamp"><span class="s1">Stamp: Carlsbad Caverns National Park</span><span class="s2">Visitor center 8:00–5:00. No reservation needed for the visitor center itself; timed-entry tickets are only for going into the cave.</span></div>
       <p>Stamp and a look at the exhibits. About 30 minutes.</p>
     </div></div>
-    <div class="drive"><div></div><div><span class="pill"><span class="mono">~42m</span> US-62/180 south into Texas, 45 mi</span></div></div>
 
-    <div class="row"><div class="time">10:15</div><div class="stop gm">
+    <div class="row"><div class="time">8:30</div><div class="stop cc">
+      <h3>Elevator into the Big Room <span class="tag opt">Optional</span></h3>
+      <p>Cavern entry runs 9:30–2:30 with a timed-entry ticket from recreation.gov. The shortcut route around the Big Room keeps it short. Skip it and you're in El Paso by lunch.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~45m</span> US-62/180 south into Texas</span></div></div>
+
+    <div class="row"><div class="time">9:30</div><div class="stop gm">
       <h3>Pine Springs Visitor Center <span class="tag">New park</span></h3>
-      <div class="stamp"><span class="s1">Stamp: Guadalupe Mountains National Park</span><span class="s2">Still on Mountain time even if your phone flips to Central.</span></div>
-      <p>El Capitan's cliff face stands right over the road. Guadalupe Peak behind it is the highest point in Texas.</p>
+      <div class="stamp"><span class="s1">Stamp: Guadalupe Mountains National Park</span><span class="s2">If you got it Saturday, drive on. Open Sunday; closed Monday for MLK Day. Still on Mountain time even if your phone flips to Central.</span></div>
     </div></div>
 
-    <div class="row"><div class="time">10:45</div><div class="stop gm">
+    <div class="row"><div class="time">10:00</div><div class="stop gm">
       <h3>Frijole Ranch <span class="tag opt">Optional</span></h3>
       <p>A short drive from the visitor center to an old ranch house in a shady spring oasis, steps from the parking lot.</p>
     </div></div>
-    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 45m</span> US-62/180 west into El Paso</span></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 50m</span> US-62/180 west into El Paso</span></div></div>
 
-    <div class="row"><div class="time">1:00</div><div class="stop ch">
-      <h3>Chamizal National Memorial <span class="tag">New stamp</span></h3>
-      <div class="stamp"><span class="s1">Stamp: Chamizal National Memorial</span><span class="s2">Open Tuesday–Saturday, 10:00–5:00. Four hours of margin before closing.</span></div>
-      <p>800 S San Marcial St. It marks the 1963 settlement of a century-long border dispute between the US and Mexico over the shifting Rio Grande.</p>
-    </div></div>
-
-    <div class="row"><div class="time">1:45</div><div class="stop"><h3>Late lunch, then Best Western Plus El Paso Airport Hotel</h3><p>All four stamps done. The evening is yours.</p></div></div>
+    <div class="row"><div class="time">12:30</div><div class="stop"><h3>Lunch, then Best Western Plus El Paso Airport Hotel</h3><p>All four stamps done. The afternoon is yours.</p></div></div>
   </div>
 </section>
 
 <!-- DAY 3 -->
 <section>
-  <div class="day-head"><span class="dnum">DAY 3</span><h2>A free morning, then home</h2></div>
+  <div class="day-head"><span class="dnum">MON JAN 18</span><h2>A slow morning, then home</h2></div>
   <div class="tl">
-    <div class="row"><div class="time">morning</div><div class="stop"><h3>Sleep in, hotel breakfast</h3><p>No stamps left and no long drive.</p></div></div>
-    <div class="row"><div class="time">late morning</div><div class="stop"><h3>Return the rental car and head home</h3></div></div>
+    <div class="row"><div class="time">morning</div><div class="stop"><h3>Sleep in, hotel breakfast</h3><p>No stamps left and no long drive. If Friday's flight misconnected and you missed White Sands, this is the morning to go back for it.</p></div></div>
+    <div class="row"><div class="time">afternoon</div><div class="stop"><h3>Return the rental car and fly home</h3><p>American's 3:28 PM gets you home around 7 PM; Southwest's 8:30 or 8:45 PM leaves the whole day free.</p></div></div>
   </div>
 </section>
 
 <section>
   <h2>Stamps this trip</h2>
-  <p class="sub">All four are new; the first three count toward your 63.</p>
+  <p class="sub">All four are new; the first three count toward your 64.</p>
   <div class="stamps">
-    <div class="sc"><span class="d" style="color:#3E7BA6">DAY 1 · 10:00</span><span class="t">White Sands NP</span><span class="w">White Sands Visitor Center</span></div>
-    <div class="sc"><span class="d" style="color:#4A3C78">DAY 2 · 9:00</span><span class="t">Carlsbad Caverns NP</span><span class="w">Carlsbad Caverns Visitor Center</span></div>
-    <div class="sc"><span class="d" style="color:#B5532E">DAY 2 · 10:15</span><span class="t">Guadalupe Mountains NP</span><span class="w">Pine Springs Visitor Center</span></div>
-    <div class="sc"><span class="d" style="color:#2F7F6F">DAY 2 · 1:00</span><span class="t">Chamizal NMem</span><span class="w">Chamizal visitor center, El Paso</span></div>
+    <div class="sc"><span class="d" style="color:#3E7BA6">SAT · 9:00</span><span class="t">White Sands NP</span><span class="w">White Sands Visitor Center</span></div>
+    <div class="sc"><span class="d" style="color:#2F7F6F">SAT · 12:15</span><span class="t">Chamizal NMem</span><span class="w">Chamizal visitor center, El Paso</span></div>
+    <div class="sc"><span class="d" style="color:#B5532E">SAT 3:15 or SUN 9:30</span><span class="t">Guadalupe Mountains NP</span><span class="w">Pine Springs Visitor Center</span></div>
+    <div class="sc"><span class="d" style="color:#4A3C78">SUN · 8:00</span><span class="t">Carlsbad Caverns NP</span><span class="w">Carlsbad Caverns Visitor Center</span></div>
   </div>
 </section>
 
 <section>
   <h2>To do before the trip</h2>
   <ul class="rem">
-    <li><b>Once dates are set:</b> confirm Day 2 falls Tuesday–Saturday, then book the Carlsbad Best Western for Night 1 and the El Paso Airport Best Western for Nights 0 and 2.</li>
-    <li><b>Once dates are set:</b> reserve a round-trip car from El Paso on Costco Travel.</li>
-    <li><b>Night before Day 1:</b> check the White Sands closures page for missile tests.</li>
-    <li><b>Week before:</b> recheck all four visitor centers in the NPS app (Chamizal's hours especially), and pull NWS forecasts for Cloudcroft and the parks.</li>
+    <li><b>Now:</b> book Friday-evening flights to El Paso with a Monday return.</li>
+    <li><b>Now:</b> book the El Paso Airport Best Western for Fri Jan 15 and Sun Jan 17, and the Carlsbad Best Western for Sat Jan 16.</li>
+    <li><b>About two weeks out:</b> reserve a round-trip car from El Paso on Costco Travel.</li>
+    <li><b>If you want the Big Room:</b> book a timed-entry cavern ticket for Sunday morning on recreation.gov.</li>
+    <li><b>Week before:</b> recheck all four visitor centers in the NPS app (Chamizal's hours especially), and pull NWS forecasts for Guadalupe Pass and White Sands.</li>
+    <li><b>Fri Jan 15:</b> check the White Sands closures page for missile tests.</li>
     <li>Confirm drive times in Google Maps. The ones here come from NPS and road-trip guides.</li>
   </ul>
 </section>
 
 <footer class="src">
-  Hours last checked Sept 29, 2026, from these sources. Recheck once dates are set:
+  Hours last checked Nov 4, 2026, from these sources. Recheck the week before:
   <ul>
-    <li><a href="https://www.nps.gov/whsa/planyourvisit/hours.htm" target="_blank" rel="noopener">White Sands operating hours</a> · <a href="https://www.nps.gov/whsa/planyourvisit/park-closures.htm" target="_blank" rel="noopener">closures page</a></li>
-    <li><a href="https://nps.gov/cave/planyourvisit/hours.htm" target="_blank" rel="noopener">Carlsbad Caverns operating hours</a> · <a href="https://www.nps.gov/cave/faqs.htm" target="_blank" rel="noopener">FAQ</a></li>
-    <li><a href="https://www.nps.gov/gumo/planyourvisit/hours.htm" target="_blank" rel="noopener">Guadalupe Mountains operating hours</a></li>
-    <li><a href="https://visitelpaso.com/places/chamizal-national-memorial" target="_blank" rel="noopener">Chamizal hours (Visit El Paso)</a></li>
-    <li><a href="https://schoandjo.com/southwest-national-parks-road-trip/" target="_blank" rel="noopener">Scho &amp; Jo: 3 parks in 3 days (drive times)</a></li>
+    <li><a href="https://www.nps.gov/whsa/planyourvisit/hours.htm" target="_blank" rel="noopener">White Sands operating hours</a> · <a href="https://www.nps.gov/whsa/planyourvisit/park-closures.htm" target="_blank" rel="noopener">closures page</a> · <a href="https://www.nps.gov/whsa/planyourvisit/directions.htm" target="_blank" rel="noopener">directions</a></li>
+    <li><a href="https://www.nps.gov/cave/planyourvisit/hours.htm" target="_blank" rel="noopener">Carlsbad Caverns operating hours</a></li>
+    <li><a href="https://www.nps.gov/gumo/learn/management/superintendents_compendium.htm" target="_blank" rel="noopener">Guadalupe Mountains hours and holiday closures</a></li>
+    <li><a href="https://www.nps.gov/cham/planyourvisit/hours.htm" target="_blank" rel="noopener">Chamizal operating hours</a></li>
+    <li><a href="https://getawaycouple.com/guadalupe-mountains-national-park" target="_blank" rel="noopener">Guadalupe Mountains to Carlsbad Caverns drive time</a></li>
   </ul>
 </footer>
 
