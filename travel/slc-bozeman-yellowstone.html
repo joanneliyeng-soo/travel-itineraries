@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salt Lake to Bozeman Long Weekend</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700&family=Source+Sans+3:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: dawn-over-the-Tetons header with a mountain-and-geyser panorama, Florida-style calendar tiles, then one timeline per day.
+   Palette (hardcoded hex, single light look — Joanne's convention): pale sage-mist ground, deep pine ink, one color per day.
+   Utah rust #B65A35   Wyoming/Idaho pine #2F6150   Yellowstone geyser #2F8C9A   Flying slate #3A4652 */
+html, body { background:#F2F1EA !important; color:#1F2B28 !important; color-scheme: light !important; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Source Sans 3", "Helvetica Neue", Arial, sans-serif; font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased; }
+a { color:#2F6150; font-weight:700; text-underline-offset:3px; }
+a:focus-visible { outline:2px solid #2F8C9A; outline-offset:2px; }
+h1, h2, h3 { font-family:"Bitter", Georgia, serif; margin:0; color:#1F2B28; text-wrap:balance; }
+.mono { font-family:"Space Mono", ui-monospace, monospace; }
+.wrap { max-width:820px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); }
+
+/* Header + panorama */
+.hero { background:#26394A; background-image:linear-gradient(180deg, #1E2F40 0%, #3B5168 45%, #B9877A 80%, #E9B98A 100%); color:#F6F1E7; }
+.hero .wrap { padding-block:38px 6px; }
+.eyebrow { font-family:"Space Mono", monospace; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:#F2C98E; margin:0 0 10px; }
+.hero h1 { color:#FFF9EE; font-size:clamp(32px, 7vw, 52px); line-height:1.05; margin:0 0 12px; }
+.hero .lede { margin:0; color:#E9E2D6; max-width:60ch; }
+.facts { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.fact { font-family:"Space Mono", monospace; font-size:12.5px; background:rgba(255,249,238,.13); border:1px solid rgba(255,249,238,.3); color:#FFF9EE; padding:5px 10px; border-radius:999px; }
+.fact.tbd { background:transparent; border:1.5px dashed #F2C98E; }
+.pano { display:block; width:100%; height:auto; margin-top:22px; }
+.ground { height:14px; background:#2F6150; }
+
+main { padding-block:28px 56px; }
+section + section, section + .flag, .flag + section { margin-top:40px; }
+h2 { font-size:25px; margin:0 0 4px; }
+.label { font-family:"Space Mono", monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#6B7A72; margin:0 0 14px; }
+
+/* Route strip */
+.route { background:#FFFFFF; border:1px solid #DAD8CB; border-radius:12px; padding:14px 14px 10px; overflow-x:auto; }
+.route svg { display:block; min-width:640px; width:100%; height:auto; }
+
+/* Calendar tiles (after the Florida Thanksgiving page) */
+.week { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin-top:14px; }
+.wd { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px; border-radius:10px; padding:10px 4px 9px; background:#FFFFFF; border:1px solid #DAD8CB; min-height:84px; text-align:center; }
+.wd .dw { font-size:10px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; opacity:.8; }
+.wd .dn { font-family:"Bitter", Georgia, serif; font-size:22px; font-weight:700; line-height:1.1; }
+.wd .dl { font-size:10.5px; font-weight:700; line-height:1.2; opacity:.9; }
+.wd.ut { background:#B65A35; border-color:#B65A35; color:#FFF3EA; }
+.wd.wy { background:#2F6150; border-color:#2F6150; color:#EAF4EE; }
+.wd.ys { background:#2F8C9A; border-color:#2F8C9A; color:#EAF7F8; }
+.wd.spare { background:transparent; border:1.5px dashed #9AA59E; color:#6B7A72; }
+.callegend { display:flex; flex-wrap:wrap; gap:8px 16px; margin-top:12px; font-size:13px; color:#4E5B55; }
+.callegend span { display:flex; align-items:center; gap:6px; }
+.callegend i { width:12px; height:12px; border-radius:3px; flex:0 0 12px; }
+
+/* Candidate weekends */
+.cands { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-top:16px; }
+.cand { background:#FFFFFF; border:1px solid #DAD8CB; border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:3px; }
+.cand .when { font-family:"Space Mono", monospace; font-size:12px; color:#2F6150; font-weight:700; }
+.cand b { font-size:16px; }
+.cand small { color:#5E6B65; font-size:13.5px; }
+.cand.best { border:2px solid #2F8C9A; }
+.cand .pick { align-self:flex-start; font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; background:#2F8C9A; color:#FFFFFF; border-radius:4px; padding:2px 7px; }
+
+/* At a glance */
+.glance { display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:10px; }
+.g { background:#FFFFFF; border:1px solid #DAD8CB; border-radius:10px; padding:13px 15px; display:flex; flex-direction:column; gap:3px; min-width:0; }
+.g .lbl { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#B65A35; font-weight:800; }
+.g small { color:#5E6B65; font-size:13.5px; }
+.tbd-i { border-bottom:1.5px dashed #B65A35; }
+
+.flag { background:#FBF1E4; border-left:4px solid #D9963F; border-radius:0 10px 10px 0; padding:13px 16px; }
+.flag h3 { font-size:18px; color:#7A4A12; margin-bottom:4px; }
+.flag p { margin:0 0 6px; color:#5C4426; font-size:15px; }
+.flag p:last-child { margin-bottom:0; }
+
+/* Day timelines */
+.day-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 12px; border-bottom:2px solid currentColor; padding-bottom:8px; margin-bottom:6px; }
+.day-head .dnum { font-family:"Space Mono", monospace; font-size:12.5px; font-weight:700; color:#FFFFFF; padding:3px 9px; border-radius:4px; }
+.day-head h2 { font-size:25px; margin:0; }
+.day-head .date { color:#6B7A72; font-weight:700; font-size:14px; }
+.d1 .day-head { color:#B65A35; } .d1 .dnum { background:#B65A35; }
+.d2 .day-head { color:#2F6150; } .d2 .dnum { background:#2F6150; }
+.d3 .day-head { color:#2F8C9A; } .d3 .dnum { background:#2F8C9A; }
+.day-head h2, .day-head .date { color:inherit; }
+.day-head h2 { color:#1F2B28; }
+.maps { font-size:14px; margin:0 0 6px; color:#5E6B65; }
+
+.row { display:grid; grid-template-columns:70px 1fr; gap:12px; }
+.time { font-family:"Space Mono", monospace; font-size:12.5px; color:#4E5B55; padding-top:13px; text-align:right; }
+.stop { position:relative; border-left:2px solid #CFCDBF; padding:9px 0 14px 18px; display:flex; flex-direction:column; gap:6px; min-width:0; }
+.stop::before { content:""; position:absolute; left:-7px; top:16px; width:12px; height:12px; border-radius:50%; background:#F2F1EA; border:2px solid #9AA59E; }
+.d1 .stop.hot::before { background:#B65A35; border-color:#B65A35; }
+.d2 .stop.hot::before { background:#2F6150; border-color:#2F6150; }
+.d3 .stop.hot::before { background:#2F8C9A; border-color:#2F8C9A; }
+.stop h3 { font-size:19px; line-height:1.25; }
+.stop p { margin:0; color:#38443F; font-size:15px; max-width:64ch; }
+.tag { display:inline-block; font-family:"Source Sans 3", sans-serif; font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:4px; background:#E4E9E3; color:#2F6150; vertical-align:middle; margin-left:4px; }
+.tag.opt { background:#F3E6D6; color:#8A5A1E; }
+.stamp { border:2px dashed #B65A35; background:#FBF3EE; border-radius:8px; padding:9px 12px; display:flex; flex-direction:column; gap:2px; }
+.d2 .stamp { border-color:#2F6150; background:#EEF4F0; }
+.d3 .stamp { border-color:#2F8C9A; background:#ECF6F7; }
+.stamp .s1 { font-weight:800; font-size:14.5px; }
+.stamp .s2 { font-size:13.5px; color:#4E5B55; }
+.warn { font-size:14px; color:#5C4426; background:#FBF1E4; border-left:3px solid #D9963F; padding:6px 10px; }
+.drive { display:grid; grid-template-columns:70px 1fr; gap:12px; }
+.drive > div:last-child { border-left:2px dotted #CFCDBF; padding:4px 0 4px 18px; }
+.pill { display:inline-flex; flex-wrap:wrap; gap:4px 8px; align-items:center; background:#FFFFFF; border:1px solid #DAD8CB; font-size:13px; padding:5px 12px; border-radius:14px; max-width:100%; color:#38443F; }
+.pill .mono { font-weight:700; color:#1F2B28; }
+
+/* Stamps */
+.stamps { display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px; }
+.sc { background:#FFFFFF; border:1px solid #DAD8CB; border-left:5px solid #B65A35; border-radius:8px; padding:11px 13px; display:flex; flex-direction:column; gap:2px; }
+.sc.wy { border-left-color:#2F6150; } .sc.ys { border-left-color:#2F8C9A; }
+.sc .d { font-family:"Space Mono", monospace; font-size:11.5px; color:#6B7A72; }
+.sc .t { font-family:"Bitter", Georgia, serif; font-weight:700; font-size:16.5px; line-height:1.25; }
+.sc .w { font-size:13.5px; color:#5E6B65; }
+
+ul.rem { margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px; color:#38443F; }
+ul.rem li::marker { color:#B65A35; }
+.src { margin-top:40px; padding-top:14px; border-top:1px solid #DAD8CB; font-size:13px; color:#6B7A72; }
+.src ul { margin:6px 0 0; padding-left:18px; }
+
+@media (min-width:560px){ .week { grid-template-columns:repeat(4, 1fr); gap:8px; } .wd { min-height:92px; } }
+@media (max-width:520px){ .row, .drive { grid-template-columns:52px 1fr; gap:9px; } .time { font-size:11.5px; } }
+@media print{ html, body { background:#FFFFFF !important; } .hero, .wd, .ground { -webkit-print-color-adjust:exact; print-color-adjust:exact; } section { break-inside:avoid; } }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">NPS passport run · open jaw · future long weekend</p>
+    <h1>Salt Lake to Bozeman</h1>
+    <p class="lede">A ready-to-date three-day run north through Utah, Idaho and Wyoming. Fly into SLC, pick up the Utah stamps and the pioneer trails on Day 1, cross Grand Teton into Yellowstone on Day 2, and drive out the North Entrance to fly home from Bozeman on Day 3.</p>
+    <div class="facts">
+      <span class="fact tbd">Dates TBD · Fri–Sun</span>
+      <span class="fact">~8 stamps</span>
+      <span class="fact">One-way car SLC → BZN</span>
+      <span class="fact">Late May – early Oct only</span>
+    </div>
+  </div>
+  <svg class="pano" viewBox="0 0 800 150" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Wasatch hills, the jagged Teton range and Old Faithful's steam plume at dawn">
+    <!-- far ranges -->
+    <path d="M0 108 L40 92 L85 100 L130 80 L175 96 L220 86 L260 100 L300 94 L340 104 L800 104 L800 150 L0 150 Z" fill="#8C6E74" opacity=".55"/>
+    <!-- the Tetons -->
+    <path d="M300 112 L350 96 L385 70 L405 82 L430 34 L446 58 L462 18 L478 50 L492 40 L512 76 L535 66 L570 98 L620 106 L800 110 L800 150 L300 150 Z" fill="#4A5D6E"/>
+    <path d="M430 34 L438 46 L446 58 L452 46 L462 18 L470 34 L478 50 L484 44 L492 40 L486 52 L478 56 L470 44 L462 34 L454 52 L446 64 L438 52 Z" fill="#F6F1E7" opacity=".85"/>
+    <!-- Old Faithful plume -->
+    <g opacity=".9">
+      <ellipse cx="690" cy="58" rx="16" ry="22" fill="#F6F1E7" opacity=".55"/>
+      <ellipse cx="682" cy="36" rx="20" ry="18" fill="#F6F1E7" opacity=".45"/>
+      <ellipse cx="700" cy="24" rx="16" ry="14" fill="#F6F1E7" opacity=".35"/>
+      <path d="M684 112 Q686 80 690 70 Q694 80 696 112 Z" fill="#F6F1E7" opacity=".8"/>
+    </g>
+    <!-- foreground hills -->
+    <path d="M0 126 Q90 112 180 122 T360 120 T560 124 T800 118 L800 150 L0 150 Z" fill="#2F6150"/>
+    <!-- pines -->
+    <g fill="#24493D">
+      <path d="M40 130 L48 108 L56 130 Z"/><path d="M58 132 L64 116 L70 132 Z"/>
+      <path d="M520 128 L528 104 L536 128 Z"/><path d="M540 130 L546 112 L552 130 Z"/><path d="M556 129 L561 116 L566 129 Z"/>
+      <path d="M740 126 L748 102 L756 126 Z"/><path d="M760 128 L766 112 L772 128 Z"/>
+    </g>
+    <!-- spike & rail on the left -->
+    <g stroke="#E9B98A" stroke-width="2" opacity=".9">
+      <line x1="110" y1="134" x2="250" y2="134"/>
+      <line x1="120" y1="130" x2="120" y2="138"/><line x1="140" y1="130" x2="140" y2="138"/><line x1="160" y1="130" x2="160" y2="138"/><line x1="180" y1="130" x2="180" y2="138"/><line x1="200" y1="130" x2="200" y2="138"/><line x1="220" y1="130" x2="220" y2="138"/><line x1="240" y1="130" x2="240" y2="138"/>
+    </g>
+  </svg>
+  <div class="ground"></div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2>The route</h2>
+  <p class="label">~15½ hours at the wheel · swipe the strip on a phone</p>
+  <div class="route">
+    <svg viewBox="0 0 760 92" role="img" aria-label="Route: SLC, Timpanogos, Golden Spike, Fossil Butte, Montpelier, Jenny Lake, Flagg Ranch, Grant Village, Old Faithful, Mammoth, Bozeman">
+      <line x1="30" y1="50" x2="268" y2="50" stroke="#B65A35" stroke-width="4" stroke-dasharray="2 7" stroke-linecap="round"/>
+      <line x1="268" y1="50" x2="512" y2="50" stroke="#2F6150" stroke-width="4" stroke-dasharray="2 7" stroke-linecap="round"/>
+      <line x1="512" y1="50" x2="730" y2="50" stroke="#2F8C9A" stroke-width="4" stroke-dasharray="2 7" stroke-linecap="round"/>
+      <g font-family="Source Sans 3, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#1F2B28" text-anchor="middle">
+        <circle cx="30" cy="50" r="7" fill="#3A4652"/><text x="30" y="30">SLC</text><text x="30" y="78" font-weight="400" fill="#6B7A72">fly in</text>
+        <circle cx="90" cy="50" r="7" fill="#B65A35"/><text x="90" y="30">Timp</text><text x="90" y="78" font-weight="400" fill="#6B7A72">Cave NM</text>
+        <circle cx="152" cy="50" r="7" fill="#B65A35"/><text x="152" y="30">Golden</text><text x="152" y="78" font-weight="400" fill="#6B7A72">Spike</text>
+        <circle cx="212" cy="50" r="7" fill="#B65A35"/><text x="212" y="30">Fossil</text><text x="212" y="78" font-weight="400" fill="#6B7A72">Butte</text>
+        <circle cx="268" cy="50" r="9" fill="#FFFFFF" stroke="#B65A35" stroke-width="3"/><text x="268" y="30">Montpelier</text><text x="268" y="78" font-weight="400" fill="#6B7A72">night 1</text>
+        <circle cx="352" cy="50" r="7" fill="#2F6150"/><text x="352" y="30">Jenny</text><text x="352" y="78" font-weight="400" fill="#6B7A72">Lake</text>
+        <circle cx="430" cy="50" r="7" fill="#2F6150"/><text x="430" y="30">Flagg</text><text x="430" y="78" font-weight="400" fill="#6B7A72">Ranch</text>
+        <circle cx="512" cy="50" r="9" fill="#FFFFFF" stroke="#2F6150" stroke-width="3"/><text x="512" y="30">Grant</text><text x="512" y="78" font-weight="400" fill="#6B7A72">night 2</text>
+        <circle cx="580" cy="50" r="7" fill="#2F8C9A"/><text x="580" y="30">Old</text><text x="580" y="78" font-weight="400" fill="#6B7A72">Faithful</text>
+        <circle cx="655" cy="50" r="7" fill="#2F8C9A"/><text x="655" y="30">Mammoth</text><text x="655" y="78" font-weight="400" fill="#6B7A72">+ Arch</text>
+        <circle cx="730" cy="50" r="7" fill="#3A4652"/><text x="730" y="30">BZN</text><text x="730" y="78" font-weight="400" fill="#6B7A72">fly home</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <h2>The weekend at a glance</h2>
+  <div class="week">
+    <div class="wd ut"><span class="dw">Fri</span><span class="dn">1</span><span class="dl">Fly in · Utah stamps</span></div>
+    <div class="wd wy"><span class="dw">Sat</span><span class="dn">2</span><span class="dl">Trails · Tetons</span></div>
+    <div class="wd ys"><span class="dw">Sun</span><span class="dn">3</span><span class="dl">Yellowstone · fly home</span></div>
+    <div class="wd spare"><span class="dw">Mon</span><span class="dn">+</span><span class="dl">Spare on a holiday weekend</span></div>
+  </div>
+  <div class="callegend">
+    <span><i style="background:#B65A35"></i>Utah &amp; the trails</span>
+    <span><i style="background:#2F6150"></i>Idaho &amp; Grand Teton</span>
+    <span><i style="background:#2F8C9A"></i>Yellowstone</span>
+    <span><i style="border:1.5px dashed #9AA59E"></i>Optional</span>
+  </div>
+
+  <div class="cands">
+    <div class="cand"><span class="when">MAY 28 – 30, 2027</span><b>Memorial Day</b><small>Earliest window. Flagg Ranch, Grant Village and the Montpelier center may still be on pre-season hours.</small></div>
+    <div class="cand best"><span class="pick">Safest</span><span class="when">JUN 18 – 20, 2027</span><b>Juneteenth</b><small>Already a Fri–Sun holiday. Everything on the route is in summer hours.</small></div>
+    <div class="cand"><span class="when">JUL 2 – 4, 2027</span><b>Fourth of July</b><small>Peak crowds and prices. Monday the 5th is spare.</small></div>
+  </div>
+</section>
+
+<section>
+  <h2>Details</h2>
+  <div class="glance">
+    <div class="g"><span class="lbl">Fly in</span><b>OAK or SFO → SLC · <span class="tbd-i">Fri</span> first wave</b><small>Land by about 9:00 Mountain. The Utah day only works with an early arrival.</small></div>
+    <div class="g"><span class="lbl">Fly home</span><b>BZN → OAK or SFO · <span class="tbd-i">Sun</span> evening</b><small>Any time after about 5:30 pm. Fewer BZN flights on holiday weekends, so price this leg first.</small></div>
+    <div class="g"><span class="lbl">Car</span><b>One-way rental, SLC → BZN</b><small>Costco Travel. Compare drop fees across companies; they can add $200–500+.</small></div>
+    <div class="g"><span class="lbl">Night 1</span><b>Montpelier, Idaho</b><small>Best Western Clover Creek Inn, or whatever's open. Confirm when booking.</small></div>
+    <div class="g"><span class="lbl">Night 2</span><b>Grant Village Lodge, Yellowstone</b><small>Books up about a year out. Old Faithful Inn or Lodge also works for this route.</small></div>
+    <div class="g"><span class="lbl">Passes</span><b>America the Beautiful</b><small>Covers Golden Spike, Grand Teton and Yellowstone entrance fees.</small></div>
+  </div>
+</section>
+
+<div class="flag">
+  <h3>Day 1 is the tight one</h3>
+  <p>Three NPS visitor centers across about 370 miles. Fossil Butte closes at 5:30 pm in summer, so the latest safe arrival is about 4:45.</p>
+  <p>If the flight lands after about 10:30, drop Timpanogos (it's 40 minutes the wrong way) and keep Golden Spike and Fossil Butte.</p>
+</div>
+
+<!-- DAY 1 -->
+<section class="d1">
+  <div class="day-head"><span class="dnum">DAY 1</span><h2>Utah stamps, then Fossil Butte</h2><span class="date">Friday · date TBD</span></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Salt+Lake+City+International+Airport/Timpanogos+Cave+Visitor+Center/Golden+Spike+National+Historical+Park/Fossil+Butte+National+Monument+Visitor+Center/Montpelier,+ID" target="_blank" rel="noopener">Open Day 1 in Google Maps</a> · about 7 hours at the wheel</p>
+  <div class="tl">
+    <div class="row"><div class="time">9:00</div><div class="stop"><h3>Land at SLC · pick up the car</h3><p>Clocks jump an hour ahead of home. Grab coffee and go.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~45m</span> I-15 S → UT-92 up American Fork Canyon</span></div></div>
+
+    <div class="row"><div class="time">10:15</div><div class="stop hot">
+      <h3>Timpanogos Cave Visitor Center <span class="tag">Stamp</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Timpanogos Cave NM</span><span class="s2">In the visitor center at the canyon floor. Summer hours 7:00–5:30 daily.</span></div>
+      <p>Stamp only. The cave tour starts with a steep 1.5-mile climb, so skip it.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~2h 15m</span> I-15 N → UT-13 → UT-83, grab lunch in Brigham City</span></div></div>
+
+    <div class="row"><div class="time">1:00</div><div class="stop hot">
+      <h3>Golden Spike Visitor Center <span class="tag">Stamp</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Golden Spike NHP</span><span class="s2">Promontory Summit. Summer hours 9:00–5:00 daily.</span></div>
+      <p>The last spike site and the replica locomotives are right outside the visitor center.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~2h 45m</span> I-84 → I-80 E → US-189 N past Kemmerer</span></div></div>
+
+    <div class="row"><div class="time">4:15</div><div class="stop hot">
+      <h3>Fossil Butte Visitor Center <span class="tag">Stamp</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Fossil Butte NM</span><span class="s2">Summer hours 8:00–5:30 daily, Friday before Memorial Day through Labor Day.</span></div>
+      <p>The fossils are inside the building: fish, bats and a 13-foot crocodile in the stone.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 15m</span> US-30 W via Cokeville into Idaho</span></div></div>
+
+    <div class="row"><div class="time">6:15</div><div class="stop"><h3>Montpelier · check in</h3><p>Sleeping here puts the trail center first thing tomorrow, a few minutes from the hotel.</p></div></div>
+  </div>
+</section>
+
+<!-- DAY 2 -->
+<section class="d2">
+  <div class="day-head"><span class="dnum">DAY 2</span><h2>The trails, the Tetons, into Yellowstone</h2><span class="date">Saturday · date TBD</span></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/National+Oregon+California+Trail+Center,+Montpelier,+ID/Jenny+Lake+Visitor+Center/Flagg+Ranch+Information+Station/Moose+Falls,+Yellowstone/Lewis+Falls,+Yellowstone/Grant+Visitor+Center,+Yellowstone" target="_blank" rel="noopener">Open Day 2 in Google Maps</a> · about 4¾ hours at the wheel · Moose Falls and Lewis Falls are only in the link to keep Maps on the South Entrance road</p>
+  <div class="tl">
+    <div class="row"><div class="time">9:00</div><div class="stop hot">
+      <h3>National Oregon/California Trail Center <span class="tag">Stamps</span></h3>
+      <div class="stamp"><span class="s1">Stamps: Oregon NHT &amp; California NHT</span><span class="s2">Partner site, not NPS. Summer hours Mon–Sat 9:00–5:00, closed Sunday. Call (208) 847-3800 to confirm the stamps are out.</span></div>
+      <p>It sits right on the old Clover Creek wagon encampment.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~2h 30m</span> US-89 N through Star Valley and Alpine to Jackson</span></div></div>
+
+    <div class="row"><div class="time">12:00</div><div class="stop"><h3>Lunch in Jackson</h3><p>Then up US-191 and Teton Park Road.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~40m</span> US-191 N → Moose → Teton Park Road</span></div></div>
+
+    <div class="row"><div class="time">1:30</div><div class="stop hot">
+      <h3>Jenny Lake Visitor Center <span class="tag">Stamp</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Grand Teton NP</span><span class="s2">Open daily in summer. Teton Park Road is open to cars from about May 1.</span></div>
+      <p>The lake and the peaks are right behind the visitor center. Oxbow Bend is a roadside pullout on the way north if there's time.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~55m</span> north past Jackson Lake on US-89/191</span></div></div>
+
+    <div class="row"><div class="time">2:45</div><div class="stop hot">
+      <h3>Flagg Ranch Information Station <span class="tag">Stamp</span></h3>
+      <div class="stamp"><span class="s1">Stamp: John D. Rockefeller Jr. Memorial Parkway</span><span class="s2">Seasonal information station. Check its opening date if you go Memorial Day weekend.</span></div>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~40m</span> South Entrance → past Lewis Lake to Grant Village</span></div></div>
+
+    <div class="row"><div class="time">3:30</div><div class="stop hot">
+      <h3>Grant Village Visitor Center <span class="tag">Stamp</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Yellowstone NP</span><span class="s2">On the shore of Yellowstone Lake. Summer hours, seasonal opening.</span></div>
+      <p>Check in at Grant Village Lodge next door. West Thumb Geyser Basin is 5 minutes up the road for an evening boardwalk.</p>
+    </div></div>
+  </div>
+</section>
+
+<!-- DAY 3 -->
+<section class="d3">
+  <div class="day-head"><span class="dnum">DAY 3</span><h2>Geysers, Mammoth, out to Bozeman</h2><span class="date">Sunday · date TBD</span></div>
+  <p class="maps"><a href="https://www.google.com/maps/dir/Grant+Village,+Yellowstone/Old+Faithful+Visitor+Education+Center/Midway+Geyser+Basin/Albright+Visitor+Center/Roosevelt+Arch/Bozeman+Yellowstone+International+Airport" target="_blank" rel="noopener">Open Day 3 in Google Maps</a> · about 4 hours at the wheel</p>
+  <div class="tl">
+    <div class="row"><div class="time">7:30</div><div class="stop"><h3>Leave Grant Village</h3><p>Over Craig Pass to the Upper Geyser Basin before the crowds.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~40m</span> Grand Loop Road west</span></div></div>
+
+    <div class="row"><div class="time">8:15</div><div class="stop hot">
+      <h3>Old Faithful</h3>
+      <p>Check the next predicted eruption at the Visitor Education Center. It has its own Yellowstone stamp too.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~15m</span> north to Midway</span></div></div>
+
+    <div class="row"><div class="time">10:00</div><div class="stop">
+      <h3>Grand Prismatic Spring <span class="tag opt">If there's parking</span></h3>
+      <p>Midway Geyser Basin. The boardwalk is a longer walk than most of these stops, so skip it if the lot is full.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 30m</span> Madison → Norris → Mammoth</span></div></div>
+
+    <div class="row"><div class="time">12:00</div><div class="stop hot">
+      <h3>Albright Visitor Center, Mammoth <span class="tag">Stamp</span></h3>
+      <div class="stamp"><span class="s1">Stamp: Yellowstone NP (Mammoth)</span><span class="s2">Open year-round.</span></div>
+      <p>Lunch in Mammoth. Elk are often lying on the lawns, and the hot spring terraces are visible from the road.</p>
+    </div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~10m</span> down to Gardiner</span></div></div>
+
+    <div class="row"><div class="time">1:15</div><div class="stop"><h3>Roosevelt Arch</h3><p>Photo stop on the way out of the park.</p></div></div>
+    <div class="drive"><div></div><div><span class="pill"><span class="mono">~1h 30m</span> US-89 N through Paradise Valley → I-90 W</span></div></div>
+
+    <div class="row"><div class="time">3:00</div><div class="stop"><h3>BZN · return the car · fly home</h3><p>Plenty of buffer for a 5:30 pm or later flight.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Stamps this trip</h2>
+  <div class="stamps">
+    <div class="sc"><span class="d">DAY 1 · 10:15</span><span class="t">Timpanogos Cave NM</span><span class="w">Visitor center</span></div>
+    <div class="sc"><span class="d">DAY 1 · 1:00</span><span class="t">Golden Spike NHP</span><span class="w">Promontory Summit visitor center</span></div>
+    <div class="sc"><span class="d">DAY 1 · 4:15</span><span class="t">Fossil Butte NM</span><span class="w">Visitor center</span></div>
+    <div class="sc wy"><span class="d">DAY 2 · 9:00</span><span class="t">Oregon NHT</span><span class="w">Trail center, Montpelier</span></div>
+    <div class="sc wy"><span class="d">DAY 2 · 9:00</span><span class="t">California NHT</span><span class="w">Trail center, Montpelier</span></div>
+    <div class="sc wy"><span class="d">DAY 2 · 1:30</span><span class="t">Grand Teton NP</span><span class="w">Jenny Lake Visitor Center</span></div>
+    <div class="sc wy"><span class="d">DAY 2 · 2:45</span><span class="t">John D. Rockefeller Jr. Memorial Parkway</span><span class="w">Flagg Ranch</span></div>
+    <div class="sc ys"><span class="d">DAY 2 – 3</span><span class="t">Yellowstone NP</span><span class="w">Grant Village, Old Faithful, Albright</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>To do before the trip</h2>
+  <ul class="rem">
+    <li><b>Now:</b> pick the weekend and book Grant Village (or Old Faithful) lodging. Summer 2027 is already filling.</li>
+    <li><b>Once dates are set:</b> price the BZN return first, then the SLC outbound. Get one-way car quotes on Costco Travel.</li>
+    <li><b>Once dates are set:</b> confirm the opening dates for Flagg Ranch, Grant Village and the Montpelier center if it's Memorial Day weekend.</li>
+    <li><b>Week before:</b> call the trail center at (208) 847-3800 about the stamps, and recheck everything in the NPS app.</li>
+    <li>Drive times are estimates. Check them in Google Maps.</li>
+  </ul>
+</section>
+
+<footer class="src">
+  Placeholder made November 2026. Hours checked Nov 10, 2026. Recheck once dates are set:
+  <ul>
+    <li><a href="https://home.nps.gov/fobu/planyourvisit/hours.htm" target="_blank" rel="noopener">Fossil Butte operating hours</a></li>
+    <li><a href="https://www.recreation.gov/camping/poi/10393746" target="_blank" rel="noopener">Golden Spike visitor center hours</a></li>
+    <li><a href="https://www.nps.gov/tica/index.htm" target="_blank" rel="noopener">Timpanogos Cave NM</a></li>
+    <li><a href="https://oregontrailcenter.org/" target="_blank" rel="noopener">National Oregon/California Trail Center</a></li>
+    <li><a href="https://www.nps.gov/places/000/flagg-ranch-information-station.htm" target="_blank" rel="noopener">Flagg Ranch Information Station</a></li>
+  </ul>
+</footer>
+
+</main>
+</body>
+</html>
