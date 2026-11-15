@@ -19,7 +19,7 @@ body{font-family:var(--body);font-size:15px}
 .cancel{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:50%;width:clamp(170px,22vw,230px);height:auto;transform:translateY(-58%) rotate(-11deg);color:#E2A23B;opacity:.94;pointer-events:none}
 .band h1,.big,.stack,.stack-key,.eyebrow{position:relative}
 @media (min-width:761px){.band .inner>.stack,.band .inner>.stack-key{margin-right:calc(clamp(170px,22vw,230px) + 28px)}}
-@media (max-width:760px){.cancel{position:static;display:block;width:128px;margin:18px 0 0 auto;transform:rotate(-9deg)}}
+@media (max-width:760px){.cancel{position:static;float:right;display:block;width:96px;margin:-4px -4px 6px 12px;transform:rotate(-9deg);shape-outside:circle(50%)}}
 .eyebrow{font:700 .72rem var(--body);letter-spacing:.22em;text-transform:uppercase;color:#E2A23B;margin:0 0 10px}
 h1{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,6vw,3.3rem);line-height:.98;letter-spacing:-.005em;text-transform:uppercase;margin:0;color:#F6EBDA;text-wrap:balance;max-width:22ch}
 .big{display:flex;flex-wrap:wrap;gap:10px 34px;margin:24px 0 14px}
@@ -105,6 +105,7 @@ footer a{color:var(--fg);font:700 .9rem var(--body);text-decoration:none}
 footer a:hover{text-decoration:underline;text-underline-offset:3px}
 footer a:focus-visible{outline:3px solid #E2A23B;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+@media (max-width:760px){.band .inner{padding-block:22px 24px}.eyebrow{letter-spacing:.16em;line-height:1.5;text-wrap:balance}.big{clear:both;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px;margin:20px 0 14px}.big div{gap:6px;min-width:0}.big b{font-size:2.1rem}.big span{font-size:.68rem;letter-spacing:.12em;line-height:1.25}.stack{clear:both}}
 </style>
 <script>(function(){try{var t=localStorage.getItem("nps-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})();</script>
 <style>
@@ -134,7 +135,7 @@ if(window.matchMedia){try{matchMedia('(prefers-color-scheme: dark)').addEventLis
 paint();
 })();</script>
 <header class="band"><div class="inner">
-<svg class="cancel" viewBox="0 0 240 240" role="img" aria-label="Passport cancellation stamp: National Park Service, May 2026, Visited">
+<svg class="cancel" id="stamp" viewBox="0 0 240 240" role="img" aria-label="Passport cancellation stamp: National Park Service, May 2026, Visited">
 <defs>
 <filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" result="d"/><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="1" seed="3" result="g"/><feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.55" result="m"/><feComposite in="d" in2="m" operator="in"/></filter>
 <path id="arc-top" d="M30,120 a90,90 0 0,1 180,0"/>
@@ -143,11 +144,12 @@ paint();
 <g filter="url(#ink)" fill="currentColor">
 <circle cx="120" cy="120" r="111" fill="none" stroke="currentColor" stroke-width="6"/>
 <text font-family="Archivo,'Helvetica Neue',Arial,sans-serif" font-weight="500" font-size="19.5" letter-spacing=".6"><textPath href="#arc-top" startOffset="50%" text-anchor="middle">National Park Service</textPath></text>
-<text x="120" y="134" text-anchor="middle" font-family="Oswald,'Arial Narrow',sans-serif" font-weight="500" font-size="40" letter-spacing="3" transform="translate(0 -16) scale(1 1.14)">MAY 2026</text>
+<text x="120" y="134" text-anchor="middle" font-family="Oswald,'Arial Narrow',sans-serif" font-weight="500" font-size="40" letter-spacing="3" transform="translate(0 -16) scale(1 1.14)" id="stamp-date">MAY 2026</text>
 <text font-family="Archivo,'Helvetica Neue',Arial,sans-serif" font-weight="500" font-size="19.5" letter-spacing="1.2"><textPath href="#arc-bot" startOffset="50%" text-anchor="middle">Visited</textPath></text>
 </g>
 </svg>
-<p class="eyebrow">Passport to your national parks · 417 units</p>
+<script>(function(){var d=new Date(),m=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"][d.getMonth()],y=d.getFullYear(),t=document.getElementById('stamp-date'),g=document.getElementById('stamp');if(t)t.textContent=m+' '+y;if(g)g.setAttribute('aria-label','Passport cancellation stamp: National Park Service, '+m+' '+y+', Visited')})();</script>
+<p class="eyebrow">Passport to your national parks&nbsp;· <span style="white-space:nowrap">417 units</span></p>
 <h1>National Park Service Passport Stamp Collection</h1>
 <div class="big"><div><b>68</b><span>stamped</span></div><div><b>349</b><span>to go</span></div><div><b>9</b><span>states started</span></div><div><b>0</b><span>states complete</span></div></div>
 <div class="stack" role="img" aria-label="68 of 417 units stamped, colored by passport region"><span style="flex:15;background:#D49A5C" title="North Atlantic: 15"></span><span style="flex:4;background:#C04FB5" title="Southeast: 4"></span><span style="flex:3;background:#EE8B2F" title="Midwest: 3"></span><span style="flex:4;background:#F2C230" title="Rocky Mountain: 4"></span><span style="flex:40;background:#3FA35A" title="Western: 40"></span><span style="flex:2;background:#2D95DE" title="Pacific NW &amp; Alaska: 2"></span><span class="rest" style="flex:349"></span></div>
