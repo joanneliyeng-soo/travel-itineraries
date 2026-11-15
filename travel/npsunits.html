@@ -106,8 +106,24 @@ footer a:hover{text-decoration:underline;text-underline-offset:3px}
 footer a:focus-visible{outline:3px solid #E2A23B;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*{transition:none !important}}
 </style>
+<script>(function(){try{var t=localStorage.getItem("nps-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})();</script>
+<style>
+.themebar{display:flex;justify-content:flex-end;padding:10px 16px 0;background:var(--paper)}
+.theme-toggle{display:inline-flex;align-items:center;gap:6px;font:700 .72rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--fg);background:var(--paper);border:2px solid var(--fg);padding:6px 12px;cursor:pointer}
+.theme-toggle:hover{background:var(--paper-2)}
+.theme-toggle:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+</style>
 </head>
 <body>
+<div class="themebar"><button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch color theme"><span aria-hidden="true" id="theme-icon">☀</span><span id="theme-label">Light mode</span></button></div>
+<script>(function(){
+var root=document.documentElement,btn=document.getElementById('theme-toggle');
+function cur(){var t=root.getAttribute('data-theme');if(t)return t;return window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}
+function paint(){var d=cur()==='dark';document.getElementById('theme-icon').textContent=d?'☀':'☾';document.getElementById('theme-label').textContent=d?'Light mode':'Dark mode';btn.setAttribute('aria-pressed',d?'true':'false')}
+btn.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('nps-theme',n)}catch(e){}paint()});
+if(window.matchMedia){try{matchMedia('(prefers-color-scheme: dark)').addEventListener('change',paint)}catch(e){}}
+paint();
+})();</script>
 <header class="band"><div class="inner">
 <svg class="cancel" viewBox="0 0 240 240" role="img" aria-label="Passport cancellation stamp: National Park Service, May 2026, Visited">
 <defs>
