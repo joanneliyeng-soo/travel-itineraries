@@ -11,19 +11,19 @@
   --ground:#E9E3F5;--ground-2:#DDD4EE;--paper:#FFFDF8;--paper-2:#F6F1E6;
   --ink:#24203A;--ink-2:#5E5873;--ink-3:#8E87A3;--perf:#CFC6E0;
   --nps:#1C8C84;--nps-soft:#D5EEEA;--dis:#6B4BA6;--dis-soft:#E6DDF5;--cruise:#C2456A;--cruise-soft:#F6DDE5;
-  --booked:#E07A2E;--plan:#1C8C84;--hot:#F2B632;
+  --booked:#E07A2E;--plan:#1C8C84;--hot:#F2B632;--home:#B0452E;--home-soft:#F5DDD5;
   --display:'Bebas Neue','Arial Narrow',Impact,sans-serif;--body:'Work Sans','Helvetica Neue',Arial,sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --ground:#17142A;--ground-2:#211D38;--paper:#2A2542;--paper-2:#332D4E;
   --ink:#F3EEFF;--ink-2:#BDB4D6;--ink-3:#8A82A6;--perf:#4A4366;
   --nps:#4FC9BE;--nps-soft:#1E3F42;--dis:#A88BE6;--dis-soft:#352B55;--cruise:#F07FA0;--cruise-soft:#4A2638;
-  --booked:#F59A52;--plan:#4FC9BE;--hot:#F2C14E;color-scheme:dark}}
+  --booked:#F59A52;--plan:#4FC9BE;--hot:#F2C14E;--home:#F08A70;--home-soft:#4A2A26;color-scheme:dark}}
 :root[data-theme="dark"]{
   --ground:#17142A;--ground-2:#211D38;--paper:#2A2542;--paper-2:#332D4E;
   --ink:#F3EEFF;--ink-2:#BDB4D6;--ink-3:#8A82A6;--perf:#4A4366;
   --nps:#4FC9BE;--nps-soft:#1E3F42;--dis:#A88BE6;--dis-soft:#352B55;--cruise:#F07FA0;--cruise-soft:#4A2638;
-  --booked:#F59A52;--plan:#4FC9BE;--hot:#F2C14E;color-scheme:dark}
+  --booked:#F59A52;--plan:#4FC9BE;--hot:#F2C14E;--home:#F08A70;--home-soft:#4A2A26;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--ground);color:var(--ink)}
 body{font-family:var(--body);font-size:15px;line-height:1.45}
@@ -126,7 +126,7 @@ a:focus-visible{outline:3px solid var(--hot);outline-offset:3px;border-radius:10
       <h1>My Travel Bucket List</h1>
       <p class="lede">Visiting every national park and Disney property, one trip at a time.</p>
     </div>
-    <div class="perf stub"><b>4</b><span>trips<br>booked</span></div>
+    <div class="perf stub"><b>5</b><span>trips<br>booked</span></div>
   </header>
 
   <h2 class="sec">The goals <small>solid = done · striped = booked</small></h2>
@@ -155,18 +155,19 @@ function url(h){return h==='#'?'#':BASE+h}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 var T={
  fl:{kind:'nps',admit:4,month:'NOV',dates:'23–30',status:'Booked',icon:'🚢🌴',name:'South Florida + Disney Destiny',sub:'Biscayne, Everglades, Dry Tortugas and Big Cypress in one day, then a five-night Thanksgiving Bahamian cruise from Fort Lauderdale',href:'nov2026-destiny-everglades.html',parks:3,stamps:4,ships:['Destiny'],resorts:[],chips:[['+3 parks','p'],['+4 stamps','p'],['Destiny','s']]},
+ my:{kind:'home',label:'Family visit',admit:1,month:'DEC',dates:'24–30',status:'Booked',icon:'🇲🇾',name:'Kuala Lumpur, Malaysia',sub:'China Airlines via Taipei. Departs SFO Thu Dec 24 at 11:40 PM, lands KUL Sat Dec 26 at 1:25 PM. Returns Wed Dec 30, KUL 2:35 PM to SFO 6:45 PM the same day.',href:'#',parks:0,stamps:0,ships:[],resorts:[],chips:[]},
  sa:{kind:'nps',month:'DEC',dates:'31',dates2:'to JAN 3',status:'Booked',icon:'🌵',name:'Southern Arizona, New Year’s',sub:'Organ Pipe and Tumacácori on New Year’s Day, then Coronado, Chiricahua and Fort Bowie',href:'dec2026-southern-arizona.html',parks:1,stamps:5,ships:[],resorts:[],chips:[['+1 park','p'],['+5 stamps','p']]},
  ep:{kind:'nps',month:'JAN',dates:'15–18',status:'Booked',icon:'🏜️',name:'El Paso, MLK weekend',sub:'White Sands and Chamizal, then Carlsbad Caverns and Guadalupe Mountains on the way back',href:'elpaso-whitesands-guadalupe.html',parks:3,stamps:4,ships:[],resorts:[],chips:[['+3 parks','p'],['+4 stamps','p']]},
  dv:{kind:'nps',month:'FEB',dates:'12–15',status:'Booked',icon:'🌄',name:'Death Valley, Presidents Day',sub:'Beatty, Death Valley and Manzanar, then a Vegas round trip to Hole-in-the-Wall for Mojave and Castle Mountains',href:'vegas-deathvalley.html',parks:1,stamps:4,ships:[],resorts:[],chips:[['+1 park','p'],['+4 stamps','p']]}
 };
-var UP=['fl','sa','ep','dv'];
+var UP=['fl','my','sa','ep','dv'];
 var IDEAS=[
  {label:'National parks',k:'nps',items:[['🪨','Mighty Five long weekend','Arches, Canyonlands, Capitol Reef to finish Utah','utah-arches-canyonland-capitolreef.html'],['⛰️','Washington long weekend','Mount Rainier, Olympic, Klondike Gold Rush in Seattle','washington-olympic.html'],['🦌','Denver Rocky Mountain run','Rocky Mountain, Florissant Fossil Beds, Garden of the Gods','denver-rockymountain.html'],['🏺','Western Colorado long weekend','Colorado NM, Black Canyon, Curecanti, Hovenweep, Mesa Verde, Yucca House','colorado-blackcanyon-mesaverde.html'],['🌶️','New Mexico stamp loop','Valles Caldera, Bandelier, Pecos, Salinas Missions, the Zuni–Acoma trail','newmexico-monumentloop.html'],['🦬','Yellowstone & Grand Teton','Old Faithful, Teton overlooks, day loops','Yellowstone-grand-teton.html'],['🚂','Salt Lake to Bozeman long weekend','Timpanogos, Golden Spike, Fossil Butte, Grand Teton and Yellowstone, open jaw','slc-bozeman-yellowstone.html'],['🌋','Big Island, Hawaiʻi','Seven-day Kona loop: Hawaiʻi Volcanoes, Kahuku, Place of Refuge, Puʻukoholā','hawaii-bigisland.html']]},
  {label:'Cruises',k:'cruise',items:[['🎂','Disney Treasure, birthday week','Very Merrytime Western Caribbean, maybe Dec 12–19','#'],['🚢','Disney Fantasy','Sails from Port Canaveral','#'],['🚢','Disney Adventure','Sails from Singapore, could pair with Shanghai & Hong Kong','#'],['🚢','Disney Believe','Sails from Miami','#'],['🏔️','Disney Alaska cruise','Glaciers and the Inside Passage','#']]},
  {label:'Disney resorts',k:'dis',items:[['🏯','Shanghai Disney Resort','Pudong, Shanghai','#'],['🏮','Hong Kong Disneyland','Lantau Island, Hong Kong','#'],['🧧','Shanghai & Hong Kong','Last two resorts in one loop, maybe Singapore + Adventure','#']]}
 ];
 var PAST=[['NOV 2026','🗽','NYC stamp run + Hyde Park','15 stamps','nov2026-nyc.html'],['OCT 2026','🌵','Arizona, Columbus Day','2 parks · 11 stamps','oct2026-arizona-petrified-forest.html'],['SEP 2026','🏰','Disney World + Disney Wish','Disney Wish · 4 stamps','sept2026-wdw-wish.html'],['JUL 2026','🌲','Redwoods & Oregon Caves','1 park · 3 stamps','#'],['JUN 2026','🏜️','Juneteenth, Utah & Arizona','3 parks · 7 stamps','june2026-zion-bryce-grandcanyon.html'],['JUN 2026','🌊','Chicago & Indiana Dunes','1 park · 3 stamps','june2026-chicago-indiana-dunes.html'],['JUN 2026','🏔️','Yosemite, Sequoia & Kings Canyon','3 parks · 3 stamps','#'],['MAY 2026','🦭','Point Reyes','1 stamp','#']];
-var COL={nps:['var(--nps)','var(--nps-soft)'],dis:['var(--dis)','var(--dis-soft)'],cruise:['var(--cruise)','var(--cruise-soft)']};
+var COL={home:['var(--home)','var(--home-soft)'],nps:['var(--nps)','var(--nps-soft)'],dis:['var(--dis)','var(--dis-soft)'],cruise:['var(--cruise)','var(--cruise-soft)']};
 var CHIP={p:['var(--nps-soft)','var(--nps)'],s:['var(--cruise-soft)','var(--cruise)']};
 var SHIPS=['Magic','Wonder','Dream','Fantasy','Wish','Treasure','Destiny','Adventure','Believe'],SHIPS_DONE=['Magic','Wonder','Dream','Wish'],SHIPS_PEND=['Destiny'];
 var RES=['Anaheim','Orlando','Paris','Tokyo','Shanghai','Hong Kong'],RES_DONE=['Anaheim','Orlando','Paris','Tokyo'];
@@ -185,7 +186,7 @@ function renderGoals(){
    '<div class="goal'+(h&&h.resorts.length?' hot':'')+'" style="--c:var(--dis)"><span class="k">Disney resorts</span><span class="n">4<small> / 6</small></span><div class="holes">'+holes(RES,RES_DONE,[],h&&h.resorts)+'</div><span class="note">'+esc(h?(h.resorts.length?'+ '+h.resorts.join(', '):'No new resorts'):'Shanghai and Hong Kong to go')+'</span></div>';
 }
 document.getElementById('upcoming').innerHTML=UP.map(function(id){var t=T[id],c=COL[t.kind][0];
-  return '<a class="tix trip" href="'+url(t.href)+'" data-id="'+id+'" style="--c:'+c+'"><div class="main"><span class="kind">'+(t.ships.length?'NPS + Disney':'NPS stamp run')+'</span><h3>'+t.icon+' '+esc(t.name)+'</h3><p>'+esc(t.sub)+'</p><div class="chips">'+t.chips.map(function(ch){return '<span class="chip" style="--cs:'+CHIP[ch[1]][0]+';--cc:'+CHIP[ch[1]][1]+'">'+esc(ch[0])+'</span>'}).join('')+'</div></div><div class="perf stub" style="background:'+(t.status==='Booked'?'var(--booked)':'var(--plan)')+'"><span class="mo">'+t.month+'</span><span class="dd">'+esc(t.dates)+'</span>'+(t.dates2?'<span class="dd2">'+esc(t.dates2)+'</span>':'')+'<span class="st" style="color:'+(t.status==='Booked'?'var(--booked)':'var(--plan)')+'">'+t.status.toUpperCase()+'</span><span class="admit">ADMIT '+(t.admit||2)+'</span></div></a>'}).join('');
+  return '<a class="tix trip" href="'+url(t.href)+'" data-id="'+id+'" style="--c:'+c+'"><div class="main"><span class="kind">'+(t.label||(t.ships.length?'NPS + Disney':'NPS stamp run'))+'</span><h3>'+t.icon+' '+esc(t.name)+'</h3><p>'+esc(t.sub)+'</p><div class="chips">'+t.chips.map(function(ch){return '<span class="chip" style="--cs:'+CHIP[ch[1]][0]+';--cc:'+CHIP[ch[1]][1]+'">'+esc(ch[0])+'</span>'}).join('')+'</div></div><div class="perf stub" style="background:'+(t.status==='Booked'?'var(--booked)':'var(--plan)')+'"><span class="mo">'+t.month+'</span><span class="dd">'+esc(t.dates)+'</span>'+(t.dates2?'<span class="dd2">'+esc(t.dates2)+'</span>':'')+'<span class="st" style="color:'+(t.status==='Booked'?'var(--booked)':'var(--plan)')+'">'+t.status.toUpperCase()+'</span><span class="admit">ADMIT '+(t.admit||2)+'</span></div></a>'}).join('');
 document.getElementById('ideas').innerHTML=IDEAS.map(function(g){var c=COL[g.k];
   return '<div style="--c:'+c[0]+';--cs:'+c[1]+'"><div class="group-h">'+g.label+'</div><div class="minis">'+g.items.map(function(i){return '<a class="tix mini" href="'+url(i[3])+'"><span class="ic" aria-hidden="true">'+i[0]+'</span><span class="perf"><b>'+esc(i[1])+'</b><span>'+esc(i[2])+'</span></span></a>'}).join('')+'</div></div>'}).join('');
 document.getElementById('past').innerHTML=PAST.map(function(p){return '<a class="tix used" href="'+url(p[4])+'"><span class="when">'+p[0]+'</span><span class="perf"><span class="punch" aria-hidden="true"></span><span class="nm">'+p[1]+' '+esc(p[2])+'</span><span class="tally">'+esc(p[3])+'</span></span></a>'}).join('');
