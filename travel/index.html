@@ -10,19 +10,19 @@
 :root{
   --ground:#E9E3F5;--ground-2:#DDD4EE;--paper:#FFFDF8;--paper-2:#F6F1E6;
   --ink:#24203A;--ink-2:#5E5873;--ink-3:#8E87A3;--perf:#CFC6E0;
-  --nps:#1C8C84;--nps-soft:#D5EEEA;--dis:#6B4BA6;--dis-soft:#E6DDF5;--cruise:#C2456A;--cruise-soft:#F6DDE5;
+  --nps:#1C8C84;--nps-soft:#D5EEEA;--dis:#6B4BA6;--dis-soft:#C7B3F0;--cruise:#C2456A;--cruise-soft:#F6DDE5;
   --booked:#E07A2E;--plan:#1C8C84;--hot:#F2B632;--home:#B0452E;--home-soft:#F5DDD5;
   --display:'Bebas Neue','Arial Narrow',Impact,sans-serif;--body:'Work Sans','Helvetica Neue',Arial,sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --ground:#17142A;--ground-2:#211D38;--paper:#2A2542;--paper-2:#332D4E;
   --ink:#F3EEFF;--ink-2:#BDB4D6;--ink-3:#8A82A6;--perf:#4A4366;
-  --nps:#4FC9BE;--nps-soft:#1E3F42;--dis:#A88BE6;--dis-soft:#352B55;--cruise:#F07FA0;--cruise-soft:#4A2638;
+  --nps:#4FC9BE;--nps-soft:#1E3F42;--dis:#A88BE6;--dis-soft:#5838A3;--cruise:#F07FA0;--cruise-soft:#4A2638;
   --booked:#F59A52;--plan:#4FC9BE;--hot:#F2C14E;--home:#F08A70;--home-soft:#4A2A26;color-scheme:dark}}
 :root[data-theme="dark"]{
   --ground:#17142A;--ground-2:#211D38;--paper:#2A2542;--paper-2:#332D4E;
   --ink:#F3EEFF;--ink-2:#BDB4D6;--ink-3:#8A82A6;--perf:#4A4366;
-  --nps:#4FC9BE;--nps-soft:#1E3F42;--dis:#A88BE6;--dis-soft:#352B55;--cruise:#F07FA0;--cruise-soft:#4A2638;
+  --nps:#4FC9BE;--nps-soft:#1E3F42;--dis:#A88BE6;--dis-soft:#5838A3;--cruise:#F07FA0;--cruise-soft:#4A2638;
   --booked:#F59A52;--plan:#4FC9BE;--hot:#F2C14E;--home:#F08A70;--home-soft:#4A2A26;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--ground);color:var(--ink)}
@@ -163,7 +163,7 @@ var T={
 var UP=['fl','my','sa','ep','dv'];
 var IDEAS=[
  {label:'National parks',k:'nps',items:[['🪨','Mighty Five long weekend','Arches, Canyonlands, Capitol Reef to finish Utah','utah-arches-canyonland-capitolreef.html'],['⛰️','Washington long weekend','Mount Rainier, Olympic, Klondike Gold Rush in Seattle','washington-olympic.html'],['🦌','Denver Rocky Mountain run','Rocky Mountain, Florissant Fossil Beds, Garden of the Gods','denver-rockymountain.html'],['🏺','Western Colorado long weekend','Colorado NM, Black Canyon, Curecanti, Hovenweep, Mesa Verde, Yucca House','colorado-blackcanyon-mesaverde.html'],['🌶️','New Mexico stamp loop','Valles Caldera, Bandelier, Pecos, Salinas Missions, the Zuni–Acoma trail','newmexico-monumentloop.html'],['🦬','Yellowstone & Grand Teton','Old Faithful, Teton overlooks, day loops','Yellowstone-grand-teton.html'],['🚂','Salt Lake to Bozeman long weekend','Timpanogos, Golden Spike, Fossil Butte, Grand Teton and Yellowstone, open jaw','slc-bozeman-yellowstone.html'],['🌋','Big Island, Hawaiʻi','Seven-day Kona loop: Hawaiʻi Volcanoes, Kahuku, Place of Refuge, Puʻukoholā','hawaii-bigisland.html']]},
- {label:'Cruises',k:'cruise',items:[['🎂','Disney Treasure, birthday week','Very Merrytime Western Caribbean, maybe Dec 12–19','#'],['🚢','Disney Fantasy','Sails from Port Canaveral','#'],['🚢','Disney Adventure','Sails from Singapore, could pair with Shanghai & Hong Kong','#'],['🚢','Disney Believe','Sails from Miami','#'],['🏔️','Disney Alaska cruise','Glaciers and the Inside Passage','#']]},
+ {label:'Cruises',k:'cruise',items:[['🚢','Disney Treasure','Only does 7-day sailings','#'],['🚢','Disney Fantasy','Sails from Port Canaveral','#'],['🚢','Disney Adventure','Sails from Singapore, could pair with Shanghai & Hong Kong','#'],['🚢','Disney Believe','Sails from Miami','#'],['🏔️','Disney Alaska cruise','Glaciers and the Inside Passage','#']]},
  {label:'Disney resorts',k:'dis',items:[['🏯','Shanghai Disney Resort','Pudong, Shanghai','#'],['🏮','Hong Kong Disneyland','Lantau Island, Hong Kong','#'],['🧧','Shanghai & Hong Kong','Last two resorts in one loop, maybe Singapore + Adventure','#']]}
 ];
 var PAST=[['NOV 2026','🗽','NYC stamp run + Hyde Park','15 stamps','nov2026-nyc.html'],['OCT 2026','🌵','Arizona, Columbus Day','2 parks · 11 stamps','oct2026-arizona-petrified-forest.html'],['SEP 2026','🏰','Disney World + Disney Wish','Disney Wish · 4 stamps','sept2026-wdw-wish.html'],['JUL 2026','🌲','Redwoods & Oregon Caves','1 park · 3 stamps','#'],['JUN 2026','🏜️','Juneteenth, Utah & Arizona','3 parks · 7 stamps','june2026-zion-bryce-grandcanyon.html'],['JUN 2026','🌊','Chicago & Indiana Dunes','1 park · 3 stamps','june2026-chicago-indiana-dunes.html'],['JUN 2026','🏔️','Yosemite, Sequoia & Kings Canyon','3 parks · 3 stamps','#'],['MAY 2026','🦭','Point Reyes','1 stamp','#']];
