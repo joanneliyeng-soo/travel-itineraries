@@ -104,13 +104,13 @@ h1{font:400 clamp(2.6rem,8vw,4.6rem)/.9 var(--display);letter-spacing:.02em;marg
 
 /* past */
 .past{display:grid;gap:8px}
-.used{grid-template-columns:96px minmax(0,1fr) auto;align-items:center;background:var(--paper-2)}
-.used .when{font:500 .72rem var(--mono);color:var(--ink-3);padding:12px 0 12px 16px}
-.used .perf{padding:12px 14px;display:flex;align-items:center;gap:10px;min-width:0}
+.used{grid-template-columns:96px minmax(0,1fr);align-items:stretch;background:var(--paper-2)}
+.used .when{display:flex;align-items:center;font:500 .72rem var(--mono);color:var(--ink-3);padding:12px 0 12px 16px}
+.used .perf{padding:12px 16px 12px 14px;display:flex;align-items:center;gap:10px;min-width:0}
 .used .nm{font-weight:600;font-size:.92rem;min-width:0}
-.used .tally{font:700 .72rem var(--body);color:var(--nps);padding-right:16px;white-space:nowrap}
+.used .tally{font:700 .72rem var(--body);color:var(--nps);white-space:nowrap;margin-left:auto}
 .punch{flex:none;width:12px;height:12px;border-radius:50%;background:var(--ground);box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
-@media (max-width:520px){.used{grid-template-columns:72px minmax(0,1fr)}.used .tally{grid-column:2;padding:0 14px 12px}}
+@media (max-width:520px){.used{grid-template-columns:72px minmax(0,1fr)}.used .when{padding-left:12px}.used .perf{display:grid;grid-template-columns:12px minmax(0,1fr);gap:4px 10px;align-content:center}.used .tally{grid-column:2;margin-left:0}}
 
 footer{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:48px;padding-top:18px;border-top:2px dashed var(--perf);font-weight:700;font-size:.85rem}
 footer a:hover{text-decoration:underline;text-underline-offset:3px}
@@ -188,7 +188,7 @@ document.getElementById('upcoming').innerHTML=UP.map(function(id){var t=T[id],c=
   return '<a class="tix trip" href="'+url(t.href)+'" data-id="'+id+'" style="--c:'+c+'"><div class="main"><span class="kind">'+(t.ships.length?'NPS + Disney':'NPS stamp run')+'</span><h3>'+t.icon+' '+esc(t.name)+'</h3><p>'+esc(t.sub)+'</p><div class="chips">'+t.chips.map(function(ch){return '<span class="chip" style="--cs:'+CHIP[ch[1]][0]+';--cc:'+CHIP[ch[1]][1]+'">'+esc(ch[0])+'</span>'}).join('')+'</div></div><div class="perf stub" style="background:'+(t.status==='Booked'?'var(--booked)':'var(--plan)')+'"><span class="mo">'+t.month+'</span><span class="dd">'+esc(t.dates)+'</span>'+(t.dates2?'<span class="dd2">'+esc(t.dates2)+'</span>':'')+'<span class="st" style="color:'+(t.status==='Booked'?'var(--booked)':'var(--plan)')+'">'+t.status.toUpperCase()+'</span><span class="admit">ADMIT '+(t.admit||2)+'</span></div></a>'}).join('');
 document.getElementById('ideas').innerHTML=IDEAS.map(function(g){var c=COL[g.k];
   return '<div style="--c:'+c[0]+';--cs:'+c[1]+'"><div class="group-h">'+g.label+'</div><div class="minis">'+g.items.map(function(i){return '<a class="tix mini" href="'+url(i[3])+'"><span class="ic" aria-hidden="true">'+i[0]+'</span><span class="perf"><b>'+esc(i[1])+'</b><span>'+esc(i[2])+'</span></span></a>'}).join('')+'</div></div>'}).join('');
-document.getElementById('past').innerHTML=PAST.map(function(p){return '<a class="tix used" href="'+url(p[4])+'"><span class="when">'+p[0]+'</span><span class="perf"><span class="punch" aria-hidden="true"></span><span class="nm">'+p[1]+' '+esc(p[2])+'</span></span><span class="tally">'+esc(p[3])+'</span></a>'}).join('');
+document.getElementById('past').innerHTML=PAST.map(function(p){return '<a class="tix used" href="'+url(p[4])+'"><span class="when">'+p[0]+'</span><span class="perf"><span class="punch" aria-hidden="true"></span><span class="nm">'+p[1]+' '+esc(p[2])+'</span><span class="tally">'+esc(p[3])+'</span></span></a>'}).join('');
 document.querySelectorAll('.trip').forEach(function(a){
   a.addEventListener('mouseenter',function(){hover=a.dataset.id;renderGoals()});
   a.addEventListener('focus',function(){hover=a.dataset.id;renderGoals()});
