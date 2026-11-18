@@ -90,6 +90,32 @@ footer a:hover{color:#E6E9F2;text-decoration:underline;text-underline-offset:3px
 footer a:focus-visible{outline:2px solid #E8B04B;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*{transition:none !important}}
 </style>
+<script>/* Aurora: the same four hues, rearranged at random on each load (never the same order twice in a row), drifting slowly.
+   Each glow is its own layer animated with transform only (GPU-composited, no repaints). Motion is off when the visitor asks for reduced motion.
+   The fixed aurora in the CSS above stays as the fallback if scripts don't run. */
+(function(){
+var hues=[[232,106,154,.46],[79,200,184,.40],[154,108,224,.46]],
+perms=[[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]],last,r=function(a,b){return a+Math.random()*(b-a)},f=function(n){return n.toFixed(1)};
+try{last=+sessionStorage.getItem('aurora')}catch(e){}
+var opts=perms.map(function(_,i){return i}).filter(function(i){return i!==last}),k=opts[Math.floor(Math.random()*opts.length)];
+try{sessionStorage.setItem('aurora',k)}catch(e){}
+var slots=[r(4,22),r(40,62),r(78,96)],blobs=perms[k].map(function(h,i){return {c:hues[h],x:slots[i],y:r(-60,120),rx:r(42,62),ry:r(440,620)}});
+blobs.push({c:[232,193,74,.18],x:r(15,85),y:r(300,560),rx:r(35,55),ry:r(280,420)});
+var css='html,body{background:#0E1324 !important}body{background:transparent !important}'+
+'.aurora{position:absolute;top:0;left:0;width:100%;height:1300px;overflow:hidden;pointer-events:none;z-index:-1}'+
+'.aurora i{position:absolute;border-radius:50%;will-change:transform}',
+html='';
+blobs.forEach(function(b,i){var c=b.c,dx=r(14,24)*(Math.random()<.5?-1:1),dy=r(90,180)*(Math.random()<.5?-1:1),sc=r(1.15,1.35);
+css+='@keyframes au'+i+'{from{transform:translate(0,0) scale(1);opacity:.4}to{transform:translate('+f(dx)+'vw,'+f(dy)+'px) scale('+sc.toFixed(2)+');opacity:1}}'+
+'.aurora i:nth-child('+(i+1)+'){left:calc('+f(b.x)+'% - '+f(b.rx)+'vw);top:'+f(b.y-b.ry)+'px;width:'+f(b.rx*2)+'vw;height:'+f(b.ry*2)+'px;'+
+'background:radial-gradient(closest-side,rgba('+c.join(',')+'),transparent 70%);'+
+'animation:au'+i+' '+f(r(12,20))+'s ease-in-out -'+f(r(0,12))+'s infinite alternate}';
+html+='<i></i>'});
+css+='@media (prefers-reduced-motion:reduce){.aurora i{animation:none !important}}';var st=document.createElement('style');st.textContent=css;
+var d=document.createElement('div');d.className='aurora';d.setAttribute('aria-hidden','true');d.innerHTML=html;
+var me=document.currentScript;me.parentNode.insertBefore(st,me.nextSibling);me.parentNode.insertBefore(d,st.nextSibling);
+})();</script>
+
 <div class="wrap">
 <h1>All 64 National Parks</h1>
 <div class="subtitle">How to get to each one of them</div>
