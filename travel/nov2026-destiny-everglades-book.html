@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Destiny &amp; the Glades · Trip Book</title>
+<style>
+  html, body { margin:0 !important; padding:0 !important; background:#0D2533 !important; color:#123448 !important; height:100%; overflow:hidden; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:15px; line-height:1.45; }
+  .serif { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  .app { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; padding:max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .topbar, .bottombar { width:100%; max-width:520px; display:flex; align-items:center; justify-content:space-between; color:#CDE3EA; font-size:13px; }
+  .topbar { padding:2px 4px 8px; }
+  .topbar .t { font-weight:600; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0 10px; }
+  .btn-ghost { background:#1A4258; color:#E3F1F5; border:0; border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer; }
+  .pgnum { font-variant-numeric:tabular-nums; color:#9EC3CF; white-space:nowrap; }
+
+  .book { position:relative; flex:1; width:100%; max-width:520px; perspective:1800px; }
+  .book::before { content:""; position:absolute; left:-4px; top:6px; bottom:-4px; right:4px; background:#DCE7E3; border-radius:6px 16px 16px 6px; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+  .page { position:absolute; inset:0; display:none; background:#FBFAF6; border-radius:4px 14px 14px 4px; overflow:hidden; transform-origin:left center; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .page::before { content:""; position:absolute; left:0; top:0; bottom:0; width:18px; background:linear-gradient(90deg, rgba(38,36,63,.16), rgba(38,36,63,0)); pointer-events:none; z-index:2; }
+  .page .scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:20px 20px 28px 26px; }
+  .page.show { display:block; }
+  .page.under { z-index:1; }
+  .page.flip-out { z-index:3; animation:flipOut .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page.flip-in { z-index:3; animation:flipIn .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page .shade { position:absolute; inset:0; background:linear-gradient(90deg, rgba(30,29,51,0), rgba(30,29,51,.35)); opacity:0; pointer-events:none; z-index:4; }
+  .page.flip-out .shade { animation:shadeIn .6s forwards; }
+  .page.flip-in .shade { animation:shadeOut .6s forwards; }
+  @keyframes flipOut { from { transform:rotateY(0deg); } to { transform:rotateY(-100deg); } }
+  @keyframes flipIn { from { transform:rotateY(-100deg); } to { transform:rotateY(0deg); } }
+  @keyframes shadeIn { to { opacity:1; } }
+  @keyframes shadeOut { from { opacity:1; } to { opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .page.flip-out, .page.flip-in { animation-duration:.01s; } }
+
+  .bottombar { padding-top:10px; gap:10px; }
+  .nav { background:#E3F1F5; color:#123448; border:0; border-radius:12px; padding:11px 16px; font-size:15px; font-weight:700; cursor:pointer; min-width:92px; }
+  .nav.next { background:#EF6F6C; color:#FFFFFF; }
+  .nav:disabled { opacity:.35; }
+  .progress { flex:1; height:6px; background:#1A4258; border-radius:99px; overflow:hidden; }
+  .progress i { display:block; height:100%; background:#EF6F6C; width:0; transition:width .4s; }
+
+  /* shared page bits */
+  .kicker { font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  h1, h2 { margin:0; font-weight:700; color:#123448; }
+  h1 { font-size:30px; line-height:1.1; }
+  h2 { font-size:25px; line-height:1.15; }
+  .muted { color:#5E7F8C; }
+  .chip { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:99px; background:#E8F2F5; color:#123448; margin:0 4px 4px 0; }
+  .map { display:block; width:100%; border-radius:12px; background:#CFE6EE; margin:14px 0 4px; }
+  .map .st { fill:#F6F3EC; stroke:#A9C3CB; stroke-width:1; vector-effect:non-scaling-stroke; }
+  .map .st.on { fill:#FFFFFF; }
+  .map .sl { fill:#8FAEB9; font-weight:700; letter-spacing:.12em; text-anchor:middle; }
+  .map .cl { fill:#6F8E99; text-anchor:middle; }
+  .map .cd { fill:#6F8E99; }
+  .map .rt { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  .map .leg { fill:none; stroke:#123448; stroke-width:3.5; stroke-dasharray:7 6; vector-effect:non-scaling-stroke; animation:dash 1.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset:-26; } }
+  .map .pin text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+  .map .pin circle { stroke:#FFFFFF; vector-effect:non-scaling-stroke; stroke-width:2; }
+  .map .pin.now circle { stroke:#123448; stroke-width:3; }
+  .map .pin.dim { opacity:.35; }
+  .map .end rect { fill:#123448; }
+  .map .end text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+
+  /* cover */
+  .cover .scroll { background:#123448; color:#E9F5F8; padding-top:22px; }
+  .cover h1 { color:#FFFFFF; font-size:31px; }
+  .cover .sub { color:#BFDCE4; margin-top:8px; font-size:14px; }
+  .cover .chip { background:#235570; color:#E9F5F8; }
+  .cover .chip.hot { background:#EF6F6C; color:#FFFFFF; }
+  .cover .ph { display:inline-block; border:1px dashed #7FB0C0; color:#BFDCE4; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:99px; margin-bottom:12px; }
+  .legend { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .legend button { display:flex; align-items:center; gap:9px; background:#1C4A62; border:0; color:#E9F5F8; padding:9px 10px; border-radius:10px; text-align:left; font-size:13px; cursor:pointer; }
+  .legend .sw { width:14px; height:14px; border-radius:50%; flex:none; }
+  .legend b { display:block; font-size:13.5px; }
+  .legend span.s { color:#9EC3CF; font-size:11.5px; }
+  .backlink { display:block; text-align:center; margin-top:10px; color:#BFDCE4; font-size:13px; font-weight:700; text-decoration:none; }
+  .swipe { margin-top:16px; text-align:center; color:#9EC3CF; font-size:13px; }
+  .tally { margin-top:14px; background:#1C4A62; border-radius:12px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; }
+  .tally .n { font-size:24px; font-weight:800; color:#FFFFFF; }
+
+  /* day intro */
+  .dayband { margin:-20px -20px 0 -26px; padding:22px 20px 18px 26px; color:#FFFFFF; }
+  .dayband h2 { color:#FFFFFF; font-size:28px; }
+  .dayband .kicker { color:rgba(255,255,255,.85); }
+  .dayband .meta { margin-top:6px; font-size:13.5px; color:rgba(255,255,255,.92); }
+  .tl { list-style:none; margin:14px 0 0; padding:0; }
+  .tl li { display:grid; grid-template-columns:62px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid #E3EEF1; cursor:pointer; }
+  .tl li:last-child { border-bottom:0; }
+  .tl .tm { font-size:12.5px; font-weight:700; color:#5E7F8C; font-variant-numeric:tabular-nums; }
+  .tl .nm { font-weight:700; }
+  .tl .nm small { display:block; font-weight:400; color:#5E7F8C; font-size:12.5px; }
+  .tl .num { display:inline-flex; width:20px; height:20px; border-radius:50%; color:#FFFFFF; font-size:11px; font-weight:800; align-items:center; justify-content:center; margin-right:6px; vertical-align:1px; }
+  .cut { margin-top:14px; background:#FFF3EE; border-left:4px solid #EF6F6C; border-radius:8px; padding:10px 12px; font-size:13.5px; }
+  .gmaps { display:block; text-align:center; margin-top:14px; background:#123448; color:#FFFFFF; text-decoration:none; font-weight:700; padding:12px; border-radius:12px; }
+
+  /* stop page */
+  .drive { display:flex; align-items:stretch; gap:10px; background:#EDF5F7; border-radius:14px; padding:11px 12px; }
+  .drive .car { font-size:22px; line-height:1; padding-top:2px; }
+  .drive .dt { font-size:20px; font-weight:800; }
+  .drive .fr { font-size:12.5px; color:#5E7F8C; }
+  .drive .tz { display:inline-block; margin-top:5px; font-size:11.5px; font-weight:700; background:#123448; color:#FFFFFF; padding:2px 8px; border-radius:99px; }
+  .arr { margin-left:auto; text-align:right; flex:none; }
+  .arr .lab { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#5E7F8C; font-weight:700; }
+  .arr .t { white-space:nowrap; font-size:19px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .arr .z { font-size:11.5px; color:#5E7F8C; font-weight:700; }
+  .stopname { margin-top:14px; }
+  .stopname .num { display:inline-flex; width:30px; height:30px; border-radius:50%; color:#FFFFFF; font-size:14px; font-weight:800; align-items:center; justify-content:center; margin-bottom:8px; }
+  .place { margin-top:4px; color:#5E7F8C; font-size:13.5px; }
+  .stampbox { margin-top:14px; border:2px dashed; border-radius:14px; padding:12px 13px; }
+  .stampbox .kicker { margin-bottom:4px; }
+  .stampbox .where { font-weight:700; }
+  .stampbox .hrs { font-size:13.5px; margin-top:2px; }
+  .got { margin-top:11px; width:100%; border:0; border-radius:10px; padding:11px; font-size:15px; font-weight:800; cursor:pointer; background:#E8F2F5; color:#123448; }
+  .got.on { color:#FFFFFF; }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .actions a { flex:1; text-align:center; text-decoration:none; font-weight:700; font-size:14px; padding:11px 8px; border-radius:10px; background:#123448; color:#FFFFFF; }
+  .actions a.alt { background:#E8F2F5; color:#123448; }
+  .note { margin-top:10px; border-radius:10px; padding:9px 12px; font-size:13.5px; }
+  .note.warn { background:#FFF3EE; border-left:4px solid #EF6F6C; }
+  .note.acc { background:#EEF6F7; border-left:4px solid #2E8C9A; }
+  .note.ok { background:#F0F6EE; border-left:4px solid #5E9A4E; }
+  .about { margin-top:14px; font-size:14.5px; }
+  .about .kicker { color:#5E7F8C; margin-bottom:3px; }
+  .foot { margin-top:18px; font-size:12px; color:#8FAEB9; text-align:center; }
+
+  /* night / final */
+  .moon { font-size:44px; margin-top:6px; }
+  .chk { list-style:none; padding:0; margin:12px 0 0; }
+  .chk li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #E3EEF1; font-size:14px; cursor:pointer; }
+  .chk .bx { width:22px; height:22px; border-radius:6px; border:2px solid #BFDCE4; flex:none; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:13px; font-weight:800; }
+  .chk li small { color:#5E7F8C; display:block; font-size:12px; }
+
+  /* contents */
+  .toc { position:fixed; inset:0; background:rgba(20,19,36,.6); display:none; z-index:50; }
+  .toc.open { display:block; }
+  .toc .panel { position:absolute; left:0; top:0; bottom:0; width:min(86vw, 380px); background:#FBFAF6; overflow-y:auto; padding:max(18px, env(safe-area-inset-top)) 16px 24px; box-shadow:4px 0 24px rgba(0,0,0,.35); }
+  .toc h3 { margin:16px 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+  .toc a { display:flex; justify-content:space-between; gap:8px; padding:8px 4px; color:#123448; text-decoration:none; border-bottom:1px solid #E3EEF1; font-size:14px; }
+  .toc a.cur { font-weight:800; }
+  .toc a span { color:#8FAEB9; font-variant-numeric:tabular-nums; font-size:12.5px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <button class="btn-ghost" id="tocBtn" aria-label="Contents">☰ Pages</button>
+    <div class="t">Destiny &amp; the Glades</div>
+    <div class="pgnum" id="pgnum">1 / 1</div>
+  </div>
+  <div class="book" id="book"></div>
+  <div class="bottombar">
+    <button class="nav" id="prev">‹ Back</button>
+    <div class="progress"><i id="bar"></i></div>
+    <button class="nav next" id="next">Next ›</button>
+  </div>
+</div>
+<div class="toc" id="toc"><div class="panel" id="tocPanel"></div></div>
+
+<svg width="0" height="0" style="position:absolute"><g id="basemap"><path class="st on" d="M371.4,1344.3L414.4,1295.7L429.7,1322.4L386.8,1358ZM285.6,1395.2L313.2,1363.7L346.9,1360.5L331.6,1387.2ZM87.5,1500L52.5,1485.8L52.5,1485.8L212,1413L230.4,1437.3L96.5,1500L87.5,1500ZM-428.3,1500L-416.8,1493.1L-340.1,1458.3L-330.9,1439.7L-220.5,1386.3L-104,1440.5L-91.7,1482.5L-70.1,1500L-428.3,1500ZM984.1,-500L984.9,-496.6L981.8,-303.5L960.4,-159.9L945,12.1L935.8,42.4L911.3,276.2L911.3,414.2L902.1,479.4L880.6,545.4L880.6,581.2L862.2,562.5L871.4,521L856.1,504.7L807,525L776.3,608.1L757.9,622L754.8,674.1L730.3,706.6L724.2,770L739.5,796.9L733.4,834.3L751.8,847.3L727.2,890.3L702.7,900.9L699.6,940.7L764.1,909L840.7,751.3L862.2,718L862.2,751.3L837.7,818.8L733.4,999.1L705.8,1065.6L629.1,1141L524.8,1253.6L451.2,1307.1L442,1297.3L546.3,1198.6L589.2,1166.2L610.7,1123.2L619.9,1057.5L635.2,1031.6L616.8,1012.9L589.2,1021.8L567.7,1000.7L549.3,1015.3L445.1,1033.2L402.1,1066.4L374.5,1071.3L319.3,1034.8L264.1,1045.4L242.6,1078.6L159.8,1093.2L89.3,1098.1L37.1,1055.9L12.6,1000.7L18.7,936.6L37.1,887.9L55.5,890.3L49.4,850.5L12.6,771.7L-21.2,733.4L-15,705.8L-39.6,655.3L-73.3,629.3L-88.6,560.1L-107,545.4L-140.8,557.6L-168.4,475.3L-242,450L-245.1,437L-309.5,406L-373.9,361.1L-407.6,371.7L-432.2,403.6L-481.2,300.7L-500,251.4L-500,-500Z"/><text class="sl" x="397.5" y="643">EVERGLADES</text><text class="sl" x="200.9" y="234.8">BIG CYPRESS</text><circle class="cd" cx="850.4" cy="481.8" r="3"/><text class="cl" x="850.4" y="481.8">Miami</text><circle class="cd" cx="893.1" cy="139.7" r="3"/><text class="cl" x="893.1" y="139.7">Fort Lauderdale</text><circle class="cd" cx="605.1" cy="768" r="3"/><text class="cl" x="605.1" y="768">Homestead</text></g></svg>
+
+<script>
+const PT = {"mia":[767.5,457.3],"bis":[726.8,772.2],"coe":[514.3,836.6],"oas":[129.4,399.6],"fll":[877.7,182.7],"pev":[908.5,173.8],"mia2":[767.5,457.3]};
+const TRIP = {"slug":"nov2026-destiny-everglades","title":"Destiny & the Glades","short":"Destiny & the Glades","placeholder":"","subtitle":"Thanksgiving 2026 · Mon Nov 23 – Mon Nov 30. Four stamps in one South Florida day, then five nights on the Disney Destiny from Fort Lauderdale.","chips":["4 new park units","New ship: Destiny","Party of four"],"itinerary":"nov2026-destiny-everglades.html","legMinW":330,"theme":{"#0D2533":"#0D2533","#123448":"#123448","#1A4258":"#1A4258","#1C4A62":"#1C4A62","#235570":"#235570","#EF6F6C":"#EF6F6C","#E3F1F5":"#E3F1F5","#CDE3EA":"#CDE3EA","#9EC3CF":"#9EC3CF","#BFDCE4":"#BFDCE4","#E9F5F8":"#E9F5F8","#E8F2F5":"#E8F2F5","#EDF5F7":"#EDF5F7","#5E7F8C":"#5E7F8C","#8FAEB9":"#8FAEB9","#E3EEF1":"#E3EEF1","#CFE6EE":"#CFE6EE","#7FB0C0":"#7FB0C0","#A9C3CB":"#A9C3CB","#6F8E99":"#6F8E99","#DCE7E3":"#DCE7E3"},"airports":[["mia","MIA"],["pev","PORT"]],"route":["mia","bis","coe","oas","fll","pev","mia2"],"days":[{"n":0,"label":"Day 1","dow":"Mon","dowLong":"Monday","date":"Nov 23","title":"Redeye to Miami","color":"#1F4E6B","meta":"No stamps · travel only","html":"<div class=\"moon\" style=\"margin-top:18px\">✈︎<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">SFO → MIA overnight<\/h2>\n<p><b>American AA 1618<\/b> · SFO 9:38 PM → MIA 6:00 AM Tue · Economy · conf. <b>HZQNNS<\/b>. First checked bag prepaid ($50 each).<\/p>\n<p>Four people, cruise luggage and a 6 AM arrival. Sleep on the plane if you can; tomorrow is three visitor centers and four stamps.<\/p>\n<div class=\"note warn\"><b>Before you go:<\/b> check passport expiry for all four, confirm the port arrival time in the DCL app, and move Car 2’s drop-off from Tue Dec 1 to Mon Nov 30 (or cancel it once all four stamps are in hand).<\/div>"},{"n":1,"label":"Day 2","dow":"Tue","dowLong":"Tuesday","date":"Nov 24","title":"Stamp day in the Glades","sub":"Biscayne → Everglades + Dry Tortugas → Big Cypress → Fort Lauderdale","color":"#0F8B8D","drive":"~4h 15m","stamps":4,"start":"mia","end":"fll","tzline":"all Eastern","cut":"Biscayne and Coe open at 9. Oasis closes at 4:30. Today is the only chance for Dry Tortugas, and if its stamp is at the HQ front desk, HQ keeps weekday office hours.","gmaps":"https://www.google.com/maps/dir/Miami+International+Airport/9700+SW+328th+St,+Homestead,+FL+33033/40001+State+Road+9336,+Homestead,+FL+33034/52105+Tamiami+Trail+E,+Ochopee,+FL+34141/1221+W+State+Road+84,+Fort+Lauderdale,+FL+33315/"},{"n":2,"kind":"cruise","label":"Day 3","dow":"Wed","dowLong":"Wednesday","date":"Nov 25","title":"Embark the Destiny","sub":"Drop the car · board at Port Everglades","color":"#2B59C3","html":"<div class=\"moon\" style=\"margin-top:18px\">🚢<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Drop the car, then board<\/h2>\n<p>Breakfast at the hotel, check out by 11, then return the rental to <b>Budget’s Ft Lauderdale Cruiseport Shuttle<\/b> branch (2520 Miami Rd) by noon. It’s a short ride from there to the terminal.<\/p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=2520+Miami+Rd,+Fort+Lauderdale,+FL\" target=\"_blank\" rel=\"noopener\">Navigate to Budget ↗<\/a><a class=\"alt\" href=\"https://www.google.com/maps/dir/?api=1&destination=Port+Everglades,+Fort+Lauderdale,+FL\" target=\"_blank\" rel=\"noopener\">Port Everglades ↗<\/a><\/div>\n<div class=\"stampbox\" style=\"border-color:#2B59C3\"><div class=\"kicker\" style=\"color:#2B59C3\">⚓ Disney Destiny<\/div><div class=\"where\">5-Night Very Merrytime Bahamian · Nov 25–30<\/div><div class=\"hrs\">Round-trip Fort Lauderdale · res. 45253279 · Oceanview GTY<\/div><\/div>\n<div class=\"note warn\">Arrive within your assigned Port Arrival Time. All aboard is typically 3:45 PM.<\/div>\n<div class=\"note ok\">✓ New ship for the list. Destiny joins Wonder, Wish, Dream and Magic.<\/div>\n<p>Budget conf.: Costco C509701153 / Budget 06734143US3 · $151.29 due at counter · driver John, bring the Costco card.<\/p>"},{"n":3,"kind":"cruise","label":"Day 4","dow":"Thu","dowLong":"Thursday","date":"Nov 26","title":"Thanksgiving aboard","sub":"At sea on the Disney Destiny","color":"#C4572E","html":"<div class=\"moon\" style=\"margin-top:18px\">🦃<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Thanksgiving at sea<\/h2>\n<p>Holiday menus run fleet-wide. On night one, ask your server which rotational restaurant has the turkey service, then plan the rotation around it.<\/p>\n<div class=\"note ok\">✓ Very Merrytime sailing, so the ship is decorated for the holidays from day one.<\/div>"},{"n":4,"kind":"cruise","label":"Days 5–7","dow":"Fri–Sun","kicker":"Days 5–7 · Fri Nov 27 – Sun Nov 29","title":"The Bahamas","sub":"Island days on the Destiny","color":"#2B9FD9","html":"<div class=\"moon\" style=\"margin-top:18px\">🏝️<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Bahamas<\/h2>\n<p>Five-night Bahamian sailings usually mix Nassau, Disney Castaway Cay and Disney Lookout Cay at Lighthouse Point with a day at sea.<\/p>\n<div class=\"note warn\">Check the port order on reservation 45253279. It varies by sailing.<\/div>\n<p>No NPS stamps on these days. Enjoy the ship.<\/p>"},{"n":5,"label":"Day 8","dow":"Mon","dowLong":"Monday","date":"Nov 30","title":"Debark & fly home","sub":"Port Everglades → MIA","color":"#7A5195","start":"pev","end":"mia2","tzline":"","cutLabel":"Backup plan","cut":"If a stamp was missed Tuesday, pick up Car 2 at Enterprise, 2601 S Federal Hwy, at 10 AM (954-764-3405). Big Cypress missed: I-75 west to Oasis (~11:45 AM), then ~1 hr to MIA. Biscayne or Coe missed: ~1h15 south to Homestead, then ~45 min to MIA. Doing both before a 4:40 flight is tight, so pick one. Drop the car at Enterprise MIA, 3900 NW 25th St."}],"stops":[{"d":1,"kind":"stop","k":"bis","from":"MIA","leave":"~7:15 AM","drive":"45m","arrive":"9:00 AM","z":"ET","via":"Bags and the Budget counter take until ~7:15. Nothing opens until 9, so sit down for breakfast in Homestead first.","name":"Biscayne NP","type":"National Park","state":"Florida","place":"Dante Fascell Visitor Center, Homestead","addr":"9700 SW 328th St, Homestead, FL 33033","where":"Gift shop / information desk","hrs":"9 AM–5 PM daily · no entrance fee","acc":"Ramp and elevator, automatic doors, paved from parking to the door.","ok":"One closer on the 64 national parks list.","about":"About 95% of this park is water: Biscayne Bay, coral reefs and the northernmost Florida Keys. The visitor center sits right on the bay at Convoy Point."},{"d":1,"kind":"stop","k":"coe","from":"Biscayne","drive":"25m","arrive":"9:45 AM","z":"ET","name":"Everglades NP + Dry Tortugas NP","unit":"Everglades NP","type":"Two parks, one stop","state":"Florida","place":"Ernest F. Coe Visitor Center & Park HQ, Homestead","addr":"40001 State Road 9336, Homestead, FL 33034","where":"Everglades Association counter, Coe Visitor Center","hrs":"9 AM–5 PM (April to mid-December) · outside the fee gate","also":[{"id":"dt","name":"Dry Tortugas NP","where":"Held at this complex (confirmed by phone). Ask at the Coe bookstore first, then the HQ front desk.","hrs":"HQ keeps weekday office hours"}],"warn":"No second chance for Dry Tortugas later in the trip. The Key West Eco-Discovery Center is closed for renovations.","ok":"Two more for the 64 national parks list. Park phone: (305) 242-7700.","about":"Everglades is the largest subtropical wilderness in the U.S., a slow, shallow river of sawgrass. Dry Tortugas lies about 70 miles west of Key West and is mostly open water around Fort Jefferson, which is why its stamp is kept here."},{"d":1,"kind":"stop","k":"oas","from":"Ernest Coe","drive":"1h 35m","arrive":"~11:50 AM","z":"ET","via":"Krome Ave (SR-997) north, then west on the Tamiami Trail.","name":"Big Cypress NPres","type":"National Preserve","state":"Florida","place":"Oasis Visitor Center, Ochopee","addr":"52105 Tamiami Trail E, Ochopee, FL 34141","where":"Oasis Visitor Center","hrs":"9 AM–4:30 PM daily · (239) 695-4111","ok":"Look over the rail on the way back to the car; there are usually alligators in the canal below. If Oasis’s phone is down, the Reed VC line is (239) 695-1168.","about":"Big Cypress protects the cypress swamps and wet prairie that feed water to the Everglades. Created in 1974, it was one of the first two national preserves. The visitor center is a converted airfield building."},{"d":1,"kind":"night","k":"fll","from":"Oasis","drive":"1h 30m","arrive":"~3:00 PM","z":"ET","via":"Back east on the Tamiami Trail, with lunch in Miami on the way.","name":"Fort Lauderdale","addr":"1221 W State Road 84, Fort Lauderdale, FL 33315","note":"Best Western Fort Lauderdale Airport/Cruise Port. One room, Accessible 2 Queen, breakfast included. Check-in 3 PM, conf. 148156597 (prepaid). Parking is $7/night; expect a $50 incidental hold.","html":"<div class=\"note warn\">⛽ Fuel up tonight. The car goes back before the ship.<\/div>"},{"d":5,"kind":"home","k":"mia2","from":"Port Everglades","leave":"after walk-off","drive":"45m–1 hr","arrive":"4:40 PM","z":"MIA","via":"Self-assist walk-off from 7:30 AM, then rideshare from the terminal to MIA (~30 mi).","title":"Miami → home","note":"United MIA 4:40 PM → SFO 8:08 PM, conf. LBMDX0. There’s lots of slack between walking off and boarding, so no need to rush off the ship.","navTo":"Miami International Airport","navLabel":"Navigate to MIA ↗","arriveLabel":"Flight"}]};
+const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
+const LASTDAY = DAYS.length - 1;
+let n = 0; STOPS.forEach(s => { if (s.kind === 'stop') s.num = ++n; });
+const dayColor = d => DAYS[d].color;
+const DL = d => DAYS[d].label || ('Day ' + d);
+const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
+
+/* ---------- stamp storage ---------- */
+const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
+const UNITS = [];
+STOPS.filter(s => s.kind === 'stop').forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+' }));
+});
+const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const NSTAMPS = UNITS.length;
+let got = {};
+try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
+function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
+
+/* ---------- maps ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+function routeD(keys) { return keys.map((k, i) => (i ? 'L' : 'M') + PT[k][0] + ' ' + PT[k][1]).join(''); }
+
+function buildMap(svg, o) {
+  // o: { focus:[keys], aspect, dayFocus, leg:[a,b], now:key }
+  const pad = o.pad || 60;
+  let xs = o.focus.map(k => PT[k][0]), ys = o.focus.map(k => PT[k][1]);
+  let x0 = Math.min(...xs) - pad, x1 = Math.max(...xs) + pad, y0 = Math.min(...ys) - pad, y1 = Math.max(...ys) + pad;
+  let w = Math.max(x1 - x0, o.minW || 220), h = Math.max(y1 - y0, (o.minW || 220) / o.aspect);
+  if (w / h > o.aspect) h = w / o.aspect; else w = h * o.aspect;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const vb = [cx - w / 2, cy - h / 2, w, h];
+  svg.setAttribute('viewBox', vb.map(v => v.toFixed(1)).join(' '));
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  const s = w / 1000;
+  const base = document.getElementById('basemap').cloneNode(true); base.removeAttribute('id');
+  base.querySelectorAll('.sl').forEach(t => t.setAttribute('font-size', (s * 22).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('font-size', (s * 17).toFixed(1)));
+  base.querySelectorAll('.cd').forEach(c => c.setAttribute('r', (s * 3.5).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('dy', (-s * 9).toFixed(1)));
+  svg.appendChild(base);
+  // whole route, faint
+  el('path', { d: routeD(ROUTE), class: 'rt', stroke: '#A9C3CB', 'stroke-width': 2 }, svg);
+  // day segments
+  for (let d = 1; d <= LASTDAY; d++) {
+    if (!DAYS[d].start) continue;
+    const a = ROUTE.indexOf(DAYS[d].start), b = ROUTE.indexOf(DAYS[d].end);
+    const dim = o.dayFocus && o.dayFocus !== d;
+    el('path', { d: routeD(ROUTE.slice(a, b + 1)), class: 'rt', stroke: DAYS[d].color, 'stroke-width': dim ? 2.5 : 4, opacity: dim ? .35 : .9 }, svg);
+  }
+  if (o.leg) el('path', { d: routeD(o.leg), class: 'leg' }, svg);
+  // airports
+  TRIP.airports.forEach(([k, lab]) => {
+    const g = el('g', { class: 'end' }, svg), r = s * 17;
+    const wr = r * (0.9 + 0.62 * lab.length);
+    el('rect', { x: PT[k][0] - wr / 2, y: PT[k][1] - r * .8, width: wr, height: r * 1.6, rx: r * .4 }, g);
+    const t = el('text', { x: PT[k][0], y: PT[k][1], 'font-size': (r * .9).toFixed(1) }, g); t.textContent = lab;
+  });
+  // overnight dots
+  STOPS.filter(x => x.kind === 'night').map(x => x.k).forEach(k => {
+    const c = el('circle', { cx: PT[k][0], cy: PT[k][1], r: s * 7, fill: '#123448', stroke: '#FFFFFF', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }, svg);
+  });
+  // pins (draw current last)
+  const r = s * (o.pinR || 16);
+  const list = STOPS.filter(x => x.kind === 'stop');
+  list.sort((a, b) => (a.k === o.now) - (b.k === o.now));
+  list.forEach(st => {
+    const dim = o.dayFocus && o.dayFocus !== st.d;
+    const g = el('g', { class: 'pin' + (st.k === o.now ? ' now' : '') + (dim ? ' dim' : '') }, svg);
+    const rr = st.k === o.now ? r * 1.35 : r;
+    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: dayColor(st.d) }, g);
+    const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
+  });
+}
+
+/* ---------- pages ---------- */
+const pages = []; // {el, label, group}
+const book = document.getElementById('book');
+function addPage(cls, html, label, group, after) {
+  const p = document.createElement('section');
+  p.className = 'page ' + cls;
+  p.innerHTML = '<div class="scroll">' + html + '</div><div class="shade"></div>';
+  book.appendChild(p);
+  pages.push({ el: p, label, group });
+  if (after) after(p);
+  return pages.length - 1;
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const nav = a => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a);
+const firstPageOfDay = {};
+const pageOfStop = {};
+
+// Cover
+addPage('cover', `
+  ${TRIP.placeholder ? `<div class="ph">${esc(TRIP.placeholder)}</div>` : ''}
+  <div class="kicker" style="color:#EF6F6C">Trip book</div>
+  <h1 class="serif">${esc(TRIP.title)}</h1>
+  <div class="sub">${esc(TRIP.subtitle)}</div>
+  <svg class="map" id="coverMap" style="aspect-ratio:1/1.05"></svg>
+  <div style="margin-top:10px">
+    ${TRIP.chips.map((c, i) => `<span class="chip${i ? '' : ' hot'}">${esc(c)}</span>`).join('')}
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="tally"><div><div style="font-size:12px;color:#9EC3CF;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps this trip</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+  <div class="swipe">Swipe or tap Next to turn the page ›</div>
+  ${TRIP.itinerary ? `<a class="backlink" href="${TRIP.itinerary}">← Full itinerary page</a>` : ''}
+`, 'Cover · trip map', 'Start', p => {
+  buildMap(p.querySelector('#coverMap'), { focus: ROUTE, aspect: 1 / 1.05, pad: 34, pinR: 15 });
+});
+
+// Day 0
+const D0 = DAYS[0];
+addPage('', `
+  <div class="dayband" style="background:${D0.color}">
+    <div class="kicker">${DK(0)}</div>
+    <h2 class="serif">${esc(D0.title)}</h2>
+    <div class="meta">${esc(D0.meta || '')}</div>
+  </div>
+  ${D0.html || ''}
+`, DL(0) + ' · ' + D0.title, 0);
+
+// Days
+for (let d = 1; d <= LASTDAY; d++) {
+  const D = DAYS[d];
+  if (D.kind === 'cruise') {
+    firstPageOfDay[d] = addPage('', `
+      <div class="dayband" style="background:${D.color}">
+        <div class="kicker">${DK(d)}</div>
+        <h2 class="serif">${esc(D.title)}</h2>
+        ${D.sub ? `<div class="meta">${esc(D.sub)}</div>` : ''}
+      </div>
+      ${D.html || ''}
+    `, DL(d) + ' · ' + D.title, d);
+    continue;
+  }
+  const items = STOPS.filter(s => s.d === d);
+  const first = items[0];
+  const metaBits = [D.stamps ? D.stamps + ' stamp' + (D.stamps > 1 ? 's' : '') : '', D.drive ? '🚗 ' + D.drive + ' driving' : '', D.tzline || ''].filter(Boolean).join(' · ');
+  firstPageOfDay[d] = addPage('', `
+    <div class="dayband" style="background:${D.color}">
+      <div class="kicker">${DK(d)}</div>
+      <h2 class="serif">${D.title}</h2>
+      <div class="meta">${D.sub || ''}${metaBits ? '<br>' + metaBits : ''}</div>
+    </div>
+    <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
+    <ul class="tl">
+      <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${D.color}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+    </ul>
+    ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
+    ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
+  `, DL(d) + ' · ' + D.title, d, p => {
+    buildMap(p.querySelector('#dm' + d), { focus: ROUTE.slice(ROUTE.indexOf(D.start), ROUTE.indexOf(D.end) + 1), aspect: 1.45, pad: 45, dayFocus: d });
+  });
+
+  items.forEach((s, i) => {
+    const fromKey = i === 0 ? D.start : items[i - 1].k;
+    const driveCard = `
+      <div class="drive">
+        <div class="car">🚗</div>
+        <div><div class="fr">${s.leave ? 'Leave ' + esc(s.from) + ' ' + s.leave : 'From ' + esc(s.from)}</div><div class="dt">${s.drive}</div>${s.tz ? `<div class="tz">${s.tz}</div>` : ''}</div>
+        <div class="arr"><div class="lab">${s.arriveLabel || 'Arrive'}</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
+      </div>
+      ${s.via ? `<div class="note" style="background:#EDF5F7">${esc(s.via)}</div>` : ''}`;
+    const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
+    let html, label;
+    if (s.kind === 'stop') {
+      const units = [{ id: s.k, name: s.unit, where: s.where, hrs: s.hrs }].concat(s.also || []);
+      const dayStops = items.filter(x => x.kind === 'stop');
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><div class="num" style="background:${D.color}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+          <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${units.map(u => `
+        <div class="stampbox" style="border-color:${D.color}">
+          <div class="kicker" style="color:${D.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+          <div class="where">${esc(u.where)}</div>
+          ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
+          <button class="got" data-got="${u.id}"></button>
+        </div>`).join('')}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
+        ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
+        <div class="foot">Re-check hours in the NPS app the week before.</div>`;
+      label = s.num + ' · ' + s.name;
+    } else if (s.kind === 'night') {
+      const next = DAYS[d + 1];
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + ' stamps · ' : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">☾</div>
+        <h2 class="serif">Sleep in ${esc(s.name)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
+        <div class="cut" style="background:#EDF5F7;border-left-color:${next.color}"><b>Tomorrow · ${DL(d + 1)}: ${esc(next.title)}</b><br>${nextLine}</div>`;
+      label = '☾ Sleep in ' + s.name;
+    } else {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Last leg</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">✈︎</div>
+        <h2 class="serif">${esc(s.title)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.navTo)}" target="_blank" rel="noopener">${esc(s.navLabel || 'Navigate ↗')}</a></div>
+        <div class="tally" style="background:#123448;color:#E9F5F8;margin-top:16px"><div><div style="font-size:12px;color:#9EC3CF;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps collected</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+        <ul class="chk" id="chk"></ul>`;
+      label = '✈︎ ' + s.title;
+    }
+    pageOfStop[s.k] = addPage('', html, label, d, p => {
+      const m = p.querySelector('[data-map]');
+      const [a, b] = m.dataset.map.split(',');
+      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: TRIP.legMinW || 400, dayFocus: d, pinR: 22 });
+    });
+  });
+}
+
+/* ---------- legend, checklist, stamps ---------- */
+document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)} · ${D.dow}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + ' stamps' : ''}</span></span></button>`).join('');
+document.getElementById('chk').innerHTML = UNITS.map(u =>
+  `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
+
+function renderGot() {
+  const c = UNITS.filter(u => got[u.id]).length;
+  document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
+  document.querySelectorAll('button.got').forEach(b => {
+    const on = !!got[b.dataset.got], col = dayColor(UNIT[b.dataset.got].d);
+    b.classList.toggle('on', on); b.style.background = on ? col : '#E8F2F5';
+    b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
+  });
+  document.querySelectorAll('.chk li').forEach(li => {
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = dayColor(UNIT[li.dataset.got].d);
+    bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#BFDCE4';
+  });
+}
+
+/* ---------- flipping ---------- */
+let idx = 0, busy = false;
+const pg = document.getElementById('pgnum'), bar = document.getElementById('bar'), prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+function chrome() {
+  pg.textContent = (idx + 1) + ' / ' + pages.length;
+  bar.style.width = ((idx) / (pages.length - 1) * 100) + '%';
+  prevB.disabled = idx === 0; nextB.disabled = idx === pages.length - 1;
+  try { localStorage.setItem(PKEY, idx); } catch (e) {}
+  try { history.replaceState(null, '', '#p' + (idx + 1)); } catch (e) {}
+}
+function show(i) { pages.forEach((p, j) => p.el.className = p.el.className.replace(/\b(show|under|flip-out|flip-in)\b/g, '').trim() + (j === i ? ' show' : '')); idx = i; chrome(); }
+function go(i) {
+  if (busy || i === idx || i < 0 || i >= pages.length) return;
+  const cur = pages[idx].el, nxt = pages[i].el;
+  nxt.querySelector('.scroll').scrollTop = 0;
+  busy = true;
+  const done = () => { pages.forEach((p, j) => { if (j !== i) p.el.classList.remove('show'); p.el.classList.remove('under', 'flip-out', 'flip-in'); }); idx = i; busy = false; chrome(); };
+  if (i > idx) {
+    nxt.classList.add('show', 'under'); cur.classList.add('flip-out');
+    cur.addEventListener('animationend', done, { once: true });
+  } else {
+    cur.classList.add('under'); nxt.classList.add('show', 'flip-in');
+    nxt.addEventListener('animationend', done, { once: true });
+  }
+  setTimeout(() => { if (busy) done(); }, 900);
+}
+prevB.onclick = () => go(idx - 1);
+nextB.onclick = () => go(idx + 1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(idx + 1); if (e.key === 'ArrowLeft') go(idx - 1); });
+let tx = 0, ty = 0;
+book.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+book.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(idx + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-got]');
+  if (g) { got[g.dataset.got] = !got[g.dataset.got]; saveGot(); renderGot(); return; }
+  const jd = e.target.closest('[data-jumpday]');
+  if (jd) { e.preventDefault(); go(firstPageOfDay[jd.dataset.jumpday]); return; }
+  const js = e.target.closest('[data-stop]');
+  if (js) { go(pageOfStop[js.dataset.stop]); return; }
+  const jf = e.target.closest('[data-jump]');
+  if (jf) { go(idx + 1); return; }
+});
+
+/* ---------- contents ---------- */
+const toc = document.getElementById('toc'), tocPanel = document.getElementById('tocPanel');
+function openToc() {
+  let h = '<div class="kicker" style="color:#EF6F6C">Pages</div>', grp = '';
+  pages.forEach((p, i) => {
+    if (p.group !== grp) { grp = p.group; const isDay = typeof grp === 'number'; h += `<h3 style="color:${isDay ? DAYS[grp].color : '#5E7F8C'}">${isDay ? DL(grp) + (DAYS[grp].dow ? ' · ' + DAYS[grp].dow : '') : grp}</h3>`; }
+    h += `<a href="#" data-p="${i}" class="${i === idx ? 'cur' : ''}">${esc(p.label)}<span>${i + 1}</span></a>`;
+  });
+  tocPanel.innerHTML = h; toc.classList.add('open');
+}
+document.getElementById('tocBtn').onclick = openToc;
+toc.addEventListener('click', e => {
+  const a = e.target.closest('[data-p]');
+  if (a) { e.preventDefault(); toc.classList.remove('open'); go(+a.dataset.p); return; }
+  if (e.target === toc) toc.classList.remove('open');
+});
+
+/* ---------- start ---------- */
+renderGot();
+let start = 0;
+const hm = /#p(\d+)/.exec(location.hash);
+if (hm) start = Math.min(pages.length - 1, Math.max(0, +hm[1] - 1));
+else { try { const s = +localStorage.getItem(PKEY); if (s > 0 && s < pages.length) start = s; } catch (e) {} }
+show(start);
+</script>
+</body>
+</html>

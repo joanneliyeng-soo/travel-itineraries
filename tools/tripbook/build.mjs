@@ -52,6 +52,9 @@ let html = fs.readFileSync(path.join(here, 'template.html'), 'utf8')
   .replace('__PTS__', JSON.stringify(pts))
   .replace('__TRIP__', JSON.stringify(client).replace(/<\//g, '<\\/'));
 
+// optional per-trip palette: { "#templateHex": "#newHex", ... }
+for (const [from, to] of Object.entries(trip.theme || {})) html = html.split(from).join(to);
+
 const out = path.join(here, '../../travel', `${trip.slug}-book.html`);
 fs.writeFileSync(out, html);
 console.log('wrote', path.relative(process.cwd(), out), html.length, 'bytes');

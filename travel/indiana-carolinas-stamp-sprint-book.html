@@ -170,10 +170,18 @@ const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
 const LASTDAY = DAYS.length - 1;
 let n = 0; STOPS.forEach(s => { if (s.kind === 'stop') s.num = ++n; });
 const dayColor = d => DAYS[d].color;
+const DL = d => DAYS[d].label || ('Day ' + d);
+const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
 
 /* ---------- stamp storage ---------- */
 const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
-const NSTAMPS = STOPS.filter(s => s.kind === 'stop').length;
+const UNITS = [];
+STOPS.filter(s => s.kind === 'stop').forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+' }));
+});
+const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const NSTAMPS = UNITS.length;
 let got = {};
 try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
 function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
@@ -205,6 +213,7 @@ function buildMap(svg, o) {
   el('path', { d: routeD(ROUTE), class: 'rt', stroke: '#B8B3C8', 'stroke-width': 2 }, svg);
   // day segments
   for (let d = 1; d <= LASTDAY; d++) {
+    if (!DAYS[d].start) continue;
     const a = ROUTE.indexOf(DAYS[d].start), b = ROUTE.indexOf(DAYS[d].end);
     const dim = o.dayFocus && o.dayFocus !== d;
     el('path', { d: routeD(ROUTE.slice(a, b + 1)), class: 'rt', stroke: DAYS[d].color, 'stroke-width': dim ? 2.5 : 4, opacity: dim ? .35 : .9 }, svg);
@@ -213,7 +222,8 @@ function buildMap(svg, o) {
   // airports
   TRIP.airports.forEach(([k, lab]) => {
     const g = el('g', { class: 'end' }, svg), r = s * 17;
-    el('rect', { x: PT[k][0] - r * 1.3, y: PT[k][1] - r * .8, width: r * 2.6, height: r * 1.6, rx: r * .4 }, g);
+    const wr = r * (0.9 + 0.62 * lab.length);
+    el('rect', { x: PT[k][0] - wr / 2, y: PT[k][1] - r * .8, width: wr, height: r * 1.6, rx: r * .4 }, g);
     const t = el('text', { x: PT[k][0], y: PT[k][1], 'font-size': (r * .9).toFixed(1) }, g); t.textContent = lab;
   });
   // overnight dots
@@ -272,119 +282,136 @@ addPage('cover', `
 const D0 = DAYS[0];
 addPage('', `
   <div class="dayband" style="background:${D0.color}">
-    <div class="kicker">Day 0 · ${D0.dowLong}</div>
+    <div class="kicker">${DK(0)}</div>
     <h2 class="serif">${esc(D0.title)}</h2>
     <div class="meta">${esc(D0.meta || '')}</div>
   </div>
   ${D0.html || ''}
-`, 'Day 0 · ' + D0.title, 'Day 0');
+`, DL(0) + ' · ' + D0.title, 0);
 
 // Days
 for (let d = 1; d <= LASTDAY; d++) {
   const D = DAYS[d];
+  if (D.kind === 'cruise') {
+    firstPageOfDay[d] = addPage('', `
+      <div class="dayband" style="background:${D.color}">
+        <div class="kicker">${DK(d)}</div>
+        <h2 class="serif">${esc(D.title)}</h2>
+        ${D.sub ? `<div class="meta">${esc(D.sub)}</div>` : ''}
+      </div>
+      ${D.html || ''}
+    `, DL(d) + ' · ' + D.title, d);
+    continue;
+  }
   const items = STOPS.filter(s => s.d === d);
   const first = items[0];
+  const metaBits = [D.stamps ? D.stamps + ' stamp' + (D.stamps > 1 ? 's' : '') : '', D.drive ? '🚗 ' + D.drive + ' driving' : '', D.tzline || ''].filter(Boolean).join(' · ');
   firstPageOfDay[d] = addPage('', `
     <div class="dayband" style="background:${D.color}">
-      <div class="kicker">Day ${d} · ${D.dowLong}</div>
+      <div class="kicker">${DK(d)}</div>
       <h2 class="serif">${D.title}</h2>
-      <div class="meta">${D.sub}<br>${D.stamps} stamps · 🚗 ${D.drive} driving · ${D.tzline}</div>
+      <div class="meta">${D.sub || ''}${metaBits ? '<br>' + metaBits : ''}</div>
     </div>
     <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
     <ul class="tl">
       <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
-      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${D.color}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : s.name)}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${D.color}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
     </ul>
-    <div class="cut"><b>Hard cutoffs:</b> ${D.cut}</div>
-    <a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open Day ${d} route in Google Maps ↗</a>
-  `, `Day ${d} · ${D.title}`, 'Day ' + d, p => {
+    ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
+    ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
+  `, DL(d) + ' · ' + D.title, d, p => {
     buildMap(p.querySelector('#dm' + d), { focus: ROUTE.slice(ROUTE.indexOf(D.start), ROUTE.indexOf(D.end) + 1), aspect: 1.45, pad: 45, dayFocus: d });
   });
 
   items.forEach((s, i) => {
-    const prevKey = i === 0 ? D.start : items[i - 1].k;
-    const fromKey = prevKey;
+    const fromKey = i === 0 ? D.start : items[i - 1].k;
     const driveCard = `
       <div class="drive">
         <div class="car">🚗</div>
         <div><div class="fr">${s.leave ? 'Leave ' + esc(s.from) + ' ' + s.leave : 'From ' + esc(s.from)}</div><div class="dt">${s.drive}</div>${s.tz ? `<div class="tz">${s.tz}</div>` : ''}</div>
-        <div class="arr"><div class="lab">Arrive</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
-      </div>`;
+        <div class="arr"><div class="lab">${s.arriveLabel || 'Arrive'}</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
+      </div>
+      ${s.via ? `<div class="note" style="background:#F1EFF7">${esc(s.via)}</div>` : ''}`;
     const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
     let html, label;
     if (s.kind === 'stop') {
-      const k = s.k;
+      const units = [{ id: s.k, name: s.unit, where: s.where, hrs: s.hrs }].concat(s.also || []);
+      const dayStops = items.filter(x => x.kind === 'stop');
       html = `
-        <div class="kicker" style="color:${D.color}">Day ${d} · Stop ${items.filter(x => x.kind === 'stop').indexOf(s) + 1} of ${D.stamps}</div>
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
         <div style="height:8px"></div>
         ${driveCard}
         ${mapSvg}
         <div class="stopname"><div class="num" style="background:${D.color}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
           <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${units.map(u => `
         <div class="stampbox" style="border-color:${D.color}">
-          <div class="kicker" style="color:${D.color}">◈ Stamp</div>
-          <div class="where">${esc(s.where)}</div>
-          <div class="hrs">${esc(s.hrs)}</div>
-          <button class="got" data-got="${k}"></button>
-        </div>
+          <div class="kicker" style="color:${D.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+          <div class="where">${esc(u.where)}</div>
+          ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
+          <button class="got" data-got="${u.id}"></button>
+        </div>`).join('')}
         ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
         ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
         ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
-        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">Day ${d} overview</a></div>
-        <div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>
+        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
+        ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
         <div class="foot">Re-check hours in the NPS app the week before.</div>`;
       label = s.num + ' · ' + s.name;
     } else if (s.kind === 'night') {
       const next = DAYS[d + 1];
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + ' stamps · ' : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
       html = `
-        <div class="kicker" style="color:${D.color}">Day ${d} · End of the day</div>
+        <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
         <div style="height:8px"></div>
         ${driveCard}
         ${mapSvg}
         <div class="moon">☾</div>
         <h2 class="serif">Sleep in ${esc(s.name)}</h2>
         <p>${esc(s.note)}</p>
-        <div class="actions"><a href="${nav(s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
-        <div class="cut" style="background:#F1EFF7;border-left-color:${next.color}"><b>Tomorrow · Day ${d + 1}: ${next.title}</b><br>${next.stamps} stamps · 🚗 ${next.drive}. ${next.cut}</div>`;
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
+        <div class="cut" style="background:#F1EFF7;border-left-color:${next.color}"><b>Tomorrow · ${DL(d + 1)}: ${esc(next.title)}</b><br>${nextLine}</div>`;
       label = '☾ Sleep in ' + s.name;
     } else {
       html = `
-        <div class="kicker" style="color:${D.color}">Day ${d} · Last leg</div>
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Last leg</div>
         <div style="height:8px"></div>
         ${driveCard}
         ${mapSvg}
         <div class="moon">✈︎</div>
         <h2 class="serif">${esc(s.title)}</h2>
         <p>${esc(s.note)}</p>
+        ${s.html || ''}
         <div class="actions"><a href="${nav(s.navTo)}" target="_blank" rel="noopener">${esc(s.navLabel || 'Navigate ↗')}</a></div>
         <div class="tally" style="background:#26243F;color:#EDEAF9;margin-top:16px"><div><div style="font-size:12px;color:#A9A4C8;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps collected</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
         <ul class="chk" id="chk"></ul>`;
       label = '✈︎ ' + s.title;
     }
-    pageOfStop[s.k] = addPage('', html, label, 'Day ' + d, p => {
+    pageOfStop[s.k] = addPage('', html, label, d, p => {
       const m = p.querySelector('[data-map]');
       const [a, b] = m.dataset.map.split(',');
-      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: 400, dayFocus: d, pinR: 22 });
+      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: TRIP.legMinW || 400, dayFocus: d, pinR: 22 });
     });
   });
 }
 
 /* ---------- legend, checklist, stamps ---------- */
-document.getElementById('legend').innerHTML = DAYS.slice(1).map(D =>
-  `<button data-jumpday="${D.n}"><span class="sw" style="background:${D.color}"></span><span><b>Day ${D.n} · ${D.dow}</b><span class="s">${D.title} · ${D.stamps} stamps</span></span></button>`).join('');
-document.getElementById('chk').innerHTML = STOPS.filter(s => s.kind === 'stop').map(s =>
-  `<li data-got="${s.k}"><span class="bx"></span><span>${s.num}. ${esc(s.name)}<small>Day ${s.d} · ${esc(s.place)}</small></span></li>`).join('');
+document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)} · ${D.dow}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + ' stamps' : ''}</span></span></button>`).join('');
+document.getElementById('chk').innerHTML = UNITS.map(u =>
+  `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
 
 function renderGot() {
-  const c = Object.keys(got).filter(k => got[k]).length;
+  const c = UNITS.filter(u => got[u.id]).length;
   document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
   document.querySelectorAll('button.got').forEach(b => {
-    const on = !!got[b.dataset.got], col = dayColor(STOPS.find(s => s.k === b.dataset.got).d);
+    const on = !!got[b.dataset.got], col = dayColor(UNIT[b.dataset.got].d);
     b.classList.toggle('on', on); b.style.background = on ? col : '#EEEBF7';
     b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
   });
   document.querySelectorAll('.chk li').forEach(li => {
-    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = dayColor(STOPS.find(s => s.k === li.dataset.got).d);
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = dayColor(UNIT[li.dataset.got].d);
     bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#C9C4E4';
   });
 }
@@ -397,7 +424,7 @@ function chrome() {
   bar.style.width = ((idx) / (pages.length - 1) * 100) + '%';
   prevB.disabled = idx === 0; nextB.disabled = idx === pages.length - 1;
   try { localStorage.setItem(PKEY, idx); } catch (e) {}
-  if (history.replaceState) history.replaceState(null, '', '#p' + (idx + 1));
+  try { history.replaceState(null, '', '#p' + (idx + 1)); } catch (e) {}
 }
 function show(i) { pages.forEach((p, j) => p.el.className = p.el.className.replace(/\b(show|under|flip-out|flip-in)\b/g, '').trim() + (j === i ? ' show' : '')); idx = i; chrome(); }
 function go(i) {
@@ -441,7 +468,7 @@ const toc = document.getElementById('toc'), tocPanel = document.getElementById('
 function openToc() {
   let h = '<div class="kicker" style="color:#E2603A">Pages</div>', grp = '';
   pages.forEach((p, i) => {
-    if (p.group !== grp) { grp = p.group; const dn = /Day (\d)/.exec(grp); h += `<h3 style="color:${dn ? DAYS[+dn[1]].color : '#6E6A88'}">${grp}</h3>`; }
+    if (p.group !== grp) { grp = p.group; const isDay = typeof grp === 'number'; h += `<h3 style="color:${isDay ? DAYS[grp].color : '#6E6A88'}">${isDay ? DL(grp) + (DAYS[grp].dow ? ' · ' + DAYS[grp].dow : '') : grp}</h3>`; }
     h += `<a href="#" data-p="${i}" class="${i === idx ? 'cur' : ''}">${esc(p.label)}<span>${i + 1}</span></a>`;
   });
   tocPanel.innerHTML = h; toc.classList.add('open');
