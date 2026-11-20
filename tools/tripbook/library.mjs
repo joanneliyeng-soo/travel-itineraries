@@ -218,7 +218,6 @@ const html = `<!DOCTYPE html>
       <div class="gilt"><div class="vol">Vol. I – ${roman(trips.length)}</div><h1 class="serif">Trip Books</h1><div class="rule"></div></div>
       <span class="bands" aria-hidden="true"><i></i><i></i></span>
     </div>
-    <p>Flip-book guides for every trip, stop by stop. Tap a book to open it.</p>
   </header>
   <div class="note" id="note"></div>
 
