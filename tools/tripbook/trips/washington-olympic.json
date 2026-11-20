@@ -1,0 +1,455 @@
+{
+ "slug": "washington-olympic",
+ "book": "washington",
+ "emoji": "🏔️",
+ "poster": "volcano",
+ "title": "Washington Long Weekend",
+ "short": "Washington",
+ "placeholder": "Placeholder · best mid-June to September",
+ "subtitle": "Paradise on Mount Rainier on Day 1, across the water to Olympic on Day 2, and the Klondike’s gold in Seattle on Day 3. Two national parks, three new stamps, no backtracking.",
+ "chips": [
+  "3 new stamps",
+  "2 national parks",
+  "Pacific time"
+ ],
+ "itinerary": "washington-olympic.html",
+ "theme": {
+  "#1E1D33": "#182330",
+  "#26243F": "#1F2D3C",
+  "#2C2A47": "#283A4C",
+  "#322F51": "#2E4458",
+  "#38355A": "#365066",
+  "#E2603A": "#C8423E",
+  "#E9E6FA": "#EEF2F5",
+  "#CFCBE6": "#B9C6D2",
+  "#A9A4C8": "#E3B75A",
+  "#C9C4E4": "#D0DAE3",
+  "#EDEAF9": "#EEF2F5",
+  "#EEEBF7": "#E9EEF2",
+  "#F1EFF7": "#F2F5F7",
+  "#6E6A88": "#5A6B7C",
+  "#9C97B4": "#8FA0B1",
+  "#ECE9F2": "#E3E9EE",
+  "#FBFAF6": "#FAFBFC",
+  "#E7E3D9": "#E3E9EE",
+  "#EFEDE6": "#EDF1F4",
+  "#8F8AB4": "#E3B75A",
+  "#B8B3C8": "#B9C6D2",
+  "#7C7896": "#5A6B7C",
+  "#FFF3EE": "#FFF4F0"
+ },
+ "legMinW": 340,
+ "map": {
+  "bbox": [
+   [
+    -123.95,
+    48.2
+   ],
+   [
+    -121.55,
+    46.65
+   ]
+  ],
+  "states": [
+   "Washington",
+   "Oregon",
+   "Idaho"
+  ],
+  "highlight": [
+   "Washington"
+  ],
+  "stateLabels": [
+   [
+    "WASHINGTON",
+    -122.45,
+    46.85
+   ]
+  ],
+  "cities": [
+   [
+    "Seattle",
+    -122.335,
+    47.62
+   ],
+   [
+    "Tacoma",
+    -122.444,
+    47.253
+   ],
+   [
+    "Olympia",
+    -122.9,
+    47.04
+   ],
+   [
+    "Port Angeles",
+    -123.43,
+    48.118
+   ],
+   [
+    "Shelton",
+    -123.1,
+    47.215
+   ]
+  ],
+  "points": {
+   "seah": [
+    -122.2978,
+    47.416
+   ],
+   "w_i5": [
+    -122.4,
+    47.15
+   ],
+   "w_elbe": [
+    -122.19,
+    46.765
+   ],
+   "w_ash": [
+    -121.96,
+    46.758
+   ],
+   "lomu": [
+    -121.8123,
+    46.7497
+   ],
+   "para": [
+    -121.7368,
+    46.7859
+   ],
+   "npi": [
+    -121.8135,
+    46.7494
+   ],
+   "w_oly": [
+    -122.9,
+    47.04
+   ],
+   "w_she": [
+    -123.1,
+    47.21
+   ],
+   "w_hood": [
+    -123.14,
+    47.4
+   ],
+   "w_qui": [
+    -122.88,
+    47.82
+   ],
+   "w_seq": [
+    -123.1,
+    48.08
+   ],
+   "palu": [
+    -123.43,
+    48.112
+   ],
+   "olvc": [
+    -123.4257,
+    48.0993
+   ],
+   "hr": [
+    -123.4985,
+    47.9692
+   ],
+   "pal": [
+    -123.3978,
+    48.1051
+   ],
+   "w_hcb": [
+    -122.62,
+    47.86
+   ],
+   "w_pou": [
+    -122.64,
+    47.73
+   ],
+   "bain": [
+    -122.5109,
+    47.6234
+   ],
+   "colm": [
+    -122.3379,
+    47.6028
+   ],
+   "klse": [
+    -122.3318,
+    47.5993
+   ],
+   "sea": [
+    -122.2935,
+    47.4613
+   ]
+  }
+ },
+ "airports": [
+  [
+   "sea",
+   "SEA"
+  ]
+ ],
+ "route": [
+  "seah",
+  "w_i5",
+  "w_elbe",
+  "w_ash",
+  "lomu",
+  "para",
+  "npi",
+  "w_ash",
+  "w_elbe",
+  "w_oly",
+  "w_she",
+  "w_hood",
+  "w_qui",
+  "w_seq",
+  "palu",
+  "olvc",
+  "hr",
+  "pal",
+  "w_seq",
+  "w_hcb",
+  "w_pou",
+  "bain",
+  "colm",
+  "klse",
+  "sea"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 0 · date TBD",
+   "title": "Arrive in Seattle",
+   "color": "#2E4458",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Fly into SeaTac</h2>\n<p>Pick up the round-trip rental (Costco Travel) at the SeaTac Rental Car Facility. Any car works on these roads in summer.</p>\n<p>Sleep at the <b>Best Western Seattle Airport Hotel</b>, 20717 International Blvd. Staying at the airport skips downtown traffic on the drive to Rainier.</p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Best+Western+Seattle+Airport+Hotel,+20717+International+Blvd\" target=\"_blank\" rel=\"noopener\">Navigate to hotel ↗</a></div>\n<div class=\"cut\"><b>Once dates are set:</b> Day 3 must fall Wednesday–Sunday for Klondike, so a Thursday Day 0 is the cleanest fit. Book the National Park Inn first (summer rooms go months ahead), then Olympic Lodge by Ayres and this hotel. Mount Rainier had no timed-entry reservations in 2026; confirm for your dates.</div>"
+  },
+  {
+   "n": 1,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 1 · date TBD",
+   "title": "Mount Rainier and Paradise",
+   "sub": "SeaTac → Longmire → Paradise → Longmire",
+   "color": "#C8423E",
+   "drive": "~3h",
+   "stamps": 1,
+   "start": "seah",
+   "end": "npi",
+   "tzline": "Pacific time",
+   "cutLabel": "Good to know",
+   "cut": "Summer weekends at Paradise fill the parking lots by late morning, so don’t linger at breakfast. Road status line: 360-569-2211.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Seattle+Airport+Hotel/Longmire+Museum%2C+Mount+Rainier/Henry+M.+Jackson+Memorial+Visitor+Center%2C+Paradise/National+Park+Inn%2C+Longmire"
+  },
+  {
+   "n": 2,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 2 · date TBD",
+   "title": "Over the water to the Olympics",
+   "sub": "Longmire → Port Angeles → Hurricane Ridge → Port Angeles",
+   "color": "#2F6B8A",
+   "drive": "~5h",
+   "stamps": 1,
+   "start": "npi",
+   "end": "pal",
+   "tzline": "Pacific time",
+   "cutLabel": "Good to know",
+   "cut": "The long drive is in the morning. Hurricane Ridge road status: 360-565-3131. Summer wildfire smoke can close roads or hide the views.",
+   "gmaps": "https://www.google.com/maps/dir/National+Park+Inn%2C+Longmire/Olympic+National+Park+Visitor+Center%2C+Port+Angeles/Hurricane+Ridge/Olympic+Lodge+by+Ayres%2C+Port+Angeles"
+  },
+  {
+   "n": 3,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 3 · date TBD",
+   "title": "Ferry to the gold",
+   "sub": "Port Angeles → Bainbridge ferry → Pioneer Square → SeaTac",
+   "color": "#E3B75A",
+   "drive": "~2h",
+   "stamps": 1,
+   "start": "pal",
+   "end": "sea",
+   "tzline": "Pacific time",
+   "cutLabel": "Good to know",
+   "cut": "Klondike is closed Monday and Tuesday, so Day 3 must be Wednesday–Sunday. Check the Bainbridge–Seattle sailing times once dates are set.",
+   "gmaps": "https://www.google.com/maps/dir/Olympic+Lodge+by+Ayres%2C+Port+Angeles/Bainbridge+Island+Ferry+Terminal/Klondike+Gold+Rush+National+Historical+Park%2C+Seattle/SeaTac+Rental+Car+Facility"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "lomu",
+   "color": "#C8423E",
+   "ink": "#FFFFFF",
+   "boxColor": "#C8423E",
+   "from": "SeaTac",
+   "leave": "7:30 AM",
+   "drive": "~2h",
+   "arrive": "9:30 AM",
+   "z": "PT",
+   "via": "I-5 S → WA-7 → WA-706 through Ashford and the Nisqually Entrance.",
+   "name": "Mount Rainier NP",
+   "type": "National Park",
+   "place": "Longmire Museum",
+   "addr": "Longmire Museum, Mount Rainier National Park",
+   "where": "Longmire Museum",
+   "hrs": "Open daily, about 9 AM – 4:30 PM. May close noon – 1 PM in winter.",
+   "ok": "New park for the 64. Drop the bags at the National Park Inn next door.",
+   "about": "A 14,410-foot volcano wrapped in glaciers, the tallest peak in the Cascades. Longmire was the park’s first headquarters."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "para",
+   "from": "Longmire",
+   "drive": "~30m",
+   "arrive": "10:30 AM",
+   "z": "PT",
+   "via": "Leave about 10:00. Up the Paradise road, 12 mi.",
+   "name": "Paradise + Jackson Visitor Center",
+   "place": "Mount Rainier NP",
+   "addr": "Henry M. Jackson Memorial Visitor Center, Paradise, Mount Rainier",
+   "bonus": {
+    "title": "Paradise stamp variant · optional",
+    "where": "Henry M. Jackson Visitor Center",
+    "hrs": "Daily in summer, about 10 AM – 4:30 PM (to 5:30 PM mid-July to Labor Day). Weekends and holidays only in winter."
+   },
+   "note": "Mount Rainier straight from the parking lot, with wildflower meadows from mid-July into August. Paved paths start right behind the visitor center; go as far as feels good. Lunch at the historic Paradise Inn, open in summer.",
+   "ok": "No rush to leave in summer; stay for evening light on the mountain if you like."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "npi",
+   "from": "Paradise",
+   "drive": "~30m",
+   "arrive": "4:15 PM",
+   "z": "PT",
+   "via": "Leave about 3:30. Back down to Longmire.",
+   "name": "Longmire, WA",
+   "addr": "National Park Inn, 47009 Paradise Rd, Ashford, WA",
+   "note": "National Park Inn, inside the park. Dinner in the inn’s dining room. Tomorrow starts at 8:00 AM."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "palu",
+   "from": "Longmire",
+   "leave": "8:00 AM",
+   "drive": "~3h 50m",
+   "arrive": "11:50 AM",
+   "z": "PT",
+   "via": "Out via Elbe, then US-101 along Hood Canal through Olympia and Shelton, about 167 mi. The Tacoma Narrows / Hood Canal Bridge route takes about the same.",
+   "name": "Lunch in Port Angeles",
+   "place": "Right before the visitor center",
+   "addr": "Port Angeles, WA",
+   "note": "Leave about 12:45 for the visitor center, a few minutes up the hill."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "olvc",
+   "color": "#2F6B8A",
+   "ink": "#FFFFFF",
+   "boxColor": "#2F6B8A",
+   "from": "Port Angeles",
+   "drive": "~5m",
+   "arrive": "12:50 PM",
+   "z": "PT",
+   "via": "Up Race St to Mount Angeles Rd.",
+   "name": "Olympic NP",
+   "type": "National Park",
+   "place": "Olympic National Park Visitor Center, Port Angeles",
+   "addr": "Olympic National Park Visitor Center, 3002 Mount Angeles Rd, Port Angeles, WA",
+   "where": "Olympic National Park Visitor Center",
+   "hrs": "Open daily, about 9 AM – 4 PM (longer in summer). Closed Thanksgiving and Christmas.",
+   "ok": "New park for the 64.",
+   "about": "Nearly a million acres of glaciated peaks, temperate rain forest and wild Pacific coastline."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "hr",
+   "from": "the visitor center",
+   "drive": "~35m",
+   "arrive": "2:05 PM",
+   "z": "PT",
+   "via": "Leave about 1:30. Hurricane Ridge Rd, 17 mi.",
+   "name": "Hurricane Ridge",
+   "place": "Olympic NP",
+   "addr": "Hurricane Ridge, Olympic National Park",
+   "note": "The Olympic range spread out from the parking area, often with deer grazing the meadows. The old lodge burned in 2023; temporary trailers have restrooms and a contact station.",
+   "warn": "No drinking water on the ridge during the utilities project, so bring your own. Work in summer 2026 also closed the road Monday–Thursday from May to early July; check road status (360-565-3131) for your dates.",
+   "ok": "Your phone may roam onto Canadian networks up here."
+  },
+  {
+   "d": 2,
+   "kind": "night",
+   "k": "pal",
+   "from": "Hurricane Ridge",
+   "drive": "~40m",
+   "arrive": "4:10 PM",
+   "z": "PT",
+   "via": "Leave about 3:30. Back down Hurricane Ridge Rd.",
+   "name": "Port Angeles, WA",
+   "addr": "Olympic Lodge by Ayres, 140 S Del Guzzi Dr, Port Angeles, WA",
+   "note": "Olympic Lodge by Ayres, 140 S Del Guzzi Dr. Tomorrow starts at 8:30 AM."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "bain",
+   "from": "Port Angeles",
+   "leave": "8:30 AM",
+   "drive": "~1h 40m",
+   "arrive": "10:10 AM",
+   "z": "PT",
+   "via": "US-101 east, then over the Hood Canal Bridge to Bainbridge Island, about 71 mi.",
+   "name": "Bainbridge Island ferry",
+   "place": "Washington State Ferries",
+   "addr": "Bainbridge Island Ferry Terminal",
+   "note": "Drive on for the ~35-minute crossing to Colman Dock in downtown Seattle. Pick a sailing once dates are set; the next stop assumes you’re off the boat by about 11:00."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "klse",
+   "unit": "Klondike Gold Rush – Seattle NHP",
+   "color": "#E3B75A",
+   "ink": "#1D2A38",
+   "boxColor": "#B8892E",
+   "from": "Colman Dock",
+   "drive": "~35m ferry + 5m",
+   "arrive": "11:15 AM",
+   "z": "PT",
+   "via": "Off the ferry, a few blocks south to Pioneer Square.",
+   "name": "Klondike Gold Rush NHP",
+   "type": "National Historical Park · Seattle Unit",
+   "place": "Pioneer Square",
+   "addr": "Klondike Gold Rush National Historical Park, 319 2nd Ave S, Seattle, WA",
+   "where": "Visitor center, 319 Second Ave S",
+   "hrs": "Wednesday–Sunday 10 AM – 5 PM. Closed Monday and Tuesday.",
+   "warn": "Day 3 must fall Wednesday to Sunday.",
+   "ok": "The 22-minute gold rush film runs every half hour. Lunch in Pioneer Square afterward. Street parking is metered and limited to two hours.",
+   "about": "In 1897 Seattle outfitted tens of thousands of stampeders bound for the Yukon. The museum sits in the old Cadillac Hotel."
+  },
+  {
+   "d": 3,
+   "kind": "home",
+   "k": "sea",
+   "from": "Pioneer Square",
+   "drive": "~20m",
+   "arrive": "afternoon",
+   "z": "PT",
+   "title": "Seattle → home",
+   "note": "After lunch, return the car at the SeaTac Rental Car Facility and fly home.",
+   "navTo": "SeaTac Rental Car Facility",
+   "navLabel": "Navigate to car return ↗"
+  }
+ ]
+}

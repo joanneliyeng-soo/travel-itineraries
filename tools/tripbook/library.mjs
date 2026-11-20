@@ -153,8 +153,8 @@ const html = `<!DOCTYPE html>
   .mpic { position:relative; flex:1; min-height:0; display:block; overflow:hidden; border-radius:0 4px 0 0; }
   .mini .mw { position:absolute; left:6px; top:5px; right:4px; font-size:9px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); line-height:1.2; }
   .mband { display:flex; flex-direction:column; gap:5px; background:var(--bg); padding:6px 7px 7px; border-radius:0 0 4px 0; }
-  .mini .mt { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:11.5px; font-weight:700; line-height:1.12; color:#F7EBD3;
-    text-transform:uppercase; letter-spacing:.04em; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .mini .mt { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:10.5px; font-weight:700; line-height:1.12; color:#F7EBD3;
+    text-transform:uppercase; letter-spacing:.02em; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
   .mini .prog { flex:none; height:4px; }
   .rack .bk .face { display:none; }
   .rack .bk .rk { display:flex; }

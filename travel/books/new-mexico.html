@@ -429,7 +429,7 @@ for (let d = 1; d <= LASTDAY; d++) {
       label = '• ' + s.name;
     } else if (s.kind === 'night') {
       const next = DAYS[d + 1];
-      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + ' stamps · ' : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + (next.stamps === 1 ? ' stamp · ' : ' stamps · ') : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
       html = `
         <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
         <div style="height:8px"></div>

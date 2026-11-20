@@ -78,6 +78,17 @@ ${[12, 30, 48, 150, 168, 186].map((x, i) => pine(x, 170, 30 + (i % 3) * 8, '#142
 <g stroke="#5FA7A8" stroke-width="2" stroke-linecap="round"><path d="M70 142H110M130 150H180M40 156H80"/></g>
 <path d="M14 132H44L40 126H18Z" fill="#1E2B45"/><path d="M27 126V100" stroke="#1E2B45" stroke-width="5"/><path d="M27 100L22 86" stroke="#1E2B45" stroke-width="3" stroke-linecap="round"/><circle cx="27" cy="98" r="4" fill="#1E2B45"/>`,
   },
+  volcano: {
+    sky: '#F2C79A', sun: '#F9E6C4', band: '#1D2A38', ink: '#1D2A38', ac: '#E3B75A',
+    art: `<circle cx="160" cy="40" r="16" fill="#F9E6C4"/>
+<path d="M0 132L66 74Q100 38 134 74L200 132V170H0Z" fill="#7E93AD"/>
+<path d="M66 74Q100 38 134 74L124 80L114 72L104 84L94 72L84 82L76 76Z" fill="#FFFFFF"/>
+<path d="M0 134Q50 116 100 128T200 124V170H0Z" fill="#4F6E5C"/>
+<path d="M0 150Q60 140 120 148T200 146V170H0Z" fill="#8DB36B"/>
+<g fill="#C8423E"><circle cx="40" cy="158" r="2"/><circle cx="62" cy="162" r="2"/><circle cx="96" cy="156" r="2"/><circle cx="130" cy="161" r="2"/></g>
+<g fill="#E3B75A"><circle cx="50" cy="163" r="2"/><circle cx="110" cy="162" r="2"/><circle cx="150" cy="158" r="2"/></g>
+${[8, 22, 172, 188].map((x, i) => pine(x, 170, 40 + (i % 2) * 10, '#1F3A2E')).join('')}`,
+  },
   mission: {
     sky: '#F3C28B', sun: '#F9E3B8', band: '#3A1F24', ink: '#3A1F24', ac: '#4FC1BC',
     art: `<circle cx="150" cy="52" r="20" fill="#F9E3B8"/>
