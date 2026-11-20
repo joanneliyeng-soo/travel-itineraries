@@ -53,7 +53,9 @@ let html = fs.readFileSync(path.join(here, 'template.html'), 'utf8')
   .replace('__TRIP__', JSON.stringify(client).replace(/<\//g, '<\\/'));
 
 // optional per-trip palette: { "#templateHex": "#newHex", ... }
-for (const [from, to] of Object.entries(trip.theme || {})) html = html.split(from).join(to);
+// single pass, so a new color is never re-mapped by a later entry
+const theme = Object.fromEntries(Object.entries(trip.theme || {}).map(([a, b]) => [a.toUpperCase(), b]));
+html = html.replace(/#[0-9A-Fa-f]{6}\b/g, m => theme[m.toUpperCase()] || m);
 
 const out = path.join(here, '../../travel', `${trip.slug}-book.html`);
 fs.writeFileSync(out, html);

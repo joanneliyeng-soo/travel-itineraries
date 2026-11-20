@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>El Paso Long Weekend · Trip Book</title>
+<style>
+  html, body { margin:0 !important; padding:0 !important; background:#19162A !important; color:#211D2F !important; height:100%; overflow:hidden; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:15px; line-height:1.45; }
+  .serif { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  .app { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; padding:max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .topbar, .bottombar { width:100%; max-width:520px; display:flex; align-items:center; justify-content:space-between; color:#D3D0DE; font-size:13px; }
+  .topbar { padding:2px 4px 8px; }
+  .topbar .t { font-weight:600; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0 10px; }
+  .btn-ghost { background:#2E2940; color:#F3F2F6; border:0; border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer; }
+  .pgnum { font-variant-numeric:tabular-nums; color:#A9C9E0; white-space:nowrap; }
+
+  .book { position:relative; flex:1; width:100%; max-width:520px; perspective:1800px; }
+  .book::before { content:""; position:absolute; left:-4px; top:6px; bottom:-4px; right:4px; background:#DCD9E4; border-radius:6px 16px 16px 6px; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+  .page { position:absolute; inset:0; display:none; background:#FAF9FC; border-radius:4px 14px 14px 4px; overflow:hidden; transform-origin:left center; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .page::before { content:""; position:absolute; left:0; top:0; bottom:0; width:18px; background:linear-gradient(90deg, rgba(38,36,63,.16), rgba(38,36,63,0)); pointer-events:none; z-index:2; }
+  .page .scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:20px 20px 28px 26px; }
+  .page.show { display:block; }
+  .page.under { z-index:1; }
+  .page.flip-out { z-index:3; animation:flipOut .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page.flip-in { z-index:3; animation:flipIn .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page .shade { position:absolute; inset:0; background:linear-gradient(90deg, rgba(30,29,51,0), rgba(30,29,51,.35)); opacity:0; pointer-events:none; z-index:4; }
+  .page.flip-out .shade { animation:shadeIn .6s forwards; }
+  .page.flip-in .shade { animation:shadeOut .6s forwards; }
+  @keyframes flipOut { from { transform:rotateY(0deg); } to { transform:rotateY(-100deg); } }
+  @keyframes flipIn { from { transform:rotateY(-100deg); } to { transform:rotateY(0deg); } }
+  @keyframes shadeIn { to { opacity:1; } }
+  @keyframes shadeOut { from { opacity:1; } to { opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .page.flip-out, .page.flip-in { animation-duration:.01s; } }
+
+  .bottombar { padding-top:10px; gap:10px; }
+  .nav { background:#F3F2F6; color:#211D2F; border:0; border-radius:12px; padding:11px 16px; font-size:15px; font-weight:700; cursor:pointer; min-width:92px; }
+  .nav.next { background:#B5532E; color:#FFFFFF; }
+  .nav:disabled { opacity:.35; }
+  .progress { flex:1; height:6px; background:#2E2940; border-radius:99px; overflow:hidden; }
+  .progress i { display:block; height:100%; background:#B5532E; width:0; transition:width .4s; }
+
+  /* shared page bits */
+  .kicker { font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  h1, h2 { margin:0; font-weight:700; color:#211D2F; }
+  h1 { font-size:30px; line-height:1.1; }
+  h2 { font-size:25px; line-height:1.15; }
+  .muted { color:#5C5870; }
+  .chip { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:99px; background:#EEEDF3; color:#211D2F; margin:0 4px 4px 0; }
+  .map { display:block; width:100%; border-radius:12px; background:#EAE6E0; margin:14px 0 4px; }
+  .map .st { fill:#F6F3EC; stroke:#BDB8CC; stroke-width:1; vector-effect:non-scaling-stroke; }
+  .map .st.on { fill:#FFFFFF; }
+  .map .sl { fill:#8C88A0; font-weight:700; letter-spacing:.12em; text-anchor:middle; }
+  .map .cl { fill:#5C5870; text-anchor:middle; }
+  .map .cd { fill:#5C5870; }
+  .map .rt { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  .map .leg { fill:none; stroke:#211D2F; stroke-width:3.5; stroke-dasharray:7 6; vector-effect:non-scaling-stroke; animation:dash 1.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset:-26; } }
+  .map .pin text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+  .map .pin circle { stroke:#FFFFFF; vector-effect:non-scaling-stroke; stroke-width:2; }
+  .map .pin.now circle { stroke:#211D2F; stroke-width:3; }
+  .map .pin.dim { opacity:.35; }
+  .map .end rect { fill:#211D2F; }
+  .map .end text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+
+  /* cover */
+  .cover .scroll { background:#211D2F; color:#F3F2F6; padding-top:22px; }
+  .cover h1 { color:#FFFFFF; font-size:31px; }
+  .cover .sub { color:#BDB8CC; margin-top:8px; font-size:14px; }
+  .cover .chip { background:#433C5A; color:#F3F2F6; }
+  .cover .chip.hot { background:#B5532E; color:#FFFFFF; }
+  .cover .ph { display:inline-block; border:1px dashed #A9C9E0; color:#BDB8CC; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:99px; margin-bottom:12px; }
+  .legend { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .legend button { display:flex; align-items:center; gap:9px; background:#37314B; border:0; color:#F3F2F6; padding:9px 10px; border-radius:10px; text-align:left; font-size:13px; cursor:pointer; }
+  .legend .sw { width:14px; height:14px; border-radius:50%; flex:none; }
+  .legend b { display:block; font-size:13.5px; }
+  .legend span.s { color:#A9C9E0; font-size:11.5px; }
+  .backlink { display:block; text-align:center; margin-top:10px; color:#BDB8CC; font-size:13px; font-weight:700; text-decoration:none; }
+  .swipe { margin-top:16px; text-align:center; color:#A9C9E0; font-size:13px; }
+  .tally { margin-top:14px; background:#37314B; border-radius:12px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; }
+  .tally .n { font-size:24px; font-weight:800; color:#FFFFFF; }
+
+  /* day intro */
+  .dayband { margin:-20px -20px 0 -26px; padding:22px 20px 18px 26px; color:#FFFFFF; }
+  .dayband h2 { color:#FFFFFF; font-size:28px; }
+  .dayband .kicker { color:rgba(255,255,255,.85); }
+  .dayband .meta { margin-top:6px; font-size:13.5px; color:rgba(255,255,255,.92); }
+  .tl { list-style:none; margin:14px 0 0; padding:0; }
+  .tl li { display:grid; grid-template-columns:62px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid #E4E2EA; cursor:pointer; }
+  .tl li:last-child { border-bottom:0; }
+  .tl .tm { font-size:12.5px; font-weight:700; color:#5C5870; font-variant-numeric:tabular-nums; }
+  .tl .nm { font-weight:700; }
+  .tl .nm small { display:block; font-weight:400; color:#5C5870; font-size:12.5px; }
+  .tl .num { display:inline-flex; width:20px; height:20px; border-radius:50%; color:#FFFFFF; font-size:11px; font-weight:800; align-items:center; justify-content:center; margin-right:6px; vertical-align:1px; }
+  .cut { margin-top:14px; background:#FDF6F2; border-left:4px solid #B5532E; border-radius:8px; padding:10px 12px; font-size:13.5px; }
+  .gmaps { display:block; text-align:center; margin-top:14px; background:#211D2F; color:#FFFFFF; text-decoration:none; font-weight:700; padding:12px; border-radius:12px; }
+
+  /* stop page */
+  .drive { display:flex; align-items:stretch; gap:10px; background:#F3F2F6; border-radius:14px; padding:11px 12px; }
+  .drive .car { font-size:22px; line-height:1; padding-top:2px; }
+  .drive .dt { font-size:20px; font-weight:800; }
+  .drive .fr { font-size:12.5px; color:#5C5870; }
+  .drive .tz { display:inline-block; margin-top:5px; font-size:11.5px; font-weight:700; background:#211D2F; color:#FFFFFF; padding:2px 8px; border-radius:99px; }
+  .arr { margin-left:auto; text-align:right; flex:none; }
+  .arr .lab { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#5C5870; font-weight:700; }
+  .arr .t { white-space:nowrap; font-size:19px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .arr .z { font-size:11.5px; color:#5C5870; font-weight:700; }
+  .stopname { margin-top:14px; }
+  .stopname .num { display:inline-flex; width:30px; height:30px; border-radius:50%; color:#FFFFFF; font-size:14px; font-weight:800; align-items:center; justify-content:center; margin-bottom:8px; }
+  .place { margin-top:4px; color:#5C5870; font-size:13.5px; }
+  .stampbox { margin-top:14px; border:2px dashed; border-radius:14px; padding:12px 13px; }
+  .stampbox .kicker { margin-bottom:4px; }
+  .stampbox .where { font-weight:700; }
+  .stampbox .hrs { font-size:13.5px; margin-top:2px; }
+  .got { margin-top:11px; width:100%; border:0; border-radius:10px; padding:11px; font-size:15px; font-weight:800; cursor:pointer; background:#EEEDF3; color:#211D2F; }
+  .got.on { color:#FFFFFF; }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .actions a { flex:1; text-align:center; text-decoration:none; font-weight:700; font-size:14px; padding:11px 8px; border-radius:10px; background:#211D2F; color:#FFFFFF; }
+  .actions a.alt { background:#EEEDF3; color:#211D2F; }
+  .note { margin-top:10px; border-radius:10px; padding:9px 12px; font-size:13.5px; }
+  .note.warn { background:#FDF6F2; border-left:4px solid #B5532E; }
+  .note.acc { background:#EEF6F7; border-left:4px solid #2E8C9A; }
+  .note.ok { background:#F0F6EE; border-left:4px solid #5E9A4E; }
+  .about { margin-top:14px; font-size:14.5px; }
+  .about .kicker { color:#5C5870; margin-bottom:3px; }
+  .foot { margin-top:18px; font-size:12px; color:#8C88A0; text-align:center; }
+
+  /* night / final */
+  .moon { font-size:44px; margin-top:6px; }
+  .chk { list-style:none; padding:0; margin:12px 0 0; }
+  .chk li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #E4E2EA; font-size:14px; cursor:pointer; }
+  .chk .bx { width:22px; height:22px; border-radius:6px; border:2px solid #BDB8CC; flex:none; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:13px; font-weight:800; }
+  .chk li small { color:#5C5870; display:block; font-size:12px; }
+
+  /* contents */
+  .toc { position:fixed; inset:0; background:rgba(20,19,36,.6); display:none; z-index:50; }
+  .toc.open { display:block; }
+  .toc .panel { position:absolute; left:0; top:0; bottom:0; width:min(86vw, 380px); background:#FAF9FC; overflow-y:auto; padding:max(18px, env(safe-area-inset-top)) 16px 24px; box-shadow:4px 0 24px rgba(0,0,0,.35); }
+  .toc h3 { margin:16px 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+  .toc a { display:flex; justify-content:space-between; gap:8px; padding:8px 4px; color:#211D2F; text-decoration:none; border-bottom:1px solid #E4E2EA; font-size:14px; }
+  .toc a.cur { font-weight:800; }
+  .toc a span { color:#8C88A0; font-variant-numeric:tabular-nums; font-size:12.5px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <button class="btn-ghost" id="tocBtn" aria-label="Contents">☰ Pages</button>
+    <div class="t">El Paso Long Weekend</div>
+    <div class="pgnum" id="pgnum">1 / 1</div>
+  </div>
+  <div class="book" id="book"></div>
+  <div class="bottombar">
+    <button class="nav" id="prev">‹ Back</button>
+    <div class="progress"><i id="bar"></i></div>
+    <button class="nav next" id="next">Next ›</button>
+  </div>
+</div>
+<div class="toc" id="toc"><div class="panel" id="tocPanel"></div></div>
+
+<svg width="0" height="0" style="position:absolute"><g id="basemap"><path class="st on" d="M1500,1448.2L1469.6,1443.5L1459.1,1455.4L1451,1451.9L1425.4,1462.1L1417.2,1458.9L1407.9,1476.2L1410.2,1483.6L1395.1,1496.4L1395.1,1500L825.2,1500L825.2,1500L821.6,1497.4L811.1,1483.6L802.9,1448.3L789,1430.4L780.8,1411.1L765.7,1390.9L765.7,1371.9L757.6,1353.6L764.5,1330.4L761.1,1313L763.4,1295.3L755.2,1273.4L742.4,1263.8L739,1249.6L723.8,1237L722.7,1227.3L707.5,1216.3L709.9,1205.7L694.7,1148.5L686.6,1135.5L672.6,1134.2L659.8,1104.8L642.4,1104.8L626.1,1083.4L612.1,1080.2L608.6,1072.4L591.2,1061.4L577.2,1062.7L569.1,1053.6L533,1041L533,1028.3L481.8,990L466.7,955.2L452.7,943.2L431.8,934.7L421.3,924L410.9,923.3L408.5,911.6L380.6,877.1L357.3,865.7L352.7,848.1L336.4,837.7L312,835.4L271.3,809.9L258.5,781.2L246.8,773.3L239.8,751.1L224.7,722L214.2,708.6L192.1,696.1L179.3,702.3L166.5,688.9L160.7,679.7L142.1,673.2L143.3,665.7L131.6,657.5L128.2,645L136.3,639.1L137.5,605.9L522.6,605.9L813.4,606.3L1076.3,606.3L1289.3,605.9L1289.3,205.7L1291.6,121.2L1291.6,71.6L1293.9,-67.8L1296.2,-145.6L1296.2,-500L1500,-500Z"/><path class="st on" d="M1296.2,-500L1296.2,-145.6L1293.9,-67.8L1291.6,71.6L1291.6,121.2L1289.3,205.7L1289.3,605.9L1076.3,606.3L813.4,606.3L522.6,605.9L137.5,605.9L136.3,639.1L128.2,645L131.6,657.5L143.3,665.7L142.1,673.2L160.7,679.7L166.5,688.9L-82.4,688.9L-377.9,688.9L-377.9,860.2L-500,860.3L-500,-500Z"/><text class="sl" x="581" y="368.4">NEW MEXICO</text><text class="sl" x="467.6" y="713.1">TEXAS</text><circle class="cd" cx="180.7" cy="697.8" r="3"/><text class="cl" x="180.7" y="697.8">El Paso</text><circle class="cd" cx="90.6" cy="483.7" r="3"/><text class="cl" x="90.6" y="483.7">Las Cruces</text><circle class="cd" cx="350.9" cy="260.5" r="3"/><text class="cl" x="350.9" y="260.5">Alamogordo</text><circle class="cd" cx="912" cy="445.3" r="3"/><text class="cl" x="912" y="445.3">Carlsbad</text></g></svg>
+
+<script>
+const PT = {"elph":[212.5,684.2],"whsa":[282.2,306.9],"cham":[190.7,694.9],"gm1":[719.8,646.5],"cbh":[910,454.9],"cave":[842.4,539.2],"gm2":[719.8,646.5],"elph2":[212.5,684.2],"elp":[215.5,679.8]};
+const TRIP = {"slug":"elpaso-whitesands-guadalupe","title":"El Paso Long Weekend","short":"El Paso Long Weekend","placeholder":"","subtitle":"MLK weekend · Jan 15–18, 2027. White Sands and Chamizal on Saturday, then Carlsbad Caverns and Guadalupe Mountains on the way back Sunday.","chips":["4 new stamps","3 national parks","Mountain time"],"itinerary":"elpaso-whitesands-guadalupe.html","theme":{"#19162A":"#19162A","#211D2F":"#211D2F","#2E2940":"#2E2940","#37314B":"#37314B","#433C5A":"#433C5A","#B5532E":"#B5532E","#F3F2F6":"#F3F2F6","#D3D0DE":"#D3D0DE","#A9C9E0":"#A9C9E0","#BDB8CC":"#BDB8CC","#F3F2F6":"#F3F2F6","#EEEDF3":"#EEEDF3","#F3F2F6":"#F3F2F6","#5C5870":"#5C5870","#8C88A0":"#8C88A0","#E4E2EA":"#E4E2EA","#FAF9FC":"#FAF9FC","#DCD9E4":"#DCD9E4","#EAE6E0":"#EAE6E0","#A9C9E0":"#A9C9E0","#BDB8CC":"#BDB8CC","#5C5870":"#5C5870","#FDF6F2":"#FDF6F2"},"legMinW":360,"airports":[["elp","ELP"]],"route":["elph","whsa","cham","gm1","cbh","cave","gm2","elph2","elp"],"days":[{"n":0,"dow":"Fri","dowLong":"Friday","date":"Jan 15","title":"Fly to El Paso","color":"#37314B","meta":"No stamps · travel only","html":"<div class=\"moon\" style=\"margin-top:18px\">✈︎<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK → PHX → ELP after work<\/h2>\n<p><b>Southwest WN 2941<\/b> departs Oakland 5:30 PM PT, connects in Phoenix (2.5-hr layover), and <b>WN 4879<\/b> lands in El Paso at 12:05 AM MT. Conf. <b>2AVBGC<\/b>. Basic fare: carry-on included, checked bags $45.<\/p>\n<p>Pick up the round-trip rental at ELP (Costco Travel), then straight to bed at the <b>Best Western Plus El Paso Airport Hotel<\/b>.<\/p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Best+Western+Plus+El+Paso+Airport+Hotel\" target=\"_blank\" rel=\"noopener\">Navigate to hotel ↗<\/a><\/div>\n<div class=\"note warn\"><b>Tonight:<\/b> check the White Sands closures page. Missile tests can close the park and US-70 for up to three hours.<\/div>\n<div class=\"cut\"><b>Time zone:<\/b> Mountain time, 1 hr ahead of home. Every time in this book is local.<\/div>"},{"n":1,"dow":"Sat","dowLong":"Saturday","date":"Jan 16","title":"White Sands, Chamizal, then east","sub":"El Paso → White Sands → Chamizal → Pine Springs → Carlsbad","color":"#3F78A0","drive":"~6h","stamps":3,"start":"elph","end":"cbh","tzline":"Mountain time","cut":"Chamizal is open Tue–Sat only, so today is its only chance. Pine Springs closes at 4:30; if you’re late, you’ll pass it again Sunday.","gmaps":"https://www.google.com/maps/dir/Best+Western+Plus+El+Paso+Airport+Hotel/White+Sands+National+Park+Visitor+Center/Chamizal+National+Memorial/Pine+Springs+Visitor+Center,+Guadalupe+Mountains+National+Park/Best+Western+Plus+Executive+Residency+Carlsbad"},{"n":2,"dow":"Sun","dowLong":"Sunday","date":"Jan 17","title":"Caverns and mountains","sub":"Carlsbad Caverns → Pine Springs → back to El Paso","color":"#4A3C78","drive":"~3h","stamps":2,"start":"cbh","end":"elph2","tzline":"Mountain time","cutLabel":"Good to know","cut":"Pine Springs is closed Monday for MLK Day, so get Guadalupe today if you missed it Saturday. Pack snacks; the next real meal is El Paso.","gmaps":"https://www.google.com/maps/dir/Best+Western+Plus+Executive+Residency+Carlsbad/Carlsbad+Caverns+National+Park+Visitor+Center/Pine+Springs+Visitor+Center,+Guadalupe+Mountains+National+Park/Best+Western+Plus+El+Paso+Airport+Hotel"},{"n":3,"dow":"Mon","dowLong":"Monday · MLK Day","date":"Jan 18","title":"A slow morning, then home","sub":"Hotel breakfast · ELP 1:10 PM","color":"#5C5870","start":"elph2","end":"elp"}],"stops":[{"d":1,"kind":"stop","k":"whsa","color":"#6FA3C7","from":"El Paso","leave":"7:30 AM","drive":"~1h 30m","arrive":"9:00 AM","z":"MT","name":"White Sands NP","type":"National Park","place":"White Sands Visitor Center","addr":"White Sands National Park Visitor Center","where":"White Sands Visitor Center","hrs":"Open every day except Thanksgiving and Christmas. Winter hours vary; confirm the opening time in the NPS app.","warn":"Missile tests on the neighboring range can close the park and US-70 for up to three hours. Check the closures page before you go.","ok":"New park for the 64. Then Dunes Drive (~9:30): the pavement turns to packed sand, fine for a regular car. The Interdune Boardwalk is short and raised, with dune views from its end.","about":"The world’s largest gypsum dunefield, about 275 square miles of white sand in the Tularosa Basin."},{"d":1,"kind":"stop","k":"cham","color":"#2F7F6F","from":"White Sands","drive":"~1h 30m","arrive":"12:15 PM","z":"MT","via":"Back south to El Paso.","name":"Chamizal NMem","type":"National Memorial","place":"800 S San Marcial St, El Paso","addr":"Chamizal National Memorial, 800 S San Marcial St, El Paso, TX 79905","where":"Chamizal visitor center","hrs":"Tue–Sat 10:00–5:00. Today is the only day it’s open this weekend.","ok":"Quick lunch in El Paso after (~12:45), and fill the tank. There’s little along US-62/180 until Carlsbad.","about":"Marks the 1963 settlement of a century-long border dispute between the U.S. and Mexico over the shifting Rio Grande."},{"d":1,"kind":"stop","k":"gm1","from":"El Paso","drive":"~1h 50m","arrive":"3:15 PM","z":"MT","via":"US-62/180 east, 110 mi.","hrs":"8:00–4:30 Mountain time","optional":"If time allows. Running late? Skip it; you’ll pass again Sunday morning.","about":"El Capitan’s cliff face stands right over the road. Guadalupe Peak behind it is the highest point in Texas, part of a fossil reef from an ancient sea.","name":"Guadalupe Mountains NP","type":"National Park","place":"Pine Springs Visitor Center, Salt Flat, TX","addr":"Pine Springs Visitor Center, Guadalupe Mountains National Park","where":"Pine Springs Visitor Center","color":"#B5532E"},{"d":1,"kind":"night","k":"cbh","from":"Pine Springs","drive":"~1h 15m","arrive":"5:00 PM","z":"MT","via":"US-62/180 north into New Mexico.","name":"Carlsbad, NM","addr":"Best Western Plus Executive Residency Carlsbad, 2601 Patrick St, Carlsbad, NM","note":"Best Western Plus Executive Residency Carlsbad, 2601 Patrick St. Early dinner and bed. Tomorrow starts at 7:30 AM after hotel breakfast."},{"d":2,"kind":"stop","k":"cave","color":"#4A3C78","from":"Carlsbad","leave":"7:30 AM","drive":"~30m","arrive":"8:00 AM","z":"MT","via":"US-62/180 south to the Caverns.","name":"Carlsbad Caverns NP","type":"National Park","place":"Carlsbad Caverns Visitor Center","addr":"Carlsbad Caverns National Park Visitor Center","where":"Carlsbad Caverns Visitor Center","hrs":"8:00–5:00. No reservation needed for the visitor center; timed-entry tickets are only for going into the cave.","ok":"Stamp and a look at the exhibits, about 30 minutes. Optional: elevator into the Big Room (cavern entry 9:30–2:30, timed-entry ticket from recreation.gov). Skip it and you’re in El Paso by lunch.","about":"More than 100 caves lie under these hills. The Big Room is one of the largest cave chambers in North America."},{"d":2,"kind":"stop","k":"gm2","stampId":"gm1","from":"Carlsbad Caverns","drive":"~45m","arrive":"9:30 AM","z":"MT","via":"US-62/180 south into Texas.","hrs":"Open Sunday; closed Monday for MLK Day.","optional":"Got it Saturday? Drive on.","ok":"Still on Mountain time even if your phone flips to Central. Optional: Frijole Ranch, a short drive to an old ranch house in a shady spring oasis, steps from the parking lot.","about":"El Capitan’s cliff face stands right over the road. Guadalupe Peak behind it is the highest point in Texas, part of a fossil reef from an ancient sea.","name":"Guadalupe Mountains NP","type":"National Park","place":"Pine Springs Visitor Center, Salt Flat, TX","addr":"Pine Springs Visitor Center, Guadalupe Mountains National Park","where":"Pine Springs Visitor Center","color":"#B5532E"},{"d":2,"kind":"night","k":"elph2","from":"Pine Springs","drive":"~1h 50m","arrive":"12:30 PM","z":"MT","via":"US-62/180 west into El Paso.","name":"El Paso","addr":"Best Western Plus El Paso Airport Hotel","note":"Lunch, then the Best Western Plus El Paso Airport Hotel. All four stamps done; the afternoon is yours."},{"d":3,"kind":"home","k":"elp","from":"the hotel","leave":"~11:15 AM","drive":"a few minutes","arriveLabel":"Flight","arrive":"1:10 PM","z":"MT","via":"Sleep in, hotel breakfast, then return the rental at ELP around 11:30.","title":"El Paso → home","note":"Southwest WN 4815 to Austin, then WN 73 lands in Oakland at 6:25 PM PT (40-min connection). Conf. 2AVBGC.","navTo":"El Paso International Airport","navLabel":"Navigate to ELP ↗"}]};
+const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
+const LASTDAY = DAYS.length - 1;
+let n = 0; const NUMOF = {};
+STOPS.forEach(s => { if (s.kind === 'stop') { s.num = s.stampId ? NUMOF[s.stampId] : ++n; NUMOF[s.k] = s.num; } });
+const stopColor = s => s.color || DAYS[s.d].color;
+const dayColor = d => DAYS[d].color;
+const DL = d => DAYS[d].label || ('Day ' + d);
+const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
+
+/* ---------- stamp storage ---------- */
+const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
+const UNITS = [];
+STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: stopColor(s) });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
+});
+const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const NSTAMPS = UNITS.length;
+let got = {};
+try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
+function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
+
+/* ---------- maps ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+function routeD(keys) { return keys.map((k, i) => (i ? 'L' : 'M') + PT[k][0] + ' ' + PT[k][1]).join(''); }
+
+function buildMap(svg, o) {
+  // o: { focus:[keys], aspect, dayFocus, leg:[a,b], now:key }
+  const pad = o.pad || 60;
+  let xs = o.focus.map(k => PT[k][0]), ys = o.focus.map(k => PT[k][1]);
+  let x0 = Math.min(...xs) - pad, x1 = Math.max(...xs) + pad, y0 = Math.min(...ys) - pad, y1 = Math.max(...ys) + pad;
+  let w = Math.max(x1 - x0, o.minW || 220), h = Math.max(y1 - y0, (o.minW || 220) / o.aspect);
+  if (w / h > o.aspect) h = w / o.aspect; else w = h * o.aspect;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const vb = [cx - w / 2, cy - h / 2, w, h];
+  svg.setAttribute('viewBox', vb.map(v => v.toFixed(1)).join(' '));
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  const s = w / 1000;
+  const base = document.getElementById('basemap').cloneNode(true); base.removeAttribute('id');
+  base.querySelectorAll('.sl').forEach(t => t.setAttribute('font-size', (s * 22).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('font-size', (s * 17).toFixed(1)));
+  base.querySelectorAll('.cd').forEach(c => c.setAttribute('r', (s * 3.5).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('dy', (-s * 9).toFixed(1)));
+  svg.appendChild(base);
+  // whole route, faint
+  el('path', { d: routeD(ROUTE), class: 'rt', stroke: '#BDB8CC', 'stroke-width': 2 }, svg);
+  // day segments
+  for (let d = 1; d <= LASTDAY; d++) {
+    if (!DAYS[d].start) continue;
+    const a = ROUTE.indexOf(DAYS[d].start), b = ROUTE.indexOf(DAYS[d].end);
+    const dim = o.dayFocus && o.dayFocus !== d;
+    el('path', { d: routeD(ROUTE.slice(a, b + 1)), class: 'rt', stroke: DAYS[d].color, 'stroke-width': dim ? 2.5 : 4, opacity: dim ? .35 : .9 }, svg);
+  }
+  if (o.leg) el('path', { d: routeD(o.leg), class: 'leg' }, svg);
+  // airports
+  TRIP.airports.forEach(([k, lab]) => {
+    const g = el('g', { class: 'end' }, svg), r = s * 17;
+    const wr = r * (0.9 + 0.62 * lab.length);
+    el('rect', { x: PT[k][0] - wr / 2, y: PT[k][1] - r * .8, width: wr, height: r * 1.6, rx: r * .4 }, g);
+    const t = el('text', { x: PT[k][0], y: PT[k][1], 'font-size': (r * .9).toFixed(1) }, g); t.textContent = lab;
+  });
+  // overnight dots
+  STOPS.filter(x => x.kind === 'night').map(x => x.k).forEach(k => {
+    const c = el('circle', { cx: PT[k][0], cy: PT[k][1], r: s * 7, fill: '#211D2F', stroke: '#FFFFFF', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }, svg);
+  });
+  // points of interest (no stamp)
+  STOPS.filter(x => x.kind === 'point').forEach(x => {
+    const now = x.k === o.now;
+    el('circle', { cx: PT[x.k][0], cy: PT[x.k][1], r: s * (now ? 11 : 6), fill: now ? DAYS[x.d].color : '#FFFFFF', stroke: '#211D2F', 'stroke-width': now ? 3 : 1.5, 'vector-effect': 'non-scaling-stroke', opacity: o.dayFocus && o.dayFocus !== x.d ? .4 : 1 }, svg);
+  });
+  // pins (draw current last)
+  const r = s * (o.pinR || 16);
+  const list = STOPS.filter(x => x.kind === 'stop' && (!x.stampId || x.k === o.now));
+  list.sort((a, b) => (a.k === o.now) - (b.k === o.now));
+  list.forEach(st => {
+    const dim = o.dayFocus && o.dayFocus !== st.d;
+    const g = el('g', { class: 'pin' + (st.k === o.now ? ' now' : '') + (dim ? ' dim' : '') }, svg);
+    const rr = st.k === o.now ? r * 1.35 : r;
+    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: stopColor(st) }, g);
+    const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
+  });
+}
+
+/* ---------- pages ---------- */
+const pages = []; // {el, label, group}
+const book = document.getElementById('book');
+function addPage(cls, html, label, group, after) {
+  const p = document.createElement('section');
+  p.className = 'page ' + cls;
+  p.innerHTML = '<div class="scroll">' + html + '</div><div class="shade"></div>';
+  book.appendChild(p);
+  pages.push({ el: p, label, group });
+  if (after) after(p);
+  return pages.length - 1;
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const nav = a => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a);
+const firstPageOfDay = {};
+const pageOfStop = {};
+
+// Cover
+addPage('cover', `
+  ${TRIP.placeholder ? `<div class="ph">${esc(TRIP.placeholder)}</div>` : ''}
+  <div class="kicker" style="color:#B5532E">Trip book</div>
+  <h1 class="serif">${esc(TRIP.title)}</h1>
+  <div class="sub">${esc(TRIP.subtitle)}</div>
+  <svg class="map" id="coverMap" style="aspect-ratio:1/1.05"></svg>
+  <div style="margin-top:10px">
+    ${TRIP.chips.map((c, i) => `<span class="chip${i ? '' : ' hot'}">${esc(c)}</span>`).join('')}
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="tally"><div><div style="font-size:12px;color:#A9C9E0;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps this trip</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+  <div class="swipe">Swipe or tap Next to turn the page ›</div>
+  ${TRIP.itinerary ? `<a class="backlink" href="${TRIP.itinerary}">← Full itinerary page</a>` : ''}
+`, 'Cover · trip map', 'Start', p => {
+  buildMap(p.querySelector('#coverMap'), { focus: ROUTE, aspect: 1 / 1.05, pad: 34, pinR: 15 });
+});
+
+// Day 0
+const D0 = DAYS[0];
+addPage('', `
+  <div class="dayband" style="background:${D0.color}">
+    <div class="kicker">${DK(0)}</div>
+    <h2 class="serif">${esc(D0.title)}</h2>
+    <div class="meta">${esc(D0.meta || '')}</div>
+  </div>
+  ${D0.html || ''}
+`, DL(0) + ' · ' + D0.title, 0);
+
+// Days
+for (let d = 1; d <= LASTDAY; d++) {
+  const D = DAYS[d];
+  if (D.kind === 'cruise') {
+    firstPageOfDay[d] = addPage('', `
+      <div class="dayband" style="background:${D.color}">
+        <div class="kicker">${DK(d)}</div>
+        <h2 class="serif">${esc(D.title)}</h2>
+        ${D.sub ? `<div class="meta">${esc(D.sub)}</div>` : ''}
+      </div>
+      ${D.html || ''}
+    `, DL(d) + ' · ' + D.title, d);
+    continue;
+  }
+  const items = STOPS.filter(s => s.d === d);
+  const first = items[0];
+  const metaBits = [D.stamps ? D.stamps + ' stamp' + (D.stamps > 1 ? 's' : '') : '', D.drive ? '🚗 ' + D.drive + ' driving' : '', D.tzline || ''].filter(Boolean).join(' · ');
+  firstPageOfDay[d] = addPage('', `
+    <div class="dayband" style="background:${D.color}">
+      <div class="kicker">${DK(d)}</div>
+      <h2 class="serif">${D.title}</h2>
+      <div class="meta">${D.sub || ''}${metaBits ? '<br>' + metaBits : ''}</div>
+    </div>
+    <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
+    <ul class="tl">
+      <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+    </ul>
+    ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
+    ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
+  `, DL(d) + ' · ' + D.title, d, p => {
+    buildMap(p.querySelector('#dm' + d), { focus: ROUTE.slice(ROUTE.indexOf(D.start), ROUTE.indexOf(D.end) + 1), aspect: 1.45, pad: 45, dayFocus: d });
+  });
+
+  items.forEach((s, i) => {
+    const fromKey = i === 0 ? D.start : items[i - 1].k;
+    const driveCard = `
+      <div class="drive">
+        <div class="car">🚗</div>
+        <div><div class="fr">${s.leave ? 'Leave ' + esc(s.from) + ' ' + s.leave : 'From ' + esc(s.from)}</div><div class="dt">${s.drive}</div>${s.tz ? `<div class="tz">${s.tz}</div>` : ''}</div>
+        <div class="arr"><div class="lab">${s.arriveLabel || 'Arrive'}</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
+      </div>
+      ${s.via ? `<div class="note" style="background:#F3F2F6">${esc(s.via)}</div>` : ''}`;
+    const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
+    let html, label;
+    if (s.kind === 'stop') {
+      const C = stopColor(s);
+      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
+      const dayStops = items.filter(x => x.kind === 'stop');
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><div class="num" style="background:${C}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+          <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${s.optional ? `<div class="note ok">${esc(s.optional)}</div>` : ''}
+        ${units.map(u => `
+        <div class="stampbox" style="border-color:${u.color}">
+          <div class="kicker" style="color:${u.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+          <div class="where">${esc(u.where)}</div>
+          ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
+          <button class="got" data-got="${u.id}"></button>
+        </div>`).join('')}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
+        ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
+        <div class="foot">Re-check hours in the NPS app the week before.</div>`;
+      label = s.num + ' · ' + s.name;
+    } else if (s.kind === 'point') {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Along the way</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><h2 class="serif">${esc(s.name)}</h2>${s.place ? `<div class="place">${esc(s.place)}</div>` : ''}</div>
+        ${s.bonus ? `<div class="stampbox" style="border-color:#8C88A0"><div class="kicker" style="color:#5C5870">◈ ${esc(s.bonus.title || 'Bonus cancellation · optional')}</div><div class="where">${esc(s.bonus.where)}</div>${s.bonus.hrs ? `<div class="hrs">${esc(s.bonus.hrs)}</div>` : ''}</div>` : ''}
+        ${s.note ? `<p>${esc(s.note)}</p>` : ''}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>`;
+      label = '• ' + s.name;
+    } else if (s.kind === 'night') {
+      const next = DAYS[d + 1];
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + ' stamps · ' : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">☾</div>
+        <h2 class="serif">Sleep in ${esc(s.name)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
+        <div class="cut" style="background:#F3F2F6;border-left-color:${next.color}"><b>Tomorrow · ${DL(d + 1)}: ${esc(next.title)}</b><br>${nextLine}</div>`;
+      label = '☾ Sleep in ' + s.name;
+    } else {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Last leg</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">✈︎</div>
+        <h2 class="serif">${esc(s.title)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.navTo)}" target="_blank" rel="noopener">${esc(s.navLabel || 'Navigate ↗')}</a></div>
+        <div class="tally" style="background:#211D2F;color:#F3F2F6;margin-top:16px"><div><div style="font-size:12px;color:#A9C9E0;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps collected</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+        <ul class="chk" id="chk"></ul>`;
+      label = '✈︎ ' + s.title;
+    }
+    pageOfStop[s.k] = addPage('', html, label, d, p => {
+      const m = p.querySelector('[data-map]');
+      const [a, b] = m.dataset.map.split(',');
+      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: TRIP.legMinW || 400, dayFocus: d, pinR: 22 });
+    });
+  });
+}
+
+/* ---------- legend, checklist, stamps ---------- */
+document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)} · ${D.dow}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + ' stamps' : ''}</span></span></button>`).join('');
+document.getElementById('chk').innerHTML = UNITS.map(u =>
+  `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
+
+function renderGot() {
+  const c = UNITS.filter(u => got[u.id]).length;
+  document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
+  document.querySelectorAll('button.got').forEach(b => {
+    const on = !!got[b.dataset.got], col = UNIT[b.dataset.got].color;
+    b.classList.toggle('on', on); b.style.background = on ? col : '#EEEDF3';
+    b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
+  });
+  document.querySelectorAll('.chk li').forEach(li => {
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = UNIT[li.dataset.got].color;
+    bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#BDB8CC';
+  });
+}
+
+/* ---------- flipping ---------- */
+let idx = 0, busy = false;
+const pg = document.getElementById('pgnum'), bar = document.getElementById('bar'), prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+function chrome() {
+  pg.textContent = (idx + 1) + ' / ' + pages.length;
+  bar.style.width = ((idx) / (pages.length - 1) * 100) + '%';
+  prevB.disabled = idx === 0; nextB.disabled = idx === pages.length - 1;
+  try { localStorage.setItem(PKEY, idx); } catch (e) {}
+  try { history.replaceState(null, '', '#p' + (idx + 1)); } catch (e) {}
+}
+function show(i) { pages.forEach((p, j) => p.el.className = p.el.className.replace(/\b(show|under|flip-out|flip-in)\b/g, '').trim() + (j === i ? ' show' : '')); idx = i; chrome(); }
+function go(i) {
+  if (busy || i === idx || i < 0 || i >= pages.length) return;
+  const cur = pages[idx].el, nxt = pages[i].el;
+  nxt.querySelector('.scroll').scrollTop = 0;
+  busy = true;
+  const done = () => { pages.forEach((p, j) => { if (j !== i) p.el.classList.remove('show'); p.el.classList.remove('under', 'flip-out', 'flip-in'); }); idx = i; busy = false; chrome(); };
+  if (i > idx) {
+    nxt.classList.add('show', 'under'); cur.classList.add('flip-out');
+    cur.addEventListener('animationend', done, { once: true });
+  } else {
+    cur.classList.add('under'); nxt.classList.add('show', 'flip-in');
+    nxt.addEventListener('animationend', done, { once: true });
+  }
+  setTimeout(() => { if (busy) done(); }, 900);
+}
+prevB.onclick = () => go(idx - 1);
+nextB.onclick = () => go(idx + 1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(idx + 1); if (e.key === 'ArrowLeft') go(idx - 1); });
+let tx = 0, ty = 0;
+book.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+book.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(idx + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-got]');
+  if (g) { got[g.dataset.got] = !got[g.dataset.got]; saveGot(); renderGot(); return; }
+  const jd = e.target.closest('[data-jumpday]');
+  if (jd) { e.preventDefault(); go(firstPageOfDay[jd.dataset.jumpday]); return; }
+  const js = e.target.closest('[data-stop]');
+  if (js) { go(pageOfStop[js.dataset.stop]); return; }
+  const jf = e.target.closest('[data-jump]');
+  if (jf) { go(idx + 1); return; }
+});
+
+/* ---------- contents ---------- */
+const toc = document.getElementById('toc'), tocPanel = document.getElementById('tocPanel');
+function openToc() {
+  let h = '<div class="kicker" style="color:#B5532E">Pages</div>', grp = '';
+  pages.forEach((p, i) => {
+    if (p.group !== grp) { grp = p.group; const isDay = typeof grp === 'number'; h += `<h3 style="color:${isDay ? DAYS[grp].color : '#5C5870'}">${isDay ? DL(grp) + (DAYS[grp].dow ? ' · ' + DAYS[grp].dow : '') : grp}</h3>`; }
+    h += `<a href="#" data-p="${i}" class="${i === idx ? 'cur' : ''}">${esc(p.label)}<span>${i + 1}</span></a>`;
+  });
+  tocPanel.innerHTML = h; toc.classList.add('open');
+}
+document.getElementById('tocBtn').onclick = openToc;
+toc.addEventListener('click', e => {
+  const a = e.target.closest('[data-p]');
+  if (a) { e.preventDefault(); toc.classList.remove('open'); go(+a.dataset.p); return; }
+  if (e.target === toc) toc.classList.remove('open');
+});
+
+/* ---------- start ---------- */
+renderGot();
+let start = 0;
+const hm = /#p(\d+)/.exec(location.hash);
+if (hm) start = Math.min(pages.length - 1, Math.max(0, +hm[1] - 1));
+else { try { const s = +localStorage.getItem(PKEY); if (s > 0 && s < pages.length) start = s; } catch (e) {} }
+show(start);
+</script>
+</body>
+</html>

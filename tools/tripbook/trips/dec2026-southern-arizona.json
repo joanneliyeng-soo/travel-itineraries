@@ -1,0 +1,358 @@
+{
+ "slug": "dec2026-southern-arizona",
+ "title": "Southern Arizona New Year’s",
+ "short": "Southern Arizona",
+ "placeholder": "",
+ "subtitle": "Dec 31 – Jan 3. The border country on New Year’s Day, then the three Cochise County parks on Jan 2 once their visitor centers reopen.",
+ "chips": [
+  "5 new stamps",
+  "+1 national park",
+  "All times MST"
+ ],
+ "itinerary": "dec2026-southern-arizona.html",
+ "theme": {
+  "#1E1D33": "#211A30",
+  "#26243F": "#2B2240",
+  "#2C2A47": "#3A2F4F",
+  "#322F51": "#3E3354",
+  "#38355A": "#4B3F5C",
+  "#E2603A": "#C0623A",
+  "#E9E6FA": "#F1EAF2",
+  "#CFCBE6": "#DDD0E0",
+  "#A9A4C8": "#C4B3CC",
+  "#C9C4E4": "#D7C8DC",
+  "#EDEAF9": "#F5EFF6",
+  "#EEEBF7": "#F1EAF2",
+  "#F1EFF7": "#F5EFF6",
+  "#6E6A88": "#7A6A86",
+  "#9C97B4": "#8A7898",
+  "#ECE9F2": "#E7DCEA",
+  "#FBFAF6": "#FBF7FB",
+  "#E7E3D9": "#DDD0E0",
+  "#EFEDE6": "#ECE3EE",
+  "#8F8AB4": "#8A7898",
+  "#B8B3C8": "#C9B9CF",
+  "#7C7896": "#7A6A86",
+  "#FFF3EE": "#FBEEE4"
+ },
+ "legMinW": 360,
+ "map": {
+  "bbox": [
+   [
+    -113.05,
+    33.6
+   ],
+   [
+    -109.2,
+    31.25
+   ]
+  ],
+  "states": [
+   "Arizona",
+   "New Mexico",
+   "California",
+   "Nevada",
+   "Utah"
+  ],
+  "highlight": [
+   "Arizona"
+  ],
+  "stateLabels": [
+   [
+    "ARIZONA",
+    -111.2,
+    33.05
+   ],
+   [
+    "MEXICO",
+    -112.0,
+    31.42
+   ]
+  ],
+  "cities": [
+   [
+    "Tucson",
+    -110.974,
+    32.222
+   ],
+   [
+    "Ajo",
+    -112.86,
+    32.37
+   ],
+   [
+    "Nogales",
+    -110.94,
+    31.34
+   ],
+   [
+    "Bisbee",
+    -109.928,
+    31.448
+   ],
+   [
+    "Willcox",
+    -109.832,
+    32.253
+   ],
+   [
+    "Goodyear",
+    -112.3577,
+    33.4498
+   ]
+  ],
+  "points": {
+   "gy": [
+    -112.3577,
+    33.4498
+   ],
+   "orpi": [
+    -112.8008,
+    31.9545
+   ],
+   "tuma": [
+    -111.0507,
+    31.5677
+   ],
+   "sv": [
+    -110.276,
+    31.5579
+   ],
+   "coro": [
+    -110.254,
+    31.3459
+   ],
+   "chir": [
+    -109.3563,
+    32.0072
+   ],
+   "fobo": [
+    -109.447,
+    32.139
+   ],
+   "phxh": [
+    -112.0116,
+    33.4346
+   ],
+   "phx": [
+    -112.0116,
+    33.4346
+   ]
+  }
+ },
+ "airports": [
+  [
+   "phx",
+   "PHX"
+  ]
+ ],
+ "route": [
+  "gy",
+  "orpi",
+  "tuma",
+  "sv",
+  "coro",
+  "chir",
+  "fobo",
+  "phxh",
+  "phx"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "Thu",
+   "dowLong": "Thursday",
+   "date": "Dec 31",
+   "title": "Fly to Phoenix",
+   "color": "#4B3F5C",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK → PHX after work</h2>\n<p><b>Southwest WN296</b> · OAK 7:40 PM PT → PHX 10:40 PM MST. Conf. <b>2CH258</b> · Basic fare, seats assigned at check-in, so check in right at the 24-hour mark.</p>\n<p>Pick up the rental car at PHX, then <b>25 min · 22 mi</b> on I-10 W to the <b>Best Western Phoenix Goodyear Inn</b> (55 N Litchfield Rd). Arrive ~11:30 PM. The west side puts you straight onto AZ-85 in the morning.</p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Best+Western+Phoenix+Goodyear+Inn,+55+N+Litchfield+Rd,+Goodyear,+AZ+85338\" target=\"_blank\" rel=\"noopener\">Navigate to Goodyear ↗</a></div>\n<div class=\"cut\"><b>Time zone:</b> Arizona stays on MST all year, one hour ahead of California in winter. Every time in this book is local.</div>\n<div class=\"note warn\"><b>Book around Dec 17:</b> the rental car and all three hotels (Goodyear, Sierra Vista, near PHX).</div>"
+  },
+  {
+   "n": 1,
+   "dow": "Fri",
+   "dowLong": "Friday · New Year’s Day",
+   "date": "Jan 1",
+   "title": "Border country",
+   "sub": "Organ Pipe → Tumacácori → Sierra Vista",
+   "color": "#2F7D7A",
+   "drive": "5h 52m",
+   "stamps": 2,
+   "start": "gy",
+   "end": "sv",
+   "tzline": "all MST",
+   "cutLabel": "Good to know",
+   "cut": "Organ Pipe and Tumacácori stay open on New Year’s Day. Services are sparse for about 100 miles after Organ Pipe, so top up gas in Why.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Phoenix+Goodyear+Inn,+55+N+Litchfield+Rd,+Goodyear,+AZ+85338/Organ+Pipe+Cactus+National+Monument,+10+Organ+Pipe+Dr,+Ajo,+AZ+85321/Tumacacori+National+Historical+Park,+1891+I-19+Frontage+Rd,+Tumacacori,+AZ+85640/Best+Western+Plus+Sun+Canyon,+260+N+Garden+Ave,+Sierra+Vista,+AZ+85635"
+  },
+  {
+   "n": 2,
+   "dow": "Sat",
+   "dowLong": "Saturday",
+   "date": "Jan 2",
+   "title": "Cochise County",
+   "sub": "Coronado → Chiricahua → Fort Bowie → Phoenix",
+   "color": "#3D6FB6",
+   "drive": "6h 31m",
+   "stamps": 3,
+   "start": "sv",
+   "end": "phxh",
+   "tzline": "all MST",
+   "cut": "Coronado 8–4, Chiricahua 8:30–4:30, Fort Bowie 8:30–4. All three were closed Jan 1, which is why they’re today. Fort Bowie’s schedule changes often, so recheck the week before.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Plus+Sun+Canyon,+260+N+Garden+Ave,+Sierra+Vista,+AZ+85635/Coronado+National+Memorial,+4101+E+Montezuma+Canyon+Rd,+Hereford,+AZ+85615/Chiricahua+National+Monument+Visitor+Center,+Willcox,+AZ/Fort+Bowie+National+Historic+Site,+3500+S+Apache+Pass+Rd,+Bowie,+AZ+85605/Phoenix+Sky+Harbor+International+Airport"
+  },
+  {
+   "n": 3,
+   "dow": "Sun",
+   "dowLong": "Sunday",
+   "date": "Jan 3",
+   "title": "Fly home",
+   "sub": "Early flight from PHX",
+   "color": "#7A6A86",
+   "start": "phxh",
+   "end": "phx"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "orpi",
+   "color": "#2F7D7A",
+   "from": "Goodyear",
+   "leave": "7:10 AM",
+   "drive": "1h 50m",
+   "arrive": "9:00 AM",
+   "z": "MST",
+   "via": "I-10 W to AZ-85 S through Gila Bend, Ajo and Why · 111 mi.",
+   "name": "Organ Pipe Cactus NM",
+   "type": "National Monument",
+   "place": "Kris Eggle Visitor Center, Ajo",
+   "addr": "Organ Pipe Cactus National Monument, 10 Organ Pipe Dr, Ajo, AZ 85321",
+   "where": "Kris Eggle Visitor Center",
+   "hrs": "Open New Year’s Day; closes only Thanksgiving and Christmas. Posted opening time varies (8 or 9 AM), so confirm in the NPS app.",
+   "acc": "Accessible paved nature trail behind the visitor center.",
+   "about": "Protects a stretch of Sonoran Desert where the organ pipe cactus, common in Mexico, grows wild in the U.S. The monument runs right along the border."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "tuma",
+   "color": "#C0623A",
+   "from": "Organ Pipe",
+   "drive": "2h 38m",
+   "arrive": "12:25 PM",
+   "z": "MST",
+   "via": "Leave ~9:45. North on AZ-85, then AZ-86 east across the Tohono O’odham Nation · 166 mi. Top up gas in Why.",
+   "name": "Tumacácori NHP",
+   "type": "National Historical Park",
+   "place": "Visitor Center & Museum, Tumacácori",
+   "addr": "Tumacacori National Historical Park, 1891 I-19 Frontage Rd, Tumacacori, AZ 85640",
+   "where": "Visitor Center & Museum",
+   "hrs": "9 AM – 5 PM. Open New Year’s Day.",
+   "acc": "The mission church and grounds are on a short, mostly level path from the museum.",
+   "about": "Ruins of Spanish colonial missions in the Santa Cruz Valley. The adobe church of San José de Tumacácori was built in the early 1800s and never finished."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "sv",
+   "from": "Tumacácori",
+   "drive": "1h 24m",
+   "arrive": "2:40 PM",
+   "z": "MST",
+   "via": "Leave ~1:15. I-19 S to Rio Rico, AZ-82 E through Patagonia, then AZ-90 to Sierra Vista · 74 mi.",
+   "name": "Sierra Vista, AZ",
+   "addr": "Best Western Plus Sun Canyon, 260 N Garden Ave, Sierra Vista, AZ 85635",
+   "note": "Best Western Plus Sun Canyon, 260 N Garden Ave. Free afternoon. Tomorrow starts at 7:30 AM for Coronado."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "coro",
+   "color": "#3D6FB6",
+   "from": "Sierra Vista",
+   "leave": "7:30 AM",
+   "drive": "28m",
+   "arrive": "8:00 AM",
+   "z": "MST",
+   "via": "21 mi south toward the border.",
+   "name": "Coronado N Mem",
+   "type": "National Memorial",
+   "place": "Visitor Center, Hereford",
+   "addr": "Coronado National Memorial, 4101 E Montezuma Canyon Rd, Hereford, AZ 85615",
+   "where": "Visitor Center",
+   "hrs": "8 AM – 4 PM. Closed New Year’s Day, which is why it’s on Jan 2.",
+   "ok": "The visitor center is on the paved section, about 2 mi in. No need to continue up to Montezuma Pass.",
+   "about": "Commemorates Francisco Vázquez de Coronado’s 1540–42 expedition, which entered what’s now the U.S. near here. It sits right against the Mexican border."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "chir",
+   "color": "#B8862A",
+   "from": "Coronado",
+   "drive": "1h 47m",
+   "arrive": "10:15 AM",
+   "z": "MST",
+   "via": "Leave ~8:30. AZ-92 to Bisbee, Double Adobe Rd, US-191 N, AZ-181 E · 95 mi.",
+   "name": "Chiricahua National Park",
+   "type": "National Park",
+   "place": "Visitor Center, Willcox",
+   "addr": "Chiricahua National Monument Visitor Center, Willcox, AZ",
+   "where": "Visitor Center",
+   "hrs": "8:30 AM – 4:30 PM. Closed Jan 1 last year, so Jan 2 is the safe day.",
+   "ok": "One closer on the 64 national parks list. Bonita Canyon Drive to Massai Point overlook if time allows; it can close for snow and ice.",
+   "about": "A “Wonderland of Rocks”: thousands of rhyolite pinnacles and balanced rocks left by a huge volcanic eruption about 27 million years ago."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "fobo",
+   "color": "#7A4FA0",
+   "from": "Chiricahua",
+   "drive": "48m",
+   "arrive": "11:50 AM",
+   "z": "MST",
+   "via": "Leave ~11:00. AZ-181 W, AZ-186 W, then gravel Apache Pass Rd to the trailhead · 28 mi.",
+   "name": "Fort Bowie NHS",
+   "type": "National Historic Site",
+   "place": "Trailhead on Apache Pass Rd, Bowie",
+   "addr": "Fort Bowie National Historic Site, 3500 S Apache Pass Rd, Bowie, AZ 85605",
+   "where": "Fort Bowie Visitor Center",
+   "hrs": "Fri – Mon, 8:30 AM – 4 PM. Saturday is covered, but recheck the week before.",
+   "warn": "The visitor center is a 1.5 mi walk each way from the trailhead. Back at the car around 2:15.",
+   "acc": "Call the park at 520-847-2500 to ask about drive-in access to the visitor center for visitors with limited mobility.",
+   "about": "Guarded Apache Pass and its spring, a key water source on the Butterfield stage route. The adobe ruins recall the long conflict with the Chiricahua Apache under Cochise and Geronimo."
+  },
+  {
+   "d": 2,
+   "kind": "night",
+   "k": "phxh",
+   "from": "Fort Bowie",
+   "drive": "3h 28m",
+   "arrive": "~5:45 PM",
+   "z": "MST",
+   "via": "Leave ~2:15, off the gravel road in daylight. Apache Pass Rd to Bowie, then I-10 W · 229 mi.",
+   "name": "Phoenix, near the airport",
+   "addr": "Phoenix Sky Harbor International Airport",
+   "note": "Hotel close to PHX for the early flight (book around Dec 17). Set an alarm: the car goes back at ~4:15 AM."
+  },
+  {
+   "d": 3,
+   "kind": "home",
+   "k": "phx",
+   "from": "the hotel",
+   "leave": "~4:00 AM",
+   "drive": "a few minutes",
+   "arriveLabel": "Flight",
+   "arrive": "5:30 AM",
+   "z": "MST",
+   "via": "Return the rental car by ~4:15 AM.",
+   "title": "Phoenix → home",
+   "note": "Southwest WN3468 · PHX 5:30 AM MST → OAK 6:30 AM PT. Conf. 2CH258.",
+   "navTo": "Phoenix Sky Harbor Rental Car Center",
+   "navLabel": "Navigate to car return ↗"
+  }
+ ]
+}

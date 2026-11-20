@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Southern Arizona New Year’s · Trip Book</title>
+<style>
+  html, body { margin:0 !important; padding:0 !important; background:#211A30 !important; color:#2B2240 !important; height:100%; overflow:hidden; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:15px; line-height:1.45; }
+  .serif { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  .app { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; padding:max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .topbar, .bottombar { width:100%; max-width:520px; display:flex; align-items:center; justify-content:space-between; color:#DDD0E0; font-size:13px; }
+  .topbar { padding:2px 4px 8px; }
+  .topbar .t { font-weight:600; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0 10px; }
+  .btn-ghost { background:#3A2F4F; color:#F1EAF2; border:0; border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer; }
+  .pgnum { font-variant-numeric:tabular-nums; color:#C4B3CC; white-space:nowrap; }
+
+  .book { position:relative; flex:1; width:100%; max-width:520px; perspective:1800px; }
+  .book::before { content:""; position:absolute; left:-4px; top:6px; bottom:-4px; right:4px; background:#DDD0E0; border-radius:6px 16px 16px 6px; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+  .page { position:absolute; inset:0; display:none; background:#FBF7FB; border-radius:4px 14px 14px 4px; overflow:hidden; transform-origin:left center; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .page::before { content:""; position:absolute; left:0; top:0; bottom:0; width:18px; background:linear-gradient(90deg, rgba(38,36,63,.16), rgba(38,36,63,0)); pointer-events:none; z-index:2; }
+  .page .scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:20px 20px 28px 26px; }
+  .page.show { display:block; }
+  .page.under { z-index:1; }
+  .page.flip-out { z-index:3; animation:flipOut .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page.flip-in { z-index:3; animation:flipIn .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page .shade { position:absolute; inset:0; background:linear-gradient(90deg, rgba(30,29,51,0), rgba(30,29,51,.35)); opacity:0; pointer-events:none; z-index:4; }
+  .page.flip-out .shade { animation:shadeIn .6s forwards; }
+  .page.flip-in .shade { animation:shadeOut .6s forwards; }
+  @keyframes flipOut { from { transform:rotateY(0deg); } to { transform:rotateY(-100deg); } }
+  @keyframes flipIn { from { transform:rotateY(-100deg); } to { transform:rotateY(0deg); } }
+  @keyframes shadeIn { to { opacity:1; } }
+  @keyframes shadeOut { from { opacity:1; } to { opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .page.flip-out, .page.flip-in { animation-duration:.01s; } }
+
+  .bottombar { padding-top:10px; gap:10px; }
+  .nav { background:#F1EAF2; color:#2B2240; border:0; border-radius:12px; padding:11px 16px; font-size:15px; font-weight:700; cursor:pointer; min-width:92px; }
+  .nav.next { background:#C0623A; color:#FFFFFF; }
+  .nav:disabled { opacity:.35; }
+  .progress { flex:1; height:6px; background:#3A2F4F; border-radius:99px; overflow:hidden; }
+  .progress i { display:block; height:100%; background:#C0623A; width:0; transition:width .4s; }
+
+  /* shared page bits */
+  .kicker { font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  h1, h2 { margin:0; font-weight:700; color:#2B2240; }
+  h1 { font-size:30px; line-height:1.1; }
+  h2 { font-size:25px; line-height:1.15; }
+  .muted { color:#7A6A86; }
+  .chip { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:99px; background:#F1EAF2; color:#2B2240; margin:0 4px 4px 0; }
+  .map { display:block; width:100%; border-radius:12px; background:#ECE3EE; margin:14px 0 4px; }
+  .map .st { fill:#F6F3EC; stroke:#C9B9CF; stroke-width:1; vector-effect:non-scaling-stroke; }
+  .map .st.on { fill:#FFFFFF; }
+  .map .sl { fill:#8A7898; font-weight:700; letter-spacing:.12em; text-anchor:middle; }
+  .map .cl { fill:#7A6A86; text-anchor:middle; }
+  .map .cd { fill:#7A6A86; }
+  .map .rt { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  .map .leg { fill:none; stroke:#2B2240; stroke-width:3.5; stroke-dasharray:7 6; vector-effect:non-scaling-stroke; animation:dash 1.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset:-26; } }
+  .map .pin text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+  .map .pin circle { stroke:#FFFFFF; vector-effect:non-scaling-stroke; stroke-width:2; }
+  .map .pin.now circle { stroke:#2B2240; stroke-width:3; }
+  .map .pin.dim { opacity:.35; }
+  .map .end rect { fill:#2B2240; }
+  .map .end text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+
+  /* cover */
+  .cover .scroll { background:#2B2240; color:#F5EFF6; padding-top:22px; }
+  .cover h1 { color:#FFFFFF; font-size:31px; }
+  .cover .sub { color:#D7C8DC; margin-top:8px; font-size:14px; }
+  .cover .chip { background:#4B3F5C; color:#F5EFF6; }
+  .cover .chip.hot { background:#C0623A; color:#FFFFFF; }
+  .cover .ph { display:inline-block; border:1px dashed #8A7898; color:#D7C8DC; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:99px; margin-bottom:12px; }
+  .legend { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .legend button { display:flex; align-items:center; gap:9px; background:#3E3354; border:0; color:#F5EFF6; padding:9px 10px; border-radius:10px; text-align:left; font-size:13px; cursor:pointer; }
+  .legend .sw { width:14px; height:14px; border-radius:50%; flex:none; }
+  .legend b { display:block; font-size:13.5px; }
+  .legend span.s { color:#C4B3CC; font-size:11.5px; }
+  .backlink { display:block; text-align:center; margin-top:10px; color:#D7C8DC; font-size:13px; font-weight:700; text-decoration:none; }
+  .swipe { margin-top:16px; text-align:center; color:#C4B3CC; font-size:13px; }
+  .tally { margin-top:14px; background:#3E3354; border-radius:12px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; }
+  .tally .n { font-size:24px; font-weight:800; color:#FFFFFF; }
+
+  /* day intro */
+  .dayband { margin:-20px -20px 0 -26px; padding:22px 20px 18px 26px; color:#FFFFFF; }
+  .dayband h2 { color:#FFFFFF; font-size:28px; }
+  .dayband .kicker { color:rgba(255,255,255,.85); }
+  .dayband .meta { margin-top:6px; font-size:13.5px; color:rgba(255,255,255,.92); }
+  .tl { list-style:none; margin:14px 0 0; padding:0; }
+  .tl li { display:grid; grid-template-columns:62px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid #E7DCEA; cursor:pointer; }
+  .tl li:last-child { border-bottom:0; }
+  .tl .tm { font-size:12.5px; font-weight:700; color:#7A6A86; font-variant-numeric:tabular-nums; }
+  .tl .nm { font-weight:700; }
+  .tl .nm small { display:block; font-weight:400; color:#7A6A86; font-size:12.5px; }
+  .tl .num { display:inline-flex; width:20px; height:20px; border-radius:50%; color:#FFFFFF; font-size:11px; font-weight:800; align-items:center; justify-content:center; margin-right:6px; vertical-align:1px; }
+  .cut { margin-top:14px; background:#FBEEE4; border-left:4px solid #C0623A; border-radius:8px; padding:10px 12px; font-size:13.5px; }
+  .gmaps { display:block; text-align:center; margin-top:14px; background:#2B2240; color:#FFFFFF; text-decoration:none; font-weight:700; padding:12px; border-radius:12px; }
+
+  /* stop page */
+  .drive { display:flex; align-items:stretch; gap:10px; background:#F5EFF6; border-radius:14px; padding:11px 12px; }
+  .drive .car { font-size:22px; line-height:1; padding-top:2px; }
+  .drive .dt { font-size:20px; font-weight:800; }
+  .drive .fr { font-size:12.5px; color:#7A6A86; }
+  .drive .tz { display:inline-block; margin-top:5px; font-size:11.5px; font-weight:700; background:#2B2240; color:#FFFFFF; padding:2px 8px; border-radius:99px; }
+  .arr { margin-left:auto; text-align:right; flex:none; }
+  .arr .lab { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#7A6A86; font-weight:700; }
+  .arr .t { white-space:nowrap; font-size:19px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .arr .z { font-size:11.5px; color:#7A6A86; font-weight:700; }
+  .stopname { margin-top:14px; }
+  .stopname .num { display:inline-flex; width:30px; height:30px; border-radius:50%; color:#FFFFFF; font-size:14px; font-weight:800; align-items:center; justify-content:center; margin-bottom:8px; }
+  .place { margin-top:4px; color:#7A6A86; font-size:13.5px; }
+  .stampbox { margin-top:14px; border:2px dashed; border-radius:14px; padding:12px 13px; }
+  .stampbox .kicker { margin-bottom:4px; }
+  .stampbox .where { font-weight:700; }
+  .stampbox .hrs { font-size:13.5px; margin-top:2px; }
+  .got { margin-top:11px; width:100%; border:0; border-radius:10px; padding:11px; font-size:15px; font-weight:800; cursor:pointer; background:#F1EAF2; color:#2B2240; }
+  .got.on { color:#FFFFFF; }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .actions a { flex:1; text-align:center; text-decoration:none; font-weight:700; font-size:14px; padding:11px 8px; border-radius:10px; background:#2B2240; color:#FFFFFF; }
+  .actions a.alt { background:#F1EAF2; color:#2B2240; }
+  .note { margin-top:10px; border-radius:10px; padding:9px 12px; font-size:13.5px; }
+  .note.warn { background:#FBEEE4; border-left:4px solid #C0623A; }
+  .note.acc { background:#EEF6F7; border-left:4px solid #2E8C9A; }
+  .note.ok { background:#F0F6EE; border-left:4px solid #5E9A4E; }
+  .about { margin-top:14px; font-size:14.5px; }
+  .about .kicker { color:#7A6A86; margin-bottom:3px; }
+  .foot { margin-top:18px; font-size:12px; color:#8A7898; text-align:center; }
+
+  /* night / final */
+  .moon { font-size:44px; margin-top:6px; }
+  .chk { list-style:none; padding:0; margin:12px 0 0; }
+  .chk li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #E7DCEA; font-size:14px; cursor:pointer; }
+  .chk .bx { width:22px; height:22px; border-radius:6px; border:2px solid #D7C8DC; flex:none; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:13px; font-weight:800; }
+  .chk li small { color:#7A6A86; display:block; font-size:12px; }
+
+  /* contents */
+  .toc { position:fixed; inset:0; background:rgba(20,19,36,.6); display:none; z-index:50; }
+  .toc.open { display:block; }
+  .toc .panel { position:absolute; left:0; top:0; bottom:0; width:min(86vw, 380px); background:#FBF7FB; overflow-y:auto; padding:max(18px, env(safe-area-inset-top)) 16px 24px; box-shadow:4px 0 24px rgba(0,0,0,.35); }
+  .toc h3 { margin:16px 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+  .toc a { display:flex; justify-content:space-between; gap:8px; padding:8px 4px; color:#2B2240; text-decoration:none; border-bottom:1px solid #E7DCEA; font-size:14px; }
+  .toc a.cur { font-weight:800; }
+  .toc a span { color:#8A7898; font-variant-numeric:tabular-nums; font-size:12.5px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <button class="btn-ghost" id="tocBtn" aria-label="Contents">☰ Pages</button>
+    <div class="t">Southern Arizona</div>
+    <div class="pgnum" id="pgnum">1 / 1</div>
+  </div>
+  <div class="book" id="book"></div>
+  <div class="bottombar">
+    <button class="nav" id="prev">‹ Back</button>
+    <div class="progress"><i id="bar"></i></div>
+    <button class="nav next" id="next">Next ›</button>
+  </div>
+</div>
+<div class="toc" id="toc"><div class="panel" id="tocPanel"></div></div>
+
+<svg width="0" height="0" style="position:absolute"><g id="basemap"><path class="st on" d="M1007.9,-500L1007.9,-417L1007,-356L1007.9,-348.3L1007.9,-111.7L1007,42.6L1007.9,79.3L1007,107.8L1007,816.4L950.9,815.9L774.8,816.1L662.6,816.4L511.9,816.4L197.3,699.2L11.5,632.8L-77.9,599.2L-400.4,482.3L-396,465.9L-400.4,461.6L-399.5,446.7L-392.5,442.7L-377.6,417.1L-377.6,417.1L-373.2,409.3L-352.2,412.6L-330.3,406.1L-332.1,396.1L-316.3,380.4L-315.4,360.7L-328.5,326.7L-342.6,324.6L-348.7,327.9L-360.1,321.6L-362.7,325.9L-375,308.9L-368.9,292.1L-367.1,256.5L-380.3,246.2L-372.4,229.9L-379.4,217.1L-362.7,214.8L-338.2,180.1L-330.3,174.1L-333.8,162.5L-330.3,134.8L-323.3,131.8L-325,113.1L-331.2,97L-330.3,84.1L-325,82.6L-326.8,68.7L-332.9,63.6L-308.4,34.3L-308.4,16.8L-301.4,9.7L-281.2,2.4L-272.5,-7.8L-257.6,-13.1L-256.7,-17.9L-234.8,-34.4L-235.7,-46.8L-245.3,-60.6L-257.6,-65.4L-284.7,-90.8L-296.1,-92.6L-294.4,-107.3L-317.2,-168.3L-337.3,-184.3L-343.4,-202L-357.5,-216.5L-356.6,-254.1L-351.3,-278.5L-360.1,-284.1L-341.7,-295.1L-341.7,-313.6L-349.6,-359.4L-354.8,-376.1L-364.5,-388.2L-368,-403.1L-362.7,-412.4L-362.7,-438.9L-370.6,-448.8L-368,-458.8L-374.1,-466.8L-371.5,-480L-375.9,-495.3L-374.7,-500L1007.9,-500Z"/><path class="st" d="M1500,687.1L1434.7,687.1L1212.1,687.1L1212.1,816.1L1007,816.4L1007,107.8L1007.9,79.3L1007,42.6L1007.9,-111.7L1007.9,-348.3L1007,-356L1007.9,-417L1007.9,-500L1500,-500Z"/><path class="st" d="M-500,-394.8L-485.4,-380.4L-356.6,-254.1L-357.5,-216.5L-343.4,-202L-337.3,-184.3L-317.2,-168.3L-294.4,-107.3L-296.1,-92.6L-284.7,-90.8L-257.6,-65.4L-245.3,-60.6L-235.7,-46.8L-234.8,-34.4L-256.7,-17.9L-257.6,-13.1L-272.5,-7.8L-281.2,2.4L-301.4,9.7L-308.4,16.8L-308.4,34.3L-332.9,63.6L-326.8,68.7L-325,82.6L-330.3,84.1L-331.2,97L-325,113.1L-323.3,131.8L-330.3,134.8L-333.8,162.5L-330.3,174.1L-338.2,180.1L-362.7,214.8L-379.4,217.1L-372.4,229.9L-380.3,246.2L-367.1,256.5L-368.9,292.1L-375,308.9L-362.7,325.9L-360.1,321.6L-348.7,327.9L-342.6,324.6L-328.5,326.7L-315.4,360.7L-316.3,380.4L-332.1,396.1L-330.3,406.1L-352.2,412.6L-373.2,409.3L-377.6,417.1L-500,427.6L-500,-394.8Z"/><path class="st" d="M-374.7,-500L-375.9,-495.3L-371.5,-480L-374.1,-466.8L-368,-458.8L-370.6,-448.8L-362.7,-438.9L-362.7,-412.4L-368,-403.1L-364.5,-388.2L-354.8,-376.1L-349.6,-359.4L-341.7,-313.6L-341.7,-295.1L-360.1,-284.1L-351.3,-278.5L-356.6,-254.1L-485.4,-380.4L-500,-394.8L-500,-500Z"/><text class="sl" x="481.7" y="320.8">ARIZONA</text><text class="sl" x="286.4" y="791.3">MEXICO</text><circle class="cd" cx="536.9" cy="560.9" r="3"/><text class="cl" x="536.9" y="560.9">Tucson</text><circle class="cd" cx="76.4" cy="518.1" r="3"/><text class="cl" x="76.4" y="518.1">Ajo</text><circle class="cd" cx="545.2" cy="814.2" r="3"/><text class="cl" x="545.2" y="814.2">Nogales</text><circle class="cd" cx="792.3" cy="783.3" r="3"/><text class="cl" x="792.3" y="783.3">Bisbee</text><circle class="cd" cx="815.7" cy="551.9" r="3"/><text class="cl" x="815.7" y="551.9">Willcox</text><circle class="cd" cx="199" cy="204.1" r="3"/><text class="cl" x="199" y="204.1">Goodyear</text></g></svg>
+
+<script>
+const PT = {"gy":[199,204.1],"orpi":[90.8,638],"tuma":[518.1,749],"sv":[707.3,751.8],"coro":[712.7,812.5],"chir":[931.8,622.8],"fobo":[909.7,584.8],"phxh":[283.5,208.5],"phx":[283.5,208.5]};
+const TRIP = {"slug":"dec2026-southern-arizona","title":"Southern Arizona New Year’s","short":"Southern Arizona","placeholder":"","subtitle":"Dec 31 – Jan 3. The border country on New Year’s Day, then the three Cochise County parks on Jan 2 once their visitor centers reopen.","chips":["5 new stamps","+1 national park","All times MST"],"itinerary":"dec2026-southern-arizona.html","theme":{"#211A30":"#211A30","#2B2240":"#2B2240","#3A2F4F":"#3A2F4F","#3E3354":"#3E3354","#4B3F5C":"#4B3F5C","#C0623A":"#C0623A","#F1EAF2":"#F1EAF2","#DDD0E0":"#DDD0E0","#C4B3CC":"#C4B3CC","#D7C8DC":"#D7C8DC","#F5EFF6":"#F5EFF6","#F1EAF2":"#F1EAF2","#F5EFF6":"#F5EFF6","#7A6A86":"#7A6A86","#8A7898":"#8A7898","#E7DCEA":"#E7DCEA","#FBF7FB":"#FBF7FB","#DDD0E0":"#DDD0E0","#ECE3EE":"#ECE3EE","#8A7898":"#8A7898","#C9B9CF":"#C9B9CF","#7A6A86":"#7A6A86","#FBEEE4":"#FBEEE4"},"legMinW":360,"airports":[["phx","PHX"]],"route":["gy","orpi","tuma","sv","coro","chir","fobo","phxh","phx"],"days":[{"n":0,"dow":"Thu","dowLong":"Thursday","date":"Dec 31","title":"Fly to Phoenix","color":"#4B3F5C","meta":"No stamps · travel only","html":"<div class=\"moon\" style=\"margin-top:18px\">✈︎<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK → PHX after work<\/h2>\n<p><b>Southwest WN296<\/b> · OAK 7:40 PM PT → PHX 10:40 PM MST. Conf. <b>2CH258<\/b> · Basic fare, seats assigned at check-in, so check in right at the 24-hour mark.<\/p>\n<p>Pick up the rental car at PHX, then <b>25 min · 22 mi<\/b> on I-10 W to the <b>Best Western Phoenix Goodyear Inn<\/b> (55 N Litchfield Rd). Arrive ~11:30 PM. The west side puts you straight onto AZ-85 in the morning.<\/p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Best+Western+Phoenix+Goodyear+Inn,+55+N+Litchfield+Rd,+Goodyear,+AZ+85338\" target=\"_blank\" rel=\"noopener\">Navigate to Goodyear ↗<\/a><\/div>\n<div class=\"cut\"><b>Time zone:<\/b> Arizona stays on MST all year, one hour ahead of California in winter. Every time in this book is local.<\/div>\n<div class=\"note warn\"><b>Book around Dec 17:<\/b> the rental car and all three hotels (Goodyear, Sierra Vista, near PHX).<\/div>"},{"n":1,"dow":"Fri","dowLong":"Friday · New Year’s Day","date":"Jan 1","title":"Border country","sub":"Organ Pipe → Tumacácori → Sierra Vista","color":"#2F7D7A","drive":"5h 52m","stamps":2,"start":"gy","end":"sv","tzline":"all MST","cutLabel":"Good to know","cut":"Organ Pipe and Tumacácori stay open on New Year’s Day. Services are sparse for about 100 miles after Organ Pipe, so top up gas in Why.","gmaps":"https://www.google.com/maps/dir/Best+Western+Phoenix+Goodyear+Inn,+55+N+Litchfield+Rd,+Goodyear,+AZ+85338/Organ+Pipe+Cactus+National+Monument,+10+Organ+Pipe+Dr,+Ajo,+AZ+85321/Tumacacori+National+Historical+Park,+1891+I-19+Frontage+Rd,+Tumacacori,+AZ+85640/Best+Western+Plus+Sun+Canyon,+260+N+Garden+Ave,+Sierra+Vista,+AZ+85635"},{"n":2,"dow":"Sat","dowLong":"Saturday","date":"Jan 2","title":"Cochise County","sub":"Coronado → Chiricahua → Fort Bowie → Phoenix","color":"#3D6FB6","drive":"6h 31m","stamps":3,"start":"sv","end":"phxh","tzline":"all MST","cut":"Coronado 8–4, Chiricahua 8:30–4:30, Fort Bowie 8:30–4. All three were closed Jan 1, which is why they’re today. Fort Bowie’s schedule changes often, so recheck the week before.","gmaps":"https://www.google.com/maps/dir/Best+Western+Plus+Sun+Canyon,+260+N+Garden+Ave,+Sierra+Vista,+AZ+85635/Coronado+National+Memorial,+4101+E+Montezuma+Canyon+Rd,+Hereford,+AZ+85615/Chiricahua+National+Monument+Visitor+Center,+Willcox,+AZ/Fort+Bowie+National+Historic+Site,+3500+S+Apache+Pass+Rd,+Bowie,+AZ+85605/Phoenix+Sky+Harbor+International+Airport"},{"n":3,"dow":"Sun","dowLong":"Sunday","date":"Jan 3","title":"Fly home","sub":"Early flight from PHX","color":"#7A6A86","start":"phxh","end":"phx"}],"stops":[{"d":1,"kind":"stop","k":"orpi","color":"#2F7D7A","from":"Goodyear","leave":"7:10 AM","drive":"1h 50m","arrive":"9:00 AM","z":"MST","via":"I-10 W to AZ-85 S through Gila Bend, Ajo and Why · 111 mi.","name":"Organ Pipe Cactus NM","type":"National Monument","place":"Kris Eggle Visitor Center, Ajo","addr":"Organ Pipe Cactus National Monument, 10 Organ Pipe Dr, Ajo, AZ 85321","where":"Kris Eggle Visitor Center","hrs":"Open New Year’s Day; closes only Thanksgiving and Christmas. Posted opening time varies (8 or 9 AM), so confirm in the NPS app.","acc":"Accessible paved nature trail behind the visitor center.","about":"Protects a stretch of Sonoran Desert where the organ pipe cactus, common in Mexico, grows wild in the U.S. The monument runs right along the border."},{"d":1,"kind":"stop","k":"tuma","color":"#C0623A","from":"Organ Pipe","drive":"2h 38m","arrive":"12:25 PM","z":"MST","via":"Leave ~9:45. North on AZ-85, then AZ-86 east across the Tohono O’odham Nation · 166 mi. Top up gas in Why.","name":"Tumacácori NHP","type":"National Historical Park","place":"Visitor Center & Museum, Tumacácori","addr":"Tumacacori National Historical Park, 1891 I-19 Frontage Rd, Tumacacori, AZ 85640","where":"Visitor Center & Museum","hrs":"9 AM – 5 PM. Open New Year’s Day.","acc":"The mission church and grounds are on a short, mostly level path from the museum.","about":"Ruins of Spanish colonial missions in the Santa Cruz Valley. The adobe church of San José de Tumacácori was built in the early 1800s and never finished."},{"d":1,"kind":"night","k":"sv","from":"Tumacácori","drive":"1h 24m","arrive":"2:40 PM","z":"MST","via":"Leave ~1:15. I-19 S to Rio Rico, AZ-82 E through Patagonia, then AZ-90 to Sierra Vista · 74 mi.","name":"Sierra Vista, AZ","addr":"Best Western Plus Sun Canyon, 260 N Garden Ave, Sierra Vista, AZ 85635","note":"Best Western Plus Sun Canyon, 260 N Garden Ave. Free afternoon. Tomorrow starts at 7:30 AM for Coronado."},{"d":2,"kind":"stop","k":"coro","color":"#3D6FB6","from":"Sierra Vista","leave":"7:30 AM","drive":"28m","arrive":"8:00 AM","z":"MST","via":"21 mi south toward the border.","name":"Coronado N Mem","type":"National Memorial","place":"Visitor Center, Hereford","addr":"Coronado National Memorial, 4101 E Montezuma Canyon Rd, Hereford, AZ 85615","where":"Visitor Center","hrs":"8 AM – 4 PM. Closed New Year’s Day, which is why it’s on Jan 2.","ok":"The visitor center is on the paved section, about 2 mi in. No need to continue up to Montezuma Pass.","about":"Commemorates Francisco Vázquez de Coronado’s 1540–42 expedition, which entered what’s now the U.S. near here. It sits right against the Mexican border."},{"d":2,"kind":"stop","k":"chir","color":"#B8862A","from":"Coronado","drive":"1h 47m","arrive":"10:15 AM","z":"MST","via":"Leave ~8:30. AZ-92 to Bisbee, Double Adobe Rd, US-191 N, AZ-181 E · 95 mi.","name":"Chiricahua National Park","type":"National Park","place":"Visitor Center, Willcox","addr":"Chiricahua National Monument Visitor Center, Willcox, AZ","where":"Visitor Center","hrs":"8:30 AM – 4:30 PM. Closed Jan 1 last year, so Jan 2 is the safe day.","ok":"One closer on the 64 national parks list. Bonita Canyon Drive to Massai Point overlook if time allows; it can close for snow and ice.","about":"A “Wonderland of Rocks”: thousands of rhyolite pinnacles and balanced rocks left by a huge volcanic eruption about 27 million years ago."},{"d":2,"kind":"stop","k":"fobo","color":"#7A4FA0","from":"Chiricahua","drive":"48m","arrive":"11:50 AM","z":"MST","via":"Leave ~11:00. AZ-181 W, AZ-186 W, then gravel Apache Pass Rd to the trailhead · 28 mi.","name":"Fort Bowie NHS","type":"National Historic Site","place":"Trailhead on Apache Pass Rd, Bowie","addr":"Fort Bowie National Historic Site, 3500 S Apache Pass Rd, Bowie, AZ 85605","where":"Fort Bowie Visitor Center","hrs":"Fri – Mon, 8:30 AM – 4 PM. Saturday is covered, but recheck the week before.","warn":"The visitor center is a 1.5 mi walk each way from the trailhead. Back at the car around 2:15.","acc":"Call the park at 520-847-2500 to ask about drive-in access to the visitor center for visitors with limited mobility.","about":"Guarded Apache Pass and its spring, a key water source on the Butterfield stage route. The adobe ruins recall the long conflict with the Chiricahua Apache under Cochise and Geronimo."},{"d":2,"kind":"night","k":"phxh","from":"Fort Bowie","drive":"3h 28m","arrive":"~5:45 PM","z":"MST","via":"Leave ~2:15, off the gravel road in daylight. Apache Pass Rd to Bowie, then I-10 W · 229 mi.","name":"Phoenix, near the airport","addr":"Phoenix Sky Harbor International Airport","note":"Hotel close to PHX for the early flight (book around Dec 17). Set an alarm: the car goes back at ~4:15 AM."},{"d":3,"kind":"home","k":"phx","from":"the hotel","leave":"~4:00 AM","drive":"a few minutes","arriveLabel":"Flight","arrive":"5:30 AM","z":"MST","via":"Return the rental car by ~4:15 AM.","title":"Phoenix → home","note":"Southwest WN3468 · PHX 5:30 AM MST → OAK 6:30 AM PT. Conf. 2CH258.","navTo":"Phoenix Sky Harbor Rental Car Center","navLabel":"Navigate to car return ↗"}]};
+const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
+const LASTDAY = DAYS.length - 1;
+let n = 0; const NUMOF = {};
+STOPS.forEach(s => { if (s.kind === 'stop') { s.num = s.stampId ? NUMOF[s.stampId] : ++n; NUMOF[s.k] = s.num; } });
+const stopColor = s => s.color || DAYS[s.d].color;
+const dayColor = d => DAYS[d].color;
+const DL = d => DAYS[d].label || ('Day ' + d);
+const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
+
+/* ---------- stamp storage ---------- */
+const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
+const UNITS = [];
+STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: stopColor(s) });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
+});
+const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const NSTAMPS = UNITS.length;
+let got = {};
+try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
+function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
+
+/* ---------- maps ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+function routeD(keys) { return keys.map((k, i) => (i ? 'L' : 'M') + PT[k][0] + ' ' + PT[k][1]).join(''); }
+
+function buildMap(svg, o) {
+  // o: { focus:[keys], aspect, dayFocus, leg:[a,b], now:key }
+  const pad = o.pad || 60;
+  let xs = o.focus.map(k => PT[k][0]), ys = o.focus.map(k => PT[k][1]);
+  let x0 = Math.min(...xs) - pad, x1 = Math.max(...xs) + pad, y0 = Math.min(...ys) - pad, y1 = Math.max(...ys) + pad;
+  let w = Math.max(x1 - x0, o.minW || 220), h = Math.max(y1 - y0, (o.minW || 220) / o.aspect);
+  if (w / h > o.aspect) h = w / o.aspect; else w = h * o.aspect;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const vb = [cx - w / 2, cy - h / 2, w, h];
+  svg.setAttribute('viewBox', vb.map(v => v.toFixed(1)).join(' '));
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  const s = w / 1000;
+  const base = document.getElementById('basemap').cloneNode(true); base.removeAttribute('id');
+  base.querySelectorAll('.sl').forEach(t => t.setAttribute('font-size', (s * 22).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('font-size', (s * 17).toFixed(1)));
+  base.querySelectorAll('.cd').forEach(c => c.setAttribute('r', (s * 3.5).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('dy', (-s * 9).toFixed(1)));
+  svg.appendChild(base);
+  // whole route, faint
+  el('path', { d: routeD(ROUTE), class: 'rt', stroke: '#C9B9CF', 'stroke-width': 2 }, svg);
+  // day segments
+  for (let d = 1; d <= LASTDAY; d++) {
+    if (!DAYS[d].start) continue;
+    const a = ROUTE.indexOf(DAYS[d].start), b = ROUTE.indexOf(DAYS[d].end);
+    const dim = o.dayFocus && o.dayFocus !== d;
+    el('path', { d: routeD(ROUTE.slice(a, b + 1)), class: 'rt', stroke: DAYS[d].color, 'stroke-width': dim ? 2.5 : 4, opacity: dim ? .35 : .9 }, svg);
+  }
+  if (o.leg) el('path', { d: routeD(o.leg), class: 'leg' }, svg);
+  // airports
+  TRIP.airports.forEach(([k, lab]) => {
+    const g = el('g', { class: 'end' }, svg), r = s * 17;
+    const wr = r * (0.9 + 0.62 * lab.length);
+    el('rect', { x: PT[k][0] - wr / 2, y: PT[k][1] - r * .8, width: wr, height: r * 1.6, rx: r * .4 }, g);
+    const t = el('text', { x: PT[k][0], y: PT[k][1], 'font-size': (r * .9).toFixed(1) }, g); t.textContent = lab;
+  });
+  // overnight dots
+  STOPS.filter(x => x.kind === 'night').map(x => x.k).forEach(k => {
+    const c = el('circle', { cx: PT[k][0], cy: PT[k][1], r: s * 7, fill: '#2B2240', stroke: '#FFFFFF', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }, svg);
+  });
+  // points of interest (no stamp)
+  STOPS.filter(x => x.kind === 'point').forEach(x => {
+    const now = x.k === o.now;
+    el('circle', { cx: PT[x.k][0], cy: PT[x.k][1], r: s * (now ? 11 : 6), fill: now ? DAYS[x.d].color : '#FFFFFF', stroke: '#2B2240', 'stroke-width': now ? 3 : 1.5, 'vector-effect': 'non-scaling-stroke', opacity: o.dayFocus && o.dayFocus !== x.d ? .4 : 1 }, svg);
+  });
+  // pins (draw current last)
+  const r = s * (o.pinR || 16);
+  const list = STOPS.filter(x => x.kind === 'stop' && (!x.stampId || x.k === o.now));
+  list.sort((a, b) => (a.k === o.now) - (b.k === o.now));
+  list.forEach(st => {
+    const dim = o.dayFocus && o.dayFocus !== st.d;
+    const g = el('g', { class: 'pin' + (st.k === o.now ? ' now' : '') + (dim ? ' dim' : '') }, svg);
+    const rr = st.k === o.now ? r * 1.35 : r;
+    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: stopColor(st) }, g);
+    const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
+  });
+}
+
+/* ---------- pages ---------- */
+const pages = []; // {el, label, group}
+const book = document.getElementById('book');
+function addPage(cls, html, label, group, after) {
+  const p = document.createElement('section');
+  p.className = 'page ' + cls;
+  p.innerHTML = '<div class="scroll">' + html + '</div><div class="shade"></div>';
+  book.appendChild(p);
+  pages.push({ el: p, label, group });
+  if (after) after(p);
+  return pages.length - 1;
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const nav = a => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a);
+const firstPageOfDay = {};
+const pageOfStop = {};
+
+// Cover
+addPage('cover', `
+  ${TRIP.placeholder ? `<div class="ph">${esc(TRIP.placeholder)}</div>` : ''}
+  <div class="kicker" style="color:#C0623A">Trip book</div>
+  <h1 class="serif">${esc(TRIP.title)}</h1>
+  <div class="sub">${esc(TRIP.subtitle)}</div>
+  <svg class="map" id="coverMap" style="aspect-ratio:1/1.05"></svg>
+  <div style="margin-top:10px">
+    ${TRIP.chips.map((c, i) => `<span class="chip${i ? '' : ' hot'}">${esc(c)}</span>`).join('')}
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="tally"><div><div style="font-size:12px;color:#C4B3CC;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps this trip</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+  <div class="swipe">Swipe or tap Next to turn the page ›</div>
+  ${TRIP.itinerary ? `<a class="backlink" href="${TRIP.itinerary}">← Full itinerary page</a>` : ''}
+`, 'Cover · trip map', 'Start', p => {
+  buildMap(p.querySelector('#coverMap'), { focus: ROUTE, aspect: 1 / 1.05, pad: 34, pinR: 15 });
+});
+
+// Day 0
+const D0 = DAYS[0];
+addPage('', `
+  <div class="dayband" style="background:${D0.color}">
+    <div class="kicker">${DK(0)}</div>
+    <h2 class="serif">${esc(D0.title)}</h2>
+    <div class="meta">${esc(D0.meta || '')}</div>
+  </div>
+  ${D0.html || ''}
+`, DL(0) + ' · ' + D0.title, 0);
+
+// Days
+for (let d = 1; d <= LASTDAY; d++) {
+  const D = DAYS[d];
+  if (D.kind === 'cruise') {
+    firstPageOfDay[d] = addPage('', `
+      <div class="dayband" style="background:${D.color}">
+        <div class="kicker">${DK(d)}</div>
+        <h2 class="serif">${esc(D.title)}</h2>
+        ${D.sub ? `<div class="meta">${esc(D.sub)}</div>` : ''}
+      </div>
+      ${D.html || ''}
+    `, DL(d) + ' · ' + D.title, d);
+    continue;
+  }
+  const items = STOPS.filter(s => s.d === d);
+  const first = items[0];
+  const metaBits = [D.stamps ? D.stamps + ' stamp' + (D.stamps > 1 ? 's' : '') : '', D.drive ? '🚗 ' + D.drive + ' driving' : '', D.tzline || ''].filter(Boolean).join(' · ');
+  firstPageOfDay[d] = addPage('', `
+    <div class="dayband" style="background:${D.color}">
+      <div class="kicker">${DK(d)}</div>
+      <h2 class="serif">${D.title}</h2>
+      <div class="meta">${D.sub || ''}${metaBits ? '<br>' + metaBits : ''}</div>
+    </div>
+    <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
+    <ul class="tl">
+      <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+    </ul>
+    ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
+    ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
+  `, DL(d) + ' · ' + D.title, d, p => {
+    buildMap(p.querySelector('#dm' + d), { focus: ROUTE.slice(ROUTE.indexOf(D.start), ROUTE.indexOf(D.end) + 1), aspect: 1.45, pad: 45, dayFocus: d });
+  });
+
+  items.forEach((s, i) => {
+    const fromKey = i === 0 ? D.start : items[i - 1].k;
+    const driveCard = `
+      <div class="drive">
+        <div class="car">🚗</div>
+        <div><div class="fr">${s.leave ? 'Leave ' + esc(s.from) + ' ' + s.leave : 'From ' + esc(s.from)}</div><div class="dt">${s.drive}</div>${s.tz ? `<div class="tz">${s.tz}</div>` : ''}</div>
+        <div class="arr"><div class="lab">${s.arriveLabel || 'Arrive'}</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
+      </div>
+      ${s.via ? `<div class="note" style="background:#F5EFF6">${esc(s.via)}</div>` : ''}`;
+    const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
+    let html, label;
+    if (s.kind === 'stop') {
+      const C = stopColor(s);
+      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
+      const dayStops = items.filter(x => x.kind === 'stop');
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><div class="num" style="background:${C}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+          <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${s.optional ? `<div class="note ok">${esc(s.optional)}</div>` : ''}
+        ${units.map(u => `
+        <div class="stampbox" style="border-color:${u.color}">
+          <div class="kicker" style="color:${u.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+          <div class="where">${esc(u.where)}</div>
+          ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
+          <button class="got" data-got="${u.id}"></button>
+        </div>`).join('')}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
+        ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
+        <div class="foot">Re-check hours in the NPS app the week before.</div>`;
+      label = s.num + ' · ' + s.name;
+    } else if (s.kind === 'point') {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Along the way</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><h2 class="serif">${esc(s.name)}</h2>${s.place ? `<div class="place">${esc(s.place)}</div>` : ''}</div>
+        ${s.bonus ? `<div class="stampbox" style="border-color:#8A7898"><div class="kicker" style="color:#7A6A86">◈ ${esc(s.bonus.title || 'Bonus cancellation · optional')}</div><div class="where">${esc(s.bonus.where)}</div>${s.bonus.hrs ? `<div class="hrs">${esc(s.bonus.hrs)}</div>` : ''}</div>` : ''}
+        ${s.note ? `<p>${esc(s.note)}</p>` : ''}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>`;
+      label = '• ' + s.name;
+    } else if (s.kind === 'night') {
+      const next = DAYS[d + 1];
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + ' stamps · ' : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">☾</div>
+        <h2 class="serif">Sleep in ${esc(s.name)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
+        <div class="cut" style="background:#F5EFF6;border-left-color:${next.color}"><b>Tomorrow · ${DL(d + 1)}: ${esc(next.title)}</b><br>${nextLine}</div>`;
+      label = '☾ Sleep in ' + s.name;
+    } else {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Last leg</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">✈︎</div>
+        <h2 class="serif">${esc(s.title)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.navTo)}" target="_blank" rel="noopener">${esc(s.navLabel || 'Navigate ↗')}</a></div>
+        <div class="tally" style="background:#2B2240;color:#F5EFF6;margin-top:16px"><div><div style="font-size:12px;color:#C4B3CC;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps collected</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+        <ul class="chk" id="chk"></ul>`;
+      label = '✈︎ ' + s.title;
+    }
+    pageOfStop[s.k] = addPage('', html, label, d, p => {
+      const m = p.querySelector('[data-map]');
+      const [a, b] = m.dataset.map.split(',');
+      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: TRIP.legMinW || 400, dayFocus: d, pinR: 22 });
+    });
+  });
+}
+
+/* ---------- legend, checklist, stamps ---------- */
+document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)} · ${D.dow}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + ' stamps' : ''}</span></span></button>`).join('');
+document.getElementById('chk').innerHTML = UNITS.map(u =>
+  `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
+
+function renderGot() {
+  const c = UNITS.filter(u => got[u.id]).length;
+  document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
+  document.querySelectorAll('button.got').forEach(b => {
+    const on = !!got[b.dataset.got], col = UNIT[b.dataset.got].color;
+    b.classList.toggle('on', on); b.style.background = on ? col : '#F1EAF2';
+    b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
+  });
+  document.querySelectorAll('.chk li').forEach(li => {
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = UNIT[li.dataset.got].color;
+    bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#D7C8DC';
+  });
+}
+
+/* ---------- flipping ---------- */
+let idx = 0, busy = false;
+const pg = document.getElementById('pgnum'), bar = document.getElementById('bar'), prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+function chrome() {
+  pg.textContent = (idx + 1) + ' / ' + pages.length;
+  bar.style.width = ((idx) / (pages.length - 1) * 100) + '%';
+  prevB.disabled = idx === 0; nextB.disabled = idx === pages.length - 1;
+  try { localStorage.setItem(PKEY, idx); } catch (e) {}
+  try { history.replaceState(null, '', '#p' + (idx + 1)); } catch (e) {}
+}
+function show(i) { pages.forEach((p, j) => p.el.className = p.el.className.replace(/\b(show|under|flip-out|flip-in)\b/g, '').trim() + (j === i ? ' show' : '')); idx = i; chrome(); }
+function go(i) {
+  if (busy || i === idx || i < 0 || i >= pages.length) return;
+  const cur = pages[idx].el, nxt = pages[i].el;
+  nxt.querySelector('.scroll').scrollTop = 0;
+  busy = true;
+  const done = () => { pages.forEach((p, j) => { if (j !== i) p.el.classList.remove('show'); p.el.classList.remove('under', 'flip-out', 'flip-in'); }); idx = i; busy = false; chrome(); };
+  if (i > idx) {
+    nxt.classList.add('show', 'under'); cur.classList.add('flip-out');
+    cur.addEventListener('animationend', done, { once: true });
+  } else {
+    cur.classList.add('under'); nxt.classList.add('show', 'flip-in');
+    nxt.addEventListener('animationend', done, { once: true });
+  }
+  setTimeout(() => { if (busy) done(); }, 900);
+}
+prevB.onclick = () => go(idx - 1);
+nextB.onclick = () => go(idx + 1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(idx + 1); if (e.key === 'ArrowLeft') go(idx - 1); });
+let tx = 0, ty = 0;
+book.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+book.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(idx + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-got]');
+  if (g) { got[g.dataset.got] = !got[g.dataset.got]; saveGot(); renderGot(); return; }
+  const jd = e.target.closest('[data-jumpday]');
+  if (jd) { e.preventDefault(); go(firstPageOfDay[jd.dataset.jumpday]); return; }
+  const js = e.target.closest('[data-stop]');
+  if (js) { go(pageOfStop[js.dataset.stop]); return; }
+  const jf = e.target.closest('[data-jump]');
+  if (jf) { go(idx + 1); return; }
+});
+
+/* ---------- contents ---------- */
+const toc = document.getElementById('toc'), tocPanel = document.getElementById('tocPanel');
+function openToc() {
+  let h = '<div class="kicker" style="color:#C0623A">Pages</div>', grp = '';
+  pages.forEach((p, i) => {
+    if (p.group !== grp) { grp = p.group; const isDay = typeof grp === 'number'; h += `<h3 style="color:${isDay ? DAYS[grp].color : '#7A6A86'}">${isDay ? DL(grp) + (DAYS[grp].dow ? ' · ' + DAYS[grp].dow : '') : grp}</h3>`; }
+    h += `<a href="#" data-p="${i}" class="${i === idx ? 'cur' : ''}">${esc(p.label)}<span>${i + 1}</span></a>`;
+  });
+  tocPanel.innerHTML = h; toc.classList.add('open');
+}
+document.getElementById('tocBtn').onclick = openToc;
+toc.addEventListener('click', e => {
+  const a = e.target.closest('[data-p]');
+  if (a) { e.preventDefault(); toc.classList.remove('open'); go(+a.dataset.p); return; }
+  if (e.target === toc) toc.classList.remove('open');
+});
+
+/* ---------- start ---------- */
+renderGot();
+let start = 0;
+const hm = /#p(\d+)/.exec(location.hash);
+if (hm) start = Math.min(pages.length - 1, Math.max(0, +hm[1] - 1));
+else { try { const s = +localStorage.getItem(PKEY); if (s > 0 && s < pages.length) start = s; } catch (e) {} }
+show(start);
+</script>
+</body>
+</html>

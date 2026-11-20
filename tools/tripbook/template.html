@@ -168,7 +168,9 @@ const PT = __PTS__;
 const TRIP = __TRIP__;
 const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
 const LASTDAY = DAYS.length - 1;
-let n = 0; STOPS.forEach(s => { if (s.kind === 'stop') s.num = ++n; });
+let n = 0; const NUMOF = {};
+STOPS.forEach(s => { if (s.kind === 'stop') { s.num = s.stampId ? NUMOF[s.stampId] : ++n; NUMOF[s.k] = s.num; } });
+const stopColor = s => s.color || DAYS[s.d].color;
 const dayColor = d => DAYS[d].color;
 const DL = d => DAYS[d].label || ('Day ' + d);
 const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
@@ -176,9 +178,9 @@ const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].d
 /* ---------- stamp storage ---------- */
 const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
 const UNITS = [];
-STOPS.filter(s => s.kind === 'stop').forEach(s => {
-  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num });
-  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+' }));
+STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: stopColor(s) });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
 });
 const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
 const NSTAMPS = UNITS.length;
@@ -230,15 +232,20 @@ function buildMap(svg, o) {
   STOPS.filter(x => x.kind === 'night').map(x => x.k).forEach(k => {
     const c = el('circle', { cx: PT[k][0], cy: PT[k][1], r: s * 7, fill: '#26243F', stroke: '#FFFFFF', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }, svg);
   });
+  // points of interest (no stamp)
+  STOPS.filter(x => x.kind === 'point').forEach(x => {
+    const now = x.k === o.now;
+    el('circle', { cx: PT[x.k][0], cy: PT[x.k][1], r: s * (now ? 11 : 6), fill: now ? DAYS[x.d].color : '#FFFFFF', stroke: '#26243F', 'stroke-width': now ? 3 : 1.5, 'vector-effect': 'non-scaling-stroke', opacity: o.dayFocus && o.dayFocus !== x.d ? .4 : 1 }, svg);
+  });
   // pins (draw current last)
   const r = s * (o.pinR || 16);
-  const list = STOPS.filter(x => x.kind === 'stop');
+  const list = STOPS.filter(x => x.kind === 'stop' && (!x.stampId || x.k === o.now));
   list.sort((a, b) => (a.k === o.now) - (b.k === o.now));
   list.forEach(st => {
     const dim = o.dayFocus && o.dayFocus !== st.d;
     const g = el('g', { class: 'pin' + (st.k === o.now ? ' now' : '') + (dim ? ' dim' : '') }, svg);
     const rr = st.k === o.now ? r * 1.35 : r;
-    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: dayColor(st.d) }, g);
+    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: stopColor(st) }, g);
     const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
   });
 }
@@ -315,7 +322,7 @@ for (let d = 1; d <= LASTDAY; d++) {
     <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
     <ul class="tl">
       <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
-      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${D.color}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
     </ul>
     ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
     ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
@@ -335,18 +342,20 @@ for (let d = 1; d <= LASTDAY; d++) {
     const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
     let html, label;
     if (s.kind === 'stop') {
-      const units = [{ id: s.k, name: s.unit, where: s.where, hrs: s.hrs }].concat(s.also || []);
+      const C = stopColor(s);
+      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
       const dayStops = items.filter(x => x.kind === 'stop');
       html = `
         <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
         <div style="height:8px"></div>
         ${driveCard}
         ${mapSvg}
-        <div class="stopname"><div class="num" style="background:${D.color}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+        <div class="stopname"><div class="num" style="background:${C}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
           <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${s.optional ? `<div class="note ok">${esc(s.optional)}</div>` : ''}
         ${units.map(u => `
-        <div class="stampbox" style="border-color:${D.color}">
-          <div class="kicker" style="color:${D.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+        <div class="stampbox" style="border-color:${u.color}">
+          <div class="kicker" style="color:${u.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
           <div class="where">${esc(u.where)}</div>
           ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
           <button class="got" data-got="${u.id}"></button>
@@ -354,10 +363,26 @@ for (let d = 1; d <= LASTDAY; d++) {
         ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
         ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
         ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
         <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
         ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
         <div class="foot">Re-check hours in the NPS app the week before.</div>`;
       label = s.num + ' · ' + s.name;
+    } else if (s.kind === 'point') {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Along the way</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><h2 class="serif">${esc(s.name)}</h2>${s.place ? `<div class="place">${esc(s.place)}</div>` : ''}</div>
+        ${s.bonus ? `<div class="stampbox" style="border-color:#9C97B4"><div class="kicker" style="color:#6E6A88">◈ ${esc(s.bonus.title || 'Bonus cancellation · optional')}</div><div class="where">${esc(s.bonus.where)}</div>${s.bonus.hrs ? `<div class="hrs">${esc(s.bonus.hrs)}</div>` : ''}</div>` : ''}
+        ${s.note ? `<p>${esc(s.note)}</p>` : ''}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>`;
+      label = '• ' + s.name;
     } else if (s.kind === 'night') {
       const next = DAYS[d + 1];
       const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + ' stamps · ' : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
@@ -406,12 +431,12 @@ function renderGot() {
   const c = UNITS.filter(u => got[u.id]).length;
   document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
   document.querySelectorAll('button.got').forEach(b => {
-    const on = !!got[b.dataset.got], col = dayColor(UNIT[b.dataset.got].d);
+    const on = !!got[b.dataset.got], col = UNIT[b.dataset.got].color;
     b.classList.toggle('on', on); b.style.background = on ? col : '#EEEBF7';
     b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
   });
   document.querySelectorAll('.chk li').forEach(li => {
-    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = dayColor(UNIT[li.dataset.got].d);
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = UNIT[li.dataset.got].color;
     bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#C9C4E4';
   });
 }

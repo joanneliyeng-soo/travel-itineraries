@@ -1,0 +1,448 @@
+{
+ "slug": "vegas-deathvalley",
+ "title": "Death Valley Long Weekend",
+ "short": "Death Valley",
+ "placeholder": "",
+ "subtitle": "Presidents Day · Feb 12–15, 2027. Beatty, Death Valley and Manzanar on Saturday, then a round trip to Hole-in-the-Wall for Mojave and Castle Mountains on Sunday.",
+ "chips": [
+  "4 new units",
+  "+1 national park",
+  "Pacific time"
+ ],
+ "itinerary": "vegas-deathvalley.html",
+ "theme": {
+  "#1E1D33": "#1B1E30",
+  "#26243F": "#23263B",
+  "#2C2A47": "#2E3250",
+  "#322F51": "#34385A",
+  "#38355A": "#3E4366",
+  "#E2603A": "#7E5BB0",
+  "#E9E6FA": "#EDEFF3",
+  "#CFCBE6": "#D4D7E3",
+  "#A9A4C8": "#B9A6D6",
+  "#C9C4E4": "#B7BCCB",
+  "#EDEAF9": "#EDEFF3",
+  "#EEEBF7": "#E4E0F0",
+  "#F1EFF7": "#F6F3FB",
+  "#6E6A88": "#5B5F76",
+  "#9C97B4": "#9C8BC0",
+  "#ECE9F2": "#E6E8EE",
+  "#FBFAF6": "#FAF9F5",
+  "#E7E3D9": "#D7DAE3",
+  "#EFEDE6": "#E6E8EE",
+  "#8F8AB4": "#B9A6D6",
+  "#B8B3C8": "#B7BCCB",
+  "#7C7896": "#5B5F76",
+  "#FFF3EE": "#FFF6E6"
+ },
+ "legMinW": 300,
+ "map": {
+  "bbox": [
+   [
+    -118.35,
+    37.05
+   ],
+   [
+    -114.95,
+    34.95
+   ]
+  ],
+  "states": [
+   "California",
+   "Nevada",
+   "Arizona",
+   "Utah"
+  ],
+  "highlight": [
+   "California",
+   "Nevada"
+  ],
+  "stateLabels": [
+   [
+    "CALIFORNIA",
+    -117.4,
+    35.55
+   ],
+   [
+    "NEVADA",
+    -115.75,
+    36.85
+   ]
+  ],
+  "cities": [
+   [
+    "Las Vegas",
+    -115.14,
+    36.17
+   ],
+   [
+    "Pahrump",
+    -115.98,
+    36.21
+   ],
+   [
+    "Baker",
+    -116.07,
+    35.27
+   ]
+  ],
+  "points": {
+   "lvh": [
+    -115.1716,
+    36.1206
+   ],
+   "bty": [
+    -116.7592,
+    36.9086
+   ],
+   "fc": [
+    -116.8656,
+    36.4614
+   ],
+   "hb": [
+    -116.873,
+    36.48
+   ],
+   "mfd": [
+    -117.1158,
+    36.6062
+   ],
+   "spw": [
+    -117.145,
+    36.6061
+   ],
+   "fcv": [
+    -117.5645,
+    36.3567
+   ],
+   "esi": [
+    -118.057,
+    36.5873
+   ],
+   "man": [
+    -118.1548,
+    36.728
+   ],
+   "lp": [
+    -118.0629,
+    36.606
+   ],
+   "lvh2": [
+    -115.1716,
+    36.1206
+   ],
+   "hitw": [
+    -115.3964,
+    35.0447
+   ],
+   "lvh3": [
+    -115.1716,
+    36.1206
+   ],
+   "las": [
+    -115.1537,
+    36.084
+   ]
+  }
+ },
+ "airports": [
+  [
+   "las",
+   "LAS"
+  ]
+ ],
+ "route": [
+  "lvh",
+  "bty",
+  "fc",
+  "hb",
+  "mfd",
+  "spw",
+  "fcv",
+  "esi",
+  "man",
+  "lp",
+  "lvh2",
+  "hitw",
+  "lvh3",
+  "las"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "Fri",
+   "dowLong": "Friday",
+   "date": "Feb 12",
+   "title": "Fly to Las Vegas",
+   "color": "#34385A",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK → LAS after work</h2>\n<p><b>Southwest WN 828</b> · OAK 8:05 PM → LAS 9:40 PM, nonstop. Conf. <b>B7SZDK</b>.</p>\n<p>Take the shuttle to the Rent-A-Car Center and pick up the round-trip car (Costco Travel). Then the <b>Best Western Plus Casino Royale</b>, 3411 Las Vegas Blvd S, Center Strip: free parking, no resort fee, one hotel for all three nights.</p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Best+Western+Plus+Casino+Royale,+3411+Las+Vegas+Blvd+S,+Las+Vegas,+NV\" target=\"_blank\" rel=\"noopener\">Navigate to hotel ↗</a></div>\n<div class=\"note warn\"><b>Before bed:</b> download offline maps. Cell service is spotty or absent in both parks. Tomorrow starts at 7:00.</div>"
+  },
+  {
+   "n": 1,
+   "dow": "Sat",
+   "dowLong": "Saturday",
+   "date": "Feb 13",
+   "title": "Beatty, across the valley, to Manzanar",
+   "sub": "Beatty → Death Valley → Lone Pine → Manzanar → back to Vegas",
+   "color": "#6A4C93",
+   "drive": "~10h",
+   "stamps": 2,
+   "start": "lvh",
+   "end": "lvh2",
+   "tzline": "Pacific time",
+   "cut": "Manzanar’s visitor center closes at 4:30; if the morning runs late, skip Harmony Borax and the dunes. Towne Pass can get snow in February, and the drive back is mostly after dark.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Plus+Casino+Royale,+Las+Vegas/Beatty,+NV/Furnace+Creek+Visitor+Center/Harmony+Borax+Works/Mesquite+Flat+Sand+Dunes/Stovepipe+Wells+Village/Father+Crowley+Vista+Point/Eastern+Sierra+Interagency+Visitor+Center/Manzanar+National+Historic+Site/Best+Western+Plus+Casino+Royale,+Las+Vegas"
+  },
+  {
+   "n": 2,
+   "dow": "Sun",
+   "dowLong": "Sunday",
+   "date": "Feb 14",
+   "title": "Round trip to the Mojave",
+   "sub": "Searchlight → Hole-in-the-Wall → back to Vegas",
+   "color": "#2F8F7D",
+   "drive": "~6h",
+   "stamps": 2,
+   "start": "lvh2",
+   "end": "lvh3",
+   "tzline": "Pacific time",
+   "cutLabel": "Good to know",
+   "cut": "No food or gas inside Mojave National Preserve. Stay on the paved Essex Road side both ways; don’t follow GPS onto the dirt roads north of Hole-in-the-Wall.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Plus+Casino+Royale,+Las+Vegas/Searchlight,+NV/Essex,+CA/Hole-in-the-Wall+Information+Center,+Mojave+National+Preserve/Essex,+CA/Searchlight,+NV/Best+Western+Plus+Casino+Royale,+Las+Vegas"
+  },
+  {
+   "n": 3,
+   "dow": "Mon",
+   "dowLong": "Monday · Presidents Day",
+   "date": "Feb 15",
+   "title": "Early flight home",
+   "sub": "LAS 7:15 AM",
+   "color": "#5B5F76",
+   "start": "lvh3",
+   "end": "las"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "bty",
+   "from": "the Strip",
+   "leave": "7:00 AM",
+   "drive": "~2h",
+   "arrive": "9:00 AM",
+   "z": "PT",
+   "via": "US-95 N, about 120 mi. Grab breakfast on the way out.",
+   "name": "Beatty, NV",
+   "place": "Gas and restroom stop",
+   "addr": "Beatty, NV",
+   "bonus": {
+    "title": "Check first · Beatty Information Center",
+    "where": "Older park listings show an NPS info center here, but current NPS hours pages don’t list it. Check the NPS app before you go."
+   },
+   "note": "Either way, it’s the last cheap gas and a restroom stop before the park."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "fc",
+   "color": "#6A4C93",
+   "from": "Beatty",
+   "drive": "~50m",
+   "arrive": "10:00 AM",
+   "z": "PT",
+   "via": "NV-374 over Daylight Pass → Beatty Cutoff → CA-190.",
+   "name": "Death Valley NP",
+   "type": "National Park",
+   "place": "Furnace Creek Visitor Center",
+   "addr": "Furnace Creek Visitor Center, Death Valley, CA",
+   "where": "Furnace Creek Visitor Center",
+   "hrs": "Daily 8:00–5:00. Museum and park film inside.",
+   "ok": "One closer on the 64 national parks list. Bonus Death Valley cancellations at Stovepipe Wells and Lone Pine later today.",
+   "about": "The hottest, driest and lowest national park. Badwater Basin sits 282 feet below sea level, and it’s the largest national park outside Alaska."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "hb",
+   "from": "Furnace Creek",
+   "drive": "~5m",
+   "arrive": "10:50 AM",
+   "z": "PT",
+   "via": "CA-190 N, 2 mi.",
+   "name": "Harmony Borax Works",
+   "addr": "Harmony Borax Works, Death Valley, CA",
+   "note": "Short paved path past the ruins and a 20-mule-team wagon."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "mfd",
+   "from": "Harmony Borax",
+   "drive": "~25m",
+   "arrive": "11:30 AM",
+   "z": "PT",
+   "via": "CA-190 W.",
+   "name": "Mesquite Flat Sand Dunes",
+   "addr": "Mesquite Flat Sand Dunes, Death Valley, CA",
+   "note": "View the dunes from the parking lot."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "spw",
+   "from": "the dunes",
+   "drive": "~5m",
+   "arrive": "11:45 AM",
+   "z": "PT",
+   "via": "CA-190 W.",
+   "name": "Stovepipe Wells",
+   "place": "Lunch + gas",
+   "addr": "Stovepipe Wells Village, CA",
+   "bonus": {
+    "where": "Ranger station",
+    "hrs": "Open only when staffed"
+   },
+   "note": "Lunch at the Toll Road Restaurant, then top off the tank. It’s the last gas before Lone Pine."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "fcv",
+   "from": "Stovepipe Wells",
+   "drive": "~50m",
+   "arrive": "1:30 PM",
+   "z": "PT",
+   "via": "CA-190 W over Towne Pass.",
+   "name": "Father Crowley Vista Point",
+   "addr": "Father Crowley Vista Point, CA",
+   "note": "Paved lot overlooking Rainbow Canyon, your last big Death Valley view.",
+   "warn": "Towne Pass climbs to about 5,000 ft and can get snow in February. Check road conditions that morning."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "esi",
+   "from": "Father Crowley",
+   "drive": "~1h",
+   "arrive": "2:35 PM",
+   "z": "PT",
+   "via": "CA-190 → CA-136 to Lone Pine.",
+   "name": "Eastern Sierra InterAgency Visitor Center",
+   "place": "Lone Pine, CA",
+   "addr": "Eastern Sierra Interagency Visitor Center, Lone Pine, CA",
+   "bonus": {
+    "title": "Bonus cancellation · extra Death Valley stamp",
+    "where": "Visitor center",
+    "hrs": "8:30–4:30"
+   },
+   "note": "Right where CA-136 meets US-395, with your first full view of Mt. Whitney."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "man",
+   "color": "#4E3778",
+   "from": "Lone Pine",
+   "drive": "~15m",
+   "arrive": "3:05 PM",
+   "z": "PT",
+   "via": "US-395 N, 9 mi.",
+   "name": "Manzanar NHS",
+   "type": "National Historic Site",
+   "place": "Independence, CA",
+   "addr": "Manzanar National Historic Site, 5001 US-395, Independence, CA 93526",
+   "where": "Manzanar Visitor Center",
+   "hrs": "Fri–Mon 9:00–4:30, so Saturday works.",
+   "warn": "The visitor center closes at 4:30. If the morning runs late, skip Harmony Borax and the dunes rather than this stop.",
+   "ok": "Visitor center first for the stamp and exhibits, then the Block 14 barracks and mess hall next door.",
+   "about": "One of ten camps where Japanese Americans were incarcerated during World War II. More than 10,000 people lived here behind barbed wire."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "lp",
+   "from": "Manzanar",
+   "drive": "~15m",
+   "arrive": "4:30 PM",
+   "z": "PT",
+   "via": "US-395 S.",
+   "name": "Early dinner in Lone Pine",
+   "addr": "Lone Pine, CA",
+   "note": "Eat and fill the tank before the long drive back. Sunset is around 5:30, so you’ll catch the Sierra turning pink as you head out."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "lvh2",
+   "from": "Lone Pine",
+   "drive": "~4h 30m",
+   "arrive": "~10:00 PM",
+   "z": "PT",
+   "via": "Most of this is after dark and crosses Towne Pass. Check road conditions before you leave Lone Pine.",
+   "name": "Las Vegas",
+   "addr": "Best Western Plus Casino Royale, 3411 Las Vegas Blvd S, Las Vegas, NV",
+   "note": "Back at the Best Western Plus Casino Royale, same hotel as Friday. Sleep in tomorrow."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "hitw",
+   "color": "#6A4C93",
+   "from": "the Strip",
+   "leave": "9:00 AM",
+   "drive": "~3h",
+   "arrive": "12:00 PM",
+   "z": "PT",
+   "via": "US-95 S through Searchlight → I-40 W → Essex Rd → Black Canyon Rd. Pick up lunch to go and fill the tank first.",
+   "name": "Mojave NPres + Castle Mountains NM",
+   "unit": "Mojave National Preserve",
+   "type": "Two units, one stop",
+   "place": "Hole-in-the-Wall Information Center",
+   "addr": "Hole-in-the-Wall Information Center, Mojave National Preserve",
+   "where": "Stamp kiosk on the front porch",
+   "hrs": "Open 24/7, so it works even if the building is closed",
+   "also": [
+    {
+     "id": "camo",
+     "name": "Castle Mountains NM",
+     "where": "Same porch kiosk. Castle Mountains has no visitor center of its own.",
+     "color": "#4E3778"
+    }
+   ],
+   "warn": "Come in and leave on the paved Essex Road side. NPS warns not to follow GPS onto the dirt roads north of here, even though they look shorter to Vegas.",
+   "ok": "Picnic lunch with a view of the pocked volcanic walls of Banshee Canyon. The Rings Loop climbs with metal rings, so skip it.",
+   "about": "Mojave National Preserve covers 1.6 million acres of desert between I-15 and I-40. Castle Mountains, next door, became a national monument in 2016."
+  },
+  {
+   "d": 2,
+   "kind": "night",
+   "k": "lvh3",
+   "from": "Hole-in-the-Wall",
+   "drive": "~3h",
+   "arrive": "4:00 PM",
+   "z": "PT",
+   "via": "Black Canyon Rd → Essex Rd → I-40 E → US-95 N.",
+   "name": "Las Vegas",
+   "addr": "Best Western Plus Casino Royale, 3411 Las Vegas Blvd S, Las Vegas, NV",
+   "note": "Back at the Best Western Plus Casino Royale. Evening free in Vegas. Tomorrow: check out at 5:15 AM."
+  },
+  {
+   "d": 3,
+   "kind": "home",
+   "k": "las",
+   "from": "the hotel",
+   "leave": "5:15 AM",
+   "drive": "~20m shuttle",
+   "arriveLabel": "Flight",
+   "arrive": "7:15 AM",
+   "z": "PT",
+   "via": "Check out and return the car. The LAS Rent-A-Car Center is off-airport, so allow about 20 minutes for the shuttle to the terminal.",
+   "title": "Las Vegas → home",
+   "note": "Southwest WN 504 · LAS 7:15 AM → OAK 8:50 AM, nonstop. Conf. B7SZDK. Home with the holiday still ahead of you.",
+   "navTo": "Las Vegas Rent-A-Car Center, 7135 Gilespie St, Las Vegas, NV",
+   "navLabel": "Navigate to car return ↗"
+  }
+ ]
+}
