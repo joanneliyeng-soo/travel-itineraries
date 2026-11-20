@@ -1,0 +1,579 @@
+{
+ "slug": "oct2026-arizona-petrified-forest",
+ "book": "arizona-painted-desert",
+ "start": "2026-10-09",
+ "end": "2026-10-12",
+ "emoji": "🌵",
+ "poster": "painted",
+ "title": "Verde Valley to Painted Desert",
+ "short": "Painted Desert",
+ "placeholder": "",
+ "subtitle": "Columbus Day weekend, Oct 9–12, 2026: the Verde Valley and Flagstaff monuments plus Petrified Forest on Saturday, the Navajo Nation on Sunday, then Tonto, Casa Grande and Saguaro on the way home. Laid out in the order it actually happened; clock times are from the plan.",
+ "chips": [
+  "11 new stamps",
+  "2 national parks",
+  "Arizona + Navajo time"
+ ],
+ "itinerary": "oct2026-arizona-petrified-forest.html",
+ "collected": [
+  "mozc",
+  "tuzi",
+  "waca",
+  "sucr",
+  "pefo",
+  "hutr",
+  "cach",
+  "nava",
+  "tont",
+  "cagr",
+  "sagu"
+ ],
+ "theme": {
+  "#1E1D33": "#2A1A1C",
+  "#26243F": "#332022",
+  "#2C2A47": "#3E272A",
+  "#322F51": "#4A2E32",
+  "#38355A": "#56363A",
+  "#E2603A": "#C46A3A",
+  "#E9E6FA": "#F6E8DC",
+  "#CFCBE6": "#D9BFB2",
+  "#A9A4C8": "#E8A0A8",
+  "#C9C4E4": "#E2CDC2",
+  "#EDEAF9": "#F6E8DC",
+  "#EEEBF7": "#F1E2D6",
+  "#F1EFF7": "#F7EEE6",
+  "#6E6A88": "#7A5A5C",
+  "#9C97B4": "#B08C8C",
+  "#ECE9F2": "#EFD9C8",
+  "#FBFAF6": "#FCF7F2",
+  "#E7E3D9": "#EFD9C8",
+  "#EFEDE6": "#F3E6DC",
+  "#8F8AB4": "#E8A0A8",
+  "#B8B3C8": "#D9BFB2",
+  "#7C7896": "#7A5A5C",
+  "#FFF3EE": "#FFF4EE"
+ },
+ "legMinW": 360,
+ "map": {
+  "bbox": [
+   [
+    -112.6,
+    36.85
+   ],
+   [
+    -109.2,
+    32.15
+   ]
+  ],
+  "states": [
+   "Arizona",
+   "New Mexico",
+   "Utah",
+   "Nevada",
+   "California"
+  ],
+  "highlight": [
+   "Arizona"
+  ],
+  "stateLabels": [
+   [
+    "ARIZONA",
+    -112.2,
+    33.15
+   ]
+  ],
+  "cities": [
+   [
+    "Phoenix",
+    -112.074,
+    33.448
+   ],
+   [
+    "Flagstaff",
+    -111.651,
+    35.198
+   ],
+   [
+    "Tucson",
+    -110.974,
+    32.222
+   ],
+   [
+    "Holbrook",
+    -110.158,
+    34.902
+   ],
+   [
+    "Kayenta",
+    -110.257,
+    36.725
+   ]
+  ],
+  "points": {
+   "hvh": [
+    -112.105,
+    33.7115
+   ],
+   "mozc": [
+    -111.8397,
+    34.6117
+   ],
+   "mowe": [
+    -111.7544,
+    34.6488
+   ],
+   "tuzi": [
+    -112.0269,
+    34.7685
+   ],
+   "waca": [
+    -111.5094,
+    35.1716
+   ],
+   "sucr": [
+    -111.5435,
+    35.369
+   ],
+   "w_i40": [
+    -110.7,
+    35.03
+   ],
+   "pefo": [
+    -109.7817,
+    35.0656
+   ],
+   "cham": [
+    -109.4328,
+    35.1906
+   ],
+   "hutr": [
+    -109.5584,
+    35.7094
+   ],
+   "cach": [
+    -109.539,
+    36.1532
+   ],
+   "w_mp": [
+    -109.85,
+    36.5
+   ],
+   "nava": [
+    -110.541,
+    36.6782
+   ],
+   "w_tuba": [
+    -111.24,
+    36.13
+   ],
+   "w_fla": [
+    -111.65,
+    35.2
+   ],
+   "phx": [
+    -111.83,
+    33.42
+   ],
+   "w_globe": [
+    -110.79,
+    33.4
+   ],
+   "tont": [
+    -111.113,
+    33.6451
+   ],
+   "cagr": [
+    -111.5325,
+    32.9974
+   ],
+   "sagu": [
+    -111.1973,
+    32.2544
+   ],
+   "phxr": [
+    -112.0449,
+    33.4306
+   ]
+  }
+ },
+ "airports": [
+  [
+   "phxr",
+   "PHX"
+  ]
+ ],
+ "route": [
+  "hvh",
+  "mozc",
+  "mowe",
+  "tuzi",
+  "waca",
+  "sucr",
+  "w_i40",
+  "pefo",
+  "cham",
+  "hutr",
+  "cach",
+  "w_mp",
+  "nava",
+  "w_tuba",
+  "w_fla",
+  "phx",
+  "w_globe",
+  "tont",
+  "cagr",
+  "sagu",
+  "phxr"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "Fri",
+   "dowLong": "Friday",
+   "kicker": "Day 0 · Fri Oct 9",
+   "title": "Fly to Phoenix",
+   "color": "#4A2E32",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK → PHX after work</h2>\n<p>Flight 768, 8:15 → 10:15 PM. Picked up the Enterprise Intermediate (Costco Travel) at the Sky Harbor Rental Car Center, then about 30 minutes north.</p>\n<p>Slept at the <b>Best Western Plus Executive Residency Phoenix North Happy Valley</b>, 2108 W Whispering Wind Dr.</p>\n<div class=\"cut\"><b>How it went:</b> Petrified Forest moved up to Saturday, which freed Sunday for the Navajo Nation, and Tonto was added Monday morning. 11 new stamps in all, bringing the total to 49.</div>"
+  },
+  {
+   "n": 1,
+   "dow": "Sat",
+   "dowLong": "Saturday",
+   "kicker": "Day 1 · Sat Oct 10",
+   "title": "Verde Valley to the Painted Desert",
+   "sub": "Happy Valley → Montezuma → Tuzigoot → Walnut Canyon → Sunset Crater → Petrified Forest → Chambers",
+   "color": "#C46A3A",
+   "drive": "~5h 40m",
+   "stamps": 5,
+   "start": "hvh",
+   "end": "cham",
+   "tzline": "Arizona time",
+   "cutLabel": "How it went",
+   "cut": "Five stamps as planned, then Petrified Forest a day early, before its 5 PM gate lock.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Plus+Executive+Residency+Phoenix+North+Happy+Valley/Montezuma+Castle+National+Monument/Montezuma+Well/Tuzigoot+National+Monument/Walnut+Canyon+National+Monument/Sunset+Crater+Volcano+National+Monument/Painted+Desert+Visitor+Center/Chambers%2C+AZ"
+  },
+  {
+   "n": 2,
+   "dow": "Sun",
+   "dowLong": "Sunday",
+   "kicker": "Day 2 · Sun Oct 11",
+   "title": "Into the Navajo Nation",
+   "sub": "Chambers → Hubbell → Canyon de Chelly → Navajo NM → Phoenix",
+   "color": "#2F7D7A",
+   "drive": "~8h",
+   "stamps": 3,
+   "start": "cham",
+   "end": "phx",
+   "tzline": "Arizona time · Navajo Nation is 1 hr ahead",
+   "cutLabel": "Good to know",
+   "cut": "Navajo Nation keeps daylight saving time, so all three sites ran an hour ahead of the phone in Chambers. Times here are Arizona time with Navajo time in brackets.",
+   "gmaps": "https://www.google.com/maps/dir/Chambers%2C+AZ/Hubbell+Trading+Post+National+Historic+Site/Canyon+de+Chelly+Welcome+Center/Navajo+National+Monument+Visitor+Center/Phoenix%2C+AZ"
+  },
+  {
+   "n": 3,
+   "dow": "Mon",
+   "dowLong": "Monday",
+   "kicker": "Day 3 · Mon Oct 12",
+   "title": "Tonto, Casa Grande, Saguaro",
+   "sub": "Phoenix → Tonto → Casa Grande → Saguaro West → PHX",
+   "color": "#B8862E",
+   "drive": "~7h",
+   "stamps": 3,
+   "start": "phx",
+   "end": "phxr",
+   "tzline": "Arizona time",
+   "cutLabel": "How it went",
+   "cut": "Tonto was the stretch goal and made it in by starting at 6 AM, stamp-and-go at every stop. Saguaro made 15 of the 63 national parks.",
+   "gmaps": "https://www.google.com/maps/dir/Phoenix%2C+AZ/Tonto+National+Monument/Casa+Grande+Ruins+National+Monument/Red+Hills+Visitor+Center%2C+Saguaro+National+Park/Phoenix+Sky+Harbor+Rental+Car+Center"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "mozc",
+   "color": "#C46A3A",
+   "ink": "#FFFFFF",
+   "boxColor": "#C46A3A",
+   "from": "Happy Valley",
+   "leave": "7:30 AM",
+   "drive": "~1h 20m",
+   "arrive": "8:50 AM",
+   "z": "MST",
+   "via": "I-17 north to Exit 289.",
+   "name": "Montezuma Castle NM",
+   "type": "National Monument",
+   "place": "Visitor center, Camp Verde",
+   "addr": "Montezuma Castle National Monument Visitor Center",
+   "where": "Visitor center desk",
+   "hrs": "Paved 0.3-mile loop to the castle view.",
+   "about": "A five-story Sinagua cliff dwelling tucked into a limestone alcove about 90 feet above Beaver Creek, built around 1100–1425."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "mowe",
+   "from": "Montezuma Castle",
+   "drive": "~20m",
+   "arrive": "10:00 AM",
+   "z": "MST",
+   "via": "Same monument, separate entrance near Rimrock.",
+   "name": "Montezuma Well",
+   "place": "Montezuma Castle NM",
+   "addr": "Montezuma Well, Rimrock, AZ",
+   "bonus": {
+    "title": "Separate cancellation · Montezuma Well",
+    "where": "Entrance station"
+   },
+   "note": "A limestone sinkhole fed by a spring, with a short paved path to the overlook. No fee."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "tuzi",
+   "color": "#C46A3A",
+   "ink": "#FFFFFF",
+   "boxColor": "#C46A3A",
+   "from": "Montezuma Well",
+   "drive": "~30m",
+   "arrive": "11:00 AM",
+   "z": "MST",
+   "via": "Rimrock → Clarkdale.",
+   "name": "Tuzigoot NM",
+   "type": "National Monument",
+   "place": "Visitor center, Clarkdale",
+   "addr": "Tuzigoot National Monument",
+   "where": "Visitor center desk",
+   "hrs": "Paved overlook trail around the hilltop pueblo.",
+   "about": "A Sinagua pueblo of about 110 rooms crowning a ridge above the Verde River."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "waca",
+   "color": "#C46A3A",
+   "ink": "#FFFFFF",
+   "boxColor": "#C46A3A",
+   "from": "Tuzigoot",
+   "drive": "~55m",
+   "arrive": "12:15 PM",
+   "z": "MST",
+   "via": "Up to Flagstaff, with lunch in town.",
+   "name": "Walnut Canyon NM",
+   "type": "National Monument",
+   "place": "Visitor center, Flagstaff",
+   "addr": "Walnut Canyon National Monument",
+   "where": "Visitor center desk",
+   "hrs": "The rim overlook is paved; the canyon-floor loop is all stairs, so it was skipped.",
+   "about": "Cliff rooms built by the Sinagua into the ledges of a 400-foot-deep limestone canyon."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "sucr",
+   "color": "#C46A3A",
+   "ink": "#FFFFFF",
+   "boxColor": "#C46A3A",
+   "from": "Walnut Canyon",
+   "drive": "~25m",
+   "arrive": "2:45 PM",
+   "z": "MST",
+   "via": "North on US-89.",
+   "name": "Sunset Crater Volcano NM",
+   "type": "National Monument",
+   "place": "Visitor center",
+   "addr": "Sunset Crater Volcano National Monument Visitor Center",
+   "where": "Visitor center desk",
+   "hrs": "Closed at 4:30 PM, the tightest stop of the planned day.",
+   "about": "A cinder cone that erupted around 1085, the youngest volcano on the Colorado Plateau, its rim tinted red and yellow."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "pefo",
+   "color": "#9B6B8E",
+   "ink": "#FFFFFF",
+   "boxColor": "#9B6B8E",
+   "from": "Sunset Crater",
+   "drive": "~1h 50m",
+   "arrive": "before 5 PM",
+   "z": "MST",
+   "via": "I-40 east to the park’s north entrance.",
+   "name": "Petrified Forest NP",
+   "type": "National Park",
+   "place": "Painted Desert, north end",
+   "addr": "Painted Desert Visitor Center, Petrified Forest National Park",
+   "where": "North end of the park",
+   "hrs": "Gates lock at 5 PM sharp.",
+   "ok": "Moved up from Sunday’s plan, and a new park for the 63.",
+   "about": "Fallen trees from about 225 million years ago turned to quartz, set in the banded hills of the Painted Desert."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "cham",
+   "from": "Petrified Forest",
+   "drive": "~20m",
+   "arrive": "evening",
+   "z": "MST",
+   "via": "I-40 east to Exit 333.",
+   "name": "Chambers, AZ",
+   "addr": "SureStay by Best Western Chambers Petrified Forest",
+   "note": "SureStay by Best Western Chambers Petrified Forest, right off I-40. Still on regular Arizona time here."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "hutr",
+   "color": "#2F7D7A",
+   "ink": "#FFFFFF",
+   "boxColor": "#2F7D7A",
+   "from": "Chambers",
+   "leave": "7:00 AM",
+   "drive": "~45m",
+   "arrive": "7:45 AM",
+   "z": "MST",
+   "tz": "8:45 Navajo time",
+   "via": "US-191 north to Ganado. The Navajo Nation’s clock is an hour ahead from here.",
+   "name": "Hubbell Trading Post NHS",
+   "type": "National Historic Site",
+   "place": "Ganado",
+   "addr": "Hubbell Trading Post National Historic Site",
+   "where": "Visitor center desk",
+   "hrs": "8 AM – 5 PM Navajo time.",
+   "about": "The oldest continuously operating trading post on the Navajo Nation, trading since 1878."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "cach",
+   "color": "#2F7D7A",
+   "ink": "#FFFFFF",
+   "boxColor": "#2F7D7A",
+   "from": "Hubbell",
+   "drive": "~40m",
+   "arrive": "8:45 AM",
+   "z": "MST",
+   "tz": "9:45 Navajo time",
+   "via": "US-191 north to Chinle.",
+   "name": "Canyon de Chelly NM",
+   "type": "National Monument",
+   "place": "Welcome Center, Chinle",
+   "addr": "Canyon de Chelly National Monument Welcome Center",
+   "where": "Welcome Center desk",
+   "hrs": "8 AM – 5 PM Navajo time. South Rim overlooks are roadside pull-offs.",
+   "about": "Sheer sandstone canyons where Navajo families still live and farm, inside the monument on Navajo land."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "nava",
+   "color": "#2F7D7A",
+   "ink": "#FFFFFF",
+   "boxColor": "#2F7D7A",
+   "from": "Canyon de Chelly",
+   "drive": "~2h 15m",
+   "arrive": "~11:20 AM",
+   "z": "MST",
+   "tz": "12:20 Navajo time",
+   "via": "Northwest across the reservation toward Kayenta.",
+   "name": "Navajo NM",
+   "type": "National Monument",
+   "place": "Visitor center, near Kayenta",
+   "addr": "Navajo National Monument Visitor Center",
+   "where": "Visitor center desk",
+   "hrs": "Stamp desk closes 5 PM Navajo time (4 PM Arizona clock).",
+   "about": "Protects Betatakin and Keet Seel, two of the best-preserved Ancestral Puebloan cliff villages, in remote canyons."
+  },
+  {
+   "d": 2,
+   "kind": "night",
+   "k": "phx",
+   "from": "Navajo NM",
+   "drive": "~4h 30m",
+   "arrive": "~5:30 PM",
+   "z": "MST",
+   "via": "Kayenta → Tuba City → Flagstaff → I-17 south, with a meal and gas stop.",
+   "name": "Phoenix area",
+   "addr": "Phoenix, AZ",
+   "note": "Night 3 was booked day-of near Phoenix, as close as possible to Monday’s 6 AM start toward Tonto."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "tont",
+   "color": "#B8862E",
+   "ink": "#2A1A1C",
+   "boxColor": "#B8862E",
+   "from": "Phoenix",
+   "leave": "6:00 AM",
+   "drive": "~2h",
+   "arrive": "8:00 AM",
+   "z": "MST",
+   "via": "US-60 through Globe, then AZ-188. Not the Apache Trail (AZ-88), which was closed.",
+   "name": "Tonto NM",
+   "type": "National Monument",
+   "place": "Visitor center, Roosevelt",
+   "addr": "Tonto National Monument Visitor Center",
+   "where": "Visitor center desk",
+   "hrs": "Opens 8 AM.",
+   "ok": "The stretch goal, and it made it.",
+   "about": "Salado cliff dwellings built in the 1300s in caves above Roosevelt Lake."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "cagr",
+   "color": "#B8862E",
+   "ink": "#2A1A1C",
+   "boxColor": "#B8862E",
+   "from": "Tonto",
+   "drive": "~2h",
+   "arrive": "~10:20 AM",
+   "z": "MST",
+   "via": "Back through Globe and down to Coolidge.",
+   "name": "Casa Grande Ruins NM",
+   "type": "National Monument",
+   "place": "Visitor center, Coolidge",
+   "addr": "Casa Grande Ruins National Monument",
+   "where": "Visitor center desk",
+   "hrs": "Free entry. Flat, paved paths around the Great House.",
+   "about": "A four-story caliche Great House built by the Ancestral Sonoran Desert People around 1350, the first archaeological reserve in the U.S. (1892)."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "sagu",
+   "color": "#B8862E",
+   "ink": "#2A1A1C",
+   "boxColor": "#B8862E",
+   "from": "Casa Grande",
+   "drive": "~1h 15m",
+   "arrive": "~11:55 AM",
+   "z": "MST",
+   "via": "I-10 east to Tucson, then west over Gates Pass to the Red Hills Visitor Center.",
+   "name": "Saguaro NP",
+   "type": "National Park",
+   "place": "Red Hills Visitor Center (West)",
+   "addr": "Red Hills Visitor Center, Saguaro National Park",
+   "where": "Red Hills Visitor Center",
+   "hrs": "9 AM – 5 PM.",
+   "ok": "National park number 15 of 63, and stamp 49 overall.",
+   "about": "Forests of giant saguaro cacti on both sides of Tucson, split into two districts."
+  },
+  {
+   "d": 3,
+   "kind": "home",
+   "k": "phxr",
+   "from": "Saguaro",
+   "drive": "~2h",
+   "arrive": "~2:15 PM",
+   "z": "MST",
+   "title": "Phoenix → home",
+   "note": "Returned the car at Sky Harbor with hours to spare, then Flight 2959, 8:40 → 10:40 PM to Oakland. 11 new stamps.",
+   "navTo": "Phoenix Sky Harbor Rental Car Center",
+   "navLabel": "PHX car return ↗"
+  }
+ ]
+}

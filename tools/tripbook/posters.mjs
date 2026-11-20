@@ -89,6 +89,17 @@ ${[12, 30, 48, 150, 168, 186].map((x, i) => pine(x, 170, 30 + (i % 3) * 8, '#142
 <g fill="#E3B75A"><circle cx="50" cy="163" r="2"/><circle cx="110" cy="162" r="2"/><circle cx="150" cy="158" r="2"/></g>
 ${[8, 22, 172, 188].map((x, i) => pine(x, 170, 40 + (i % 2) * 10, '#1F3A2E')).join('')}`,
   },
+  painted: {
+    sky: '#F4D3A6', sun: '#FBEBCD', band: '#4A2430', ink: '#4A2430', ac: '#E8A0A8',
+    art: `<circle cx="150" cy="46" r="20" fill="#FBEBCD"/>
+<path d="M0 104L18 96H52L60 88H104L112 98H150L158 90H200V170H0Z" fill="#C9857A"/>
+<path d="M0 112L18 106H52L60 100H104L112 108H150L158 102H200V118H0Z" fill="#E9C9B0"/>
+<path d="M0 118H200V126H0Z" fill="#9B6B8E"/>
+<path d="M0 126H200V132H0Z" fill="#E7B4A0"/>
+<path d="M0 132Q60 126 110 132T200 130V170H0Z" fill="#B0626A"/>
+<path d="M0 150Q70 142 130 150T200 148V170H0Z" fill="#7A3E4A"/>
+<g transform="rotate(-6 70 154)"><rect x="34" y="148" width="74" height="12" rx="6" fill="#D99A5B"/><g stroke="#8E5A2E" stroke-width="1.5"><path d="M50 148V160M66 148V160M84 148V160"/></g><ellipse cx="108" cy="154" rx="4" ry="6" fill="#B8733A"/></g>`,
+  },
   mission: {
     sky: '#F3C28B', sun: '#F9E3B8', band: '#3A1F24', ink: '#3A1F24', ac: '#4FC1BC',
     art: `<circle cx="150" cy="52" r="20" fill="#F9E3B8"/>
