@@ -179,7 +179,7 @@ const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].d
 const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
 const UNITS = [];
 STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
-  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: stopColor(s) });
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: s.boxColor || stopColor(s) });
   (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
 });
 const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
@@ -247,6 +247,7 @@ function buildMap(svg, o) {
     const rr = st.k === o.now ? r * 1.35 : r;
     el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: stopColor(st) }, g);
     const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
+    if (st.ink) t.style.fill = st.ink;
   });
 }
 
@@ -322,7 +323,7 @@ for (let d = 1; d <= LASTDAY; d++) {
     <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
     <ul class="tl">
       <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
-      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}${s.ink ? ';color:' + s.ink : ''}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
     </ul>
     ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
     ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
@@ -343,14 +344,14 @@ for (let d = 1; d <= LASTDAY; d++) {
     let html, label;
     if (s.kind === 'stop') {
       const C = stopColor(s);
-      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
+      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: s.boxColor || C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
       const dayStops = items.filter(x => x.kind === 'stop');
       html = `
         <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
         <div style="height:8px"></div>
         ${driveCard}
         ${mapSvg}
-        <div class="stopname"><div class="num" style="background:${C}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+        <div class="stopname"><div class="num" style="background:${C}${s.ink ? ';color:' + s.ink : ''}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
           <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
         ${s.optional ? `<div class="note ok">${esc(s.optional)}</div>` : ''}
         ${units.map(u => `
@@ -423,7 +424,7 @@ for (let d = 1; d <= LASTDAY; d++) {
 
 /* ---------- legend, checklist, stamps ---------- */
 document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
-  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)} · ${D.dow}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + ' stamps' : ''}</span></span></button>`).join('');
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)}${D.dow ? ' · ' + D.dow : ''}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + (D.stamps > 1 ? ' stamps' : ' stamp') : ''}</span></span></button>`).join('');
 document.getElementById('chk').innerHTML = UNITS.map(u =>
   `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
 

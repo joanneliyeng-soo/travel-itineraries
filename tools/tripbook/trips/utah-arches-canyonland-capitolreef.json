@@ -1,0 +1,386 @@
+{
+ "slug": "utah-arches-canyonland-capitolreef",
+ "title": "Mighty Five Long Weekend",
+ "short": "Mighty Five",
+ "placeholder": "Placeholder · May–Oct only",
+ "subtitle": "Finish Utah’s five national parks over a May–October three-day weekend: Timpanogos Cave and Arches on Day 1, Canyonlands and Capitol Reef on Day 2, home from Salt Lake City on Day 3.",
+ "chips": [
+  "4 new stamps",
+  "3 national parks",
+  "Mountain time"
+ ],
+ "itinerary": "utah-arches-canyonland-capitolreef.html",
+ "theme": {
+  "#1E1D33": "#142133",
+  "#26243F": "#1B2A3F",
+  "#2C2A47": "#25385A",
+  "#322F51": "#2E4468",
+  "#38355A": "#34507A",
+  "#E2603A": "#C98A2E",
+  "#E9E6FA": "#F3E9D6",
+  "#CFCBE6": "#AEBBCF",
+  "#A9A4C8": "#E8B84A",
+  "#C9C4E4": "#C9D2E0",
+  "#EDEAF9": "#F3E9D6",
+  "#EEEBF7": "#EFE4CC",
+  "#F1EFF7": "#F6EEDD",
+  "#6E6A88": "#5C6A80",
+  "#9C97B4": "#8FA0BC",
+  "#ECE9F2": "#EAD9B4",
+  "#FBFAF6": "#FBF6EC",
+  "#E7E3D9": "#EAD9B4",
+  "#EFEDE6": "#E3E8F0",
+  "#8F8AB4": "#E8B84A",
+  "#B8B3C8": "#AEBBCF",
+  "#7C7896": "#5C6A80",
+  "#FFF3EE": "#FFF7E8"
+ },
+ "legMinW": 340,
+ "map": {
+  "bbox": [
+   [
+    -112.3,
+    40.95
+   ],
+   [
+    -109.3,
+    38.1
+   ]
+  ],
+  "states": [
+   "Utah",
+   "Colorado",
+   "Nevada",
+   "Arizona",
+   "Wyoming",
+   "Idaho"
+  ],
+  "highlight": [
+   "Utah"
+  ],
+  "stateLabels": [
+   [
+    "UTAH",
+    -111.0,
+    39.45
+   ],
+   [
+    "COLO.",
+    -109.42,
+    39.6
+   ]
+  ],
+  "cities": [
+   [
+    "Price",
+    -110.81,
+    39.6
+   ],
+   [
+    "Green River",
+    -110.16,
+    38.995
+   ],
+   [
+    "Moab",
+    -109.5498,
+    38.5733
+   ],
+   [
+    "Hanksville",
+    -110.713,
+    38.373
+   ],
+   [
+    "Salina",
+    -111.86,
+    38.958
+   ],
+   [
+    "Provo",
+    -111.658,
+    40.234
+   ]
+  ],
+  "points": {
+   "slch": [
+    -111.993,
+    40.774
+   ],
+   "arch": [
+    -109.6197,
+    38.6165
+   ],
+   "asd": [
+    -109.5366,
+    38.6872
+   ],
+   "moab": [
+    -109.5498,
+    38.5733
+   ],
+   "isky": [
+    -109.821,
+    38.4596
+   ],
+   "crvc": [
+    -111.2621,
+    38.2913
+   ],
+   "tor": [
+    -111.4187,
+    38.2994
+   ],
+   "crsd": [
+    -111.249,
+    38.27
+   ],
+   "slc": [
+    -111.9791,
+    40.7899
+   ],
+   "tica": [
+    -111.705,
+    40.4438
+   ]
+  }
+ },
+ "airports": [
+  [
+   "slc",
+   "SLC"
+  ]
+ ],
+ "route": [
+  "slch",
+  "tica",
+  "arch",
+  "asd",
+  "moab",
+  "isky",
+  "crvc",
+  "tor",
+  "crsd",
+  "slc"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 0 · date TBD",
+   "title": "Fly to Salt Lake",
+   "color": "#2E4468",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK → SLC after work</h2>\n<p>Clocks jump an hour forward. Pick up the round-trip rental at SLC, ideally AWD (Costco Travel). AWD matters most in winter, for the mountain passes in and out.</p>\n<p>Sleep at the <b>Best Western Plus Airport Inn &amp; Suites</b>, 5433 W Wiley Post Way.</p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Best+Western+Plus+Airport+Inn+%26+Suites,+Salt+Lake+City\" target=\"_blank\" rel=\"noopener\">Navigate to hotel ↗</a></div>\n<div class=\"note warn\"><b>Winter:</b> check UDOT road conditions before bed for the drive over Soldier Summit.</div>\n<div class=\"cut\"><b>Once dates are set:</b> book OAK ⇄ SLC flights, the three hotels and the AWD rental, and check whether Arches needs timed entry on your dates. Home flight any time after about 3:30 PM Mountain on Day 3.</div>"
+  },
+  {
+   "n": 1,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 1 · date TBD",
+   "title": "Timpanogos Cave, then Arches",
+   "sub": "Salt Lake City → Timpanogos Cave → Arches → Moab",
+   "color": "#C98A2E",
+   "drive": "~5h",
+   "stamps": 2,
+   "start": "slch",
+   "end": "moab",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "Timpanogos Cave’s visitor center is seasonal (about mid-May to mid-October). Outside the season, skip it and leave SLC at 8:00. Arches roads and viewpoints can ice over after snow.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Plus+Airport+Inn+%26+Suites,+Salt+Lake+City/Timpanogos+Cave+National+Monument/Arches+National+Park+Visitor+Center/Best+Western+Plus+Canyonlands+Inn,+Moab"
+  },
+  {
+   "n": 2,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 2 · date TBD",
+   "title": "Island in the Sky, then Capitol Reef",
+   "sub": "Moab → Canyonlands → Capitol Reef → Torrey",
+   "color": "#4A6290",
+   "drive": "~4h",
+   "stamps": 2,
+   "start": "moab",
+   "end": "tor",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "No gas inside Canyonlands, so fill the tank in Moab. Capitol Reef’s visitor center may close on major holidays, so keep this a non-holiday day.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Plus+Canyonlands+Inn,+Moab/Island+in+the+Sky+Visitor+Center/Capitol+Reef+Visitor+Center/Torrey,+UT"
+  },
+  {
+   "n": 3,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 3 · date TBD",
+   "title": "A slow morning, then home",
+   "sub": "Capitol Reef Scenic Drive → Salt Lake City",
+   "color": "#8C7434",
+   "drive": "~4h",
+   "start": "tor",
+   "end": "slc",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "No gas between Salina and Loa, so fill up in Torrey. In winter, check UDOT for the high road between Loa and I-70.",
+   "gmaps": "https://www.google.com/maps/dir/Torrey,+UT/Capitol+Reef+Visitor+Center/Salt+Lake+City+International+Airport"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "tica",
+   "color": "#AEBBCF",
+   "ink": "#1B2A3F",
+   "boxColor": "#4A6290",
+   "from": "Salt Lake City",
+   "leave": "7:30 AM",
+   "drive": "~45m",
+   "arrive": "8:15 AM",
+   "z": "MT",
+   "via": "I-15 S → Exit 284 (Alpine–Highland) → SR-92 east 10 mi up American Fork Canyon. Put “Timpanogos Cave National Monument” into GPS, not a street address.",
+   "name": "Timpanogos Cave NM",
+   "type": "National Monument",
+   "place": "Timpanogos Cave Visitor Center, American Fork Canyon",
+   "addr": "Timpanogos Cave National Monument",
+   "where": "Timpanogos Cave Visitor Center",
+   "hrs": "Seasonal: usually open with the cave tour season, about mid-May to mid-October, 7:00–5:30. Closed in winter. (801) 756-5239.",
+   "optional": "Outside the season, skip this stop and leave SLC at 8:00 for Arches.",
+   "acc": "Stamp only. The visitor center is at the bottom of the cave trail, by the parking. The cave itself is a steep 1.5-mile hike up, so skip it.",
+   "about": "Three small caves high on Mount Timpanogos, joined by man-made tunnels and protected since 1922. They’re known for helictites, twisting formations that seem to defy gravity."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "arch",
+   "color": "#E8B84A",
+   "ink": "#1B2A3F",
+   "boxColor": "#C98A2E",
+   "from": "Timpanogos Cave",
+   "drive": "~3h 15m",
+   "arrive": "11:50 AM",
+   "z": "MT",
+   "via": "Back to I-15 S → US-6 over Soldier Summit → I-70 → US-191. Drive time is an estimate; confirm in Google Maps.",
+   "name": "Arches NP",
+   "type": "National Park",
+   "place": "Arches Visitor Center, Moab",
+   "addr": "Arches National Park Visitor Center",
+   "where": "Arches Visitor Center",
+   "hrs": "Winter 9:00–4:30 daily, longer the rest of the year; closed only on Christmas.",
+   "warn": "Timed-entry reservations weren’t required in 2026, but have applied in busy months before. Check once dates are set.",
+   "ok": "New park for the 64.",
+   "about": "More than 2,000 natural stone arches, the densest concentration anywhere, carved from red Entrada sandstone."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "asd",
+   "from": "the visitor center",
+   "drive": "park road",
+   "arrive": "12:30 PM",
+   "z": "MT",
+   "name": "Arches Scenic Drive",
+   "place": "Inside the park",
+   "addr": "The Windows Section, Arches National Park",
+   "note": "Park Avenue viewpoint, Balanced Rock right beside the road, then the Windows section, where the arches are visible from the parking area. Finish at the Delicate Arch lower viewpoint, a short walk from its lot.",
+   "warn": "Roads and viewpoints can ice over or close after snow."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "moab",
+   "from": "Arches",
+   "drive": "back to town",
+   "arrive": "3:45 PM",
+   "z": "MT",
+   "name": "Moab, UT",
+   "addr": "Best Western Plus Canyonlands Inn, 16 S Main St, Moab, UT",
+   "note": "Best Western Plus Canyonlands Inn, 16 S Main St. Downtown on Main Street, with dinner within walking distance. Tomorrow starts at 8:20 AM."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "isky",
+   "color": "#C98A2E",
+   "ink": "#1B2A3F",
+   "boxColor": "#A86F1F",
+   "from": "Moab",
+   "leave": "8:20 AM",
+   "drive": "~40m",
+   "arrive": "9:00 AM",
+   "z": "MT",
+   "via": "US-191 N → Scenic Byway 313, 32 mi. Fill the tank first.",
+   "name": "Canyonlands NP",
+   "type": "National Park",
+   "place": "Island in the Sky Visitor Center",
+   "addr": "Island in the Sky Visitor Center",
+   "where": "Island in the Sky Visitor Center",
+   "hrs": "Winter 9:00–4:00, longer the rest of the year; closed only on Christmas.",
+   "ok": "New park for the 64. The Shafer Canyon overlook is next to the visitor center. Then drive on to Grand View Point at the end of the road, a short walk from the car. The Needles district closes in winter, so Island in the Sky is the reliable stop.",
+   "about": "The Colorado and Green rivers split Canyonlands into districts. Island in the Sky is a mesa standing more than 1,000 feet above the canyons below."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "crvc",
+   "color": "#EAD9B4",
+   "ink": "#1B2A3F",
+   "boxColor": "#8C7434",
+   "from": "Island in the Sky",
+   "drive": "~3h",
+   "arrive": "2:00 PM",
+   "z": "MT",
+   "via": "Back to US-191 → I-70 → UT-24 via Hanksville.",
+   "name": "Capitol Reef NP",
+   "type": "National Park",
+   "place": "Capitol Reef Visitor Center",
+   "addr": "Capitol Reef Visitor Center",
+   "where": "Capitol Reef Visitor Center",
+   "hrs": "Open daily, with shorter hours in winter. Call 435-425-3791 the week before to confirm.",
+   "ok": "New park for the 64, and Utah is done. The Fremont petroglyph panel is along UT-24 just east of the visitor center, with a short boardwalk from its parking area.",
+   "about": "Protects the Waterpocket Fold, a nearly 100-mile wrinkle in the Earth’s crust. The Fruita orchards were planted by Mormon pioneers."
+  },
+  {
+   "d": 2,
+   "kind": "night",
+   "k": "tor",
+   "from": "Capitol Reef",
+   "drive": "~15m",
+   "arrive": "3:30 PM",
+   "z": "MT",
+   "via": "UT-24 W to Torrey.",
+   "name": "Torrey, UT",
+   "addr": "Capitol Reef Resort, Torrey, UT",
+   "note": "Capitol Reef Resort. It was long listed as a Best Western, so confirm the brand when booking. The sandstone cliffs behind Torrey glow red at sunset."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "crsd",
+   "from": "Torrey",
+   "leave": "~8:15 AM",
+   "drive": "~15m",
+   "arrive": "8:30 AM",
+   "z": "MT",
+   "name": "Capitol Reef Scenic Drive",
+   "place": "Weather permitting",
+   "addr": "Capitol Reef Scenic Drive",
+   "note": "The paved first stretch runs past the Fruita orchards and under the Waterpocket Fold cliffs. Turn back when it suits you.",
+   "ok": "The Gifford House and its pies are open mid-March to late November only."
+  },
+  {
+   "d": 3,
+   "kind": "home",
+   "k": "slc",
+   "from": "Capitol Reef",
+   "drive": "~3h 30m",
+   "arrive": "~1:30 PM",
+   "z": "MT",
+   "via": "UT-24 → UT-72 → I-70 → US-50 → I-15 N. No gas between Salina and Loa, so fill up in Torrey.",
+   "title": "Salt Lake City → home",
+   "note": "Lunch in Salt Lake, return the car, and fly home any time after about 3:30 PM Mountain. You land back on Pacific time, an hour earlier by the clock.",
+   "navTo": "Salt Lake City International Airport",
+   "navLabel": "Navigate to SLC ↗"
+  }
+ ]
+}
