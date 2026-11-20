@@ -50,3 +50,11 @@ Night fields: `name`, `note`. Home fields: `title`, `note`, `navTo`, `navLabel`.
 - `legMinW` sets how far the per-stop maps zoom in (smaller = closer; default 400).
 
 Use a different day palette for each trip. Drive times come from Google Maps, not estimates.
+
+## Screen sizes
+
+On narrow phones (430px wide or less, e.g. a folded Galaxy Z Fold cover screen) gutters tighten and stop pages show the stamp box and Navigate before the leg map.
+
+### Wide screens
+
+On screens at least 700px wide and roughly square or wider (an unfolded Galaxy Z Fold, a tablet), the book widens to 1120px and each page goes two-column: the map floats left and the details sit beside it. Phones in portrait keep the single-column layout.
