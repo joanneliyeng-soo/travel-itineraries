@@ -1,0 +1,633 @@
+{
+ "slug": "newmexico-monumentloop",
+ "book": "new-mexico",
+ "emoji": "🏜️",
+ "poster": "mission",
+ "title": "New Mexico Stamp Loop",
+ "short": "New Mexico",
+ "placeholder": "Placeholder · long weekend, dates TBD",
+ "subtitle": "Albuquerque → Jemez Mountains → Santa Fe → Salt Missions → the old Zuni–Acoma trail. A Thursday-night-to-Sunday-night fly-in, ready to drop onto any long weekend.",
+ "chips": [
+  "8 NPS units",
+  "Up to 10 stamps",
+  "Mountain time"
+ ],
+ "itinerary": "newmexico-monumentloop.html",
+ "theme": {
+  "#1E1D33": "#2A1820",
+  "#26243F": "#33202A",
+  "#2C2A47": "#3F2833",
+  "#322F51": "#4A2F3B",
+  "#38355A": "#573845",
+  "#E2603A": "#2FA3A0",
+  "#E9E6FA": "#F6E9DA",
+  "#CFCBE6": "#D9BFB4",
+  "#A9A4C8": "#E9B872",
+  "#C9C4E4": "#E2CFC6",
+  "#EDEAF9": "#F6E9DA",
+  "#EEEBF7": "#F1E3D3",
+  "#F1EFF7": "#F7EEE4",
+  "#6E6A88": "#7A5A62",
+  "#9C97B4": "#B08C8F",
+  "#ECE9F2": "#EFD9C2",
+  "#FBFAF6": "#FCF7F0",
+  "#E7E3D9": "#EFD9C2",
+  "#EFEDE6": "#F3E6DA",
+  "#8F8AB4": "#E9B872",
+  "#B8B3C8": "#D9BFB4",
+  "#7C7896": "#7A5A62",
+  "#FFF3EE": "#FFF4EC"
+ },
+ "legMinW": 340,
+ "map": {
+  "bbox": [
+   [
+    -108.75,
+    36.15
+   ],
+   [
+    -105.45,
+    34.3
+   ]
+  ],
+  "states": [
+   "New Mexico",
+   "Arizona",
+   "Colorado",
+   "Texas"
+  ],
+  "highlight": [
+   "New Mexico"
+  ],
+  "stateLabels": [
+   [
+    "NEW MEXICO",
+    -107.3,
+    34.55
+   ]
+  ],
+  "cities": [
+   [
+    "Santa Fe",
+    -105.9378,
+    35.687
+   ],
+   [
+    "Grants",
+    -107.8514,
+    35.1473
+   ],
+   [
+    "Los Alamos",
+    -106.3031,
+    35.8881
+   ],
+   [
+    "Mountainair",
+    -106.2436,
+    34.5198
+   ]
+  ],
+  "points": {
+   "abqh": [
+    -106.621,
+    35.055
+   ],
+   "w_sy": [
+    -106.7731,
+    35.5589
+   ],
+   "w_js": [
+    -106.6919,
+    35.7706
+   ],
+   "vaca": [
+    -106.519,
+    35.8644
+   ],
+   "w_la": [
+    -106.37,
+    35.86
+   ],
+   "mapr": [
+    -106.302,
+    35.8808
+   ],
+   "band": [
+    -106.2709,
+    35.7791
+   ],
+   "w_wr": [
+    -106.2059,
+    35.8228
+   ],
+   "w_pj": [
+    -106.0228,
+    35.8926
+   ],
+   "sf": [
+    -106.0072,
+    35.6446
+   ],
+   "w_i25": [
+    -105.87,
+    35.55
+   ],
+   "peco": [
+    -105.6863,
+    35.5504
+   ],
+   "w_gl": [
+    -105.95,
+    35.4
+   ],
+   "w_st": [
+    -106.0105,
+    35.1467
+   ],
+   "mori": [
+    -106.0492,
+    34.9898
+   ],
+   "w_es": [
+    -106.0553,
+    34.7584
+   ],
+   "w_pa": [
+    -106.21,
+    34.64
+   ],
+   "quar": [
+    -106.2975,
+    34.5954
+   ],
+   "mtnr": [
+    -106.2422,
+    34.5199
+   ],
+   "abo": [
+    -106.3745,
+    34.4501
+   ],
+   "w_bern": [
+    -106.83,
+    34.42
+   ],
+   "w_los": [
+    -106.73,
+    34.7
+   ],
+   "abqh2": [
+    -106.621,
+    35.055
+   ],
+   "w_lag": [
+    -107.25,
+    35.03
+   ],
+   "w_gr": [
+    -107.86,
+    35.13
+   ],
+   "w_53a": [
+    -107.98,
+    35.02
+   ],
+   "w_53b": [
+    -108.2,
+    35.03
+   ],
+   "elmo": [
+    -108.3489,
+    35.0386
+   ],
+   "elma": [
+    -107.8288,
+    35.1186
+   ],
+   "petr": [
+    -106.7113,
+    35.1389
+   ],
+   "boca": [
+    -106.7179,
+    35.1611
+   ],
+   "oldt": [
+    -106.6701,
+    35.0968
+   ],
+   "abq": [
+    -106.6258,
+    35.0404
+   ]
+  }
+ },
+ "airports": [
+  [
+   "abq",
+   "ABQ"
+  ]
+ ],
+ "route": [
+  "abqh",
+  "w_sy",
+  "w_js",
+  "vaca",
+  "w_la",
+  "mapr",
+  "band",
+  "w_wr",
+  "w_pj",
+  "sf",
+  "w_i25",
+  "peco",
+  "w_i25",
+  "w_gl",
+  "w_st",
+  "mori",
+  "w_es",
+  "w_pa",
+  "quar",
+  "mtnr",
+  "abo",
+  "w_bern",
+  "w_los",
+  "abqh2",
+  "w_lag",
+  "w_gr",
+  "w_53a",
+  "w_53b",
+  "elmo",
+  "w_53b",
+  "w_53a",
+  "w_gr",
+  "elma",
+  "w_lag",
+  "petr",
+  "boca",
+  "oldt",
+  "abq"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "Thu",
+   "dowLong": "Thursday",
+   "kicker": "Day 0 · Thursday · date TBD",
+   "title": "Fly to Albuquerque",
+   "color": "#4A2F3B",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK → ABQ after work</h2>\n<p>Southwest nonstop, about 6:00 PM Pacific to 9:15 PM Mountain (sample timing). Clocks jump an hour forward.</p>\n<p>Shuttle to the <b>Sunport Rental Car Center</b> and pick up the Costco Travel rental tonight, so Friday can start early.</p>\n<p>Sleep at the <b>Best Western Airport Albuquerque InnSuites</b>, 2400 Yale Blvd SE (nights 1 and 3).</p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Best+Western+Airport+Albuquerque+InnSuites,+2400+Yale+Blvd+SE\" target=\"_blank\" rel=\"noopener\">Navigate to hotel ↗</a></div>\n<div class=\"cut\"><b>Before picking dates:</b> skip Thanksgiving and Christmas weekends, when most of these stops close. Mid-May to mid-October means the Bandelier shuttle; November to April means possible snow on NM-4 and at the Valles Caldera gate. Book 2 hotels: the Airport InnSuites for nights 1 and 3, Santa Fe for night 2. America the Beautiful + Access Pass cover entrance fees.</div>"
+  },
+  {
+   "n": 1,
+   "dow": "Fri",
+   "dowLong": "Friday",
+   "kicker": "Day 1 · Friday · date TBD",
+   "title": "Caldera to cliff dwellings",
+   "sub": "Albuquerque → Valles Caldera → Los Alamos → Bandelier → Santa Fe",
+   "color": "#C1563A",
+   "drive": "~4h",
+   "stamps": 3,
+   "start": "abqh",
+   "end": "sf",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "Jemez Springs is the last easy stop for gas. Check Valles Caldera alerts the night before, and keep Day 1 on a Friday: the Manhattan Project desk is open Friday to Monday only.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Airport+Albuquerque+InnSuites/Valles+Caldera+Volcano+Discovery+Center/475+20th+St%2C+Los+Alamos%2C+NM/Bandelier+National+Monument+Visitor+Center/Best+Western+Plus+Inn+of+Santa+Fe"
+  },
+  {
+   "n": 2,
+   "dow": "Sat",
+   "dowLong": "Saturday",
+   "kicker": "Day 2 · Saturday · date TBD",
+   "title": "Pecos and the Salt Missions",
+   "sub": "Santa Fe → Pecos → Moriarty → Quarai → Mountainair → Abó → Albuquerque",
+   "color": "#2FA3A0",
+   "drive": "~4h",
+   "stamps": 2,
+   "start": "sf",
+   "end": "abqh2",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "Salinas hours are 9 AM – 4 PM Nov–Mar and 10 AM – 5 PM Apr–Oct, so in winter keep moving after lunch to reach Abó well before 4.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Plus+Inn+of+Santa+Fe/Pecos+National+Historical+Park+Visitor+Center/Moriarty%2C+NM/Quarai%2C+Salinas+Pueblo+Missions+National+Monument/105+S+Ripley+Ave%2C+Mountainair%2C+NM/Abo%2C+Salinas+Pueblo+Missions+National+Monument/Best+Western+Airport+Albuquerque+InnSuites"
+  },
+  {
+   "n": 3,
+   "dow": "Sun",
+   "dowLong": "Sunday",
+   "kicker": "Day 3 · Sunday · date TBD",
+   "title": "Inscriptions, lava, petroglyphs",
+   "sub": "Albuquerque → El Morro → El Malpais → Petroglyph → Old Town → home",
+   "color": "#D9A441",
+   "drive": "~4h 40m",
+   "stamps": 3,
+   "start": "abqh2",
+   "end": "abq",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "Check out with luggage. Day 3 is the trip’s only backtrack: El Morro is a dead end off NM-53. Gas up in Grants; stations are sparse west of it. Petroglyph’s stamp desk closes at 4:30.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Airport+Albuquerque+InnSuites/El+Morro+National+Monument+Visitor+Center/El+Malpais+National+Monument+Visitor+Center%2C+Grants/Petroglyph+National+Monument+Visitor+Center/Boca+Negra+Canyon/Old+Town+Albuquerque/Albuquerque+Rental+Car+Center"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "vaca",
+   "color": "#C1563A",
+   "ink": "#FFFFFF",
+   "boxColor": "#C1563A",
+   "from": "Albuquerque",
+   "leave": "7:00 AM",
+   "drive": "~2h",
+   "arrive": "9:00 AM",
+   "z": "MT",
+   "via": "I-25 → US-550 → NM-4, the Jemez Mountain Trail. Red cliffs at Jemez Pueblo, then the Soda Dam roadside pullout.",
+   "name": "Valles Caldera NPres",
+   "type": "National Preserve",
+   "place": "Volcano Discovery Center, Cabin District",
+   "addr": "Valles Caldera Volcano Discovery Center",
+   "where": "Volcano Discovery Center, 4 miles down the entrance road",
+   "hrs": "Vehicle gate 9 AM – 5 PM most of the year (8 AM – 6 PM Memorial Day to Labor Day).",
+   "warn": "In winter, snow can close or delay the gate. Check park alerts the night before.",
+   "ok": "Drive-up views of the Valle Grande. The eruption show runs every hour on the half hour.",
+   "about": "A volcanic caldera about 13 miles across, left by a huge eruption some 1.25 million years ago. Its grassy valles are home to a big elk herd."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "mapr",
+   "color": "#C1563A",
+   "ink": "#FFFFFF",
+   "boxColor": "#C1563A",
+   "from": "Valles Caldera",
+   "drive": "~30m",
+   "arrive": "10:45 AM",
+   "z": "MT",
+   "via": "NM-4 → NM-501 into Los Alamos.",
+   "name": "Manhattan Project NHP",
+   "type": "National Historical Park",
+   "place": "Los Alamos Visitor Center",
+   "addr": "475 20th St, Los Alamos, NM 87544",
+   "where": "Visitor Center, 475 20th St",
+   "hrs": "Friday–Monday 10 AM – 3 PM. Closed Tuesday–Thursday.",
+   "warn": "If the NPS desk is closed, stamps are kept at the Los Alamos County Visitor Center in the same building. Call (505) 661-6277 the week before.",
+   "ok": "Includes one-third of the three-part Los Alamos / Oak Ridge / Hanford stamp. Lunch in Los Alamos, 11:30 – 12:20.",
+   "about": "The secret wartime laboratory where the first atomic bombs were designed. The park is shared with Oak Ridge, Tennessee, and Hanford, Washington."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "band",
+   "color": "#C1563A",
+   "ink": "#FFFFFF",
+   "boxColor": "#C1563A",
+   "from": "Los Alamos",
+   "drive": "~30m",
+   "arrive": "1:00 PM",
+   "z": "MT",
+   "via": "NM-501 → NM-4.",
+   "name": "Bandelier NM",
+   "type": "National Monument",
+   "place": "Frijoles Canyon Visitor Center",
+   "addr": "Bandelier National Monument Visitor Center",
+   "where": "Frijoles Canyon Visitor Center",
+   "hrs": "Daily 9 AM – 5 PM. Closed Christmas.",
+   "warn": "Mid-May to mid-October, cars arriving 9 AM – 3 PM must park at the White Rock Visitor Center and ride the shuttle in. Off-season, drive straight to the canyon.",
+   "acc": "The first stretch of the Main Loop Trail passes the Big Kiva and Tyuonyi village. The cliff dwellings need ladders, so enjoy them from below.",
+   "about": "Ancestral Pueblo people carved homes into the soft volcanic tuff of Frijoles Canyon and farmed the mesas here for about 400 years."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "sf",
+   "from": "Bandelier",
+   "drive": "~1h",
+   "arrive": "4:00 PM",
+   "z": "MT",
+   "via": "Leave about 3:00. NM-4 → NM-502 → US-84/285.",
+   "name": "Santa Fe, NM",
+   "addr": "Best Western Plus Inn of Santa Fe, 3650 Cerrillos Rd, Santa Fe, NM",
+   "note": "Best Western Plus Inn of Santa Fe, 3650 Cerrillos Rd. Dinner around the Santa Fe Plaza, about 15 minutes north. Tomorrow starts at 8:25 AM."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "peco",
+   "color": "#2FA3A0",
+   "ink": "#FFFFFF",
+   "boxColor": "#2FA3A0",
+   "from": "Santa Fe",
+   "leave": "8:25 AM",
+   "drive": "~35m",
+   "arrive": "9:00 AM",
+   "z": "MT",
+   "via": "I-25 north to Pecos.",
+   "name": "Pecos NHP",
+   "type": "National Historical Park",
+   "place": "E.E. Fogelson Visitor Center",
+   "addr": "Pecos National Historical Park Visitor Center",
+   "where": "E.E. Fogelson Visitor Center",
+   "hrs": "9 AM – 4 PM in winter; 8:30 AM – 4 PM May to October.",
+   "ok": "Museum and film. The 1.25-mile Ancestral Sites Trail to the mission church is optional.",
+   "about": "Pecos Pueblo sat on the trade route between the Pueblo villages and the Plains tribes. The ruins of its Spanish mission church still stand above the valley."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "mori",
+   "from": "Pecos",
+   "drive": "~50m",
+   "arrive": "11:05 AM",
+   "z": "MT",
+   "via": "Leave about 10:15. I-25 → US-285 → NM-41 south.",
+   "name": "Lunch in Moriarty",
+   "place": "Route 66 town, right on the way",
+   "addr": "Moriarty, NM",
+   "note": "Leave by 11:50 for Quarai."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "quar",
+   "unit": "Salinas Pueblo Missions NM",
+   "color": "#2FA3A0",
+   "ink": "#FFFFFF",
+   "boxColor": "#2FA3A0",
+   "from": "Moriarty",
+   "drive": "~40m",
+   "arrive": "12:30 PM",
+   "z": "MT",
+   "via": "NM-41 → Estancia → NM-55 south.",
+   "name": "Salinas Pueblo Missions NM",
+   "type": "National Monument",
+   "place": "Quarai unit",
+   "addr": "Quarai, Salinas Pueblo Missions National Monument",
+   "where": "Quarai contact station",
+   "hrs": "9 AM – 4 PM Nov–Mar; 10 AM – 5 PM Apr–Oct.",
+   "ok": "Red sandstone mission church on a short half-mile loop. Two more Salinas cancellations follow at Mountainair and Abó.",
+   "about": "Three Spanish mission churches built in the 1600s beside Pueblo villages. Drought, famine and raids emptied all three in the 1670s."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "mtnr",
+   "from": "Quarai",
+   "drive": "~15m",
+   "arrive": "1:25 PM",
+   "z": "MT",
+   "via": "NM-55 south.",
+   "name": "Mountainair Headquarters",
+   "place": "Salinas Pueblo Missions NM",
+   "addr": "105 S Ripley Ave, Mountainair, NM 87036",
+   "bonus": {
+    "title": "Extra Salinas cancellation · Mountainair HQ",
+    "where": "Main visitor center, 105 S Ripley Ave. Ask whether they also hold the Gran Quivira stamp.",
+    "hrs": "9 AM – 4 PM Nov–Mar; 10 AM – 5 PM Apr–Oct."
+   },
+   "note": "Optional: Gran Quivira is 25 miles south and back, adding about 1.5 hours round trip."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "abo",
+   "from": "Mountainair",
+   "drive": "~10m",
+   "arrive": "2:05 PM",
+   "z": "MT",
+   "via": "US-60 west.",
+   "name": "Abó",
+   "place": "Salinas Pueblo Missions NM",
+   "addr": "Abo, Salinas Pueblo Missions National Monument",
+   "bonus": {
+    "title": "Extra Salinas cancellation · Abó",
+    "where": "Abó contact station",
+    "hrs": "9 AM – 4 PM Nov–Mar; 10 AM – 5 PM Apr–Oct."
+   },
+   "note": "The last of the three Salinas sites. Leave about 2:40 for Albuquerque."
+  },
+  {
+   "d": 2,
+   "kind": "night",
+   "k": "abqh2",
+   "from": "Abó",
+   "drive": "~1h 20m",
+   "arrive": "4:00 PM",
+   "z": "MT",
+   "via": "US-60 → I-25 north.",
+   "name": "Albuquerque, NM",
+   "addr": "Best Western Airport Albuquerque InnSuites, 2400 Yale Blvd SE, Albuquerque, NM",
+   "note": "Best Western Airport InnSuites, 2400 Yale Blvd SE. Dinner in Old Town Albuquerque. Tomorrow starts at 7:00 AM; check out with your luggage."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "elmo",
+   "color": "#D9A441",
+   "ink": "#2A1820",
+   "boxColor": "#B5832A",
+   "from": "Albuquerque",
+   "leave": "7:00 AM",
+   "drive": "~2h",
+   "arrive": "9:00 AM",
+   "z": "MT",
+   "via": "I-40 west → exit 81 → NM-53. Gas up in Grants on the way; stations are sparse west of it.",
+   "name": "El Morro NM",
+   "type": "National Monument",
+   "place": "El Morro Visitor Center, Ramah",
+   "addr": "El Morro National Monument Visitor Center",
+   "where": "Visitor center",
+   "hrs": "9 AM – 5 PM. Open daily late May to mid-October; Thursday–Monday the rest of the year (Sunday is always open).",
+   "ok": "The half-mile Inscription Loop passes the pool and centuries of carved signatures. Start it by 2:30 PM; trail status (505) 783-4226 x801.",
+   "about": "A sandstone bluff with a hidden pool, where Ancestral Puebloans, Spanish travelers and U.S. Army surveyors all carved their marks over the centuries."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "elma",
+   "color": "#D9A441",
+   "ink": "#2A1820",
+   "boxColor": "#B5832A",
+   "from": "El Morro",
+   "drive": "~45m",
+   "arrive": "11:00 AM",
+   "z": "MT",
+   "via": "Leave about 10:15. NM-53 back to I-40 exit 85.",
+   "name": "El Malpais NM",
+   "type": "National Monument",
+   "place": "Visitor Center, Grants",
+   "addr": "El Malpais National Monument Visitor Center, 1900 E Santa Fe Ave, Grants, NM",
+   "where": "Visitor center, 1900 E Santa Fe Ave (I-40 exit 85)",
+   "hrs": "9 AM – 5 PM.",
+   "ok": "Lunch in Grants, 11:30 – 12:15.",
+   "about": "“Malpais” means badlands: rugged lava flows, lava tubes and cinder cones from a volcanic field that last erupted a few thousand years ago."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "petr",
+   "color": "#D9A441",
+   "ink": "#2A1820",
+   "boxColor": "#B5832A",
+   "from": "Grants",
+   "drive": "~1h 15m",
+   "arrive": "1:30 PM",
+   "z": "MT",
+   "via": "Leave about 12:15. I-40 east → Unser Blvd.",
+   "name": "Petroglyph NM",
+   "type": "National Monument",
+   "place": "Information Center",
+   "addr": "Petroglyph National Monument Visitor Center, 6510 Western Trail NW, Albuquerque",
+   "where": "Information Center, 6510 Western Trail NW",
+   "hrs": "8:30 AM – 4:30 PM.",
+   "ok": "No petroglyphs here; it’s the stamp and map stop. Boca Negra is next.",
+   "about": "Thousands of images pecked into the dark volcanic boulders of Albuquerque’s West Mesa, most by Ancestral Pueblo people several hundred years ago."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "boca",
+   "from": "the Information Center",
+   "drive": "~5m",
+   "arrive": "2:10 PM",
+   "z": "MT",
+   "via": "Unser Blvd north.",
+   "name": "Boca Negra Canyon",
+   "place": "Petroglyph NM",
+   "addr": "Boca Negra Canyon, Albuquerque",
+   "note": "About 100 petroglyphs close to the parking areas. The Macaw Trail is a 5-minute walk.",
+   "acc": "Paths are partly paved but not wheelchair accessible.",
+   "warn": "Last entry 4 PM."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "oldt",
+   "from": "Boca Negra",
+   "drive": "~20m",
+   "arrive": "3:20 PM",
+   "z": "MT",
+   "via": "Leave about 3:00.",
+   "name": "Old Town Albuquerque",
+   "place": "Early dinner",
+   "addr": "Old Town Plaza, Albuquerque, NM",
+   "note": "San Felipe de Neri church and the plaza. Leave about 5:15 to return the car."
+  },
+  {
+   "d": 3,
+   "kind": "home",
+   "k": "abq",
+   "from": "Old Town",
+   "drive": "~15m",
+   "arrive": "5:30 PM",
+   "z": "MT",
+   "title": "Albuquerque → home",
+   "note": "Return the car at the Sunport Rental Car Center and shuttle to the terminal; aim to be at security by 6:15. ABQ ~7:50 PM → OAK, often via SAN (sample timing). Home around 11:30 PM Pacific.",
+   "navTo": "Albuquerque Rental Car Center",
+   "navLabel": "Navigate to car return ↗"
+  }
+ ]
+}

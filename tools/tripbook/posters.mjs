@@ -78,6 +78,18 @@ ${[12, 30, 48, 150, 168, 186].map((x, i) => pine(x, 170, 30 + (i % 3) * 8, '#142
 <g stroke="#5FA7A8" stroke-width="2" stroke-linecap="round"><path d="M70 142H110M130 150H180M40 156H80"/></g>
 <path d="M14 132H44L40 126H18Z" fill="#1E2B45"/><path d="M27 126V100" stroke="#1E2B45" stroke-width="5"/><path d="M27 100L22 86" stroke="#1E2B45" stroke-width="3" stroke-linecap="round"/><circle cx="27" cy="98" r="4" fill="#1E2B45"/>`,
   },
+  mission: {
+    sky: '#F3C28B', sun: '#F9E3B8', band: '#3A1F24', ink: '#3A1F24', ac: '#4FC1BC',
+    art: `<circle cx="150" cy="52" r="20" fill="#F9E3B8"/>
+<path d="M0 104H24L30 94H84L90 104H200V170H0Z" fill="#B86A4E"/>
+<path d="M120 104L128 98H170L176 104Z" fill="#B86A4E"/>
+<path d="M0 124Q60 114 120 122T200 118V170H0Z" fill="#8E4A3A"/>
+<g fill="#D79A6E"><rect x="66" y="104" width="68" height="44"/><rect x="62" y="84" width="18" height="64" rx="3"/><rect x="120" y="84" width="18" height="64" rx="3"/><rect x="82" y="98" width="36" height="8" rx="3"/></g>
+<g stroke="#3A1F24" stroke-width="2.5" stroke-linecap="round"><path d="M71 70V82M66 75H76M129 70V82M124 75H134"/></g>
+<path d="M92 148V128Q92 118 100 118Q108 118 108 128V148Z" fill="#3A1F24"/>
+<g fill="#3A1F24"><rect x="68" y="92" width="6" height="8" rx="3"/><rect x="126" y="92" width="6" height="8" rx="3"/></g>
+<path d="M0 148Q70 138 130 146T200 144V170H0Z" fill="#6B3A2E"/>`,
+  },
 };
 
 export const scene = t => SCENES[t.poster] || SCENES.rockies;
