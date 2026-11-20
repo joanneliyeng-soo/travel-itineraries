@@ -1,0 +1,545 @@
+{
+ "slug": "june2026-zion-bryce-grandcanyon",
+ "book": "zion-bryce-grand-canyon",
+ "start": "2026-06-18",
+ "end": "2026-06-21",
+ "emoji": "🏜️",
+ "poster": "hoodoo",
+ "title": "Zion, Bryce & the North Rim",
+ "short": "Zion & Bryce",
+ "placeholder": "",
+ "subtitle": "Juneteenth weekend, Jun 18–21, 2026, from a base camp in Kanab with Jason and Jenny: Zion, Cedar Breaks and Bryce on Friday, Pipe Spring, Glen Canyon and the Grand Canyon’s North Rim on Saturday, Lake Mead on the way home. Clock times are from the plan.",
+ "chips": [
+  "10 new stamps",
+  "3 national parks",
+  "Utah · Arizona · Nevada"
+ ],
+ "itinerary": "june2026-zion-bryce-grandcanyon.html",
+ "collected": [
+  "zion",
+  "cebr",
+  "brca",
+  "pisp",
+  "glca",
+  "rabr",
+  "grca",
+  "lake",
+  "tusk"
+ ],
+ "theme": {
+  "#1E1D33": "#2B1A16",
+  "#26243F": "#34201B",
+  "#2C2A47": "#402821",
+  "#322F51": "#4C3027",
+  "#38355A": "#5A392F",
+  "#E2603A": "#D2643A",
+  "#E9E6FA": "#F7E9DC",
+  "#CFCBE6": "#DDC2B2",
+  "#A9A4C8": "#F2A65A",
+  "#C9C4E4": "#E6CFC0",
+  "#EDEAF9": "#F7E9DC",
+  "#EEEBF7": "#F2E3D5",
+  "#F1EFF7": "#F8EFE6",
+  "#6E6A88": "#7E5D50",
+  "#9C97B4": "#B5907F",
+  "#ECE9F2": "#F0DAC6",
+  "#FBFAF6": "#FDF8F3",
+  "#E7E3D9": "#F0DAC6",
+  "#EFEDE6": "#F4E7DB",
+  "#8F8AB4": "#F2A65A",
+  "#B8B3C8": "#DDC2B2",
+  "#7C7896": "#7E5D50",
+  "#FFF3EE": "#FFF4EC"
+ },
+ "legMinW": 340,
+ "map": {
+  "bbox": [
+   [
+    -115.3,
+    37.95
+   ],
+   [
+    -111.3,
+    35.85
+   ]
+  ],
+  "states": [
+   "Utah",
+   "Arizona",
+   "Nevada",
+   "California"
+  ],
+  "highlight": [
+   "Utah",
+   "Arizona",
+   "Nevada"
+  ],
+  "stateLabels": [
+   [
+    "UTAH",
+    -111.75,
+    37.65
+   ],
+   [
+    "ARIZONA",
+    -113.4,
+    36.3
+   ],
+   [
+    "NEVADA",
+    -115.0,
+    37.2
+   ]
+  ],
+  "cities": [
+   [
+    "Las Vegas",
+    -115.14,
+    36.17
+   ],
+   [
+    "St. George",
+    -113.58,
+    37.1
+   ],
+   [
+    "Page",
+    -111.46,
+    36.91
+   ],
+   [
+    "Cedar City",
+    -113.06,
+    37.68
+   ]
+  ],
+  "points": {
+   "kan": [
+    -112.5285,
+    37.0475
+   ],
+   "w_mcj": [
+    -112.68,
+    37.23
+   ],
+   "zion": [
+    -112.9869,
+    37.2001
+   ],
+   "w_lav": [
+    -113.27,
+    37.2
+   ],
+   "w_cc": [
+    -113.06,
+    37.68
+   ],
+   "cebr": [
+    -112.8471,
+    37.6413
+   ],
+   "w_pan": [
+    -112.435,
+    37.823
+   ],
+   "w_12": [
+    -112.29,
+    37.74
+   ],
+   "brca": [
+    -112.1696,
+    37.6402
+   ],
+   "kan2": [
+    -112.5285,
+    37.0475
+   ],
+   "w_fre": [
+    -112.526,
+    36.946
+   ],
+   "pisp": [
+    -112.7373,
+    36.8624
+   ],
+   "w_bw": [
+    -111.66,
+    37.08
+   ],
+   "glca": [
+    -111.4838,
+    36.9373
+   ],
+   "w_bs": [
+    -111.64,
+    36.62
+   ],
+   "w_nb": [
+    -111.63,
+    36.82
+   ],
+   "w_jl": [
+    -112.21,
+    36.71
+   ],
+   "grca": [
+    -112.0524,
+    36.1983
+   ],
+   "kan3": [
+    -112.5285,
+    37.0475
+   ],
+   "w_col": [
+    -112.975,
+    36.99
+   ],
+   "w_hur": [
+    -113.29,
+    37.175
+   ],
+   "w_sg": [
+    -113.58,
+    37.1
+   ],
+   "w_mes": [
+    -114.07,
+    36.8
+   ],
+   "w_hen": [
+    -114.98,
+    36.04
+   ],
+   "lake": [
+    -114.8327,
+    35.9786
+   ],
+   "las": [
+    -115.1567,
+    36.0569
+   ],
+   "lasa": [
+    -115.1567,
+    36.0569
+   ]
+  }
+ },
+ "airports": [
+  [
+   "las",
+   "LAS"
+  ]
+ ],
+ "route": [
+  "lasa",
+  "w_hen",
+  "w_mes",
+  "w_sg",
+  "w_hur",
+  "w_col",
+  "kan",
+  "w_mcj",
+  "zion",
+  "w_lav",
+  "w_cc",
+  "cebr",
+  "w_pan",
+  "w_12",
+  "brca",
+  "w_mcj",
+  "kan2",
+  "w_fre",
+  "pisp",
+  "w_fre",
+  "kan2",
+  "w_bw",
+  "glca",
+  "w_bs",
+  "w_nb",
+  "w_jl",
+  "grca",
+  "w_jl",
+  "w_fre",
+  "kan3",
+  "w_col",
+  "w_hur",
+  "w_sg",
+  "w_mes",
+  "w_hen",
+  "lake",
+  "las"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "Thu",
+   "dowLong": "Thursday",
+   "kicker": "Day 0 · Thu Jun 18",
+   "title": "Fly to Vegas, drive to Kanab",
+   "color": "#4C3027",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK → LAS, then a night drive</h2>\n<p>Southwest 5051, 8:15 → 9:50 PM, four of you. Picked up the Budget economy car (Costco Travel) at Harry Reid’s rental center, then about three hours to Kanab, arriving around 1:30 AM Utah time.</p>\n<p>All three nights at the <b>Best Western Red Hills</b>, 125 W Center St, Kanab, with breakfast from 6:30.</p>\n<div class=\"cut\"><b>How it went:</b> all seven planned stamps, plus Rainbow Bridge at the Carl Hayden Visitor Center, Tule Springs at the Lake Mead Visitor Center, and Wupatki, picked up separately on this trip. 10 new stamps.</div>"
+  },
+  {
+   "n": 1,
+   "dow": "Fri",
+   "dowLong": "Friday",
+   "kicker": "Day 1 · Fri Jun 19",
+   "title": "Zion, Cedar Breaks, Bryce",
+   "sub": "Kanab → Zion → Cedar Breaks → Bryce Canyon → Kanab",
+   "color": "#D2643A",
+   "drive": "~5h 30m",
+   "stamps": 3,
+   "start": "kan",
+   "end": "kan2",
+   "tzline": "Utah time (MDT)",
+   "cutLabel": "Good to know",
+   "cut": "Cedar Breaks sits at 10,000 ft, so bring a layer even in June.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Red+Hills%2C+Kanab/Zion+Canyon+Visitor+Center/Cedar+Breaks+National+Monument/Bryce+Canyon+Visitor+Center/Best+Western+Red+Hills%2C+Kanab"
+  },
+  {
+   "n": 2,
+   "dow": "Sat",
+   "dowLong": "Saturday",
+   "kicker": "Day 2 · Sat Jun 20",
+   "title": "Pipe Spring, Page, North Rim",
+   "sub": "Kanab → Pipe Spring → Glen Canyon → North Rim → Kanab",
+   "color": "#3F7FA6",
+   "drive": "~6h 15m",
+   "stamps": 3,
+   "start": "kan2",
+   "end": "kan3",
+   "tzline": "Utah time; Arizona runs an hour behind in summer",
+   "cutLabel": "Good to know",
+   "cut": "Arizona skips daylight saving time, so its clocks read an hour earlier than Kanab’s in June. Times here are the plan’s.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Red+Hills%2C+Kanab/Pipe+Spring+National+Monument/Carl+Hayden+Visitor+Center%2C+Page/North+Rim+Visitor+Center/Best+Western+Red+Hills%2C+Kanab"
+  },
+  {
+   "n": 3,
+   "dow": "Sun",
+   "dowLong": "Sunday",
+   "kicker": "Day 3 · Sun Jun 21",
+   "title": "Lake Mead and home",
+   "sub": "Kanab → Lake Mead → LAS",
+   "color": "#8C6BB1",
+   "drive": "~4h 10m",
+   "stamps": 1,
+   "start": "kan3",
+   "end": "las",
+   "tzline": "Clocks go back an hour in Nevada",
+   "cutLabel": "How it went",
+   "cut": "Two stamps at one desk: Lake Mead and Tule Springs Fossil Beds, both at the Lake Mead Visitor Center.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Red+Hills%2C+Kanab/Lake+Mead+Visitor+Center%2C+Boulder+City/Harry+Reid+International+Airport+Rental+Car+Center"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "zion",
+   "color": "#D2643A",
+   "ink": "#FFFFFF",
+   "boxColor": "#D2643A",
+   "from": "Kanab",
+   "leave": "7:00 AM",
+   "drive": "~1h",
+   "arrive": "8:00 AM",
+   "z": "MDT",
+   "via": "US-89 north, then UT-9 west through the Zion–Mount Carmel tunnel.",
+   "name": "Zion NP",
+   "type": "National Park",
+   "place": "Zion Canyon Visitor Center",
+   "addr": "Zion Canyon Visitor Center",
+   "where": "Zion Canyon Visitor Center",
+   "hrs": "8 AM – 7 PM in summer.",
+   "ok": "Shuttle stops at Canyon Junction, Court of the Patriarchs, Zion Lodge, Big Bend and Temple of Sinawava, all flat from the stop.",
+   "about": "Sandstone cliffs up to 2,000 feet tall above the Virgin River, Utah’s first national park."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "cebr",
+   "color": "#D2643A",
+   "ink": "#FFFFFF",
+   "boxColor": "#D2643A",
+   "from": "Zion",
+   "drive": "~1h 45m",
+   "arrive": "11:45 AM",
+   "z": "MDT",
+   "via": "Leave about 10:00. West to I-15, north to Cedar City, then UT-14.",
+   "name": "Cedar Breaks NM",
+   "type": "National Monument",
+   "place": "Visitor center",
+   "addr": "Cedar Breaks National Monument Visitor Center",
+   "where": "Visitor center",
+   "hrs": "9 AM – 5 PM.",
+   "ok": "Drive-up overlooks: Point Supreme, Sunset View and Chessmen Ridge.",
+   "about": "A half-mile-deep amphitheater of eroded limestone on the rim of the Markagunt Plateau, above 10,000 feet."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "brca",
+   "color": "#D2643A",
+   "ink": "#FFFFFF",
+   "boxColor": "#D2643A",
+   "from": "Cedar Breaks",
+   "drive": "~1h 15m",
+   "arrive": "2:00 PM",
+   "z": "MDT",
+   "via": "Leave about 12:45. UT-143 to Panguitch, then US-89 and UT-12.",
+   "name": "Bryce Canyon NP",
+   "type": "National Park",
+   "place": "Visitor center",
+   "addr": "Bryce Canyon National Park Visitor Center",
+   "where": "Visitor center",
+   "hrs": "8 AM – 6 PM in summer.",
+   "ok": "Rim viewpoints along the main road; Bryce Point and Inspiration Point are the most dramatic.",
+   "about": "Not really a canyon: a series of amphitheaters packed with hoodoos, the tall spires of eroded pink and orange rock."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "kan2",
+   "from": "Bryce Canyon",
+   "drive": "~1h 30m",
+   "arrive": "~5:00 PM",
+   "z": "MDT",
+   "via": "Leave about 3:30. US-89 south.",
+   "name": "Kanab, UT",
+   "addr": "Best Western Red Hills, 125 W Center St, Kanab, UT",
+   "note": "Back at the Best Western Red Hills for dinner and rest. Tomorrow starts at 7:00 AM."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "pisp",
+   "color": "#3F7FA6",
+   "ink": "#FFFFFF",
+   "boxColor": "#3F7FA6",
+   "from": "Kanab",
+   "leave": "7:00 AM",
+   "drive": "~25m",
+   "arrive": "7:25 AM",
+   "z": "MDT",
+   "tz": "Arizona: 6:25 AM",
+   "via": "South through Fredonia into Arizona.",
+   "name": "Pipe Spring NM",
+   "type": "National Monument",
+   "place": "Visitor center",
+   "addr": "Pipe Spring National Monument",
+   "where": "Visitor center",
+   "hrs": "Planned as opening 7:30 AM.",
+   "ok": "Winsor Castle, the 1870s fort over the spring, with cabins and orchards on a flat self-guided loop.",
+   "about": "A desert spring used for centuries by the Kaibab Paiute, later a Mormon ranch fort on the Arizona Strip."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "glca",
+   "color": "#3F7FA6",
+   "ink": "#FFFFFF",
+   "boxColor": "#3F7FA6",
+   "from": "Pipe Spring",
+   "drive": "~1h 30m",
+   "arrive": "10:00 AM",
+   "z": "MDT",
+   "tz": "Arizona: 9:00 AM",
+   "via": "Leave about 8:30. Back through Kanab, then US-89 east to Page.",
+   "name": "Glen Canyon NRA",
+   "type": "National Recreation Area",
+   "place": "Carl Hayden Visitor Center, Page",
+   "addr": "Carl Hayden Visitor Center, Page, AZ",
+   "where": "Carl Hayden Visitor Center",
+   "hrs": "Planned as 9 AM – 5 PM.",
+   "also": [
+    {
+     "id": "rabr",
+     "name": "Rainbow Bridge NM",
+     "where": "Same desk at the Carl Hayden Visitor Center"
+    }
+   ],
+   "ok": "Views of Glen Canyon Dam and Lake Powell; the bridge beside it looks straight down the 710-foot concrete arch.",
+   "about": "Lake Powell and the red-rock canyons around it, backed up behind Glen Canyon Dam since 1963.",
+   "unit": "Glen Canyon NRA"
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "grca",
+   "color": "#3F7FA6",
+   "ink": "#FFFFFF",
+   "boxColor": "#3F7FA6",
+   "from": "Page",
+   "drive": "~2h 25m",
+   "arrive": "1:15 PM",
+   "z": "MDT",
+   "tz": "Arizona: 12:15 PM",
+   "via": "Leave about 10:45. US-89 south, US-89A across Navajo Bridge, then AZ-67 at Jacob Lake.",
+   "name": "Grand Canyon NP",
+   "type": "National Park",
+   "place": "North Rim Visitor Center",
+   "addr": "North Rim Visitor Center, Grand Canyon",
+   "where": "North Rim Visitor Center",
+   "hrs": "Planned as 8 AM – 6 PM.",
+   "ok": "Bright Angel Point is an easy walk to a huge overlook, with far fewer people than the South Rim.",
+   "about": "A mile deep and up to 18 miles wide. The North Rim sits about 1,000 feet higher than the South Rim and closes in winter."
+  },
+  {
+   "d": 2,
+   "kind": "night",
+   "k": "kan3",
+   "from": "North Rim",
+   "drive": "~1h 35m",
+   "arrive": "~5:05 PM",
+   "z": "MDT",
+   "via": "Leave about 3:30. AZ-67 north, US-89A through Fredonia.",
+   "name": "Kanab, UT",
+   "addr": "Best Western Red Hills, 125 W Center St, Kanab, UT",
+   "note": "Last night at the Best Western Red Hills. Tomorrow: check out at 8:00 for the drive to Boulder City."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "lake",
+   "color": "#8C6BB1",
+   "ink": "#FFFFFF",
+   "boxColor": "#8C6BB1",
+   "from": "Kanab",
+   "leave": "7:00 AM",
+   "drive": "~3h 35m",
+   "arrive": "~9:35 AM",
+   "z": "PDT",
+   "tz": "Clocks go back an hour in Nevada",
+   "via": "Checked out at 8:00 Utah time (7:00 in Nevada). West through Colorado City and Hurricane to I-15, then south past Las Vegas to Boulder City.",
+   "name": "Lake Mead NRA",
+   "type": "National Recreation Area",
+   "place": "Lake Mead Visitor Center, Boulder City",
+   "addr": "Lake Mead Visitor Center, 601 Nevada Way, Boulder City, NV",
+   "where": "Lake Mead Visitor Center, 601 Nevada Way",
+   "hrs": "Planned as 9 AM – 4:30 PM.",
+   "also": [
+    {
+     "id": "tusk",
+     "name": "Tule Springs Fossil Beds NM",
+     "where": "Same desk at the Lake Mead Visitor Center"
+    }
+   ],
+   "about": "The country’s first national recreation area, around the reservoirs behind Hoover and Davis dams.",
+   "unit": "Lake Mead NRA"
+  },
+  {
+   "d": 3,
+   "kind": "home",
+   "k": "las",
+   "from": "Boulder City",
+   "drive": "~35m",
+   "arrive": "late morning",
+   "z": "PDT",
+   "title": "Las Vegas → home",
+   "note": "Returned the car at Harry Reid, then Southwest 2334, 3:50 → 5:30 PM to Oakland. 10 new stamps for the weekend.",
+   "navTo": "Harry Reid International Airport Rental Car Center",
+   "navLabel": "LAS car return ↗"
+  }
+ ]
+}

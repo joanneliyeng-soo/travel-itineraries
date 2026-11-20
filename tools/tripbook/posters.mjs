@@ -100,6 +100,16 @@ ${[8, 22, 172, 188].map((x, i) => pine(x, 170, 40 + (i % 2) * 10, '#1F3A2E')).jo
 <path d="M0 150Q70 142 130 150T200 148V170H0Z" fill="#7A3E4A"/>
 <g transform="rotate(-6 70 154)"><rect x="34" y="148" width="74" height="12" rx="6" fill="#D99A5B"/><g stroke="#8E5A2E" stroke-width="1.5"><path d="M50 148V160M66 148V160M84 148V160"/></g><ellipse cx="108" cy="154" rx="4" ry="6" fill="#B8733A"/></g>`,
   },
+  hoodoo: {
+    sky: '#F6C98B', sun: '#FBE9C6', band: '#4A2418', ink: '#4A2418', ac: '#F2A65A',
+    art: `<circle cx="40" cy="40" r="18" fill="#FBE9C6"/>
+<path d="M0 96H40L48 88H120L126 94H200V170H0Z" fill="#E9A36C"/>
+<g fill="#D9683A"><path d="M17 140V96Q17 88 24 88Q31 88 31 96V140Z"/><path d="M36 140V82Q36 74 44 74Q52 74 52 82V140Z"/><path d="M58 140V102Q58 94 64 94Q70 94 70 102V140Z"/><path d="M75 140V76Q75 68 84 68Q93 68 93 76V140Z"/><path d="M97 140V94Q97 86 104 86Q111 86 111 94V140Z"/><path d="M115 140V68Q115 60 124 60Q133 60 133 68V140Z"/><path d="M137 140V90Q137 82 144 82Q151 82 151 90V140Z"/><path d="M156 140V78Q156 70 164 70Q172 70 172 78V140Z"/><path d="M177 140V98Q177 90 184 90Q191 90 191 98V140Z"/></g>
+<g fill="#F3DCC0"><ellipse cx="24" cy="90" rx="10" ry="4"/><ellipse cx="44" cy="76" rx="11" ry="4"/><ellipse cx="84" cy="70" rx="12" ry="4"/><ellipse cx="124" cy="62" rx="12" ry="4"/><ellipse cx="164" cy="72" rx="11" ry="4"/></g>
+<path d="M0 136Q60 128 110 136T200 134V170H0Z" fill="#B24A2A"/>
+<path d="M0 154Q70 146 130 154T200 152V170H0Z" fill="#6E2E1E"/>
+<g fill="#2F4A2E">${[10, 30, 176, 192].map((x, i) => pine(x, 170, 22 + (i % 2) * 6, '#2F4A2E')).join('')}</g>`,
+  },
   mission: {
     sky: '#F3C28B', sun: '#F9E3B8', band: '#3A1F24', ink: '#3A1F24', ac: '#4FC1BC',
     art: `<circle cx="150" cy="52" r="20" fill="#F9E3B8"/>

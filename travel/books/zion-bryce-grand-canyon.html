@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Zion, Bryce &amp; the North Rim · Trip Book</title>
+<style>
+  html, body { margin:0 !important; padding:0 !important; background:#2B1A16 !important; color:#34201B !important; height:100%; overflow:hidden; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:15px; line-height:1.45; }
+  .serif { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  .app { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; padding:max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .topbar, .bottombar { width:100%; max-width:520px; display:flex; align-items:center; justify-content:space-between; color:#DDC2B2; font-size:13px; }
+  .topbar { padding:2px 4px 8px; }
+  .topbar .t { font-weight:600; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0 10px; }
+  .btn-ghost { background:#402821; color:#F7E9DC; border:0; border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer; }
+  .pgnum { font-variant-numeric:tabular-nums; color:#F2A65A; white-space:nowrap; }
+
+  .book { position:relative; flex:1; width:100%; max-width:520px; perspective:1800px; }
+  .book::before { content:""; position:absolute; left:-4px; top:6px; bottom:-4px; right:4px; background:#F0DAC6; border-radius:6px 16px 16px 6px; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+  .page { position:absolute; inset:0; display:none; background:#FDF8F3; border-radius:4px 14px 14px 4px; overflow:hidden; transform-origin:left center; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .page::before { content:""; position:absolute; left:0; top:0; bottom:0; width:18px; background:linear-gradient(90deg, rgba(38,36,63,.16), rgba(38,36,63,0)); pointer-events:none; z-index:2; }
+  .page .scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:20px 20px 28px 26px; }
+  .page.show { display:block; }
+  .page.under { z-index:1; }
+  .page.flip-out { z-index:3; animation:flipOut .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page.flip-in { z-index:3; animation:flipIn .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page .shade { position:absolute; inset:0; background:linear-gradient(90deg, rgba(30,29,51,0), rgba(30,29,51,.35)); opacity:0; pointer-events:none; z-index:4; }
+  .page.flip-out .shade { animation:shadeIn .6s forwards; }
+  .page.flip-in .shade { animation:shadeOut .6s forwards; }
+  @keyframes flipOut { from { transform:rotateY(0deg); } to { transform:rotateY(-100deg); } }
+  @keyframes flipIn { from { transform:rotateY(-100deg); } to { transform:rotateY(0deg); } }
+  @keyframes shadeIn { to { opacity:1; } }
+  @keyframes shadeOut { from { opacity:1; } to { opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .page.flip-out, .page.flip-in { animation-duration:.01s; } }
+
+  .bottombar { padding-top:10px; gap:10px; }
+  .nav { background:#F7E9DC; color:#34201B; border:0; border-radius:12px; padding:11px 16px; font-size:15px; font-weight:700; cursor:pointer; min-width:92px; }
+  .nav.next { background:#D2643A; color:#FFFFFF; }
+  .nav:disabled { opacity:.35; }
+  .progress { flex:1; height:6px; background:#402821; border-radius:99px; overflow:hidden; }
+  .progress i { display:block; height:100%; background:#D2643A; width:0; transition:width .4s; }
+
+  /* shared page bits */
+  .kicker { font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  h1, h2 { margin:0; font-weight:700; color:#34201B; }
+  h1 { font-size:30px; line-height:1.1; }
+  h2 { font-size:25px; line-height:1.15; }
+  .muted { color:#7E5D50; }
+  .chip { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:99px; background:#F2E3D5; color:#34201B; margin:0 4px 4px 0; }
+  .map { display:block; width:100%; border-radius:12px; background:#F4E7DB; margin:14px 0 4px; }
+  .map .st { fill:#F6F3EC; stroke:#DDC2B2; stroke-width:1; vector-effect:non-scaling-stroke; }
+  .map .st.on { fill:#FFFFFF; }
+  .map .sl { fill:#B5907F; font-weight:700; letter-spacing:.12em; text-anchor:middle; }
+  .map .cl { fill:#7E5D50; text-anchor:middle; }
+  .map .cd { fill:#7E5D50; }
+  .map .rt { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  .map .leg { fill:none; stroke:#34201B; stroke-width:3.5; stroke-dasharray:7 6; vector-effect:non-scaling-stroke; animation:dash 1.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset:-26; } }
+  .map .pin text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+  .map .pin circle { stroke:#FFFFFF; vector-effect:non-scaling-stroke; stroke-width:2; }
+  .map .pin.now circle { stroke:#34201B; stroke-width:3; }
+  .map .pin.dim { opacity:.35; }
+  .map .end rect { fill:#34201B; }
+  .map .end text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+
+  /* cover */
+  .cover .scroll { background:#34201B; color:#F7E9DC; padding-top:22px; }
+  .cover h1 { color:#FFFFFF; font-size:31px; }
+  .cover .sub { color:#E6CFC0; margin-top:8px; font-size:14px; }
+  .cover .chip { background:#5A392F; color:#F7E9DC; }
+  .cover .chip.hot { background:#D2643A; color:#FFFFFF; }
+  .cover .ph { display:inline-block; border:1px dashed #F2A65A; color:#E6CFC0; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:99px; margin-bottom:12px; }
+  .legend { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .legend button { display:flex; align-items:center; gap:9px; background:#4C3027; border:0; color:#F7E9DC; padding:9px 10px; border-radius:10px; text-align:left; font-size:13px; cursor:pointer; }
+  .legend .sw { width:14px; height:14px; border-radius:50%; flex:none; }
+  .legend b { display:block; font-size:13.5px; }
+  .legend span.s { color:#F2A65A; font-size:11.5px; }
+  .backlink { display:block; text-align:center; margin-top:10px; color:#E6CFC0; font-size:13px; font-weight:700; text-decoration:none; }
+  .swipe { margin-top:16px; text-align:center; color:#F2A65A; font-size:13px; }
+  .tally { margin-top:14px; background:#4C3027; border-radius:12px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; }
+  .tally .n { font-size:24px; font-weight:800; color:#FFFFFF; }
+
+  /* day intro */
+  .dayband { margin:-20px -20px 0 -26px; padding:22px 20px 18px 26px; color:#FFFFFF; }
+  .dayband h2 { color:#FFFFFF; font-size:28px; }
+  .dayband .kicker { color:rgba(255,255,255,.85); }
+  .dayband .meta { margin-top:6px; font-size:13.5px; color:rgba(255,255,255,.92); }
+  .tl { list-style:none; margin:14px 0 0; padding:0; }
+  .tl li { display:grid; grid-template-columns:62px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid #F0DAC6; cursor:pointer; }
+  .tl li:last-child { border-bottom:0; }
+  .tl .tm { font-size:12.5px; font-weight:700; color:#7E5D50; font-variant-numeric:tabular-nums; }
+  .tl .nm { font-weight:700; }
+  .tl .nm small { display:block; font-weight:400; color:#7E5D50; font-size:12.5px; }
+  .tl .num { display:inline-flex; width:20px; height:20px; border-radius:50%; color:#FFFFFF; font-size:11px; font-weight:800; align-items:center; justify-content:center; margin-right:6px; vertical-align:1px; }
+  .cut { margin-top:14px; background:#FFF4EC; border-left:4px solid #D2643A; border-radius:8px; padding:10px 12px; font-size:13.5px; }
+  .gmaps { display:block; text-align:center; margin-top:14px; background:#34201B; color:#FFFFFF; text-decoration:none; font-weight:700; padding:12px; border-radius:12px; }
+
+  /* stop page */
+  .drive { display:flex; align-items:stretch; gap:10px; background:#F8EFE6; border-radius:14px; padding:11px 12px; }
+  .drive .car { font-size:22px; line-height:1; padding-top:2px; }
+  .drive .dt { font-size:20px; font-weight:800; }
+  .drive .fr { font-size:12.5px; color:#7E5D50; }
+  .drive .tz { display:inline-block; margin-top:5px; font-size:11.5px; font-weight:700; background:#34201B; color:#FFFFFF; padding:2px 8px; border-radius:99px; }
+  .arr { margin-left:auto; text-align:right; flex:none; }
+  .arr .lab { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#7E5D50; font-weight:700; }
+  .arr .t { white-space:nowrap; font-size:19px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .arr .z { font-size:11.5px; color:#7E5D50; font-weight:700; }
+  .stopname { margin-top:14px; }
+  .stopname .num { display:inline-flex; width:30px; height:30px; border-radius:50%; color:#FFFFFF; font-size:14px; font-weight:800; align-items:center; justify-content:center; margin-bottom:8px; }
+  .place { margin-top:4px; color:#7E5D50; font-size:13.5px; }
+  .stampbox { margin-top:14px; border:2px dashed; border-radius:14px; padding:12px 13px; }
+  .stampbox .kicker { margin-bottom:4px; }
+  .stampbox .where { font-weight:700; }
+  .stampbox .hrs { font-size:13.5px; margin-top:2px; }
+  .got { margin-top:11px; width:100%; border:0; border-radius:10px; padding:11px; font-size:15px; font-weight:800; cursor:pointer; background:#F2E3D5; color:#34201B; }
+  .got.on { color:#FFFFFF; }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .actions a { flex:1; text-align:center; text-decoration:none; font-weight:700; font-size:14px; padding:11px 8px; border-radius:10px; background:#34201B; color:#FFFFFF; }
+  .actions a.alt { background:#F2E3D5; color:#34201B; }
+  .note { margin-top:10px; border-radius:10px; padding:9px 12px; font-size:13.5px; }
+  .note.warn { background:#FFF4EC; border-left:4px solid #D2643A; }
+  .note.acc { background:#EEF6F7; border-left:4px solid #2E8C9A; }
+  .note.ok { background:#F0F6EE; border-left:4px solid #5E9A4E; }
+  .about { margin-top:14px; font-size:14.5px; }
+  .about .kicker { color:#7E5D50; margin-bottom:3px; }
+  .foot { margin-top:18px; font-size:12px; color:#B5907F; text-align:center; }
+
+  /* night / final */
+  .moon { font-size:44px; margin-top:6px; }
+  .chk { list-style:none; padding:0; margin:12px 0 0; }
+  .chk li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #F0DAC6; font-size:14px; cursor:pointer; }
+  .chk .bx { width:22px; height:22px; border-radius:6px; border:2px solid #E6CFC0; flex:none; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:13px; font-weight:800; }
+  .chk li small { color:#7E5D50; display:block; font-size:12px; }
+
+  /* contents */
+  .toc { position:fixed; inset:0; background:rgba(20,19,36,.6); display:none; z-index:50; }
+  .toc.open { display:block; }
+  .toc .panel { position:absolute; left:0; top:0; bottom:0; width:min(86vw, 380px); background:#FDF8F3; overflow-y:auto; padding:max(18px, env(safe-area-inset-top)) 16px 24px; box-shadow:4px 0 24px rgba(0,0,0,.35); }
+  .toc h3 { margin:16px 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+  .toc a { display:flex; justify-content:space-between; gap:8px; padding:8px 4px; color:#34201B; text-decoration:none; border-bottom:1px solid #F0DAC6; font-size:14px; }
+  .toc a.cur { font-weight:800; }
+  .toc a span { color:#B5907F; font-variant-numeric:tabular-nums; font-size:12.5px; }
+
+  /* Narrow tall phones (e.g. Galaxy Z Fold8 Ultra cover screen folded, ~21:9).
+     Tighter gutters, and on stop pages the stamp box and Navigate come before the leg map. */
+  @media (max-width: 430px) {
+    .app { padding-left:4px; padding-right:4px; }
+    .topbar { padding:0 2px 6px; }
+    .bottombar { padding-top:6px; }
+    .nav { min-width:78px; padding:10px 12px; }
+    .page .scroll { padding:16px 14px 24px 18px; display:flex; flex-direction:column; }
+    .page .scroll > * { flex:none; }
+    .dayband { margin:-16px -14px 0 -18px; padding:18px 14px 16px 18px; }
+    .dayband h2 { font-size:25px; }
+    .page .scroll > svg[data-map] { order:1; margin-top:16px; }
+    .page .scroll > .about, .page .scroll > .foot { order:2; }
+    .drive { padding:10px; gap:8px; }
+    .drive .car { font-size:18px; }
+    .drive .fr { font-size:12px; }
+    .arr .t { font-size:17px; }
+    .legend { grid-template-columns:1fr; gap:6px; }
+    .legend button { padding:8px 10px; }
+    .cover h1 { font-size:28px; }
+  }
+
+  /* Unfolded foldables and tablets (e.g. Galaxy Z Fold8 Ultra inner screen, ~1.1:1).
+     The book widens and each page goes two-column: map on the left, details beside it. */
+  @media (min-width: 700px) and (min-aspect-ratio: 3/4) {
+    .topbar, .bottombar, .book { max-width:1120px; }
+    body { font-size:16px; }
+    .page .scroll { padding:26px 30px 34px 36px; }
+    .dayband { margin:-26px -30px 0 -36px; padding:26px 30px 22px 36px; }
+    .page .scroll > .map { float:left; width:52%; margin:14px 26px 10px 0; }
+    .page .scroll > *:not(.map):not(.drive):not(.actions):not(.legend):not(.dayband) { display:flow-root; }
+    .page .scroll > div[style*="height:8px"] { display:block; }
+    .cover h1 { font-size:38px; }
+    .cover .legend { grid-template-columns:1fr; }
+    h2 { font-size:28px; }
+    .dayband h2 { font-size:32px; }
+    .actions a { padding:13px 8px; }
+    .toc .panel { width:min(60vw, 440px); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <button class="btn-ghost" id="tocBtn" aria-label="Contents">☰ Pages</button>
+    <div class="t">Zion &amp; Bryce</div>
+    <div class="pgnum" id="pgnum">1 / 1</div>
+  </div>
+  <div class="book" id="book"></div>
+  <div class="bottombar">
+    <button class="nav" id="prev">‹ Back</button>
+    <div class="progress"><i id="bar"></i></div>
+    <button class="nav next" id="next">Next ›</button>
+  </div>
+</div>
+<div class="toc" id="toc"><div class="panel" id="tocPanel"></div></div>
+
+<svg width="0" height="0" style="position:absolute"><g id="basemap"><path class="st on" d="M184.1,1500L204.4,1471.3L212,1465.5L208.6,1454.3L212,1427.7L218.7,1424.8L217,1406.8L211.1,1391.2L212,1378.9L217,1377.4L215.3,1364L209.4,1359.2L233,1330.9L233,1314.1L239.8,1307.3L259.2,1300.2L267.6,1290.4L282,1285.3L282.8,1280.7L303.9,1264.8L303.1,1252.8L293.8,1239.6L282,1235L255.8,1210.5L244.9,1208.8L246.5,1194.6L224.6,1136L205.2,1120.5L199.3,1103.5L185.8,1089.5L186.7,1053.3L191.7,1029.9L183.3,1024.5L201,1013.8L201,996.1L193.4,952L188.3,936L179.1,924.3L175.7,909.9L180.8,901L180.8,875.4L173.2,866L175.7,856.3L169.8,848.6L172.3,835.9L168.1,821.2L171.5,807.3L179.1,801.3L170.6,793.6L160.5,769.4L163.9,758.7L158,738.7L179.1,730.9L186.7,723.7L190.9,727.2L201,720.9L215.3,721.2L217,727.4L237.3,722.7L248.2,723.4L263.4,741.2L261.7,748.2L279.4,760.9L299.7,758.2L319.9,712.4L324.1,708.7L325,651.1L323.3,582.8L323.3,472.6L492,472.6L679.3,472.6L943.3,472.3L1025.1,472.1L1160,471.6L1165.1,473.3L1363.3,473.3L1500,473.1L1500,896.5L1499.1,955.3L1500,962.7L1500,1190.4L1499.1,1338.9L1500,1374.2L1499.1,1401.7L1499.1,1500L184.1,1500Z"/><path class="st" d="M-500,396L-457.8,435.4L-193.8,684.4L3.6,873.7L62.7,931.7L186.7,1053.3L185.8,1089.5L199.3,1103.5L205.2,1120.5L224.6,1136L246.5,1194.6L244.9,1208.8L255.8,1210.5L282,1235L293.8,1239.6L303.1,1252.8L303.9,1264.8L282.8,1280.7L282,1285.3L267.6,1290.4L259.2,1300.2L239.8,1307.3L233,1314.1L233,1330.9L209.4,1359.2L215.3,1364L217,1377.4L212,1378.9L211.1,1391.2L217,1406.8L218.7,1424.8L212,1427.7L208.6,1454.3L212,1465.5L204.4,1471.3L184.1,1500L-500,1500Z"/><path class="st on" d="M1498.3,-500L1498.3,-95.1L1496.6,-39.1L1496.6,94.2L1500,121L1500,324.8L1500,324.8L1500,325.2L1500,473.1L1363.3,473.3L1165.1,473.3L1160,471.6L1025.1,472.1L943.3,472.3L679.3,472.6L492,472.6L323.3,472.6L323.3,249L324.1,246.2L323.3,176.6L324.1,132.3L323.3,55.6L324.1,-26.4L324.1,-460.4L325,-499.7L325,-500L1498.3,-500Z"/><path class="st on" d="M325,-500L325,-499.7L324.1,-460.4L324.1,-26.4L323.3,55.6L324.1,132.3L323.3,176.6L324.1,246.2L323.3,249L323.3,472.6L323.3,582.8L325,651.1L324.1,708.7L319.9,712.4L299.7,758.2L279.4,760.9L261.7,748.2L263.4,741.2L248.2,723.4L237.3,722.7L217,727.4L215.3,721.2L201,720.9L190.9,727.2L186.7,723.7L179.1,730.9L158,738.7L163.9,758.7L160.5,769.4L170.6,793.6L179.1,801.3L171.5,807.3L168.1,821.2L172.3,835.9L169.8,848.6L175.7,856.3L173.2,866L180.8,875.4L180.8,901L175.7,909.9L179.1,924.3L188.3,936L193.4,952L201,996.1L201,1013.8L183.3,1024.5L191.7,1029.9L186.7,1053.3L62.7,931.7L3.6,873.7L-193.8,684.4L-457.8,435.4L-500,396L-500,-500Z"/><text class="sl" x="864.3" y="280.6">UTAH</text><text class="sl" x="476.5" y="677.8">ARIZONA</text><text class="sl" x="100.5" y="413.8">NEVADA</text><circle class="cd" cx="67.6" cy="715.6" r="3"/><text class="cl" x="67.6" y="715.6">Las Vegas</text><circle class="cd" cx="434.2" cy="443.3" r="3"/><text class="cl" x="434.2" y="443.3">St. George</text><circle class="cd" cx="932.4" cy="499.2" r="3"/><text class="cl" x="932.4" y="499.2">Page</text><circle class="cd" cx="556.4" cy="271.7" r="3"/><text class="cl" x="556.4" y="271.7">Cedar City</text></g></svg>
+
+<script>
+const PT = {"kan":[681.3,458.7],"w_mcj":[645.7,404.9],"zion":[573.6,413.8],"w_lav":[507.1,413.8],"w_cc":[556.4,271.7],"cebr":[606.4,283.2],"w_pan":[703.3,229.2],"w_12":[737.3,253.9],"brca":[765.6,283.5],"kan2":[681.3,458.7],"w_fre":[681.9,488.6],"pisp":[632.2,513.2],"w_bw":[885.4,449.2],"glca":[926.8,491.2],"w_bs":[890.1,584.3],"w_nb":[892.5,525.6],"w_jl":[756.2,557.9],"grca":[793.2,707.4],"kan3":[681.3,458.7],"w_col":[576.4,475.7],"w_hur":[502.3,421.2],"w_sg":[434.2,443.3],"w_mes":[319.1,531.5],"w_hen":[105.2,753.4],"lake":[139.8,771.3],"las":[63.7,748.5],"lasa":[63.7,748.5]};
+const TRIP = {"slug":"june2026-zion-bryce-grandcanyon","book":"zion-bryce-grand-canyon","start":"2026-06-18","end":"2026-06-21","emoji":"🏜️","poster":"hoodoo","title":"Zion, Bryce & the North Rim","short":"Zion & Bryce","placeholder":"","subtitle":"Juneteenth weekend, Jun 18–21, 2026, from a base camp in Kanab with Jason and Jenny: Zion, Cedar Breaks and Bryce on Friday, Pipe Spring, Glen Canyon and the Grand Canyon’s North Rim on Saturday, Lake Mead on the way home. Clock times are from the plan.","chips":["10 new stamps","3 national parks","Utah · Arizona · Nevada"],"itinerary":"../june2026-zion-bryce-grandcanyon.html","collected":["zion","cebr","brca","pisp","glca","rabr","grca","lake","tusk"],"theme":{"#2B1A16":"#2B1A16","#34201B":"#34201B","#402821":"#402821","#4C3027":"#4C3027","#5A392F":"#5A392F","#D2643A":"#D2643A","#F7E9DC":"#F7E9DC","#DDC2B2":"#DDC2B2","#F2A65A":"#F2A65A","#E6CFC0":"#E6CFC0","#F7E9DC":"#F7E9DC","#F2E3D5":"#F2E3D5","#F8EFE6":"#F8EFE6","#7E5D50":"#7E5D50","#B5907F":"#B5907F","#F0DAC6":"#F0DAC6","#FDF8F3":"#FDF8F3","#F0DAC6":"#F0DAC6","#F4E7DB":"#F4E7DB","#F2A65A":"#F2A65A","#DDC2B2":"#DDC2B2","#7E5D50":"#7E5D50","#FFF4EC":"#FFF4EC"},"legMinW":340,"airports":[["las","LAS"]],"route":["lasa","w_hen","w_mes","w_sg","w_hur","w_col","kan","w_mcj","zion","w_lav","w_cc","cebr","w_pan","w_12","brca","w_mcj","kan2","w_fre","pisp","w_fre","kan2","w_bw","glca","w_bs","w_nb","w_jl","grca","w_jl","w_fre","kan3","w_col","w_hur","w_sg","w_mes","w_hen","lake","las"],"days":[{"n":0,"dow":"Thu","dowLong":"Thursday","kicker":"Day 0 · Thu Jun 18","title":"Fly to Vegas, drive to Kanab","color":"#4C3027","meta":"No stamps · travel only","html":"<div class=\"moon\" style=\"margin-top:18px\">✈︎<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK → LAS, then a night drive<\/h2>\n<p>Southwest 5051, 8:15 → 9:50 PM, four of you. Picked up the Budget economy car (Costco Travel) at Harry Reid’s rental center, then about three hours to Kanab, arriving around 1:30 AM Utah time.<\/p>\n<p>All three nights at the <b>Best Western Red Hills<\/b>, 125 W Center St, Kanab, with breakfast from 6:30.<\/p>\n<div class=\"cut\"><b>How it went:<\/b> all seven planned stamps, plus Rainbow Bridge at the Carl Hayden Visitor Center, Tule Springs at the Lake Mead Visitor Center, and Wupatki, picked up separately on this trip. 10 new stamps.<\/div>"},{"n":1,"dow":"Fri","dowLong":"Friday","kicker":"Day 1 · Fri Jun 19","title":"Zion, Cedar Breaks, Bryce","sub":"Kanab → Zion → Cedar Breaks → Bryce Canyon → Kanab","color":"#D2643A","drive":"~5h 30m","stamps":3,"start":"kan","end":"kan2","tzline":"Utah time (MDT)","cutLabel":"Good to know","cut":"Cedar Breaks sits at 10,000 ft, so bring a layer even in June.","gmaps":"https://www.google.com/maps/dir/Best+Western+Red+Hills%2C+Kanab/Zion+Canyon+Visitor+Center/Cedar+Breaks+National+Monument/Bryce+Canyon+Visitor+Center/Best+Western+Red+Hills%2C+Kanab"},{"n":2,"dow":"Sat","dowLong":"Saturday","kicker":"Day 2 · Sat Jun 20","title":"Pipe Spring, Page, North Rim","sub":"Kanab → Pipe Spring → Glen Canyon → North Rim → Kanab","color":"#3F7FA6","drive":"~6h 15m","stamps":3,"start":"kan2","end":"kan3","tzline":"Utah time; Arizona runs an hour behind in summer","cutLabel":"Good to know","cut":"Arizona skips daylight saving time, so its clocks read an hour earlier than Kanab’s in June. Times here are the plan’s.","gmaps":"https://www.google.com/maps/dir/Best+Western+Red+Hills%2C+Kanab/Pipe+Spring+National+Monument/Carl+Hayden+Visitor+Center%2C+Page/North+Rim+Visitor+Center/Best+Western+Red+Hills%2C+Kanab"},{"n":3,"dow":"Sun","dowLong":"Sunday","kicker":"Day 3 · Sun Jun 21","title":"Lake Mead and home","sub":"Kanab → Lake Mead → LAS","color":"#8C6BB1","drive":"~4h 10m","stamps":1,"start":"kan3","end":"las","tzline":"Clocks go back an hour in Nevada","cutLabel":"How it went","cut":"Two stamps at one desk: Lake Mead and Tule Springs Fossil Beds, both at the Lake Mead Visitor Center.","gmaps":"https://www.google.com/maps/dir/Best+Western+Red+Hills%2C+Kanab/Lake+Mead+Visitor+Center%2C+Boulder+City/Harry+Reid+International+Airport+Rental+Car+Center"}],"stops":[{"d":1,"kind":"stop","k":"zion","color":"#D2643A","ink":"#FFFFFF","boxColor":"#D2643A","from":"Kanab","leave":"7:00 AM","drive":"~1h","arrive":"8:00 AM","z":"MDT","via":"US-89 north, then UT-9 west through the Zion–Mount Carmel tunnel.","name":"Zion NP","type":"National Park","place":"Zion Canyon Visitor Center","addr":"Zion Canyon Visitor Center","where":"Zion Canyon Visitor Center","hrs":"8 AM – 7 PM in summer.","ok":"Shuttle stops at Canyon Junction, Court of the Patriarchs, Zion Lodge, Big Bend and Temple of Sinawava, all flat from the stop.","about":"Sandstone cliffs up to 2,000 feet tall above the Virgin River, Utah’s first national park."},{"d":1,"kind":"stop","k":"cebr","color":"#D2643A","ink":"#FFFFFF","boxColor":"#D2643A","from":"Zion","drive":"~1h 45m","arrive":"11:45 AM","z":"MDT","via":"Leave about 10:00. West to I-15, north to Cedar City, then UT-14.","name":"Cedar Breaks NM","type":"National Monument","place":"Visitor center","addr":"Cedar Breaks National Monument Visitor Center","where":"Visitor center","hrs":"9 AM – 5 PM.","ok":"Drive-up overlooks: Point Supreme, Sunset View and Chessmen Ridge.","about":"A half-mile-deep amphitheater of eroded limestone on the rim of the Markagunt Plateau, above 10,000 feet."},{"d":1,"kind":"stop","k":"brca","color":"#D2643A","ink":"#FFFFFF","boxColor":"#D2643A","from":"Cedar Breaks","drive":"~1h 15m","arrive":"2:00 PM","z":"MDT","via":"Leave about 12:45. UT-143 to Panguitch, then US-89 and UT-12.","name":"Bryce Canyon NP","type":"National Park","place":"Visitor center","addr":"Bryce Canyon National Park Visitor Center","where":"Visitor center","hrs":"8 AM – 6 PM in summer.","ok":"Rim viewpoints along the main road; Bryce Point and Inspiration Point are the most dramatic.","about":"Not really a canyon: a series of amphitheaters packed with hoodoos, the tall spires of eroded pink and orange rock."},{"d":1,"kind":"night","k":"kan2","from":"Bryce Canyon","drive":"~1h 30m","arrive":"~5:00 PM","z":"MDT","via":"Leave about 3:30. US-89 south.","name":"Kanab, UT","addr":"Best Western Red Hills, 125 W Center St, Kanab, UT","note":"Back at the Best Western Red Hills for dinner and rest. Tomorrow starts at 7:00 AM."},{"d":2,"kind":"stop","k":"pisp","color":"#3F7FA6","ink":"#FFFFFF","boxColor":"#3F7FA6","from":"Kanab","leave":"7:00 AM","drive":"~25m","arrive":"7:25 AM","z":"MDT","tz":"Arizona: 6:25 AM","via":"South through Fredonia into Arizona.","name":"Pipe Spring NM","type":"National Monument","place":"Visitor center","addr":"Pipe Spring National Monument","where":"Visitor center","hrs":"Planned as opening 7:30 AM.","ok":"Winsor Castle, the 1870s fort over the spring, with cabins and orchards on a flat self-guided loop.","about":"A desert spring used for centuries by the Kaibab Paiute, later a Mormon ranch fort on the Arizona Strip."},{"d":2,"kind":"stop","k":"glca","color":"#3F7FA6","ink":"#FFFFFF","boxColor":"#3F7FA6","from":"Pipe Spring","drive":"~1h 30m","arrive":"10:00 AM","z":"MDT","tz":"Arizona: 9:00 AM","via":"Leave about 8:30. Back through Kanab, then US-89 east to Page.","name":"Glen Canyon NRA","type":"National Recreation Area","place":"Carl Hayden Visitor Center, Page","addr":"Carl Hayden Visitor Center, Page, AZ","where":"Carl Hayden Visitor Center","hrs":"Planned as 9 AM – 5 PM.","also":[{"id":"rabr","name":"Rainbow Bridge NM","where":"Same desk at the Carl Hayden Visitor Center"}],"ok":"Views of Glen Canyon Dam and Lake Powell; the bridge beside it looks straight down the 710-foot concrete arch.","about":"Lake Powell and the red-rock canyons around it, backed up behind Glen Canyon Dam since 1963.","unit":"Glen Canyon NRA"},{"d":2,"kind":"stop","k":"grca","color":"#3F7FA6","ink":"#FFFFFF","boxColor":"#3F7FA6","from":"Page","drive":"~2h 25m","arrive":"1:15 PM","z":"MDT","tz":"Arizona: 12:15 PM","via":"Leave about 10:45. US-89 south, US-89A across Navajo Bridge, then AZ-67 at Jacob Lake.","name":"Grand Canyon NP","type":"National Park","place":"North Rim Visitor Center","addr":"North Rim Visitor Center, Grand Canyon","where":"North Rim Visitor Center","hrs":"Planned as 8 AM – 6 PM.","ok":"Bright Angel Point is an easy walk to a huge overlook, with far fewer people than the South Rim.","about":"A mile deep and up to 18 miles wide. The North Rim sits about 1,000 feet higher than the South Rim and closes in winter."},{"d":2,"kind":"night","k":"kan3","from":"North Rim","drive":"~1h 35m","arrive":"~5:05 PM","z":"MDT","via":"Leave about 3:30. AZ-67 north, US-89A through Fredonia.","name":"Kanab, UT","addr":"Best Western Red Hills, 125 W Center St, Kanab, UT","note":"Last night at the Best Western Red Hills. Tomorrow: check out at 8:00 for the drive to Boulder City."},{"d":3,"kind":"stop","k":"lake","color":"#8C6BB1","ink":"#FFFFFF","boxColor":"#8C6BB1","from":"Kanab","leave":"7:00 AM","drive":"~3h 35m","arrive":"~9:35 AM","z":"PDT","tz":"Clocks go back an hour in Nevada","via":"Checked out at 8:00 Utah time (7:00 in Nevada). West through Colorado City and Hurricane to I-15, then south past Las Vegas to Boulder City.","name":"Lake Mead NRA","type":"National Recreation Area","place":"Lake Mead Visitor Center, Boulder City","addr":"Lake Mead Visitor Center, 601 Nevada Way, Boulder City, NV","where":"Lake Mead Visitor Center, 601 Nevada Way","hrs":"Planned as 9 AM – 4:30 PM.","also":[{"id":"tusk","name":"Tule Springs Fossil Beds NM","where":"Same desk at the Lake Mead Visitor Center"}],"about":"The country’s first national recreation area, around the reservoirs behind Hoover and Davis dams.","unit":"Lake Mead NRA"},{"d":3,"kind":"home","k":"las","from":"Boulder City","drive":"~35m","arrive":"late morning","z":"PDT","title":"Las Vegas → home","note":"Returned the car at Harry Reid, then Southwest 2334, 3:50 → 5:30 PM to Oakland. 10 new stamps for the weekend.","navTo":"Harry Reid International Airport Rental Car Center","navLabel":"LAS car return ↗"}],"library":"index.html"};
+const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
+const LASTDAY = DAYS.length - 1;
+let n = 0; const NUMOF = {};
+STOPS.forEach(s => { if (s.kind === 'stop') { s.num = s.stampId ? NUMOF[s.stampId] : ++n; NUMOF[s.k] = s.num; } });
+const stopColor = s => s.color || DAYS[s.d].color;
+const dayColor = d => DAYS[d].color;
+const DL = d => DAYS[d].label || ('Day ' + d);
+const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
+
+/* ---------- stamp storage ---------- */
+const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
+const UNITS = [];
+STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: s.boxColor || stopColor(s) });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
+});
+const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const NSTAMPS = UNITS.length;
+let got = {};
+try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
+// stamps already collected (past trips): checked unless unticked on this device
+(TRIP.collected || []).forEach(id => { if (!(id in got)) got[id] = true; });
+function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
+
+/* ---------- maps ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+function routeD(keys) { return keys.map((k, i) => (i ? 'L' : 'M') + PT[k][0] + ' ' + PT[k][1]).join(''); }
+
+function buildMap(svg, o) {
+  // o: { focus:[keys], aspect, dayFocus, leg:[a,b], now:key }
+  const pad = o.pad || 60;
+  let xs = o.focus.map(k => PT[k][0]), ys = o.focus.map(k => PT[k][1]);
+  let x0 = Math.min(...xs) - pad, x1 = Math.max(...xs) + pad, y0 = Math.min(...ys) - pad, y1 = Math.max(...ys) + pad;
+  let w = Math.max(x1 - x0, o.minW || 220), h = Math.max(y1 - y0, (o.minW || 220) / o.aspect);
+  if (w / h > o.aspect) h = w / o.aspect; else w = h * o.aspect;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const vb = [cx - w / 2, cy - h / 2, w, h];
+  svg.setAttribute('viewBox', vb.map(v => v.toFixed(1)).join(' '));
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  const s = w / 1000;
+  const base = document.getElementById('basemap').cloneNode(true); base.removeAttribute('id');
+  base.querySelectorAll('.sl').forEach(t => t.setAttribute('font-size', (s * 22).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('font-size', (s * 17).toFixed(1)));
+  base.querySelectorAll('.cd').forEach(c => c.setAttribute('r', (s * 3.5).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('dy', (-s * 9).toFixed(1)));
+  svg.appendChild(base);
+  // whole route, faint
+  el('path', { d: routeD(ROUTE), class: 'rt', stroke: '#DDC2B2', 'stroke-width': 2 }, svg);
+  // day segments
+  for (let d = 1; d <= LASTDAY; d++) {
+    if (!DAYS[d].start) continue;
+    const a = ROUTE.indexOf(DAYS[d].start), b = ROUTE.indexOf(DAYS[d].end);
+    const dim = o.dayFocus && o.dayFocus !== d;
+    el('path', { d: routeD(ROUTE.slice(a, b + 1)), class: 'rt', stroke: DAYS[d].color, 'stroke-width': dim ? 2.5 : 4, opacity: dim ? .35 : .9 }, svg);
+  }
+  if (o.leg) el('path', { d: routeD(o.leg), class: 'leg' }, svg);
+  // airports
+  TRIP.airports.forEach(([k, lab]) => {
+    const g = el('g', { class: 'end' }, svg), r = s * 17;
+    const wr = r * (0.9 + 0.62 * lab.length);
+    el('rect', { x: PT[k][0] - wr / 2, y: PT[k][1] - r * .8, width: wr, height: r * 1.6, rx: r * .4 }, g);
+    const t = el('text', { x: PT[k][0], y: PT[k][1], 'font-size': (r * .9).toFixed(1) }, g); t.textContent = lab;
+  });
+  // overnight dots
+  STOPS.filter(x => x.kind === 'night').map(x => x.k).forEach(k => {
+    const c = el('circle', { cx: PT[k][0], cy: PT[k][1], r: s * 7, fill: '#34201B', stroke: '#FFFFFF', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }, svg);
+  });
+  // points of interest (no stamp)
+  STOPS.filter(x => x.kind === 'point').forEach(x => {
+    const now = x.k === o.now;
+    el('circle', { cx: PT[x.k][0], cy: PT[x.k][1], r: s * (now ? 11 : 6), fill: now ? DAYS[x.d].color : '#FFFFFF', stroke: '#34201B', 'stroke-width': now ? 3 : 1.5, 'vector-effect': 'non-scaling-stroke', opacity: o.dayFocus && o.dayFocus !== x.d ? .4 : 1 }, svg);
+  });
+  // pins (draw current last)
+  const r = s * (o.pinR || 16);
+  const list = STOPS.filter(x => x.kind === 'stop' && (!x.stampId || x.k === o.now));
+  list.sort((a, b) => (a.k === o.now) - (b.k === o.now));
+  list.forEach(st => {
+    const dim = o.dayFocus && o.dayFocus !== st.d;
+    const g = el('g', { class: 'pin' + (st.k === o.now ? ' now' : '') + (dim ? ' dim' : '') }, svg);
+    const rr = st.k === o.now ? r * 1.35 : r;
+    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: stopColor(st) }, g);
+    const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
+    if (st.ink) t.style.fill = st.ink;
+  });
+}
+
+/* ---------- pages ---------- */
+const pages = []; // {el, label, group}
+const book = document.getElementById('book');
+function addPage(cls, html, label, group, after) {
+  const p = document.createElement('section');
+  p.className = 'page ' + cls;
+  p.innerHTML = '<div class="scroll">' + html + '</div><div class="shade"></div>';
+  book.appendChild(p);
+  pages.push({ el: p, label, group });
+  if (after) after(p);
+  return pages.length - 1;
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const nav = a => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a);
+const firstPageOfDay = {};
+const pageOfStop = {};
+
+// Cover
+addPage('cover', `
+  ${TRIP.placeholder ? `<div class="ph">${esc(TRIP.placeholder)}</div>` : ''}
+  <div class="kicker" style="color:#D2643A">Trip book</div>
+  <h1 class="serif">${esc(TRIP.title)}</h1>
+  <div class="sub">${esc(TRIP.subtitle)}</div>
+  <svg class="map" id="coverMap" style="aspect-ratio:1/1.05"></svg>
+  <div style="margin-top:10px">
+    ${TRIP.chips.map((c, i) => `<span class="chip${i ? '' : ' hot'}">${esc(c)}</span>`).join('')}
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="tally"><div><div style="font-size:12px;color:#F2A65A;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps this trip</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+  <div class="swipe">Swipe or tap Next to turn the page ›</div>
+  ${TRIP.itinerary ? `<a class="backlink" href="${TRIP.itinerary}">← Full itinerary page</a>` : ''}
+  ${TRIP.library ? `<a class="backlink" href="${TRIP.library}">📚 All trip books</a>` : ''}
+`, 'Cover · trip map', 'Start', p => {
+  buildMap(p.querySelector('#coverMap'), { focus: ROUTE, aspect: 1 / 1.05, pad: 34, pinR: 15 });
+});
+
+// Day 0
+const D0 = DAYS[0];
+addPage('', `
+  <div class="dayband" style="background:${D0.color}">
+    <div class="kicker">${DK(0)}</div>
+    <h2 class="serif">${esc(D0.title)}</h2>
+    <div class="meta">${esc(D0.meta || '')}</div>
+  </div>
+  ${D0.html || ''}
+`, DL(0) + ' · ' + D0.title, 0);
+
+// Days
+for (let d = 1; d <= LASTDAY; d++) {
+  const D = DAYS[d];
+  if (D.kind === 'cruise') {
+    firstPageOfDay[d] = addPage('', `
+      <div class="dayband" style="background:${D.color}">
+        <div class="kicker">${DK(d)}</div>
+        <h2 class="serif">${esc(D.title)}</h2>
+        ${D.sub ? `<div class="meta">${esc(D.sub)}</div>` : ''}
+      </div>
+      ${D.html || ''}
+    `, DL(d) + ' · ' + D.title, d);
+    continue;
+  }
+  const items = STOPS.filter(s => s.d === d);
+  const first = items[0];
+  const metaBits = [D.stamps ? D.stamps + ' stamp' + (D.stamps > 1 ? 's' : '') : '', D.drive ? '🚗 ' + D.drive + ' driving' : '', D.tzline || ''].filter(Boolean).join(' · ');
+  firstPageOfDay[d] = addPage('', `
+    <div class="dayband" style="background:${D.color}">
+      <div class="kicker">${DK(d)}</div>
+      <h2 class="serif">${D.title}</h2>
+      <div class="meta">${D.sub || ''}${metaBits ? '<br>' + metaBits : ''}</div>
+    </div>
+    <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
+    <ul class="tl">
+      <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}${s.ink ? ';color:' + s.ink : ''}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+    </ul>
+    ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
+    ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
+  `, DL(d) + ' · ' + D.title, d, p => {
+    buildMap(p.querySelector('#dm' + d), { focus: ROUTE.slice(ROUTE.indexOf(D.start), ROUTE.indexOf(D.end) + 1), aspect: 1.45, pad: 45, dayFocus: d });
+  });
+
+  items.forEach((s, i) => {
+    const fromKey = i === 0 ? D.start : items[i - 1].k;
+    const driveCard = `
+      <div class="drive">
+        <div class="car">🚗</div>
+        <div><div class="fr">${s.leave ? 'Leave ' + esc(s.from) + ' ' + s.leave : 'From ' + esc(s.from)}</div><div class="dt">${s.drive}</div>${s.tz ? `<div class="tz">${s.tz}</div>` : ''}</div>
+        <div class="arr"><div class="lab">${s.arriveLabel || 'Arrive'}</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
+      </div>
+      ${s.via ? `<div class="note" style="background:#F8EFE6">${esc(s.via)}</div>` : ''}`;
+    const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
+    let html, label;
+    if (s.kind === 'stop') {
+      const C = stopColor(s);
+      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: s.boxColor || C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
+      const dayStops = items.filter(x => x.kind === 'stop');
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><div class="num" style="background:${C}${s.ink ? ';color:' + s.ink : ''}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+          <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${s.optional ? `<div class="note ok">${esc(s.optional)}</div>` : ''}
+        ${units.map(u => `
+        <div class="stampbox" style="border-color:${u.color}">
+          <div class="kicker" style="color:${u.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+          <div class="where">${esc(u.where)}</div>
+          ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
+          <button class="got" data-got="${u.id}"></button>
+        </div>`).join('')}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
+        ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
+        <div class="foot">Re-check hours in the NPS app the week before.</div>`;
+      label = s.num + ' · ' + s.name;
+    } else if (s.kind === 'point') {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Along the way</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><h2 class="serif">${esc(s.name)}</h2>${s.place ? `<div class="place">${esc(s.place)}</div>` : ''}</div>
+        ${s.bonus ? `<div class="stampbox" style="border-color:#B5907F"><div class="kicker" style="color:#7E5D50">◈ ${esc(s.bonus.title || 'Bonus cancellation · optional')}</div><div class="where">${esc(s.bonus.where)}</div>${s.bonus.hrs ? `<div class="hrs">${esc(s.bonus.hrs)}</div>` : ''}</div>` : ''}
+        ${s.note ? `<p>${esc(s.note)}</p>` : ''}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>`;
+      label = '• ' + s.name;
+    } else if (s.kind === 'night') {
+      const next = DAYS[d + 1];
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + (next.stamps === 1 ? ' stamp · ' : ' stamps · ') : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">☾</div>
+        <h2 class="serif">Sleep in ${esc(s.name)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
+        <div class="cut" style="background:#F8EFE6;border-left-color:${next.color}"><b>Tomorrow · ${DL(d + 1)}: ${esc(next.title)}</b><br>${nextLine}</div>`;
+      label = '☾ Sleep in ' + s.name;
+    } else {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Last leg</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">✈︎</div>
+        <h2 class="serif">${esc(s.title)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.navTo)}" target="_blank" rel="noopener">${esc(s.navLabel || 'Navigate ↗')}</a></div>
+        <div class="tally" style="background:#34201B;color:#F7E9DC;margin-top:16px"><div><div style="font-size:12px;color:#F2A65A;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps collected</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+        <ul class="chk" id="chk"></ul>`;
+      label = '✈︎ ' + s.title;
+    }
+    pageOfStop[s.k] = addPage('', html, label, d, p => {
+      const m = p.querySelector('[data-map]');
+      const [a, b] = m.dataset.map.split(',');
+      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: TRIP.legMinW || 400, dayFocus: d, pinR: 22 });
+    });
+  });
+}
+
+/* ---------- legend, checklist, stamps ---------- */
+document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)}${D.dow ? ' · ' + D.dow : ''}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + (D.stamps > 1 ? ' stamps' : ' stamp') : ''}</span></span></button>`).join('');
+document.getElementById('chk').innerHTML = UNITS.map(u =>
+  `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
+
+function renderGot() {
+  const c = UNITS.filter(u => got[u.id]).length;
+  document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
+  document.querySelectorAll('button.got').forEach(b => {
+    const on = !!got[b.dataset.got], col = UNIT[b.dataset.got].color;
+    b.classList.toggle('on', on); b.style.background = on ? col : '#F2E3D5';
+    b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
+  });
+  document.querySelectorAll('.chk li').forEach(li => {
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = UNIT[li.dataset.got].color;
+    bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#E6CFC0';
+  });
+}
+
+/* ---------- flipping ---------- */
+let idx = 0, busy = false;
+const pg = document.getElementById('pgnum'), bar = document.getElementById('bar'), prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+function chrome() {
+  pg.textContent = (idx + 1) + ' / ' + pages.length;
+  bar.style.width = ((idx) / (pages.length - 1) * 100) + '%';
+  prevB.disabled = idx === 0; nextB.disabled = idx === pages.length - 1;
+  try { localStorage.setItem(PKEY, idx); } catch (e) {}
+  try { history.replaceState(null, '', '#p' + (idx + 1)); } catch (e) {}
+}
+function show(i) { pages.forEach((p, j) => p.el.className = p.el.className.replace(/\b(show|under|flip-out|flip-in)\b/g, '').trim() + (j === i ? ' show' : '')); idx = i; chrome(); }
+function go(i) {
+  if (busy || i === idx || i < 0 || i >= pages.length) return;
+  const cur = pages[idx].el, nxt = pages[i].el;
+  nxt.querySelector('.scroll').scrollTop = 0;
+  busy = true;
+  const done = () => { pages.forEach((p, j) => { if (j !== i) p.el.classList.remove('show'); p.el.classList.remove('under', 'flip-out', 'flip-in'); }); idx = i; busy = false; chrome(); };
+  if (i > idx) {
+    nxt.classList.add('show', 'under'); cur.classList.add('flip-out');
+    cur.addEventListener('animationend', done, { once: true });
+  } else {
+    cur.classList.add('under'); nxt.classList.add('show', 'flip-in');
+    nxt.addEventListener('animationend', done, { once: true });
+  }
+  setTimeout(() => { if (busy) done(); }, 900);
+}
+prevB.onclick = () => go(idx - 1);
+nextB.onclick = () => go(idx + 1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(idx + 1); if (e.key === 'ArrowLeft') go(idx - 1); });
+let tx = 0, ty = 0;
+book.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+book.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(idx + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-got]');
+  if (g) { got[g.dataset.got] = !got[g.dataset.got]; saveGot(); renderGot(); return; }
+  const jd = e.target.closest('[data-jumpday]');
+  if (jd) { e.preventDefault(); go(firstPageOfDay[jd.dataset.jumpday]); return; }
+  const js = e.target.closest('[data-stop]');
+  if (js) { go(pageOfStop[js.dataset.stop]); return; }
+  const jf = e.target.closest('[data-jump]');
+  if (jf) { go(idx + 1); return; }
+});
+
+/* ---------- contents ---------- */
+const toc = document.getElementById('toc'), tocPanel = document.getElementById('tocPanel');
+function openToc() {
+  let h = '<div class="kicker" style="color:#D2643A">Pages</div>', grp = '';
+  pages.forEach((p, i) => {
+    if (p.group !== grp) { grp = p.group; const isDay = typeof grp === 'number'; h += `<h3 style="color:${isDay ? DAYS[grp].color : '#7E5D50'}">${isDay ? DL(grp) + (DAYS[grp].dow ? ' · ' + DAYS[grp].dow : '') : grp}</h3>`; }
+    h += `<a href="#" data-p="${i}" class="${i === idx ? 'cur' : ''}">${esc(p.label)}<span>${i + 1}</span></a>`;
+  });
+  tocPanel.innerHTML = h; toc.classList.add('open');
+}
+document.getElementById('tocBtn').onclick = openToc;
+toc.addEventListener('click', e => {
+  const a = e.target.closest('[data-p]');
+  if (a) { e.preventDefault(); toc.classList.remove('open'); go(+a.dataset.p); return; }
+  if (e.target === toc) toc.classList.remove('open');
+});
+
+/* ---------- start ---------- */
+renderGot();
+let start = 0;
+const hm = /#p(\d+)/.exec(location.hash);
+if (hm) start = Math.min(pages.length - 1, Math.max(0, +hm[1] - 1));
+else { try { const s = +localStorage.getItem(PKEY); if (s > 0 && s < pages.length) start = s; } catch (e) {} }
+show(start);
+</script>
+</body>
+</html>
