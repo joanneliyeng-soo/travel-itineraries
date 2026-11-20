@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Trip Books · Library</title>
+<style>
+  html, body { margin:0 !important; padding:0 !important; background:#140C07 !important; color:#F3E6D6 !important; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:15px; line-height:1.45; }
+  .serif { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  /* the bookcase */
+  .case { max-width:1120px; margin:0 auto; min-height:100vh;
+    padding:max(10px, env(safe-area-inset-top)) 0 max(18px, env(safe-area-inset-bottom));
+    background:#2A1A10; border-left:12px solid #5A3A24; border-right:12px solid #5A3A24;
+    box-shadow:inset 12px 0 18px -10px rgba(0,0,0,.6), inset -12px 0 18px -10px rgba(0,0,0,.6); }
+  .back { background:repeating-linear-gradient(90deg, #2A1A10 0 118px, #2E1D12 118px 120px); }
+  .crown { margin:0 -12px; background:#6B4630; border-bottom:6px solid #4A2F1D; padding:18px 22px 16px; text-align:center;
+    box-shadow:0 6px 10px rgba(0,0,0,.45); }
+  .plate { display:inline-block; background:#2A1A10; border:2px solid #9C7350; border-radius:6px; padding:8px 20px 9px; }
+  .plate .k { font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#D9B48C; }
+  .plate h1 { margin:2px 0 0; font-size:30px; line-height:1.1; color:#FFF4E6; font-weight:700; }
+  .crown p { margin:10px auto 0; max-width:46ch; color:#F0DCC4; font-size:13.5px; }
+  .note { margin:14px 14px 0; background:#F6EBD9; color:#3A2618; border-radius:3px; padding:9px 12px; font-size:14px;
+    transform:rotate(-.6deg); box-shadow:0 3px 8px rgba(0,0,0,.4); display:none; }
+  .note b { color:#1F130B; }
+
+  .bay { padding:18px 14px 0; }
+  .sign { display:inline-block; margin:0 0 10px 4px; background:#4A2F1D; border:1px solid #9C7350; color:#E8C9A4; border-radius:4px;
+    font-size:11.5px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; padding:4px 10px; }
+
+  /* shelves: fixed row heights, a wooden ledge painted under every row */
+  .shelf { display:grid; column-gap:12px; row-gap:0; align-items:end; padding:0 4px; margin:0 -14px; padding-left:18px; padding-right:18px;
+    background-image:repeating-linear-gradient(to bottom, transparent 0 calc(var(--row) - 16px), #8E6243 calc(var(--row) - 16px) calc(var(--row) - 13px), #7A5134 calc(var(--row) - 13px) calc(var(--row) - 4px), #3E2615 calc(var(--row) - 4px) var(--row));
+    grid-auto-rows:var(--row); }
+  .shelf > .bk { margin-bottom:16px; }
+  .up { --row:318px; grid-template-columns:repeat(auto-fill, minmax(146px, 1fr)); }
+  .shelf.none { --row:96px; }
+  .rack { --row:232px; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); }
+  .empty { grid-column:1 / -1; align-self:center; justify-self:center; color:#B79574; font-size:13.5px; font-style:italic; margin-bottom:16px; }
+
+  .bk { text-decoration:none; color:#EDEAF9; display:block; justify-self:center; width:100%; }
+  .bk:focus-visible { outline:3px solid #F6EBD9; outline-offset:3px; }
+
+  /* face-out cover (Up next) */
+  .face { position:relative; display:flex; flex-direction:column; gap:6px; max-width:230px; margin:0 auto; height:282px;
+    background:var(--bg); border-radius:3px 12px 12px 3px; padding:11px 9px 10px 17px; overflow:hidden;
+    box-shadow:0 8px 14px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.07); }
+  .fsp { position:absolute; left:0; top:0; bottom:0; width:9px; background:var(--ac); box-shadow:2px 0 4px rgba(0,0,0,.3); }
+  .face .top { display:flex; align-items:center; justify-content:space-between; gap:6px; }
+  .face .em { font-size:19px; line-height:1; }
+  .face .when { font-size:10.5px; font-weight:700; color:#D6D2EE; text-align:right; }
+  .face .ti { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:17px; font-weight:700; line-height:1.15; color:#FFFFFF;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .face .sk { width:100%; height:auto; background:var(--panel); border-radius:8px; margin-top:auto; }
+  .face .chips { display:flex; flex-wrap:wrap; gap:4px; max-height:46px; overflow:hidden; }
+  .face .chips span { font-size:11px; font-weight:700; padding:2px 7px; border-radius:99px; background:var(--panel); color:#EDEAF9; }
+  .face .foot { display:flex; align-items:center; gap:8px; }
+  .prog { display:block; flex:1; height:5px; border-radius:99px; background:var(--panel); overflow:hidden; }
+  .prog i { display:block; height:100%; width:0; background:var(--ac); }
+  .face .pn { font-size:11.5px; font-weight:700; color:#D6D2EE; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .badge { align-self:flex-start; background:var(--ac); color:#FFFFFF; font-size:10px; font-weight:800; letter-spacing:.1em;
+    text-transform:uppercase; padding:2px 8px; border-radius:99px; display:none; }
+  .bk.next .badge, .bk.on .badge { display:block; }
+  .bk.next .face, .bk.on .face { box-shadow:0 0 0 2px var(--ac), 0 8px 14px rgba(0,0,0,.55); }
+
+  /* spine + small cover (racks) */
+  .rk { display:none; align-items:flex-end; justify-content:center; }
+  .sp { width:var(--sw); height:var(--sh); background:var(--ac); border-radius:3px 2px 2px 3px; position:relative; flex:none;
+    display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:7px 0 6px;
+    box-shadow:inset -3px 0 4px rgba(0,0,0,.25), inset 3px 0 3px rgba(255,255,255,.12), 2px 4px 8px rgba(0,0,0,.5); }
+  .sp::before, .sp::after { content:""; position:absolute; left:3px; right:3px; height:2px; background:rgba(255,255,255,.35); }
+  .sp::before { top:26px; } .sp::after { bottom:26px; }
+  .sem { font-size:13px; line-height:1; }
+  .stx { writing-mode:vertical-rl; transform:rotate(180deg); font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size:12px; font-weight:700; color:#FFFFFF; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-height:calc(var(--sh) - 62px);
+    text-shadow:0 1px 1px rgba(0,0,0,.35); }
+  .sct { font-size:10px; font-weight:800; color:#FFFFFF; opacity:.9; }
+  .sct b { font-weight:800; }
+  .mini { width:104px; height:calc(var(--sh) - 12px); background:var(--bg); border-radius:0 8px 8px 0; padding:8px 8px 8px 9px;
+    display:flex; flex-direction:column; gap:4px; transform:perspective(500px) rotateY(-14deg); transform-origin:left center;
+    box-shadow:4px 6px 10px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.07); }
+  .mini .mw { font-size:10px; font-weight:700; color:#D6D2EE; }
+  .mini .mt { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:13px; font-weight:700; line-height:1.15; color:#FFFFFF;
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .mini .prog { flex:none; height:4px; }
+  .mini .sk { width:100%; height:auto; background:var(--panel); border-radius:5px; margin-top:auto; }
+  .rack .bk .face { display:none; }
+  .rack .bk .rk { display:flex; }
+  .bk.done .sct { color:#FFFFFF; }
+  .bk.past .mini, .bk.past .sp { filter:saturate(.8); }
+
+  /* the room around the bookcase, only seen on wide screens */
+  @media (min-width:1150px) {
+    html { background-color:#5A1F26 !important; }
+    body { background:transparent !important; }
+    html { background-image:radial-gradient(ellipse at center, rgba(0,0,0,0) 45%, rgba(20,6,8,.55) 100%), url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2280%22%20height%3D%22112%22%20viewBox%3D%220%200%2080%20112%22%3E%3Crect%20width%3D%2280%22%20height%3D%22112%22%20fill%3D%22%235A1F26%22%2F%3E%3Cpath%20d%3D%22M20%200V112M60%200V112%22%20stroke%3D%22%23521B22%22%20stroke-width%3D%221%22%2F%3E%3Cg%20fill%3D%22%236A2830%22%3E%3Cg%20transform%3D%22translate(40%2056)%22%3E%3Cpath%20d%3D%22M0-24C8-15%208-6%200%200C-8-6-8-15%200-24Z%22%2F%3E%3Cpath%20d%3D%22M0%2024C8%2015%208%206%200%200C-8%206-8%2015%200%2024Z%22%2F%3E%3Cpath%20d%3D%22M-18%200C-11-7-4-6%200%200C-4%206-11%207-18%200Z%22%2F%3E%3Cpath%20d%3D%22M18%200C11-7%204-6%200%200C4%206%2011%207%2018%200Z%22%2F%3E%3Cpath%20d%3D%22M-6-30Q0-36%206-30Q0-33-6-30Z%22%2F%3E%3Cpath%20d%3D%22M-6%2030Q0%2036%206%2030Q0%2033-6%2030Z%22%2F%3E%3Ccircle%20r%3D%223.2%22%20fill%3D%22%234E1920%22%2F%3E%3Ccircle%20cx%3D%22-11%22%20cy%3D%22-11%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%22-11%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%22-11%22%20cy%3D%2211%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%221.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(0%200)%22%3E%3Cpath%20d%3D%22M0-24C8-15%208-6%200%200C-8-6-8-15%200-24Z%22%2F%3E%3Cpath%20d%3D%22M0%2024C8%2015%208%206%200%200C-8%206-8%2015%200%2024Z%22%2F%3E%3Cpath%20d%3D%22M-18%200C-11-7-4-6%200%200C-4%206-11%207-18%200Z%22%2F%3E%3Cpath%20d%3D%22M18%200C11-7%204-6%200%200C4%206%2011%207%2018%200Z%22%2F%3E%3Cpath%20d%3D%22M-6-30Q0-36%206-30Q0-33-6-30Z%22%2F%3E%3Cpath%20d%3D%22M-6%2030Q0%2036%206%2030Q0%2033-6%2030Z%22%2F%3E%3Ccircle%20r%3D%223.2%22%20fill%3D%22%234E1920%22%2F%3E%3Ccircle%20cx%3D%22-11%22%20cy%3D%22-11%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%22-11%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%22-11%22%20cy%3D%2211%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%221.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(80%200)%22%3E%3Cpath%20d%3D%22M0-24C8-15%208-6%200%200C-8-6-8-15%200-24Z%22%2F%3E%3Cpath%20d%3D%22M0%2024C8%2015%208%206%200%200C-8%206-8%2015%200%2024Z%22%2F%3E%3Cpath%20d%3D%22M-18%200C-11-7-4-6%200%200C-4%206-11%207-18%200Z%22%2F%3E%3Cpath%20d%3D%22M18%200C11-7%204-6%200%200C4%206%2011%207%2018%200Z%22%2F%3E%3Cpath%20d%3D%22M-6-30Q0-36%206-30Q0-33-6-30Z%22%2F%3E%3Cpath%20d%3D%22M-6%2030Q0%2036%206%2030Q0%2033-6%2030Z%22%2F%3E%3Ccircle%20r%3D%223.2%22%20fill%3D%22%234E1920%22%2F%3E%3Ccircle%20cx%3D%22-11%22%20cy%3D%22-11%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%22-11%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%22-11%22%20cy%3D%2211%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%221.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(0%20112)%22%3E%3Cpath%20d%3D%22M0-24C8-15%208-6%200%200C-8-6-8-15%200-24Z%22%2F%3E%3Cpath%20d%3D%22M0%2024C8%2015%208%206%200%200C-8%206-8%2015%200%2024Z%22%2F%3E%3Cpath%20d%3D%22M-18%200C-11-7-4-6%200%200C-4%206-11%207-18%200Z%22%2F%3E%3Cpath%20d%3D%22M18%200C11-7%204-6%200%200C4%206%2011%207%2018%200Z%22%2F%3E%3Cpath%20d%3D%22M-6-30Q0-36%206-30Q0-33-6-30Z%22%2F%3E%3Cpath%20d%3D%22M-6%2030Q0%2036%206%2030Q0%2033-6%2030Z%22%2F%3E%3Ccircle%20r%3D%223.2%22%20fill%3D%22%234E1920%22%2F%3E%3Ccircle%20cx%3D%22-11%22%20cy%3D%22-11%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%22-11%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%22-11%22%20cy%3D%2211%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%221.6%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(80%20112)%22%3E%3Cpath%20d%3D%22M0-24C8-15%208-6%200%200C-8-6-8-15%200-24Z%22%2F%3E%3Cpath%20d%3D%22M0%2024C8%2015%208%206%200%200C-8%206-8%2015%200%2024Z%22%2F%3E%3Cpath%20d%3D%22M-18%200C-11-7-4-6%200%200C-4%206-11%207-18%200Z%22%2F%3E%3Cpath%20d%3D%22M18%200C11-7%204-6%200%200C4%206%2011%207%2018%200Z%22%2F%3E%3Cpath%20d%3D%22M-6-30Q0-36%206-30Q0-33-6-30Z%22%2F%3E%3Cpath%20d%3D%22M-6%2030Q0%2036%206%2030Q0%2033-6%2030Z%22%2F%3E%3Ccircle%20r%3D%223.2%22%20fill%3D%22%234E1920%22%2F%3E%3Ccircle%20cx%3D%22-11%22%20cy%3D%22-11%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%22-11%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%22-11%22%20cy%3D%2211%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2211%22%20r%3D%221.6%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cg%20fill%3D%22%234E1920%22%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%220%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%22112%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%220%22%20cy%3D%2256%22%20r%3D%222.2%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2256%22%20r%3D%222.2%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") !important;
+      background-size:100% 100%, 80px 112px !important; background-attachment:fixed, scroll; }
+    .case { margin-top:28px; margin-bottom:40px; min-height:auto; border-top:12px solid #5A3A24; border-bottom:22px solid #4A2F1D; border-radius:4px 4px 2px 2px; box-shadow:0 18px 40px rgba(20,14,10,.55), inset 12px 0 18px -10px rgba(0,0,0,.6), inset -12px 0 18px -10px rgba(0,0,0,.6); }
+    .crown { margin-top:-10px; }
+  }
+  .foot2 { text-align:center; padding:20px 14px 6px; }
+  .foot2 a { color:#E8C9A4; font-weight:700; font-size:14px; }
+
+  .bookend { display:none; }
+  @media (min-width:700px) {
+    .rack { grid-template-columns:repeat(auto-fill, 140px); justify-content:start; column-gap:4px; }
+    .rack .bk { width:140px; }
+    .rack .rk { justify-content:flex-start; }
+    .bookend { display:block; align-self:end; justify-self:start; width:46px; height:118px; margin-bottom:16px; position:relative; }
+    .bookend::before { content:""; position:absolute; left:0; bottom:0; width:8px; height:118px; background:#2B2F36; border-radius:2px 2px 0 0;
+      box-shadow:inset -2px 0 0 #444A54, 3px 3px 6px rgba(0,0,0,.5); }
+    .bookend::after { content:""; position:absolute; left:0; bottom:0; width:46px; height:6px; background:#2B2F36; border-radius:0 2px 0 0; }
+    .note { max-width:380px; margin-left:26px; }
+    .bay { padding:22px 26px 0; }
+    .shelf { margin:0 -26px; padding-left:30px; padding-right:30px; column-gap:18px; }
+    .up { --row:356px; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); }
+    .face { height:318px; }
+    .plate h1 { font-size:36px; }
+  }
+</style>
+</head>
+<body>
+<div class="case back">
+  <header class="crown">
+    <div class="plate"><div class="k">Travel library</div><h1 class="serif">Trip Books</h1></div>
+    <p>Flip-book guides for every trip, stop by stop. Tap a book to open it.</p>
+  </header>
+  <div class="note" id="note"></div>
+
+  <section class="bay"><div class="sign">Up next</div>
+    <div class="shelf up" id="next"></div></section>
+  <section class="bay"><div class="sign">Someday</div>
+    <div class="shelf rack" id="some"></div></section>
+  <section class="bay"><div class="sign">Past trips</div>
+    <div class="shelf rack" id="past"></div></section>
+
+  <div class="foot2"><a href="../">← Back to My Travel Bucket List</a></div>
+</div>
+<template id="books">
+<a class="bk" href="southern-arizona.html" data-slug="dec2026-southern-arizona" data-units="5" data-start="2026-12-31" data-end="2027-01-03" aria-label="Southern Arizona New Year’s, Dec 31, 2026 – Jan 3, 2027" style="--bg:#211A30;--panel:#3E3354;--ac:#2F7D7A;--sh:200px;--sw:34px">
+  <span class="face">
+    <span class="fsp"></span>
+    <span class="top"><span class="em">🌵</span><span class="when">Dec 31, 2026 – Jan 3, 2027</span></span>
+    <span class="ti">Southern Arizona New Year’s</span>
+    <span class="badge"></span>
+    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="96,21.8 76.6,99.4 153.3,119.5 187.2,120 188.2,131 227.5,96.7 223.5,89.8 111.1,22.6 111.1,22.6" fill="none" stroke="#2F7D7A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="76.6" cy="99.4" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="153.3" cy="119.5" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="188.2" cy="131" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="227.5" cy="96.7" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="223.5" cy="89.8" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><rect x="106.1" y="17.6" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+    <span class="chips"><span>5 new stamps</span><span>+1 national park</span></span>
+    <span class="foot"><span class="prog"><i></i></span><span class="pn">5 stamps</span></span>
+  </span>
+  <span class="rk">
+    <span class="sp"><span class="sem">🌵</span><span class="stx">Southern Arizona</span><span class="sct">◈ <b class="scn">5</b></span></span>
+    <span class="mini">
+      <span class="mw">Dec 31, 2026 – Jan 3, 2027</span>
+      <span class="mt">Southern Arizona</span>
+      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="96,21.8 76.6,99.4 153.3,119.5 187.2,120 188.2,131 227.5,96.7 223.5,89.8 111.1,22.6 111.1,22.6" fill="none" stroke="#2F7D7A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="76.6" cy="99.4" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="153.3" cy="119.5" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="188.2" cy="131" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="227.5" cy="96.7" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="223.5" cy="89.8" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><rect x="106.1" y="17.6" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+      <span class="prog"><i></i></span>
+    </span>
+  </span>
+</a>
+<a class="bk" href="across-the-rockies.html" data-slug="den-slc-across-the-rockies" data-units="8" data-start="" data-end="" aria-label="Across the Rockies, Dates TBD" style="--bg:#142133;--panel:#2E4468;--ac:#E0663F;--sh:194px;--sw:34px">
+  <span class="face">
+    <span class="fsp"></span>
+    <span class="top"><span class="em">🏜️</span><span class="when">Dates TBD</span></span>
+    <span class="ti">Across the Rockies</span>
+    <span class="badge"></span>
+    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="245.3,52.2 229.4,83.7 223.5,123.2 180.5,98.7 177.2,98.6 162.3,98.3 167.2,95.7 140,77.5 117.1,93.7 119.3,91.3 118.9,95.1 111.9,98.9 74.5,104.5 74.9,105.2 56,21" fill="none" stroke="#E0663F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="229.4" cy="83.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="223.5" cy="123.2" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="180.5" cy="98.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="167.2" cy="95.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="140" cy="77.5" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="117.1" cy="93.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="111.9" cy="98.9" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="74.5" cy="104.5" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><rect x="240.3" y="47.2" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="51" y="16" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+    <span class="chips"><span>8 new stamps</span><span>5 national parks</span></span>
+    <span class="foot"><span class="prog"><i></i></span><span class="pn">8 stamps</span></span>
+  </span>
+  <span class="rk">
+    <span class="sp"><span class="sem">🏜️</span><span class="stx">Across the Rockies</span><span class="sct">◈ <b class="scn">8</b></span></span>
+    <span class="mini">
+      <span class="mw">Dates TBD</span>
+      <span class="mt">Across the Rockies</span>
+      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="245.3,52.2 229.4,83.7 223.5,123.2 180.5,98.7 177.2,98.6 162.3,98.3 167.2,95.7 140,77.5 117.1,93.7 119.3,91.3 118.9,95.1 111.9,98.9 74.5,104.5 74.9,105.2 56,21" fill="none" stroke="#E0663F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="229.4" cy="83.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="223.5" cy="123.2" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="180.5" cy="98.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="167.2" cy="95.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="140" cy="77.5" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="117.1" cy="93.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="111.9" cy="98.9" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="74.5" cy="104.5" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><rect x="240.3" y="47.2" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="51" y="16" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+      <span class="prog"><i></i></span>
+    </span>
+  </span>
+</a>
+<a class="bk" href="el-paso.html" data-slug="elpaso-whitesands-guadalupe" data-units="4" data-start="2027-01-15" data-end="2027-01-18" aria-label="El Paso Long Weekend, Jan 15–18, 2027" style="--bg:#19162A;--panel:#37314B;--ac:#3F78A0;--sh:188px;--sw:25px">
+  <span class="face">
+    <span class="fsp"></span>
+    <span class="top"><span class="em">🏔️</span><span class="when">Jan 15–18, 2027</span></span>
+    <span class="ti">El Paso Long Weekend</span>
+    <span class="badge"></span>
+    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="82.2,118.3 98.7,29.4 77.1,120.9 201.8,109.4 246.7,64.2 230.7,84 201.8,109.4 82.2,118.3 82.9,117.3" fill="none" stroke="#3F78A0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="98.7" cy="29.4" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="77.1" cy="120.9" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="201.8" cy="109.4" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="230.7" cy="84" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><rect x="77.9" y="112.3" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+    <span class="chips"><span>4 new stamps</span><span>3 national parks</span></span>
+    <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+  </span>
+  <span class="rk">
+    <span class="sp"><span class="sem">🏔️</span><span class="stx">El Paso Long Weekend</span><span class="sct">◈ <b class="scn">4</b></span></span>
+    <span class="mini">
+      <span class="mw">Jan 15–18, 2027</span>
+      <span class="mt">El Paso Long Weekend</span>
+      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="82.2,118.3 98.7,29.4 77.1,120.9 201.8,109.4 246.7,64.2 230.7,84 201.8,109.4 82.2,118.3 82.9,117.3" fill="none" stroke="#3F78A0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="98.7" cy="29.4" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="77.1" cy="120.9" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="201.8" cy="109.4" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="230.7" cy="84" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><rect x="77.9" y="112.3" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+      <span class="prog"><i></i></span>
+    </span>
+  </span>
+</a>
+<a class="bk" href="indiana-carolinas.html" data-slug="indiana-carolinas-stamp-sprint" data-units="19" data-start="" data-end="" aria-label="Indiana → Carolinas Stamp Sprint, Dates TBD" style="--bg:#1E1D33;--panel:#322F51;--ac:#E2603A;--sh:200px;--sw:22px">
+  <span class="face">
+    <span class="fsp"></span>
+    <span class="top"><span class="em">🐎</span><span class="when">Dates TBD</span></span>
+    <span class="ti">Indiana → Carolinas Stamp Sprint</span>
+    <span class="badge"></span>
+    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="115.4,20.3 93.3,43.6 102.8,56.2 125.3,69.3 118.8,77 112.9,106.3 113.7,107 123.9,126.5 132.3,125.7 151.7,103 145.7,101.2 143.8,92.6 145.5,79.1 145.6,63.5 143.1,79.7 161.7,90 177.1,99.9 165,109.9 164.5,110.6 183.2,113.3 183.9,119.9 195.1,122.9 203,122.7 210.7,121.1" fill="none" stroke="#E2603A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="93.3" cy="43.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="102.8" cy="56.2" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="125.3" cy="69.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="118.8" cy="77" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="112.9" cy="106.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="123.9" cy="126.5" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="132.3" cy="125.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="151.7" cy="103" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="145.7" cy="101.2" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="143.8" cy="92.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="145.6" cy="63.5" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="143.1" cy="79.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="161.7" cy="90" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="177.1" cy="99.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="164.5" cy="110.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="183.2" cy="113.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="183.9" cy="119.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="195.1" cy="122.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="203" cy="122.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><rect x="110.4" y="15.3" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="205.7" y="116.1" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+    <span class="chips"><span>19 new NPS units</span><span>IN · KY · TN · AL · NC · SC</span></span>
+    <span class="foot"><span class="prog"><i></i></span><span class="pn">19 stamps</span></span>
+  </span>
+  <span class="rk">
+    <span class="sp"><span class="sem">🐎</span><span class="stx">Indiana → Carolinas</span><span class="sct">◈ <b class="scn">19</b></span></span>
+    <span class="mini">
+      <span class="mw">Dates TBD</span>
+      <span class="mt">Indiana → Carolinas</span>
+      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="115.4,20.3 93.3,43.6 102.8,56.2 125.3,69.3 118.8,77 112.9,106.3 113.7,107 123.9,126.5 132.3,125.7 151.7,103 145.7,101.2 143.8,92.6 145.5,79.1 145.6,63.5 143.1,79.7 161.7,90 177.1,99.9 165,109.9 164.5,110.6 183.2,113.3 183.9,119.9 195.1,122.9 203,122.7 210.7,121.1" fill="none" stroke="#E2603A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="93.3" cy="43.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="102.8" cy="56.2" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="125.3" cy="69.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="118.8" cy="77" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="112.9" cy="106.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="123.9" cy="126.5" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="132.3" cy="125.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="151.7" cy="103" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="145.7" cy="101.2" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="143.8" cy="92.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="145.6" cy="63.5" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="143.1" cy="79.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="161.7" cy="90" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="177.1" cy="99.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="164.5" cy="110.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="183.2" cy="113.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="183.9" cy="119.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="195.1" cy="122.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="203" cy="122.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><rect x="110.4" y="15.3" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="205.7" y="116.1" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+      <span class="prog"><i></i></span>
+    </span>
+  </span>
+</a>
+<a class="bk" href="destiny-everglades.html" data-slug="nov2026-destiny-everglades" data-units="4" data-start="2026-11-23" data-end="2026-11-30" aria-label="Destiny &amp; the Glades, Nov 23–30, 2026" style="--bg:#0D2533;--panel:#1C4A62;--ac:#0F8B8D;--sh:182px;--sw:19px">
+  <span class="face">
+    <span class="fsp"></span>
+    <span class="top"><span class="em">🛳️</span><span class="when">Nov 23–30, 2026</span></span>
+    <span class="ti">Destiny &amp; the Glades</span>
+    <span class="badge"></span>
+    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="188.2,68.8 182.4,113.8 152,123.1 97,60.5 204,29.6 208.4,28.3 188.2,68.8" fill="none" stroke="#0F8B8D" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="182.4" cy="113.8" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><circle cx="152" cy="123.1" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><circle cx="97" cy="60.5" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><rect x="183.2" y="63.8" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="203.4" y="23.3" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+    <span class="chips"><span>4 new park units</span><span>New ship: Destiny</span></span>
+    <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+  </span>
+  <span class="rk">
+    <span class="sp"><span class="sem">🛳️</span><span class="stx">Destiny &amp; the Glades</span><span class="sct">◈ <b class="scn">4</b></span></span>
+    <span class="mini">
+      <span class="mw">Nov 23–30, 2026</span>
+      <span class="mt">Destiny &amp; the Glades</span>
+      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="188.2,68.8 182.4,113.8 152,123.1 97,60.5 204,29.6 208.4,28.3 188.2,68.8" fill="none" stroke="#0F8B8D" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="182.4" cy="113.8" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><circle cx="152" cy="123.1" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><circle cx="97" cy="60.5" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><rect x="183.2" y="63.8" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="203.4" y="23.3" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+      <span class="prog"><i></i></span>
+    </span>
+  </span>
+</a>
+<a class="bk" href="mighty-five.html" data-slug="utah-arches-canyonland-capitolreef" data-units="4" data-start="" data-end="" aria-label="Mighty Five Long Weekend, Dates TBD" style="--bg:#142133;--panel:#2E4468;--ac:#C98A2E;--sh:188px;--sw:25px">
+  <span class="face">
+    <span class="fsp"></span>
+    <span class="top"><span class="em">🪨</span><span class="when">Dates TBD</span></span>
+    <span class="ti">Mighty Five Long Weekend</span>
+    <span class="badge"></span>
+    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="110.6,21.5 120.1,35.7 189,113.9 191.7,110.9 191.3,115.7 182.3,120.6 134.7,127.8 129.6,127.5 135.2,128.7 111.1,20.9" fill="none" stroke="#C98A2E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="120.1" cy="35.7" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="189" cy="113.9" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="182.3" cy="120.6" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="134.7" cy="127.8" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><rect x="106.1" y="15.899999999999999" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+    <span class="chips"><span>4 new stamps</span><span>3 national parks</span></span>
+    <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+  </span>
+  <span class="rk">
+    <span class="sp"><span class="sem">🪨</span><span class="stx">Mighty Five</span><span class="sct">◈ <b class="scn">4</b></span></span>
+    <span class="mini">
+      <span class="mw">Dates TBD</span>
+      <span class="mt">Mighty Five</span>
+      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="110.6,21.5 120.1,35.7 189,113.9 191.7,110.9 191.3,115.7 182.3,120.6 134.7,127.8 129.6,127.5 135.2,128.7 111.1,20.9" fill="none" stroke="#C98A2E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="120.1" cy="35.7" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="189" cy="113.9" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="182.3" cy="120.6" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="134.7" cy="127.8" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><rect x="106.1" y="15.899999999999999" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+      <span class="prog"><i></i></span>
+    </span>
+  </span>
+</a>
+<a class="bk" href="death-valley.html" data-slug="vegas-deathvalley" data-units="4" data-start="2027-02-12" data-end="2027-02-15" aria-label="Death Valley Long Weekend, Feb 12–15, 2027" style="--bg:#1B1E30;--panel:#34385A;--ac:#6A4C93;--sh:188px;--sw:19px">
+  <span class="face">
+    <span class="fsp"></span>
+    <span class="top"><span class="em">🌄</span><span class="when">Feb 12–15, 2027</span></span>
+    <span class="ti">Death Valley Long Weekend</span>
+    <span class="badge"></span>
+    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="219.5,68 144.9,22.2 139.9,48.2 139.5,47.1 128.1,39.8 126.7,39.8 107,54.3 83.9,40.9 79.3,32.7 83.6,39.8 219.5,68 208.9,130.5 219.5,68 220.3,70.1" fill="none" stroke="#6A4C93" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="139.9" cy="48.2" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><circle cx="79.3" cy="32.7" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><circle cx="208.9" cy="130.5" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><rect x="215.3" y="65.1" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+    <span class="chips"><span>4 new units</span><span>+1 national park</span></span>
+    <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+  </span>
+  <span class="rk">
+    <span class="sp"><span class="sem">🌄</span><span class="stx">Death Valley</span><span class="sct">◈ <b class="scn">4</b></span></span>
+    <span class="mini">
+      <span class="mw">Feb 12–15, 2027</span>
+      <span class="mt">Death Valley</span>
+      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="219.5,68 144.9,22.2 139.9,48.2 139.5,47.1 128.1,39.8 126.7,39.8 107,54.3 83.9,40.9 79.3,32.7 83.6,39.8 219.5,68 208.9,130.5 219.5,68 220.3,70.1" fill="none" stroke="#6A4C93" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="139.9" cy="48.2" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><circle cx="79.3" cy="32.7" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><circle cx="208.9" cy="130.5" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><rect x="215.3" y="65.1" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
+      <span class="prog"><i></i></span>
+    </span>
+  </span>
+</a>
+</template>
+<script>
+(function () {
+  var books = Array.prototype.slice.call(document.getElementById('books').content.querySelectorAll('.bk'));
+  var t = new Date(), today = t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
+  var next = [], some = [], past = [];
+  books.forEach(function (b) {
+    var e = b.dataset.end;
+    if (!e) some.push(b); else if (e < today) past.push(b); else next.push(b);
+    var got = {};
+    try { got = JSON.parse(localStorage.getItem(b.dataset.slug + '-book-stamps') || '{}') || {}; } catch (x) {}
+    var u = +b.dataset.units, n = Math.min(u, Object.keys(got).filter(function (k) { return got[k]; }).length);
+    b.querySelectorAll('.prog i').forEach(function (i) { i.style.width = (u ? 100 * n / u : 0) + '%'; });
+    b.querySelector('.pn').textContent = n ? n + ' / ' + u + ' stamped' : u + ' stamps';
+    b.querySelector('.scn').textContent = n ? n + '/' + u : u;
+    if (u && n === u) b.classList.add('done');
+  });
+  next.sort(function (a, b) { return a.dataset.start < b.dataset.start ? -1 : 1; });
+  past.sort(function (a, b) { return a.dataset.end > b.dataset.end ? -1 : 1; });
+  some.sort(function (a, b) { return a.getAttribute('aria-label') < b.getAttribute('aria-label') ? -1 : 1; });
+  if (next.length) {
+    var first = next[0];
+    var days = Math.round((new Date(first.dataset.start + 'T00:00:00') - new Date(today + 'T00:00:00')) / 86400000);
+    var name = first.querySelector('.ti').textContent, note = document.getElementById('note');
+    if (days <= 0) { first.classList.add('on'); first.querySelector('.badge').textContent = 'On the road'; note.innerHTML = '🧭 <b>' + name + '</b> is happening now. Tap its cover to pick up where you left off.'; }
+    else { first.classList.add('next'); first.querySelector('.badge').textContent = 'Next up'; note.innerHTML = '🧳 Next trip: <b>' + name + '</b> in ' + days + (days === 1 ? ' day.' : ' days.'); }
+    note.style.display = 'block';
+  }
+  past.forEach(function (b) { b.classList.add('past'); });
+  [['next', next, 'No trips booked yet.'], ['some', some, 'No placeholder trips right now.'], ['past', past, 'No returned books yet. Finished trips land here.']].forEach(function (p) {
+    var el = document.getElementById(p[0]);
+    if (!p[1].length) { var m = document.createElement('div'); m.className = 'empty'; m.textContent = p[2]; el.appendChild(m); el.classList.add('none'); return; }
+    p[1].forEach(function (b) { el.appendChild(b); });
+    if (el.classList.contains('rack')) { var be = document.createElement('div'); be.className = 'bookend'; be.setAttribute('aria-hidden', 'true'); el.appendChild(be); }
+  });
+})();
+</script>
+</body>
+</html>

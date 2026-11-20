@@ -1,5 +1,6 @@
 // Build a flip-book trip page from a trip JSON file.
-// Usage: node build.mjs trips/<slug>.json   → writes ../../travel/<slug>-book.html
+// Usage: node build.mjs trips/<slug>.json   → writes ../../travel/books/<book>.html
+// (plus a redirect at the old ../../travel/<slug>-book.html address), then rebuilds the library.
 import { geoMercator, geoPath } from 'd3-geo';
 import { feature } from 'topojson-client';
 import fs from 'fs';
@@ -44,6 +45,10 @@ const missing = [...trip.route, ...trip.stops.map(s => s.k), ...trip.airports.ma
 if (missing.length) { console.error('Missing map points:', [...new Set(missing)].join(', ')); process.exit(1); }
 
 const { map, ...client } = trip; // the page doesn't need raw coordinates
+if (!trip.book) { console.error('Trip JSON needs a "book" short name (file name under travel/books/)'); process.exit(1); }
+// books live one folder down from the itinerary pages
+if (client.itinerary) client.itinerary = '../' + client.itinerary;
+client.library = 'index.html';
 const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 let html = fs.readFileSync(path.join(here, 'template.html'), 'utf8')
   .replace('__TITLE__', esc(trip.title))
@@ -57,6 +62,19 @@ let html = fs.readFileSync(path.join(here, 'template.html'), 'utf8')
 const theme = Object.fromEntries(Object.entries(trip.theme || {}).map(([a, b]) => [a.toUpperCase(), b]));
 html = html.replace(/#[0-9A-Fa-f]{6}\b/g, m => theme[m.toUpperCase()] || m);
 
-const out = path.join(here, '../../travel', `${trip.slug}-book.html`);
+const booksDir = path.join(here, '../../travel/books');
+fs.mkdirSync(booksDir, { recursive: true });
+const out = path.join(booksDir, `${trip.book}.html`);
 fs.writeFileSync(out, html);
 console.log('wrote', path.relative(process.cwd(), out), html.length, 'bytes');
+
+// old address → redirect, so saved bookmarks keep working (keeps any #hash)
+const target = `books/${trip.book}.html`;
+fs.writeFileSync(path.join(here, '../../travel', `${trip.slug}-book.html`),
+  `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>${esc(trip.title)} · Trip Book</title>` +
+  `<meta name="robots" content="noindex"><link rel="canonical" href="${target}">` +
+  `<meta http-equiv="refresh" content="0; url=${target}">` +
+  `<script>location.replace(${JSON.stringify(target)} + location.hash);</script></head>` +
+  `<body><p>This trip book moved to <a href="${target}">${target}</a>.</p></body></html>\n`);
+
+await import('./library.mjs');

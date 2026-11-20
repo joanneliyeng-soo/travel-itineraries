@@ -4,7 +4,7 @@ Builds a phone-friendly flip book for a trip: a cover map of the whole route, a 
 then for each day an overview page, one page per stop (drive in, leg map, stamp box, navigate,
 notes, about), an overnight page, and a final page with the stamp checklist.
 
-Output goes to `travel/<slug>-book.html`. Link it from the trip's itinerary page.
+Output goes to `travel/books/<book>.html` (set `book` in the trip JSON, e.g. `"el-paso"`). The build also writes a redirect at the old `travel/<slug>-book.html` address and rebuilds the library at `travel/books/index.html`. Link the book from the trip's itinerary page as `books/<book>.html`.
 
 ## Build
 
@@ -20,7 +20,10 @@ Copy `trips/indiana-carolinas-stamp-sprint.json` and edit it.
 
 | Field | What it is |
 | --- | --- |
-| `slug` | File name stem. Output is `travel/<slug>-book.html`; also keys the saved stamps/page in the browser. |
+| `slug` | Keys the saved stamps/page in the browser; never change it once a book is in use. |
+| `book` | Short file name: the book is `travel/books/<book>.html`. |
+| `start`, `end` | ISO dates (`2027-01-15`). The library shelves the book under Up next until `end` passes, then Past trips. Leave both out for a placeholder (Someday shelf). |
+| `emoji` | Shown on the library cover. |
 | `title`, `short`, `subtitle`, `placeholder`, `chips` | Cover text. `short` is the top-bar title. Leave `placeholder` empty once the trip is dated. The first chip is highlighted. |
 | `itinerary` | Relative link back to the trip's itinerary page. |
 | `map.bbox` | `[[west, north], [east, south]]` in lon/lat. The cover map fits this box. |

@@ -322,6 +322,7 @@ addPage('cover', `
   <div class="tally"><div><div style="font-size:12px;color:#A9A4C8;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps this trip</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
   <div class="swipe">Swipe or tap Next to turn the page ›</div>
   ${TRIP.itinerary ? `<a class="backlink" href="${TRIP.itinerary}">← Full itinerary page</a>` : ''}
+  ${TRIP.library ? `<a class="backlink" href="${TRIP.library}">📚 All trip books</a>` : ''}
 `, 'Cover · trip map', 'Start', p => {
   buildMap(p.querySelector('#coverMap'), { focus: ROUTE, aspect: 1 / 1.05, pad: 34, pinR: 15 });
 });
