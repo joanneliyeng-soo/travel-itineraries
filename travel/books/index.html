@@ -41,30 +41,29 @@
   .rack { --row:232px; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); }
   .empty { grid-column:1 / -1; align-self:center; justify-self:center; color:#B79574; font-size:13.5px; font-style:italic; margin-bottom:16px; }
 
-  .bk { text-decoration:none; color:#EDEAF9; display:block; justify-self:center; width:100%; }
+  .bk { text-decoration:none; color:#F7EBD3; display:block; justify-self:center; width:100%; }
   .bk:focus-visible { outline:3px solid #F6EBD9; outline-offset:3px; }
 
-  /* face-out cover (Up next) */
-  .face { position:relative; display:flex; flex-direction:column; gap:6px; max-width:230px; margin:0 auto; height:282px;
-    background:var(--bg); border-radius:3px 12px 12px 3px; padding:11px 9px 10px 17px; overflow:hidden;
-    box-shadow:0 8px 14px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.07); }
-  .fsp { position:absolute; left:0; top:0; bottom:0; width:9px; background:var(--ac); box-shadow:2px 0 4px rgba(0,0,0,.3); }
-  .face .top { display:flex; align-items:center; justify-content:space-between; gap:6px; }
-  .face .em { font-size:19px; line-height:1; }
-  .face .when { font-size:10.5px; font-weight:700; color:#D6D2EE; text-align:right; }
-  .face .ti { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:17px; font-weight:700; line-height:1.15; color:#FFFFFF;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-  .face .sk { width:100%; height:auto; background:var(--panel); border-radius:8px; margin-top:auto; }
-  .face .chips { display:flex; flex-wrap:wrap; gap:4px; max-height:46px; overflow:hidden; }
-  .face .chips span { font-size:11px; font-weight:700; padding:2px 7px; border-radius:99px; background:var(--panel); color:#EDEAF9; }
-  .face .foot { display:flex; align-items:center; gap:8px; }
+  /* face-out cover (Up next): vintage park poster on cream paper */
+  .face { position:relative; display:flex; flex-direction:column; max-width:230px; margin:0 auto; height:282px;
+    background:#F2E3C6; border-radius:3px 10px 10px 3px; padding:7px; overflow:hidden;
+    box-shadow:0 8px 14px rgba(0,0,0,.55), inset 3px 0 0 rgba(0,0,0,.12); }
+  .pic { position:relative; flex:1; min-height:0; display:block; overflow:hidden; border-radius:2px 6px 0 0; }
+  .art { display:block; width:100%; height:100%; }
+  .pic .when { position:absolute; left:9px; top:7px; right:9px; font-size:10px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); }
+  .plate2 { display:flex; flex-direction:column; gap:4px; background:var(--bg); padding:9px 10px 9px; border-radius:0 0 6px 0; }
+  .face .ti { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:15px; font-weight:700; line-height:1.12; color:#F7EBD3;
+    text-transform:uppercase; letter-spacing:.03em; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .chip1 { font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ac); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .chip1:empty { display:none; }
+  .face .foot { display:flex; align-items:center; gap:8px; margin-top:2px; }
   .prog { display:block; flex:1; height:5px; border-radius:99px; background:var(--panel); overflow:hidden; }
   .prog i { display:block; height:100%; width:0; background:var(--ac); }
-  .face .pn { font-size:11.5px; font-weight:700; color:#D6D2EE; white-space:nowrap; font-variant-numeric:tabular-nums; }
-  .badge { align-self:flex-start; background:var(--ac); color:#FFFFFF; font-size:10px; font-weight:800; letter-spacing:.1em;
+  .face .pn { font-size:11px; font-weight:700; color:#EADCC2; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .badge { position:absolute; right:7px; top:24px; background:var(--bg); color:#F7EBD3; font-size:10px; font-weight:800; letter-spacing:.1em;
     text-transform:uppercase; padding:2px 8px; border-radius:99px; display:none; }
   .bk.next .badge, .bk.on .badge { display:block; }
-  .bk.next .face, .bk.on .face { box-shadow:0 0 0 2px var(--ac), 0 8px 14px rgba(0,0,0,.55); }
+  .bk.next .face, .bk.on .face { box-shadow:0 0 0 3px #F6EBD9, 0 8px 14px rgba(0,0,0,.55); }
 
   /* spine + small cover (racks) */
   .rk { display:none; align-items:flex-end; justify-content:center; }
@@ -79,14 +78,15 @@
     text-shadow:0 1px 1px rgba(0,0,0,.35); }
   .sct { font-size:10px; font-weight:800; color:#FFFFFF; opacity:.9; }
   .sct b { font-weight:800; }
-  .mini { width:104px; height:calc(var(--sh) - 12px); background:var(--bg); border-radius:0 8px 8px 0; padding:8px 8px 8px 9px;
-    display:flex; flex-direction:column; gap:4px; transform:perspective(500px) rotateY(-14deg); transform-origin:left center;
-    box-shadow:4px 6px 10px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.07); }
-  .mini .mw { font-size:10px; font-weight:700; color:#D6D2EE; }
-  .mini .mt { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:13px; font-weight:700; line-height:1.15; color:#FFFFFF;
-    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .mini { width:104px; height:calc(var(--sh) - 12px); background:#F2E3C6; border-radius:0 8px 8px 0; padding:5px;
+    display:flex; flex-direction:column; transform:perspective(500px) rotateY(-14deg); transform-origin:left center;
+    box-shadow:4px 6px 10px rgba(0,0,0,.5); }
+  .mpic { position:relative; flex:1; min-height:0; display:block; overflow:hidden; border-radius:0 4px 0 0; }
+  .mini .mw { position:absolute; left:6px; top:5px; right:4px; font-size:9px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); line-height:1.2; }
+  .mband { display:flex; flex-direction:column; gap:5px; background:var(--bg); padding:6px 7px 7px; border-radius:0 0 4px 0; }
+  .mini .mt { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:11.5px; font-weight:700; line-height:1.12; color:#F7EBD3;
+    text-transform:uppercase; letter-spacing:.04em; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
   .mini .prog { flex:none; height:4px; }
-  .mini .sk { width:100%; height:auto; background:var(--panel); border-radius:5px; margin-top:auto; }
   .rack .bk .face { display:none; }
   .rack .bk .rk { display:flex; }
   .bk.done .sct { color:#FFFFFF; }
@@ -140,163 +140,213 @@
   <div class="foot2"><a href="../">← Back to My Travel Bucket List</a></div>
 </div>
 <template id="books">
-<a class="bk" href="southern-arizona.html" data-slug="dec2026-southern-arizona" data-units="5" data-collected="" data-start="2026-12-31" data-end="2027-01-03" aria-label="Southern Arizona New Year’s, Dec 31, 2026 – Jan 3, 2027" style="--bg:#211A30;--panel:#3E3354;--ac:#2F7D7A;--sh:200px;--sw:34px">
+<a class="bk" href="southern-arizona.html" data-slug="dec2026-southern-arizona" data-units="5" data-collected="" data-start="2026-12-31" data-end="2027-01-03" aria-label="Southern Arizona New Year’s, Dec 31, 2026 – Jan 3, 2027" style="--bg:#3E2440;--panel:rgba(255,255,255,.22);--ac:#F9D78A;--ink:#3E2440;--sh:200px;--sw:34px">
   <span class="face">
-    <span class="fsp"></span>
-    <span class="top"><span class="em">🌵</span><span class="when">Dec 31, 2026 – Jan 3, 2027</span></span>
-    <span class="ti">Southern Arizona New Year’s</span>
-    <span class="badge"></span>
-    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="96,21.8 76.6,99.4 153.3,119.5 187.2,120 188.2,131 227.5,96.7 223.5,89.8 111.1,22.6 111.1,22.6" fill="none" stroke="#2F7D7A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="76.6" cy="99.4" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="153.3" cy="119.5" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="188.2" cy="131" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="227.5" cy="96.7" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="223.5" cy="89.8" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><rect x="106.1" y="17.6" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-    <span class="chips"><span>5 new stamps</span><span>+1 national park</span></span>
-    <span class="foot"><span class="prog"><i></i></span><span class="pn">5 stamps</span></span>
+    <span class="pic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F4A259"/><circle cx="60" cy="62" r="24" fill="#F9D78A"/>
+<path d="M0 112L24 96L44 104L70 82L96 100L124 88L150 104L176 90L200 100V170H0Z" fill="#B5523B"/>
+<path d="M0 132Q50 116 100 128T200 122V170H0Z" fill="#7A3B4F"/>
+<path d="M0 150Q60 140 120 148T200 146V170H0Z" fill="#3E2440"/>
+<g stroke="#2A1830" stroke-width="7" stroke-linecap="round" fill="none"><path d="M146 152V90"/><path d="M146 125.96000000000001H136V107.36"/><path d="M146 117.9H156V98.68"/></g><g stroke="#2A1830" stroke-width="7" stroke-linecap="round" fill="none"><path d="M40 156V118"/><path d="M40 140.04H30V128.64"/><path d="M40 135.1H50V123.32"/></g></svg><span class="when">Dec 31, 2026 – Jan 3, 2027</span><span class="badge"></span></span>
+    <span class="plate2">
+      <span class="ti">Southern Arizona</span>
+      <span class="chip1">5 new stamps</span>
+      <span class="foot"><span class="prog"><i></i></span><span class="pn">5 stamps</span></span>
+    </span>
   </span>
   <span class="rk">
     <span class="sp"><span class="sem">🌵</span><span class="stx">Southern Arizona</span><span class="sct">◈ <b class="scn">5</b></span></span>
     <span class="mini">
-      <span class="mw">Dec 31, 2026 – Jan 3, 2027</span>
-      <span class="mt">Southern Arizona</span>
-      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="96,21.8 76.6,99.4 153.3,119.5 187.2,120 188.2,131 227.5,96.7 223.5,89.8 111.1,22.6 111.1,22.6" fill="none" stroke="#2F7D7A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="76.6" cy="99.4" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="153.3" cy="119.5" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="188.2" cy="131" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="227.5" cy="96.7" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><circle cx="223.5" cy="89.8" r="4.6" fill="#FFFFFF" stroke="#2F7D7A" stroke-width="2"/><rect x="106.1" y="17.6" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-      <span class="prog"><i></i></span>
+      <span class="mpic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F4A259"/><circle cx="60" cy="62" r="24" fill="#F9D78A"/>
+<path d="M0 112L24 96L44 104L70 82L96 100L124 88L150 104L176 90L200 100V170H0Z" fill="#B5523B"/>
+<path d="M0 132Q50 116 100 128T200 122V170H0Z" fill="#7A3B4F"/>
+<path d="M0 150Q60 140 120 148T200 146V170H0Z" fill="#3E2440"/>
+<g stroke="#2A1830" stroke-width="7" stroke-linecap="round" fill="none"><path d="M146 152V90"/><path d="M146 125.96000000000001H136V107.36"/><path d="M146 117.9H156V98.68"/></g><g stroke="#2A1830" stroke-width="7" stroke-linecap="round" fill="none"><path d="M40 156V118"/><path d="M40 140.04H30V128.64"/><path d="M40 135.1H50V123.32"/></g></svg><span class="mw">Dec 31, 2026 – Jan 3, 2027</span></span>
+      <span class="mband"><span class="mt">Southern Arizona</span><span class="prog"><i></i></span></span>
     </span>
   </span>
 </a>
-<a class="bk" href="across-the-rockies.html" data-slug="den-slc-across-the-rockies" data-units="8" data-collected="" data-start="" data-end="" aria-label="Across the Rockies, Dates TBD" style="--bg:#142133;--panel:#2E4468;--ac:#E0663F;--sh:194px;--sw:34px">
+<a class="bk" href="across-the-rockies.html" data-slug="den-slc-across-the-rockies" data-units="8" data-collected="" data-start="" data-end="" aria-label="Across the Rockies, Dates TBD" style="--bg:#142133;--panel:rgba(255,255,255,.22);--ac:#E0663F;--ink:#142133;--sh:194px;--sw:34px">
   <span class="face">
-    <span class="fsp"></span>
-    <span class="top"><span class="em">🏜️</span><span class="when">Dates TBD</span></span>
-    <span class="ti">Across the Rockies</span>
-    <span class="badge"></span>
-    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="245.3,52.2 229.4,83.7 223.5,123.2 180.5,98.7 177.2,98.6 162.3,98.3 167.2,95.7 140,77.5 117.1,93.7 119.3,91.3 118.9,95.1 111.9,98.9 74.5,104.5 74.9,105.2 56,21" fill="none" stroke="#E0663F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="229.4" cy="83.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="223.5" cy="123.2" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="180.5" cy="98.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="167.2" cy="95.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="140" cy="77.5" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="117.1" cy="93.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="111.9" cy="98.9" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="74.5" cy="104.5" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><rect x="240.3" y="47.2" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="51" y="16" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-    <span class="chips"><span>8 new stamps</span><span>5 national parks</span></span>
-    <span class="foot"><span class="prog"><i></i></span><span class="pn">8 stamps</span></span>
+    <span class="pic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F4D6A8"/><circle cx="42" cy="44" r="18" fill="#FBE9CB"/>
+<path d="M0 120L40 62L62 90L96 38L130 92L152 68L200 116V170H0Z" fill="#4A6290"/>
+<g fill="#FFFFFF"><path d="M96 38L109 58L101 54L94 61L86 54Z"/><path d="M40 62L50 76L43 73L37 79L32 74Z"/><path d="M152 68L161 80L155 78L149 82Z"/></g>
+<path d="M0 140Q50 118 100 134T200 128V170H0Z" fill="#2E4468"/>
+<path d="M12 140L22.200000000000003 170H1.799999999999999Z" fill="#142133"/><path d="M30 132L42.92 170H17.08Z" fill="#142133"/><path d="M48 124L63.64 170H32.36Z" fill="#142133"/><path d="M150 140L160.2 170H139.8Z" fill="#142133"/><path d="M168 132L180.92000000000002 170H155.07999999999998Z" fill="#142133"/><path d="M186 124L201.64 170H170.36Z" fill="#142133"/></svg><span class="when">Dates TBD</span><span class="badge"></span></span>
+    <span class="plate2">
+      <span class="ti">Across the Rockies</span>
+      <span class="chip1">8 new stamps</span>
+      <span class="foot"><span class="prog"><i></i></span><span class="pn">8 stamps</span></span>
+    </span>
   </span>
   <span class="rk">
     <span class="sp"><span class="sem">🏜️</span><span class="stx">Across the Rockies</span><span class="sct">◈ <b class="scn">8</b></span></span>
     <span class="mini">
-      <span class="mw">Dates TBD</span>
-      <span class="mt">Across the Rockies</span>
-      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="245.3,52.2 229.4,83.7 223.5,123.2 180.5,98.7 177.2,98.6 162.3,98.3 167.2,95.7 140,77.5 117.1,93.7 119.3,91.3 118.9,95.1 111.9,98.9 74.5,104.5 74.9,105.2 56,21" fill="none" stroke="#E0663F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="229.4" cy="83.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="223.5" cy="123.2" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="180.5" cy="98.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="167.2" cy="95.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="140" cy="77.5" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="117.1" cy="93.7" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="111.9" cy="98.9" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><circle cx="74.5" cy="104.5" r="4.6" fill="#FFFFFF" stroke="#E0663F" stroke-width="2"/><rect x="240.3" y="47.2" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="51" y="16" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-      <span class="prog"><i></i></span>
+      <span class="mpic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F4D6A8"/><circle cx="42" cy="44" r="18" fill="#FBE9CB"/>
+<path d="M0 120L40 62L62 90L96 38L130 92L152 68L200 116V170H0Z" fill="#4A6290"/>
+<g fill="#FFFFFF"><path d="M96 38L109 58L101 54L94 61L86 54Z"/><path d="M40 62L50 76L43 73L37 79L32 74Z"/><path d="M152 68L161 80L155 78L149 82Z"/></g>
+<path d="M0 140Q50 118 100 134T200 128V170H0Z" fill="#2E4468"/>
+<path d="M12 140L22.200000000000003 170H1.799999999999999Z" fill="#142133"/><path d="M30 132L42.92 170H17.08Z" fill="#142133"/><path d="M48 124L63.64 170H32.36Z" fill="#142133"/><path d="M150 140L160.2 170H139.8Z" fill="#142133"/><path d="M168 132L180.92000000000002 170H155.07999999999998Z" fill="#142133"/><path d="M186 124L201.64 170H170.36Z" fill="#142133"/></svg><span class="mw">Dates TBD</span></span>
+      <span class="mband"><span class="mt">Across the Rockies</span><span class="prog"><i></i></span></span>
     </span>
   </span>
 </a>
-<a class="bk" href="el-paso.html" data-slug="elpaso-whitesands-guadalupe" data-units="4" data-collected="" data-start="2027-01-15" data-end="2027-01-18" aria-label="El Paso Long Weekend, Jan 15–18, 2027" style="--bg:#19162A;--panel:#37314B;--ac:#3F78A0;--sh:188px;--sw:25px">
+<a class="bk" href="el-paso.html" data-slug="elpaso-whitesands-guadalupe" data-units="4" data-collected="" data-start="2027-01-15" data-end="2027-01-18" aria-label="El Paso Long Weekend, Jan 15–18, 2027" style="--bg:#3A2C55;--panel:rgba(255,255,255,.22);--ac:#F6C98B;--ink:#3A2C55;--sh:188px;--sw:25px">
   <span class="face">
-    <span class="fsp"></span>
-    <span class="top"><span class="em">🏔️</span><span class="when">Jan 15–18, 2027</span></span>
-    <span class="ti">El Paso Long Weekend</span>
-    <span class="badge"></span>
-    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="82.2,118.3 98.7,29.4 77.1,120.9 201.8,109.4 246.7,64.2 230.7,84 201.8,109.4 82.2,118.3 82.9,117.3" fill="none" stroke="#3F78A0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="98.7" cy="29.4" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="77.1" cy="120.9" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="201.8" cy="109.4" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="230.7" cy="84" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><rect x="77.9" y="112.3" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-    <span class="chips"><span>4 new stamps</span><span>3 national parks</span></span>
-    <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+    <span class="pic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F6C98B"/><circle cx="146" cy="50" r="22" fill="#F8E6B0"/>
+<path d="M0 112L18 94L30 102L46 70L56 86L70 60L84 90L100 82L122 98L150 86L176 100L200 92V170H0Z" fill="#8C7FB0"/>
+<path d="M0 130Q40 108 82 124T160 116T200 122V170H0Z" fill="#EBDDC6"/>
+<path d="M0 148Q50 126 100 142T200 136V170H0Z" fill="#FFFFFF"/>
+<g stroke="#3A2C55" stroke-width="2" stroke-linecap="round"><path d="M34 156V134"/><path d="M34 134L26 126M34 134L42 126M34 134L30 122M34 134L38 122M34 134L34 120"/></g></svg><span class="when">Jan 15–18, 2027</span><span class="badge"></span></span>
+    <span class="plate2">
+      <span class="ti">El Paso Long Weekend</span>
+      <span class="chip1">4 new stamps</span>
+      <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+    </span>
   </span>
   <span class="rk">
     <span class="sp"><span class="sem">🏔️</span><span class="stx">El Paso Long Weekend</span><span class="sct">◈ <b class="scn">4</b></span></span>
     <span class="mini">
-      <span class="mw">Jan 15–18, 2027</span>
-      <span class="mt">El Paso Long Weekend</span>
-      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="82.2,118.3 98.7,29.4 77.1,120.9 201.8,109.4 246.7,64.2 230.7,84 201.8,109.4 82.2,118.3 82.9,117.3" fill="none" stroke="#3F78A0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="98.7" cy="29.4" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="77.1" cy="120.9" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="201.8" cy="109.4" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><circle cx="230.7" cy="84" r="4.6" fill="#FFFFFF" stroke="#3F78A0" stroke-width="2"/><rect x="77.9" y="112.3" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-      <span class="prog"><i></i></span>
+      <span class="mpic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F6C98B"/><circle cx="146" cy="50" r="22" fill="#F8E6B0"/>
+<path d="M0 112L18 94L30 102L46 70L56 86L70 60L84 90L100 82L122 98L150 86L176 100L200 92V170H0Z" fill="#8C7FB0"/>
+<path d="M0 130Q40 108 82 124T160 116T200 122V170H0Z" fill="#EBDDC6"/>
+<path d="M0 148Q50 126 100 142T200 136V170H0Z" fill="#FFFFFF"/>
+<g stroke="#3A2C55" stroke-width="2" stroke-linecap="round"><path d="M34 156V134"/><path d="M34 134L26 126M34 134L42 126M34 134L30 122M34 134L38 122M34 134L34 120"/></g></svg><span class="mw">Jan 15–18, 2027</span></span>
+      <span class="mband"><span class="mt">El Paso Long Weekend</span><span class="prog"><i></i></span></span>
     </span>
   </span>
 </a>
-<a class="bk" href="indiana-carolinas.html" data-slug="indiana-carolinas-stamp-sprint" data-units="19" data-collected="" data-start="" data-end="" aria-label="Indiana → Carolinas Stamp Sprint, Dates TBD" style="--bg:#1E1D33;--panel:#322F51;--ac:#E2603A;--sh:200px;--sw:22px">
+<a class="bk" href="indiana-carolinas.html" data-slug="indiana-carolinas-stamp-sprint" data-units="19" data-collected="" data-start="" data-end="" aria-label="Indiana → Carolinas Stamp Sprint, Dates TBD" style="--bg:#1F3550;--panel:rgba(255,255,255,.22);--ac:#E2603A;--ink:#1F3550;--sh:200px;--sw:22px">
   <span class="face">
-    <span class="fsp"></span>
-    <span class="top"><span class="em">🐎</span><span class="when">Dates TBD</span></span>
-    <span class="ti">Indiana → Carolinas Stamp Sprint</span>
-    <span class="badge"></span>
-    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="115.4,20.3 93.3,43.6 102.8,56.2 125.3,69.3 118.8,77 112.9,106.3 113.7,107 123.9,126.5 132.3,125.7 151.7,103 145.7,101.2 143.8,92.6 145.5,79.1 145.6,63.5 143.1,79.7 161.7,90 177.1,99.9 165,109.9 164.5,110.6 183.2,113.3 183.9,119.9 195.1,122.9 203,122.7 210.7,121.1" fill="none" stroke="#E2603A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="93.3" cy="43.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="102.8" cy="56.2" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="125.3" cy="69.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="118.8" cy="77" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="112.9" cy="106.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="123.9" cy="126.5" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="132.3" cy="125.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="151.7" cy="103" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="145.7" cy="101.2" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="143.8" cy="92.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="145.6" cy="63.5" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="143.1" cy="79.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="161.7" cy="90" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="177.1" cy="99.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="164.5" cy="110.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="183.2" cy="113.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="183.9" cy="119.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="195.1" cy="122.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="203" cy="122.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><rect x="110.4" y="15.3" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="205.7" y="116.1" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-    <span class="chips"><span>19 new NPS units</span><span>IN · KY · TN · AL · NC · SC</span></span>
-    <span class="foot"><span class="prog"><i></i></span><span class="pn">19 stamps</span></span>
+    <span class="pic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F3D7B6"/><circle cx="140" cy="58" r="22" fill="#F8E9CF"/>
+<path d="M0 96Q40 74 80 90T160 82T200 88V170H0Z" fill="#A9B8C9"/>
+<rect y="100" width="200" height="8" fill="#FFFFFF" opacity=".35"/>
+<path d="M0 116Q50 94 100 110T200 104V170H0Z" fill="#7F93AE"/>
+<rect y="120" width="200" height="7" fill="#FFFFFF" opacity=".3"/>
+<path d="M0 134Q40 116 90 130T200 124V170H0Z" fill="#56708F"/>
+<path d="M0 154Q60 136 120 150T200 146V170H0Z" fill="#2E4A66"/></svg><span class="when">Dates TBD</span><span class="badge"></span></span>
+    <span class="plate2">
+      <span class="ti">Indiana → Carolinas</span>
+      <span class="chip1">19 new NPS units</span>
+      <span class="foot"><span class="prog"><i></i></span><span class="pn">19 stamps</span></span>
+    </span>
   </span>
   <span class="rk">
     <span class="sp"><span class="sem">🐎</span><span class="stx">Indiana → Carolinas</span><span class="sct">◈ <b class="scn">19</b></span></span>
     <span class="mini">
-      <span class="mw">Dates TBD</span>
-      <span class="mt">Indiana → Carolinas</span>
-      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="115.4,20.3 93.3,43.6 102.8,56.2 125.3,69.3 118.8,77 112.9,106.3 113.7,107 123.9,126.5 132.3,125.7 151.7,103 145.7,101.2 143.8,92.6 145.5,79.1 145.6,63.5 143.1,79.7 161.7,90 177.1,99.9 165,109.9 164.5,110.6 183.2,113.3 183.9,119.9 195.1,122.9 203,122.7 210.7,121.1" fill="none" stroke="#E2603A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="93.3" cy="43.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="102.8" cy="56.2" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="125.3" cy="69.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="118.8" cy="77" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="112.9" cy="106.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="123.9" cy="126.5" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="132.3" cy="125.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="151.7" cy="103" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="145.7" cy="101.2" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="143.8" cy="92.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="145.6" cy="63.5" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="143.1" cy="79.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="161.7" cy="90" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="177.1" cy="99.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="164.5" cy="110.6" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="183.2" cy="113.3" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="183.9" cy="119.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="195.1" cy="122.9" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><circle cx="203" cy="122.7" r="4.6" fill="#FFFFFF" stroke="#E2603A" stroke-width="2"/><rect x="110.4" y="15.3" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="205.7" y="116.1" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-      <span class="prog"><i></i></span>
+      <span class="mpic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F3D7B6"/><circle cx="140" cy="58" r="22" fill="#F8E9CF"/>
+<path d="M0 96Q40 74 80 90T160 82T200 88V170H0Z" fill="#A9B8C9"/>
+<rect y="100" width="200" height="8" fill="#FFFFFF" opacity=".35"/>
+<path d="M0 116Q50 94 100 110T200 104V170H0Z" fill="#7F93AE"/>
+<rect y="120" width="200" height="7" fill="#FFFFFF" opacity=".3"/>
+<path d="M0 134Q40 116 90 130T200 124V170H0Z" fill="#56708F"/>
+<path d="M0 154Q60 136 120 150T200 146V170H0Z" fill="#2E4A66"/></svg><span class="mw">Dates TBD</span></span>
+      <span class="mband"><span class="mt">Indiana → Carolinas</span><span class="prog"><i></i></span></span>
     </span>
   </span>
 </a>
-<a class="bk" href="destiny-everglades.html" data-slug="nov2026-destiny-everglades" data-units="4" data-collected="" data-start="2026-11-23" data-end="2026-11-30" aria-label="Destiny &amp; the Glades, Nov 23–30, 2026" style="--bg:#0D2533;--panel:#1C4A62;--ac:#0F8B8D;--sh:182px;--sw:19px">
+<a class="bk" href="destiny-everglades.html" data-slug="nov2026-destiny-everglades" data-units="4" data-collected="" data-start="2026-11-23" data-end="2026-11-30" aria-label="Destiny &amp; the Glades, Nov 23–30, 2026" style="--bg:#0E3A4F;--panel:rgba(255,255,255,.22);--ac:#F7C59F;--ink:#0E3A4F;--sh:182px;--sw:19px">
   <span class="face">
-    <span class="fsp"></span>
-    <span class="top"><span class="em">🛳️</span><span class="when">Nov 23–30, 2026</span></span>
-    <span class="ti">Destiny &amp; the Glades</span>
-    <span class="badge"></span>
-    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="188.2,68.8 182.4,113.8 152,123.1 97,60.5 204,29.6 208.4,28.3 188.2,68.8" fill="none" stroke="#0F8B8D" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="182.4" cy="113.8" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><circle cx="152" cy="123.1" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><circle cx="97" cy="60.5" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><rect x="183.2" y="63.8" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="203.4" y="23.3" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-    <span class="chips"><span>4 new park units</span><span>New ship: Destiny</span></span>
-    <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+    <span class="pic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F7C59F"/><circle cx="112" cy="100" r="28" fill="#FCE7C2"/>
+<rect y="100" width="200" height="70" fill="#2B7A99"/>
+<g stroke="#7FC2CF" stroke-width="2" stroke-linecap="round"><path d="M60 114H96M120 120H170M80 132H130M30 126H56"/></g>
+<path d="M116 104H176L170 114H122Z" fill="#0E3A4F"/><rect x="128" y="92" width="38" height="12" fill="#F4EEE2"/>
+<rect x="138" y="82" width="7" height="10" fill="#C4572E"/><rect x="150" y="82" width="7" height="10" fill="#C4572E"/>
+<path d="M0 170V138Q8 146 12 126Q16 146 22 132Q26 150 34 138Q40 152 48 142Q54 154 64 146Q70 158 80 152L84 170Z" fill="#2F5D3A"/>
+<path d="M30 140Q34 104 26 78" stroke="#1F3D27" stroke-width="4" fill="none"/>
+<g fill="#1F3D27"><path d="M26 78Q10 72 2 84Q14 76 26 80Z"/><path d="M26 78Q42 70 52 82Q38 76 26 80Z"/><path d="M26 78Q20 62 8 60Q20 66 25 79Z"/><path d="M26 78Q34 62 46 62Q34 68 27 79Z"/></g></svg><span class="when">Nov 23–30, 2026</span><span class="badge"></span></span>
+    <span class="plate2">
+      <span class="ti">Destiny &amp; the Glades</span>
+      <span class="chip1">4 new park units</span>
+      <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+    </span>
   </span>
   <span class="rk">
     <span class="sp"><span class="sem">🛳️</span><span class="stx">Destiny &amp; the Glades</span><span class="sct">◈ <b class="scn">4</b></span></span>
     <span class="mini">
-      <span class="mw">Nov 23–30, 2026</span>
-      <span class="mt">Destiny &amp; the Glades</span>
-      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="188.2,68.8 182.4,113.8 152,123.1 97,60.5 204,29.6 208.4,28.3 188.2,68.8" fill="none" stroke="#0F8B8D" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="182.4" cy="113.8" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><circle cx="152" cy="123.1" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><circle cx="97" cy="60.5" r="4.6" fill="#FFFFFF" stroke="#0F8B8D" stroke-width="2"/><rect x="183.2" y="63.8" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="203.4" y="23.3" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-      <span class="prog"><i></i></span>
+      <span class="mpic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F7C59F"/><circle cx="112" cy="100" r="28" fill="#FCE7C2"/>
+<rect y="100" width="200" height="70" fill="#2B7A99"/>
+<g stroke="#7FC2CF" stroke-width="2" stroke-linecap="round"><path d="M60 114H96M120 120H170M80 132H130M30 126H56"/></g>
+<path d="M116 104H176L170 114H122Z" fill="#0E3A4F"/><rect x="128" y="92" width="38" height="12" fill="#F4EEE2"/>
+<rect x="138" y="82" width="7" height="10" fill="#C4572E"/><rect x="150" y="82" width="7" height="10" fill="#C4572E"/>
+<path d="M0 170V138Q8 146 12 126Q16 146 22 132Q26 150 34 138Q40 152 48 142Q54 154 64 146Q70 158 80 152L84 170Z" fill="#2F5D3A"/>
+<path d="M30 140Q34 104 26 78" stroke="#1F3D27" stroke-width="4" fill="none"/>
+<g fill="#1F3D27"><path d="M26 78Q10 72 2 84Q14 76 26 80Z"/><path d="M26 78Q42 70 52 82Q38 76 26 80Z"/><path d="M26 78Q20 62 8 60Q20 66 25 79Z"/><path d="M26 78Q34 62 46 62Q34 68 27 79Z"/></g></svg><span class="mw">Nov 23–30, 2026</span></span>
+      <span class="mband"><span class="mt">Destiny &amp; the Glades</span><span class="prog"><i></i></span></span>
     </span>
   </span>
 </a>
-<a class="bk" href="nyc-stamp-run.html" data-slug="nov2026-nyc" data-units="16" data-collected="caci stli elis feha thrb gegr hagr ston afbg hofr elro vama sapa sahi fiis gate" data-start="2026-11-07" data-end="2026-11-15" aria-label="NYC Stamp Run, Nov 7–15, 2026" style="--bg:#142133;--panel:#2E4468;--ac:#3C9D8F;--sh:200px;--sw:37px">
+<a class="bk" href="nyc-stamp-run.html" data-slug="nov2026-nyc" data-units="16" data-collected="caci stli elis feha thrb gegr hagr ston afbg hofr elro vama sapa sahi fiis gate" data-start="2026-11-07" data-end="2026-11-15" aria-label="NYC Stamp Run, Nov 7–15, 2026" style="--bg:#1E2B45;--panel:rgba(255,255,255,.22);--ac:#3C9D8F;--ink:#1E2B45;--sh:200px;--sw:37px">
   <span class="face">
-    <span class="fsp"></span>
-    <span class="top"><span class="em">🗽</span><span class="when">Nov 7–15, 2026</span></span>
-    <span class="ti">NYC Stamp Run</span>
-    <span class="badge"></span>
-    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="144.9,123.7 130.1,117 129.2,118.3 127.4,119.5 129.7,117.9 131.1,115.1 132.7,108.7 133.8,108 130.2,115.6 130.9,114.8 130,117.3 130.9,114.8 134.6,25.5 136.9,25.9 134.2,23.1 141.9,101.4 163.2,102.4 131,114.8 181.6,124.5 141.8,125.9 138.6,111.9" fill="none" stroke="#3C9D8F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="129.2" cy="118.3" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="127.4" cy="119.5" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="129.7" cy="117.9" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="131.1" cy="115.1" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="132.7" cy="108.7" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="133.8" cy="108" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="130.2" cy="115.6" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="130" cy="117.3" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="134.6" cy="25.5" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="136.9" cy="25.9" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="134.2" cy="23.1" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="141.9" cy="101.4" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="163.2" cy="102.4" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="181.6" cy="124.5" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="141.8" cy="125.9" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><rect x="139.9" y="118.7" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="133.6" y="106.9" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-    <span class="chips"><span>15 new stamps</span><span>+ Ellis Island bonus</span></span>
-    <span class="foot"><span class="prog"><i></i></span><span class="pn">16 stamps</span></span>
+    <span class="pic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F2B880"/><circle cx="70" cy="66" r="26" fill="#F9DDB0"/>
+<g fill="#2E4468"><rect x="96" y="84" width="14" height="46"/><rect x="112" y="70" width="12" height="60"/><path d="M126 130V62H130V48H132V36H134V48H136V62H140V130Z"/><rect x="142" y="78" width="14" height="52"/><rect x="158" y="90" width="12" height="40"/><rect x="172" y="74" width="10" height="56"/><rect x="184" y="96" width="16" height="34"/></g>
+<rect y="128" width="200" height="42" fill="#1F5E6B"/>
+<g stroke="#5FA7A8" stroke-width="2" stroke-linecap="round"><path d="M70 142H110M130 150H180M40 156H80"/></g>
+<path d="M14 132H44L40 126H18Z" fill="#1E2B45"/><path d="M27 126V100" stroke="#1E2B45" stroke-width="5"/><path d="M27 100L22 86" stroke="#1E2B45" stroke-width="3" stroke-linecap="round"/><circle cx="27" cy="98" r="4" fill="#1E2B45"/></svg><span class="when">Nov 7–15, 2026</span><span class="badge"></span></span>
+    <span class="plate2">
+      <span class="ti">NYC Stamp Run</span>
+      <span class="chip1">15 new stamps</span>
+      <span class="foot"><span class="prog"><i></i></span><span class="pn">16 stamps</span></span>
+    </span>
   </span>
   <span class="rk">
     <span class="sp"><span class="sem">🗽</span><span class="stx">NYC Stamp Run</span><span class="sct">◈ <b class="scn">16</b></span></span>
     <span class="mini">
-      <span class="mw">Nov 7–15, 2026</span>
-      <span class="mt">NYC Stamp Run</span>
-      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="144.9,123.7 130.1,117 129.2,118.3 127.4,119.5 129.7,117.9 131.1,115.1 132.7,108.7 133.8,108 130.2,115.6 130.9,114.8 130,117.3 130.9,114.8 134.6,25.5 136.9,25.9 134.2,23.1 141.9,101.4 163.2,102.4 131,114.8 181.6,124.5 141.8,125.9 138.6,111.9" fill="none" stroke="#3C9D8F" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="129.2" cy="118.3" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="127.4" cy="119.5" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="129.7" cy="117.9" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="131.1" cy="115.1" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="132.7" cy="108.7" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="133.8" cy="108" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="130.2" cy="115.6" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="130" cy="117.3" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="134.6" cy="25.5" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="136.9" cy="25.9" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="134.2" cy="23.1" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="141.9" cy="101.4" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="163.2" cy="102.4" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="181.6" cy="124.5" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><circle cx="141.8" cy="125.9" r="4.6" fill="#FFFFFF" stroke="#3C9D8F" stroke-width="2"/><rect x="139.9" y="118.7" width="10" height="10" rx="2" fill="#FFFFFF"/><rect x="133.6" y="106.9" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-      <span class="prog"><i></i></span>
+      <span class="mpic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F2B880"/><circle cx="70" cy="66" r="26" fill="#F9DDB0"/>
+<g fill="#2E4468"><rect x="96" y="84" width="14" height="46"/><rect x="112" y="70" width="12" height="60"/><path d="M126 130V62H130V48H132V36H134V48H136V62H140V130Z"/><rect x="142" y="78" width="14" height="52"/><rect x="158" y="90" width="12" height="40"/><rect x="172" y="74" width="10" height="56"/><rect x="184" y="96" width="16" height="34"/></g>
+<rect y="128" width="200" height="42" fill="#1F5E6B"/>
+<g stroke="#5FA7A8" stroke-width="2" stroke-linecap="round"><path d="M70 142H110M130 150H180M40 156H80"/></g>
+<path d="M14 132H44L40 126H18Z" fill="#1E2B45"/><path d="M27 126V100" stroke="#1E2B45" stroke-width="5"/><path d="M27 100L22 86" stroke="#1E2B45" stroke-width="3" stroke-linecap="round"/><circle cx="27" cy="98" r="4" fill="#1E2B45"/></svg><span class="mw">Nov 7–15, 2026</span></span>
+      <span class="mband"><span class="mt">NYC Stamp Run</span><span class="prog"><i></i></span></span>
     </span>
   </span>
 </a>
-<a class="bk" href="mighty-five.html" data-slug="utah-arches-canyonland-capitolreef" data-units="4" data-collected="" data-start="" data-end="" aria-label="Mighty Five Long Weekend, Dates TBD" style="--bg:#142133;--panel:#2E4468;--ac:#C98A2E;--sh:188px;--sw:25px">
+<a class="bk" href="mighty-five.html" data-slug="utah-arches-canyonland-capitolreef" data-units="4" data-collected="" data-start="" data-end="" aria-label="Mighty Five Long Weekend, Dates TBD" style="--bg:#5E2418;--panel:rgba(255,255,255,.22);--ac:#F2A65A;--ink:#5E2418;--sh:188px;--sw:25px">
   <span class="face">
-    <span class="fsp"></span>
-    <span class="top"><span class="em">🪨</span><span class="when">Dates TBD</span></span>
-    <span class="ti">Mighty Five Long Weekend</span>
-    <span class="badge"></span>
-    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="110.6,21.5 120.1,35.7 189,113.9 191.7,110.9 191.3,115.7 182.3,120.6 134.7,127.8 129.6,127.5 135.2,128.7 111.1,20.9" fill="none" stroke="#C98A2E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="120.1" cy="35.7" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="189" cy="113.9" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="182.3" cy="120.6" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="134.7" cy="127.8" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><rect x="106.1" y="15.899999999999999" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-    <span class="chips"><span>4 new stamps</span><span>3 national parks</span></span>
-    <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+    <span class="pic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#9CC7DB"/><circle cx="160" cy="40" r="16" fill="#F6E2B8"/>
+<path d="M0 112H30L36 100H70L76 112H120L126 96H170L176 112H200V170H0Z" fill="#D98B5F"/>
+<path d="M40 170V98Q40 58 100 58Q160 58 160 98V170H136V106Q136 84 100 84Q64 84 64 106V170Z" fill="#B5462E"/>
+<path d="M0 150Q60 138 100 148T200 144V170H0Z" fill="#6B2A1E"/></svg><span class="when">Dates TBD</span><span class="badge"></span></span>
+    <span class="plate2">
+      <span class="ti">Mighty Five</span>
+      <span class="chip1">4 new stamps</span>
+      <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+    </span>
   </span>
   <span class="rk">
     <span class="sp"><span class="sem">🪨</span><span class="stx">Mighty Five</span><span class="sct">◈ <b class="scn">4</b></span></span>
     <span class="mini">
-      <span class="mw">Dates TBD</span>
-      <span class="mt">Mighty Five</span>
-      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="110.6,21.5 120.1,35.7 189,113.9 191.7,110.9 191.3,115.7 182.3,120.6 134.7,127.8 129.6,127.5 135.2,128.7 111.1,20.9" fill="none" stroke="#C98A2E" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="120.1" cy="35.7" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="189" cy="113.9" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="182.3" cy="120.6" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><circle cx="134.7" cy="127.8" r="4.6" fill="#FFFFFF" stroke="#C98A2E" stroke-width="2"/><rect x="106.1" y="15.899999999999999" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-      <span class="prog"><i></i></span>
+      <span class="mpic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#9CC7DB"/><circle cx="160" cy="40" r="16" fill="#F6E2B8"/>
+<path d="M0 112H30L36 100H70L76 112H120L126 96H170L176 112H200V170H0Z" fill="#D98B5F"/>
+<path d="M40 170V98Q40 58 100 58Q160 58 160 98V170H136V106Q136 84 100 84Q64 84 64 106V170Z" fill="#B5462E"/>
+<path d="M0 150Q60 138 100 148T200 144V170H0Z" fill="#6B2A1E"/></svg><span class="mw">Dates TBD</span></span>
+      <span class="mband"><span class="mt">Mighty Five</span><span class="prog"><i></i></span></span>
     </span>
   </span>
 </a>
-<a class="bk" href="death-valley.html" data-slug="vegas-deathvalley" data-units="4" data-collected="" data-start="2027-02-12" data-end="2027-02-15" aria-label="Death Valley Long Weekend, Feb 12–15, 2027" style="--bg:#1B1E30;--panel:#34385A;--ac:#6A4C93;--sh:188px;--sw:19px">
+<a class="bk" href="death-valley.html" data-slug="vegas-deathvalley" data-units="4" data-collected="" data-start="2027-02-12" data-end="2027-02-15" aria-label="Death Valley Long Weekend, Feb 12–15, 2027" style="--bg:#3F2E4F;--panel:rgba(255,255,255,.22);--ac:#F2C6A0;--ink:#3F2E4F;--sh:188px;--sw:19px">
   <span class="face">
-    <span class="fsp"></span>
-    <span class="top"><span class="em">🌄</span><span class="when">Feb 12–15, 2027</span></span>
-    <span class="ti">Death Valley Long Weekend</span>
-    <span class="badge"></span>
-    <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="219.5,68 144.9,22.2 139.9,48.2 139.5,47.1 128.1,39.8 126.7,39.8 107,54.3 83.9,40.9 79.3,32.7 83.6,39.8 219.5,68 208.9,130.5 219.5,68 220.3,70.1" fill="none" stroke="#6A4C93" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="139.9" cy="48.2" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><circle cx="79.3" cy="32.7" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><circle cx="208.9" cy="130.5" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><rect x="215.3" y="65.1" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-    <span class="chips"><span>4 new units</span><span>+1 national park</span></span>
-    <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+    <span class="pic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F2C6A0"/><circle cx="150" cy="56" r="20" fill="#F7E2BE"/>
+<path d="M0 100L30 84L52 94L82 70L110 92L138 80L170 96L200 86V170H0Z" fill="#A86B7A"/>
+<path d="M0 118L28 106L58 116L90 100L124 116L158 104L200 116V170H0Z" fill="#6E4E7E"/>
+<path d="M0 134Q100 124 200 134V170H0Z" fill="#F4EEE2"/>
+<g stroke="#D9CFC0" stroke-width="1.5"><path d="M40 142L70 138M110 146L150 140M20 154L60 150M130 156L176 152"/></g>
+<path d="M0 170V150Q30 140 64 152Q40 158 30 170Z" fill="#3F2E4F"/></svg><span class="when">Feb 12–15, 2027</span><span class="badge"></span></span>
+    <span class="plate2">
+      <span class="ti">Death Valley</span>
+      <span class="chip1">4 new units</span>
+      <span class="foot"><span class="prog"><i></i></span><span class="pn">4 stamps</span></span>
+    </span>
   </span>
   <span class="rk">
     <span class="sp"><span class="sem">🌄</span><span class="stx">Death Valley</span><span class="sct">◈ <b class="scn">4</b></span></span>
     <span class="mini">
-      <span class="mw">Feb 12–15, 2027</span>
-      <span class="mt">Death Valley</span>
-      <svg class="sk" viewBox="0 0 300 150" aria-hidden="true"><polyline points="219.5,68 144.9,22.2 139.9,48.2 139.5,47.1 128.1,39.8 126.7,39.8 107,54.3 83.9,40.9 79.3,32.7 83.6,39.8 219.5,68 208.9,130.5 219.5,68 220.3,70.1" fill="none" stroke="#6A4C93" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/><circle cx="139.9" cy="48.2" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><circle cx="79.3" cy="32.7" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><circle cx="208.9" cy="130.5" r="4.6" fill="#FFFFFF" stroke="#6A4C93" stroke-width="2"/><rect x="215.3" y="65.1" width="10" height="10" rx="2" fill="#FFFFFF"/></svg>
-      <span class="prog"><i></i></span>
+      <span class="mpic"><svg class="art" viewBox="0 0 200 170" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="200" height="170" fill="#F2C6A0"/><circle cx="150" cy="56" r="20" fill="#F7E2BE"/>
+<path d="M0 100L30 84L52 94L82 70L110 92L138 80L170 96L200 86V170H0Z" fill="#A86B7A"/>
+<path d="M0 118L28 106L58 116L90 100L124 116L158 104L200 116V170H0Z" fill="#6E4E7E"/>
+<path d="M0 134Q100 124 200 134V170H0Z" fill="#F4EEE2"/>
+<g stroke="#D9CFC0" stroke-width="1.5"><path d="M40 142L70 138M110 146L150 140M20 154L60 150M130 156L176 152"/></g>
+<path d="M0 170V150Q30 140 64 152Q40 158 30 170Z" fill="#3F2E4F"/></svg><span class="mw">Feb 12–15, 2027</span></span>
+      <span class="mband"><span class="mt">Death Valley</span><span class="prog"><i></i></span></span>
     </span>
   </span>
 </a>

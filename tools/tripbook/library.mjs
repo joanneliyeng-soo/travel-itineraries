@@ -7,29 +7,11 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { scene, art } from './posters.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const tripsDir = path.join(here, 'trips');
 const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-
-// tiny route sketch for the cover: equirectangular inside the trip's bbox
-function sketch(t, accent) {
-  const [[w, n], [e, s]] = t.map.bbox;
-  const kx = Math.cos(((n + s) / 2) * Math.PI / 180);
-  const bw = (e - w) * kx, bh = n - s;
-  const W = 300, H = 150, pad = 14;
-  const k = Math.min((W - 2 * pad) / bw, (H - 2 * pad) / bh);
-  const ox = (W - bw * k) / 2, oy = (H - bh * k) / 2;
-  const P = key => { const [lon, lat] = t.map.points[key]; return [ox + (lon - w) * kx * k, oy + (n - lat) * k].map(v => Math.round(v * 10) / 10); };
-  const pts = t.route.filter(key => t.map.points[key]).map(P);
-  const stops = t.stops.filter(x => x.kind === 'stop' && !x.stampId && t.map.points[x.k]).map(x => P(x.k));
-  const ends = (t.airports || []).filter(a => t.map.points[a[0]]).map(a => P(a[0]));
-  return `<svg class="sk" viewBox="0 0 ${W} ${H}" aria-hidden="true">` +
-    `<polyline points="${pts.map(p => p.join(',')).join(' ')}" fill="none" stroke="${accent}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".95"/>` +
-    stops.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4.6" fill="#FFFFFF" stroke="${accent}" stroke-width="2"/>`).join('') +
-    ends.map(([x, y]) => `<rect x="${x - 5}" y="${y - 5}" width="10" height="10" rx="2" fill="#FFFFFF"/>`).join('') +
-    `</svg>`;
-}
 
 const fmt = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); };
 function range(t) {
@@ -49,29 +31,24 @@ const trips = fs.readdirSync(tripsDir).filter(f => f.endsWith('.json'))
 const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 
 const cards = trips.map(t => {
-  const bg = (t.theme && (t.theme['#1E1D33'] || t.theme['#1e1d33'])) || '#1E1D33';
-  const panel = (t.theme && t.theme['#322F51']) || '#322F51';
-  const accent = (t.days[1] && t.days[1].color) || '#E2603A';
+  const ps = scene(t), bg = ps.band, panel = 'rgba(255,255,255,.22)', accent = ps.ac;
   const units = t.stops.filter(x => x.kind === 'stop' && !x.stampId).reduce((n, x) => n + 1 + (x.also || []).length, 0);
   const h = hash(t.slug), sh = 182 + (h % 4) * 6, sw = 28 + (h >> 3) % 4 * 3;
-  const sk = sketch(t, accent);
-  return `<a class="bk" href="${esc(t.book)}.html" data-slug="${esc(t.slug)}" data-units="${units}" data-collected="${esc((t.collected || []).join(' '))}" data-start="${esc(t.start || '')}" data-end="${esc(t.end || '')}" aria-label="${esc(t.title)}, ${esc(range(t))}" style="--bg:${bg};--panel:${panel};--ac:${accent};--sh:${sh}px;--sw:${sw}px">
+  const pa = art(t, 'art'), title = t.short || t.title;
+  return `<a class="bk" href="${esc(t.book)}.html" data-slug="${esc(t.slug)}" data-units="${units}" data-collected="${esc((t.collected || []).join(' '))}" data-start="${esc(t.start || '')}" data-end="${esc(t.end || '')}" aria-label="${esc(t.title)}, ${esc(range(t))}" style="--bg:${bg};--panel:${panel};--ac:${accent};--ink:${ps.ink};--sh:${sh}px;--sw:${sw}px">
   <span class="face">
-    <span class="fsp"></span>
-    <span class="top"><span class="em">${esc(t.emoji || '📖')}</span><span class="when">${esc(range(t))}</span></span>
-    <span class="ti">${esc(t.title)}</span>
-    <span class="badge"></span>
-    ${sk}
-    <span class="chips">${(t.chips || []).slice(0, 2).map(c => `<span>${esc(c)}</span>`).join('')}</span>
-    <span class="foot"><span class="prog"><i></i></span><span class="pn">${units} stamps</span></span>
+    <span class="pic">${pa}<span class="when">${esc(range(t))}</span><span class="badge"></span></span>
+    <span class="plate2">
+      <span class="ti">${esc(title)}</span>
+      <span class="chip1">${esc((t.chips || [])[0] || '')}</span>
+      <span class="foot"><span class="prog"><i></i></span><span class="pn">${units} stamps</span></span>
+    </span>
   </span>
   <span class="rk">
     <span class="sp"><span class="sem">${esc(t.emoji || '📖')}</span><span class="stx">${esc(t.short || t.title)}</span><span class="sct">◈ <b class="scn">${units}</b></span></span>
     <span class="mini">
-      <span class="mw">${esc(range(t))}</span>
-      <span class="mt">${esc(t.short || t.title)}</span>
-      ${sk}
-      <span class="prog"><i></i></span>
+      <span class="mpic">${art(t, 'art')}<span class="mw">${esc(range(t))}</span></span>
+      <span class="mband"><span class="mt">${esc(title)}</span><span class="prog"><i></i></span></span>
     </span>
   </span>
 </a>`;
@@ -133,30 +110,29 @@ const html = `<!DOCTYPE html>
   .rack { --row:232px; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); }
   .empty { grid-column:1 / -1; align-self:center; justify-self:center; color:#B79574; font-size:13.5px; font-style:italic; margin-bottom:16px; }
 
-  .bk { text-decoration:none; color:#EDEAF9; display:block; justify-self:center; width:100%; }
+  .bk { text-decoration:none; color:#F7EBD3; display:block; justify-self:center; width:100%; }
   .bk:focus-visible { outline:3px solid #F6EBD9; outline-offset:3px; }
 
-  /* face-out cover (Up next) */
-  .face { position:relative; display:flex; flex-direction:column; gap:6px; max-width:230px; margin:0 auto; height:282px;
-    background:var(--bg); border-radius:3px 12px 12px 3px; padding:11px 9px 10px 17px; overflow:hidden;
-    box-shadow:0 8px 14px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.07); }
-  .fsp { position:absolute; left:0; top:0; bottom:0; width:9px; background:var(--ac); box-shadow:2px 0 4px rgba(0,0,0,.3); }
-  .face .top { display:flex; align-items:center; justify-content:space-between; gap:6px; }
-  .face .em { font-size:19px; line-height:1; }
-  .face .when { font-size:10.5px; font-weight:700; color:#D6D2EE; text-align:right; }
-  .face .ti { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:17px; font-weight:700; line-height:1.15; color:#FFFFFF;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-  .face .sk { width:100%; height:auto; background:var(--panel); border-radius:8px; margin-top:auto; }
-  .face .chips { display:flex; flex-wrap:wrap; gap:4px; max-height:46px; overflow:hidden; }
-  .face .chips span { font-size:11px; font-weight:700; padding:2px 7px; border-radius:99px; background:var(--panel); color:#EDEAF9; }
-  .face .foot { display:flex; align-items:center; gap:8px; }
+  /* face-out cover (Up next): vintage park poster on cream paper */
+  .face { position:relative; display:flex; flex-direction:column; max-width:230px; margin:0 auto; height:282px;
+    background:#F2E3C6; border-radius:3px 10px 10px 3px; padding:7px; overflow:hidden;
+    box-shadow:0 8px 14px rgba(0,0,0,.55), inset 3px 0 0 rgba(0,0,0,.12); }
+  .pic { position:relative; flex:1; min-height:0; display:block; overflow:hidden; border-radius:2px 6px 0 0; }
+  .art { display:block; width:100%; height:100%; }
+  .pic .when { position:absolute; left:9px; top:7px; right:9px; font-size:10px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); }
+  .plate2 { display:flex; flex-direction:column; gap:4px; background:var(--bg); padding:9px 10px 9px; border-radius:0 0 6px 0; }
+  .face .ti { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:15px; font-weight:700; line-height:1.12; color:#F7EBD3;
+    text-transform:uppercase; letter-spacing:.03em; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .chip1 { font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ac); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .chip1:empty { display:none; }
+  .face .foot { display:flex; align-items:center; gap:8px; margin-top:2px; }
   .prog { display:block; flex:1; height:5px; border-radius:99px; background:var(--panel); overflow:hidden; }
   .prog i { display:block; height:100%; width:0; background:var(--ac); }
-  .face .pn { font-size:11.5px; font-weight:700; color:#D6D2EE; white-space:nowrap; font-variant-numeric:tabular-nums; }
-  .badge { align-self:flex-start; background:var(--ac); color:#FFFFFF; font-size:10px; font-weight:800; letter-spacing:.1em;
+  .face .pn { font-size:11px; font-weight:700; color:#EADCC2; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .badge { position:absolute; right:7px; top:24px; background:var(--bg); color:#F7EBD3; font-size:10px; font-weight:800; letter-spacing:.1em;
     text-transform:uppercase; padding:2px 8px; border-radius:99px; display:none; }
   .bk.next .badge, .bk.on .badge { display:block; }
-  .bk.next .face, .bk.on .face { box-shadow:0 0 0 2px var(--ac), 0 8px 14px rgba(0,0,0,.55); }
+  .bk.next .face, .bk.on .face { box-shadow:0 0 0 3px #F6EBD9, 0 8px 14px rgba(0,0,0,.55); }
 
   /* spine + small cover (racks) */
   .rk { display:none; align-items:flex-end; justify-content:center; }
@@ -171,14 +147,15 @@ const html = `<!DOCTYPE html>
     text-shadow:0 1px 1px rgba(0,0,0,.35); }
   .sct { font-size:10px; font-weight:800; color:#FFFFFF; opacity:.9; }
   .sct b { font-weight:800; }
-  .mini { width:104px; height:calc(var(--sh) - 12px); background:var(--bg); border-radius:0 8px 8px 0; padding:8px 8px 8px 9px;
-    display:flex; flex-direction:column; gap:4px; transform:perspective(500px) rotateY(-14deg); transform-origin:left center;
-    box-shadow:4px 6px 10px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.07); }
-  .mini .mw { font-size:10px; font-weight:700; color:#D6D2EE; }
-  .mini .mt { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:13px; font-weight:700; line-height:1.15; color:#FFFFFF;
-    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .mini { width:104px; height:calc(var(--sh) - 12px); background:#F2E3C6; border-radius:0 8px 8px 0; padding:5px;
+    display:flex; flex-direction:column; transform:perspective(500px) rotateY(-14deg); transform-origin:left center;
+    box-shadow:4px 6px 10px rgba(0,0,0,.5); }
+  .mpic { position:relative; flex:1; min-height:0; display:block; overflow:hidden; border-radius:0 4px 0 0; }
+  .mini .mw { position:absolute; left:6px; top:5px; right:4px; font-size:9px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); line-height:1.2; }
+  .mband { display:flex; flex-direction:column; gap:5px; background:var(--bg); padding:6px 7px 7px; border-radius:0 0 4px 0; }
+  .mini .mt { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:11.5px; font-weight:700; line-height:1.12; color:#F7EBD3;
+    text-transform:uppercase; letter-spacing:.04em; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
   .mini .prog { flex:none; height:4px; }
-  .mini .sk { width:100%; height:auto; background:var(--panel); border-radius:5px; margin-top:auto; }
   .rack .bk .face { display:none; }
   .rack .bk .rk { display:flex; }
   .bk.done .sct { color:#FFFFFF; }

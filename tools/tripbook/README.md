@@ -23,7 +23,8 @@ Copy `trips/indiana-carolinas-stamp-sprint.json` and edit it.
 | `slug` | Keys the saved stamps/page in the browser; never change it once a book is in use. |
 | `book` | Short file name: the book is `travel/books/<book>.html`. |
 | `start`, `end` | ISO dates (`2027-01-15`). The library shelves the book under Up next until `end` passes, then Past trips. Leave both out for a placeholder (Someday shelf). |
-| `emoji` | Shown on the library cover. |
+| `emoji` | Shown on the book's spine in the library. |
+| `poster` | Library cover art, a vintage park-poster scene: `dunes`, `sea`, `saguaro`, `valley`, `arch`, `rockies`, `ridges` or `skyline` (see `posters.mjs`; add new scenes there). Defaults to `rockies`. |
 | `title`, `short`, `subtitle`, `placeholder`, `chips` | Cover text. `short` is the top-bar title. Leave `placeholder` empty once the trip is dated. The first chip is highlighted. |
 | `itinerary` | Relative link back to the trip's itinerary page. |
 | `map.bbox` | `[[west, north], [east, south]]` in lon/lat. The cover map fits this box. |
