@@ -36,4 +36,14 @@ Stop fields: `name`, `type`, `state`, `place`, `addr` (used for the Navigate lin
 (stamp box), and optional `warn`, `acc` (accessibility), `ok`, `about`.
 Night fields: `name`, `note`. Home fields: `title`, `note`, `navTo`, `navLabel`.
 
+### Other options
+
+- `days[i].kind: "cruise"` makes a single free-form page for that day (`title`, `sub`, `color`, `html`); no map or stops.
+- `days[i].label` (e.g. `"Day 8"`, `"Days 5–7"`), `date` (e.g. `"Nov 24"`), and `kicker` (full override of the band's top line).
+- `days[i].cutLabel` renames the "Hard cutoffs" box (e.g. `"Backup plan"`).
+- `stops[i].unit` names the main stamp when a stop has more than one; `also: [{id, name, where, hrs}]` adds extra cancellations at the same stop, each with its own toggle.
+- `stops[i].via` adds a route note under the drive card; `arriveLabel` replaces "Arrive" (e.g. `"Flight"`); night/home stops accept `addr` and `html`.
+- `theme` swaps template colors: `{ "#templateHex": "#newHex" }`. See `trips/nov2026-destiny-everglades.json` for a full ocean palette.
+- `legMinW` sets how far the per-stop maps zoom in (smaller = closer; default 400).
+
 Use a different day palette for each trip. Drive times come from Google Maps, not estimates.
