@@ -44,6 +44,9 @@ Night fields: `name`, `note`. Home fields: `title`, `note`, `navTo`, `navLabel`.
 - `stops[i].unit` names the main stamp when a stop has more than one; `also: [{id, name, where, hrs}]` adds extra cancellations at the same stop, each with its own toggle.
 - `stops[i].via` adds a route note under the drive card; `arriveLabel` replaces "Arrive" (e.g. `"Flight"`); night/home stops accept `addr` and `html`.
 - `theme` swaps template colors: `{ "#templateHex": "#newHex" }`. See `trips/nov2026-destiny-everglades.json` for a full ocean palette.
+- `stops[i].color` colors that stop's pin, number and stamp box (use the itinerary's per-stamp key colors).
+- `stops[i].stampId` marks a second visit to a stop already in the book (e.g. Guadalupe on Sat or Sun): same number, same stamp toggle, counted once. `optional` adds a short note above the stamp box.
+- `kind: "point"` is a non-stamp stop (lunch, a viewpoint, a gas stop): drive card, map, `note`/`warn`/`acc`/`ok`, and an optional `bonus: {title, where, hrs}` box for extra cancellations that don't count toward the total.
 - `legMinW` sets how far the per-stop maps zoom in (smaller = closer; default 400).
 
 Use a different day palette for each trip. Drive times come from Google Maps, not estimates.
