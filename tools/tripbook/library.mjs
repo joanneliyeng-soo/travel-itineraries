@@ -27,6 +27,10 @@ const trips = fs.readdirSync(tripsDir).filter(f => f.endsWith('.json'))
   .filter(t => t.book);
 
 
+// volume count on the header spine
+const roman = n => [[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']]
+  .reduce((o, [v, r]) => { while (n >= v) { o += r; n -= v; } return o; }, '');
+
 // small deterministic variety so the racks look hand-stocked
 const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 
@@ -88,9 +92,22 @@ const html = `<!DOCTYPE html>
   .back { background:repeating-linear-gradient(90deg, #2A1A10 0 118px, #2E1D12 118px 120px); }
   .crown { margin:0 -12px; background:#6B4630; border-bottom:6px solid #4A2F1D; padding:18px 22px 16px; text-align:center;
     box-shadow:0 6px 10px rgba(0,0,0,.45); }
-  .plate { display:inline-block; background:#2A1A10; border:2px solid #9C7350; border-radius:6px; padding:8px 20px 9px; }
-  .plate .k { font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#D9B48C; }
-  .plate h1 { margin:2px 0 0; font-size:30px; line-height:1.1; color:#FFF4E6; font-weight:700; }
+  /* header: a giant gilt leather spine lying on its side */
+  .spine { position:relative; display:flex; align-items:center; justify-content:space-between; gap:10px; max-width:620px; margin:0 auto;
+    background:linear-gradient(180deg, #5A171A 0%, #7E2629 18%, #8A2B2E 50%, #74222A 82%, #4E1518 100%);
+    border-radius:8px 8px 6px 6px; padding:14px 16px 13px;
+    box-shadow:0 8px 14px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.12), inset 0 0 0 1px rgba(0,0,0,.35); }
+  .spine::before, .spine::after { content:""; position:absolute; left:10px; right:10px; height:1px; background:#C9A35B; opacity:.75; }
+  .spine::before { top:6px; box-shadow:0 2px 0 rgba(201,163,91,.45); }
+  .spine::after { bottom:6px; box-shadow:0 -2px 0 rgba(201,163,91,.45); }
+  .bands { display:flex; gap:6px; flex:none; }
+  .bands i { display:block; width:7px; height:52px; border-radius:4px;
+    background:linear-gradient(90deg, #8E6A2C, #F2D79A 45%, #C9A35B 70%, #7A5A22); box-shadow:0 1px 2px rgba(0,0,0,.5); }
+  .gilt { flex:1; min-width:0; text-align:center; }
+  .gilt .vol { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; font-size:12px; letter-spacing:.3em; color:#E8C98A; }
+  .gilt h1 { margin:2px 0 0; font-size:32px; line-height:1.08; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:#F2D79A;
+    text-shadow:0 1px 0 #4E1518, 0 -1px 0 rgba(255,236,190,.25); white-space:nowrap; }
+  .gilt .rule { height:2px; margin:5px 18% 0; background:linear-gradient(90deg, transparent, #C9A35B 15%, #F2D79A 50%, #C9A35B 85%, transparent); }
   .crown p { margin:10px auto 0; max-width:46ch; color:#F0DCC4; font-size:13.5px; }
   .note { margin:14px 14px 0; background:#F6EBD9; color:#3A2618; border-radius:3px; padding:9px 12px; font-size:14px;
     transform:rotate(-.6deg); box-shadow:0 3px 8px rgba(0,0,0,.4); display:none; }
@@ -187,14 +204,20 @@ const html = `<!DOCTYPE html>
     .shelf { margin:0 -26px; padding-left:30px; padding-right:30px; column-gap:18px; }
     .up { --row:356px; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); }
     .face { height:318px; }
-    .plate h1 { font-size:36px; }
+    .gilt h1 { font-size:40px; }
+    .bands i { height:60px; }
+    .spine { padding:16px 22px 15px; }
   }
 </style>
 </head>
 <body>
 <div class="case back">
   <header class="crown">
-    <div class="plate"><div class="k">Travel library</div><h1 class="serif">Trip Books</h1></div>
+    <div class="spine">
+      <span class="bands" aria-hidden="true"><i></i><i></i></span>
+      <div class="gilt"><div class="vol">Vol. I – ${roman(trips.length)}</div><h1 class="serif">Trip Books</h1><div class="rule"></div></div>
+      <span class="bands" aria-hidden="true"><i></i><i></i></span>
+    </div>
     <p>Flip-book guides for every trip, stop by stop. Tap a book to open it.</p>
   </header>
   <div class="note" id="note"></div>
