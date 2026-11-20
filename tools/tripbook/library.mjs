@@ -55,7 +55,7 @@ const cards = trips.map(t => {
   const units = t.stops.filter(x => x.kind === 'stop' && !x.stampId).reduce((n, x) => n + 1 + (x.also || []).length, 0);
   const h = hash(t.slug), sh = 182 + (h % 4) * 6, sw = 28 + (h >> 3) % 4 * 3;
   const sk = sketch(t, accent);
-  return `<a class="bk" href="${esc(t.book)}.html" data-slug="${esc(t.slug)}" data-units="${units}" data-start="${esc(t.start || '')}" data-end="${esc(t.end || '')}" aria-label="${esc(t.title)}, ${esc(range(t))}" style="--bg:${bg};--panel:${panel};--ac:${accent};--sh:${sh}px;--sw:${sw}px">
+  return `<a class="bk" href="${esc(t.book)}.html" data-slug="${esc(t.slug)}" data-units="${units}" data-collected="${esc((t.collected || []).join(' '))}" data-start="${esc(t.start || '')}" data-end="${esc(t.end || '')}" aria-label="${esc(t.title)}, ${esc(range(t))}" style="--bg:${bg};--panel:${panel};--ac:${accent};--sh:${sh}px;--sw:${sw}px">
   <span class="face">
     <span class="fsp"></span>
     <span class="top"><span class="em">${esc(t.emoji || '📖')}</span><span class="when">${esc(range(t))}</span></span>
@@ -244,6 +244,7 @@ ${cards.join('\n')}
     if (!e) some.push(b); else if (e < today) past.push(b); else next.push(b);
     var got = {};
     try { got = JSON.parse(localStorage.getItem(b.dataset.slug + '-book-stamps') || '{}') || {}; } catch (x) {}
+    (b.dataset.collected ? b.dataset.collected.split(' ') : []).forEach(function (id) { if (!(id in got)) got[id] = true; });
     var u = +b.dataset.units, n = Math.min(u, Object.keys(got).filter(function (k) { return got[k]; }).length);
     b.querySelectorAll('.prog i').forEach(function (i) { i.style.width = (u ? 100 * n / u : 0) + '%'; });
     b.querySelector('.pn').textContent = n ? n + ' / ' + u + ' stamped' : u + ' stamps';

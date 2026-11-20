@@ -226,6 +226,8 @@ const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
 const NSTAMPS = UNITS.length;
 let got = {};
 try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
+// stamps already collected (past trips): checked unless unticked on this device
+(TRIP.collected || []).forEach(id => { if (!(id in got)) got[id] = true; });
 function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
 
 /* ---------- maps ---------- */

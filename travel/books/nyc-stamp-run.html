@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>NYC Stamp Run · Trip Book</title>
+<style>
+  html, body { margin:0 !important; padding:0 !important; background:#142133 !important; color:#1B2A3F !important; height:100%; overflow:hidden; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:15px; line-height:1.45; }
+  .serif { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  .app { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; padding:max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .topbar, .bottombar { width:100%; max-width:520px; display:flex; align-items:center; justify-content:space-between; color:#AEBBCF; font-size:13px; }
+  .topbar { padding:2px 4px 8px; }
+  .topbar .t { font-weight:600; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0 10px; }
+  .btn-ghost { background:#25385A; color:#F3E9D6; border:0; border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer; }
+  .pgnum { font-variant-numeric:tabular-nums; color:#8FD3C8; white-space:nowrap; }
+
+  .book { position:relative; flex:1; width:100%; max-width:520px; perspective:1800px; }
+  .book::before { content:""; position:absolute; left:-4px; top:6px; bottom:-4px; right:4px; background:#EAD9B4; border-radius:6px 16px 16px 6px; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+  .page { position:absolute; inset:0; display:none; background:#FBF6EC; border-radius:4px 14px 14px 4px; overflow:hidden; transform-origin:left center; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .page::before { content:""; position:absolute; left:0; top:0; bottom:0; width:18px; background:linear-gradient(90deg, rgba(38,36,63,.16), rgba(38,36,63,0)); pointer-events:none; z-index:2; }
+  .page .scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:20px 20px 28px 26px; }
+  .page.show { display:block; }
+  .page.under { z-index:1; }
+  .page.flip-out { z-index:3; animation:flipOut .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page.flip-in { z-index:3; animation:flipIn .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page .shade { position:absolute; inset:0; background:linear-gradient(90deg, rgba(30,29,51,0), rgba(30,29,51,.35)); opacity:0; pointer-events:none; z-index:4; }
+  .page.flip-out .shade { animation:shadeIn .6s forwards; }
+  .page.flip-in .shade { animation:shadeOut .6s forwards; }
+  @keyframes flipOut { from { transform:rotateY(0deg); } to { transform:rotateY(-100deg); } }
+  @keyframes flipIn { from { transform:rotateY(-100deg); } to { transform:rotateY(0deg); } }
+  @keyframes shadeIn { to { opacity:1; } }
+  @keyframes shadeOut { from { opacity:1; } to { opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .page.flip-out, .page.flip-in { animation-duration:.01s; } }
+
+  .bottombar { padding-top:10px; gap:10px; }
+  .nav { background:#F3E9D6; color:#1B2A3F; border:0; border-radius:12px; padding:11px 16px; font-size:15px; font-weight:700; cursor:pointer; min-width:92px; }
+  .nav.next { background:#3C9D8F; color:#FFFFFF; }
+  .nav:disabled { opacity:.35; }
+  .progress { flex:1; height:6px; background:#25385A; border-radius:99px; overflow:hidden; }
+  .progress i { display:block; height:100%; background:#3C9D8F; width:0; transition:width .4s; }
+
+  /* shared page bits */
+  .kicker { font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  h1, h2 { margin:0; font-weight:700; color:#1B2A3F; }
+  h1 { font-size:30px; line-height:1.1; }
+  h2 { font-size:25px; line-height:1.15; }
+  .muted { color:#5C6A80; }
+  .chip { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:99px; background:#EFE4CC; color:#1B2A3F; margin:0 4px 4px 0; }
+  .map { display:block; width:100%; border-radius:12px; background:#E3E8F0; margin:14px 0 4px; }
+  .map .st { fill:#F6F3EC; stroke:#AEBBCF; stroke-width:1; vector-effect:non-scaling-stroke; }
+  .map .st.on { fill:#FFFFFF; }
+  .map .sl { fill:#8FA0BC; font-weight:700; letter-spacing:.12em; text-anchor:middle; }
+  .map .cl { fill:#5C6A80; text-anchor:middle; }
+  .map .cd { fill:#5C6A80; }
+  .map .rt { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  .map .leg { fill:none; stroke:#1B2A3F; stroke-width:3.5; stroke-dasharray:7 6; vector-effect:non-scaling-stroke; animation:dash 1.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset:-26; } }
+  .map .pin text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+  .map .pin circle { stroke:#FFFFFF; vector-effect:non-scaling-stroke; stroke-width:2; }
+  .map .pin.now circle { stroke:#1B2A3F; stroke-width:3; }
+  .map .pin.dim { opacity:.35; }
+  .map .end rect { fill:#1B2A3F; }
+  .map .end text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+
+  /* cover */
+  .cover .scroll { background:#1B2A3F; color:#F3E9D6; padding-top:22px; }
+  .cover h1 { color:#FFFFFF; font-size:31px; }
+  .cover .sub { color:#C9D2E0; margin-top:8px; font-size:14px; }
+  .cover .chip { background:#34507A; color:#F3E9D6; }
+  .cover .chip.hot { background:#3C9D8F; color:#FFFFFF; }
+  .cover .ph { display:inline-block; border:1px dashed #8FD3C8; color:#C9D2E0; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:99px; margin-bottom:12px; }
+  .legend { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .legend button { display:flex; align-items:center; gap:9px; background:#2E4468; border:0; color:#F3E9D6; padding:9px 10px; border-radius:10px; text-align:left; font-size:13px; cursor:pointer; }
+  .legend .sw { width:14px; height:14px; border-radius:50%; flex:none; }
+  .legend b { display:block; font-size:13.5px; }
+  .legend span.s { color:#8FD3C8; font-size:11.5px; }
+  .backlink { display:block; text-align:center; margin-top:10px; color:#C9D2E0; font-size:13px; font-weight:700; text-decoration:none; }
+  .swipe { margin-top:16px; text-align:center; color:#8FD3C8; font-size:13px; }
+  .tally { margin-top:14px; background:#2E4468; border-radius:12px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; }
+  .tally .n { font-size:24px; font-weight:800; color:#FFFFFF; }
+
+  /* day intro */
+  .dayband { margin:-20px -20px 0 -26px; padding:22px 20px 18px 26px; color:#FFFFFF; }
+  .dayband h2 { color:#FFFFFF; font-size:28px; }
+  .dayband .kicker { color:rgba(255,255,255,.85); }
+  .dayband .meta { margin-top:6px; font-size:13.5px; color:rgba(255,255,255,.92); }
+  .tl { list-style:none; margin:14px 0 0; padding:0; }
+  .tl li { display:grid; grid-template-columns:62px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid #EAD9B4; cursor:pointer; }
+  .tl li:last-child { border-bottom:0; }
+  .tl .tm { font-size:12.5px; font-weight:700; color:#5C6A80; font-variant-numeric:tabular-nums; }
+  .tl .nm { font-weight:700; }
+  .tl .nm small { display:block; font-weight:400; color:#5C6A80; font-size:12.5px; }
+  .tl .num { display:inline-flex; width:20px; height:20px; border-radius:50%; color:#FFFFFF; font-size:11px; font-weight:800; align-items:center; justify-content:center; margin-right:6px; vertical-align:1px; }
+  .cut { margin-top:14px; background:#EAF6F4; border-left:4px solid #3C9D8F; border-radius:8px; padding:10px 12px; font-size:13.5px; }
+  .gmaps { display:block; text-align:center; margin-top:14px; background:#1B2A3F; color:#FFFFFF; text-decoration:none; font-weight:700; padding:12px; border-radius:12px; }
+
+  /* stop page */
+  .drive { display:flex; align-items:stretch; gap:10px; background:#F6EEDD; border-radius:14px; padding:11px 12px; }
+  .drive .car { font-size:22px; line-height:1; padding-top:2px; }
+  .drive .dt { font-size:20px; font-weight:800; }
+  .drive .fr { font-size:12.5px; color:#5C6A80; }
+  .drive .tz { display:inline-block; margin-top:5px; font-size:11.5px; font-weight:700; background:#1B2A3F; color:#FFFFFF; padding:2px 8px; border-radius:99px; }
+  .arr { margin-left:auto; text-align:right; flex:none; }
+  .arr .lab { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#5C6A80; font-weight:700; }
+  .arr .t { white-space:nowrap; font-size:19px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .arr .z { font-size:11.5px; color:#5C6A80; font-weight:700; }
+  .stopname { margin-top:14px; }
+  .stopname .num { display:inline-flex; width:30px; height:30px; border-radius:50%; color:#FFFFFF; font-size:14px; font-weight:800; align-items:center; justify-content:center; margin-bottom:8px; }
+  .place { margin-top:4px; color:#5C6A80; font-size:13.5px; }
+  .stampbox { margin-top:14px; border:2px dashed; border-radius:14px; padding:12px 13px; }
+  .stampbox .kicker { margin-bottom:4px; }
+  .stampbox .where { font-weight:700; }
+  .stampbox .hrs { font-size:13.5px; margin-top:2px; }
+  .got { margin-top:11px; width:100%; border:0; border-radius:10px; padding:11px; font-size:15px; font-weight:800; cursor:pointer; background:#EFE4CC; color:#1B2A3F; }
+  .got.on { color:#FFFFFF; }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .actions a { flex:1; text-align:center; text-decoration:none; font-weight:700; font-size:14px; padding:11px 8px; border-radius:10px; background:#1B2A3F; color:#FFFFFF; }
+  .actions a.alt { background:#EFE4CC; color:#1B2A3F; }
+  .note { margin-top:10px; border-radius:10px; padding:9px 12px; font-size:13.5px; }
+  .note.warn { background:#EAF6F4; border-left:4px solid #3C9D8F; }
+  .note.acc { background:#EEF6F7; border-left:4px solid #2E8C9A; }
+  .note.ok { background:#F0F6EE; border-left:4px solid #5E9A4E; }
+  .about { margin-top:14px; font-size:14.5px; }
+  .about .kicker { color:#5C6A80; margin-bottom:3px; }
+  .foot { margin-top:18px; font-size:12px; color:#8FA0BC; text-align:center; }
+
+  /* night / final */
+  .moon { font-size:44px; margin-top:6px; }
+  .chk { list-style:none; padding:0; margin:12px 0 0; }
+  .chk li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #EAD9B4; font-size:14px; cursor:pointer; }
+  .chk .bx { width:22px; height:22px; border-radius:6px; border:2px solid #C9D2E0; flex:none; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:13px; font-weight:800; }
+  .chk li small { color:#5C6A80; display:block; font-size:12px; }
+
+  /* contents */
+  .toc { position:fixed; inset:0; background:rgba(20,19,36,.6); display:none; z-index:50; }
+  .toc.open { display:block; }
+  .toc .panel { position:absolute; left:0; top:0; bottom:0; width:min(86vw, 380px); background:#FBF6EC; overflow-y:auto; padding:max(18px, env(safe-area-inset-top)) 16px 24px; box-shadow:4px 0 24px rgba(0,0,0,.35); }
+  .toc h3 { margin:16px 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+  .toc a { display:flex; justify-content:space-between; gap:8px; padding:8px 4px; color:#1B2A3F; text-decoration:none; border-bottom:1px solid #EAD9B4; font-size:14px; }
+  .toc a.cur { font-weight:800; }
+  .toc a span { color:#8FA0BC; font-variant-numeric:tabular-nums; font-size:12.5px; }
+
+  /* Narrow tall phones (e.g. Galaxy Z Fold8 Ultra cover screen folded, ~21:9).
+     Tighter gutters, and on stop pages the stamp box and Navigate come before the leg map. */
+  @media (max-width: 430px) {
+    .app { padding-left:4px; padding-right:4px; }
+    .topbar { padding:0 2px 6px; }
+    .bottombar { padding-top:6px; }
+    .nav { min-width:78px; padding:10px 12px; }
+    .page .scroll { padding:16px 14px 24px 18px; display:flex; flex-direction:column; }
+    .page .scroll > * { flex:none; }
+    .dayband { margin:-16px -14px 0 -18px; padding:18px 14px 16px 18px; }
+    .dayband h2 { font-size:25px; }
+    .page .scroll > svg[data-map] { order:1; margin-top:16px; }
+    .page .scroll > .about, .page .scroll > .foot { order:2; }
+    .drive { padding:10px; gap:8px; }
+    .drive .car { font-size:18px; }
+    .drive .fr { font-size:12px; }
+    .arr .t { font-size:17px; }
+    .legend { grid-template-columns:1fr; gap:6px; }
+    .legend button { padding:8px 10px; }
+    .cover h1 { font-size:28px; }
+  }
+
+  /* Unfolded foldables and tablets (e.g. Galaxy Z Fold8 Ultra inner screen, ~1.1:1).
+     The book widens and each page goes two-column: map on the left, details beside it. */
+  @media (min-width: 700px) and (min-aspect-ratio: 3/4) {
+    .topbar, .bottombar, .book { max-width:1120px; }
+    body { font-size:16px; }
+    .page .scroll { padding:26px 30px 34px 36px; }
+    .dayband { margin:-26px -30px 0 -36px; padding:26px 30px 22px 36px; }
+    .page .scroll > .map { float:left; width:52%; margin:14px 26px 10px 0; }
+    .page .scroll > *:not(.map):not(.drive):not(.actions):not(.legend):not(.dayband) { display:flow-root; }
+    .page .scroll > div[style*="height:8px"] { display:block; }
+    .cover h1 { font-size:38px; }
+    .cover .legend { grid-template-columns:1fr; }
+    h2 { font-size:28px; }
+    .dayband h2 { font-size:32px; }
+    .actions a { padding:13px 8px; }
+    .toc .panel { width:min(60vw, 440px); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <button class="btn-ghost" id="tocBtn" aria-label="Contents">☰ Pages</button>
+    <div class="t">NYC Stamp Run</div>
+    <div class="pgnum" id="pgnum">1 / 1</div>
+  </div>
+  <div class="book" id="book"></div>
+  <div class="bottombar">
+    <button class="nav" id="prev">‹ Back</button>
+    <div class="progress"><i id="bar"></i></div>
+    <button class="nav next" id="next">Next ›</button>
+  </div>
+</div>
+<div class="toc" id="toc"><div class="panel" id="tocPanel"></div></div>
+
+<svg width="0" height="0" style="position:absolute"><g id="basemap"><path class="st" d="M1500,-44.7L1460.4,-43.3L1458.6,-53.8L1092.4,-61.4L1052.5,-59.1L976.3,-62.6L970.9,-39.8L945.5,-36.3L947.3,-62.6L849.4,-64.4L635.5,-72.5L608.3,-71.9L597.4,-96.5L659,-328.1L707.2,-500L1500,-500Z"/><path class="st" d="M-407.5,1500L-398.1,1489.5L-389,1455.1L-367.2,1431.4L-336.4,1406.5L-267.5,1392.4L-222.2,1367L-222.2,1327.9L-193.2,1313.8L-180.5,1295.1L-118.8,1254.3L-86.2,1245.7L-64.4,1216.8L-46.3,1221.3L-15.5,1199.2L-40.9,1158.9L-77.1,1135.6L-89.8,1106L-127.9,1075.3L-140.6,1036.5L-185.9,1025.7L-193.2,1000L-189.5,945.8L-207.7,924.7L-238.5,927.6L-254.8,919.6L-258.4,872.1L-245.7,854.9L-260.3,842.4L-243.9,785.1L-224,788L-182.3,723.2L-225.8,654.2L-202.2,626.6L-169.6,610L-140.6,577.7L-147.8,563.9L-117,543.7L-97.1,515.5L-71.7,443.9L-31.8,404.1L-2.8,396.6L156.8,496.5L396.1,638.1L401.6,649.1L365.3,756.4L343.5,793.7L336.3,830.9L325.4,843.5L312.7,863L245.6,883L238.4,931L222,940.1L216.6,968.7L216.6,993.2L251.1,1009.2L280.1,998.9L323.6,1024L349,1029.1L356.2,1004L363.5,1055.3L358,1116.2L332.7,1219.6L309.1,1359.6L300,1457.4L277.3,1500L-407.5,1500Z"/><path class="st" d="M-500,-36.5L-338.2,-37.5L-312.8,-3L-303.8,-5.4L-289.3,52.9L-262.1,50.6L-213.1,70.4L-195,98.9L-209.5,117.6L-184.1,129.8L-180.5,222.2L-195,229.1L-149.7,294.7L-147.8,314.4L-127.9,311.5L-100.7,330.6L-104.3,341L-59,339.3L-53.6,352L-24.5,347.4L-26.4,364.7L-2.8,396.6L-31.8,404.1L-71.7,443.9L-97.1,515.5L-117,543.7L-147.8,563.9L-140.6,577.7L-169.6,610L-202.2,626.6L-225.8,654.2L-182.3,723.2L-224,788L-243.9,785.1L-260.3,842.4L-245.7,854.9L-258.4,872.1L-254.8,919.6L-238.5,927.6L-207.7,924.7L-189.5,945.8L-193.2,1000L-185.9,1025.7L-140.6,1036.5L-127.9,1075.3L-89.8,1106L-77.1,1135.6L-40.9,1158.9L-15.5,1199.2L-46.3,1221.3L-64.4,1216.8L-86.2,1245.7L-118.8,1254.3L-180.5,1295.1L-193.2,1313.8L-222.2,1327.9L-222.2,1367L-267.5,1392.4L-336.4,1406.5L-367.2,1431.4L-408.9,1410.5L-448.8,1407.1L-492.3,1418.4L-500,1423.8L-500,-36.5Z"/><path class="st" d="M608.3,-71.9L635.5,-72.5L849.4,-64.4L947.3,-62.6L945.5,-36.3L970.9,-39.8L976.3,-62.6L1052.5,-59.1L1092.4,-61.4L1458.6,-53.8L1460.4,-43.3L1460.4,19.1L1465.9,148.4L1465.9,235.5L1460.4,356.6L1438.7,361.3L1444.1,405.2L1429.6,422L1416.9,411L1386.1,409.8L1348,423.7L1315.4,422L1291.8,435.9L1262.8,419.7L1251.9,441L1163.1,461.3L1157.6,449.7L1130.4,449.7L1081.5,468.8L1070.6,456.6L1023.5,456.1L1010.8,471.1L978.1,457.8L905.6,473.4L900.2,438.7L883.9,448.6L849.4,495.9L827.6,495.9L787.8,538L764.2,524.7L720.7,558.1L708,550.6L666.3,566.8L675.3,579.4L657.2,597.9L604.6,604.2L564.7,635.3L548.4,626.6L521.2,646.8L523,627.8L486.8,569.1L610.1,494.2L575.6,438.2L582.9,345.1L591.9,174Z"/><path class="st on" d="M1340.8,465.3L1346.2,454.9L1395.2,442.2L1357.1,467ZM1286.4,570.8L1295.4,559.3L1315.4,568.5L1315.4,597.3L1304.5,577.1ZM1250.1,513.8L1279.1,504.5L1257.4,529.3ZM312.7,863L321.8,901.3L305.5,923.6L236.6,968.1L216.6,968.7L222,940.1L238.4,931L245.6,883ZM707.2,-500L659,-328.1L597.4,-96.5L608.3,-71.9L591.9,174L582.9,345.1L575.6,438.2L610.1,494.2L486.8,569.1L523,627.8L521.2,646.8L508.5,670.9L470.5,695L466.8,740.4L443.3,739.2L459.6,773.6L492.2,723.7L512.2,732.3L530.3,708.2L568.4,692.7L601,691.6L608.3,672.6L648.1,689.9L651.8,666.3L668.1,682.4L704.4,687L737,700.2L778.7,684.1L782.3,659.4L813.1,654.8L831.3,661.7L967.3,660L1038,648.5L1063.4,638.1L1117.8,601.9L1134.1,578.9L1155.8,571.4L1179.4,542.6L1217.5,530.5L1239.2,531.6L1206.6,561.6L1190.3,565.1L1217.5,582.9L1226.5,608.2L1257.4,615.1L1277.3,600.7L1306.3,642.2L1333.5,632.4L1375.2,604.8L1378.9,588.7L1409.7,582.3L1431.4,589.2L1422.4,601.3L1300.9,655.4L1159.5,726L1068.8,761.6L921.9,814.9L825.8,859.5L747.9,883L698.9,889.8L688,881.3L572,915.6L461.4,909.8L378,941.3L383.4,919.6L341.7,920.7L347.2,906.4L327.2,884.1L339.9,864.1L325.4,843.5L336.3,830.9L343.5,793.7L365.3,756.4L401.6,649.1L396.1,638.1L156.8,496.5L-2.8,396.6L-26.4,364.7L-24.5,347.4L-53.6,352L-59,339.3L-104.3,341L-100.7,330.6L-127.9,311.5L-147.8,314.4L-149.7,294.7L-195,229.1L-180.5,222.2L-184.1,129.8L-209.5,117.6L-195,98.9L-213.1,70.4L-262.1,50.6L-289.3,52.9L-303.8,-5.4L-312.8,-3L-338.2,-37.5L-500,-36.5L-500,-500Z"/><text class="sl" x="626.3" y="334.3">NEW YORK</text><text class="sl" x="222.2" y="703.5">N.J.</text><text class="sl" x="752.6" y="435.3">CONN.</text><circle class="cd" cx="363.6" cy="783.6" r="3"/><text class="cl" x="363.6" y="783.6">Manhattan</text></g></svg>
+
+<script>
+const PT = {"jfk":[460.5,876],"soho":[346.7,824.5],"caci":[339.9,834.7],"stli":[326,844.1],"feha":[343.3,832.1],"thrb":[354.2,810.7],"gegr":[367.1,761.3],"hagr":[374.9,756.1],"ston":[347.4,814.5],"henri":[353.1,808.1],"afbg":[346.2,827.3],"henri2":[353,808.3],"hofr":[381.3,119.8],"elro":[399.2,122.9],"vama":[377.9,100.7],"sapa":[437.6,705.1],"sahi":[601.8,713.2],"henri3":[353.3,808],"fiis":[743.1,882],"gate":[436.6,892.7],"lga":[412.1,785.7]};
+const TRIP = {"slug":"nov2026-nyc","book":"nyc-stamp-run","start":"2026-11-07","end":"2026-11-15","emoji":"🗽","title":"NYC Stamp Run","short":"NYC Stamp Run","placeholder":"","subtitle":"A work week in Manhattan that turned into 15 new stamps: the harbor and uptown on Sunday, African Burial Ground on Friday, then a cancelled flight became Hyde Park, Long Island and Jamaica Bay.","chips":["15 new stamps","+ Ellis Island bonus","Solo · Uber, ferry, car"],"itinerary":"../nov2026-nyc.html","collected":["caci","stli","elis","feha","thrb","gegr","hagr","ston","afbg","hofr","elro","vama","sapa","sahi","fiis","gate"],"theme":{"#142133":"#142133","#1B2A3F":"#1B2A3F","#25385A":"#25385A","#2E4468":"#2E4468","#34507A":"#34507A","#3C9D8F":"#3C9D8F","#F3E9D6":"#F3E9D6","#AEBBCF":"#AEBBCF","#8FD3C8":"#8FD3C8","#C9D2E0":"#C9D2E0","#F3E9D6":"#F3E9D6","#EFE4CC":"#EFE4CC","#F6EEDD":"#F6EEDD","#5C6A80":"#5C6A80","#8FA0BC":"#8FA0BC","#EAD9B4":"#EAD9B4","#FBF6EC":"#FBF6EC","#EAD9B4":"#EAD9B4","#E3E8F0":"#E3E8F0","#8FD3C8":"#8FD3C8","#AEBBCF":"#AEBBCF","#5C6A80":"#5C6A80","#EAF6F4":"#EAF6F4"},"legMinW":70,"airports":[["jfk","JFK"],["lga","LGA"]],"route":["jfk","soho","caci","stli","feha","thrb","gegr","hagr","ston","henri","afbg","henri2","hofr","elro","vama","sapa","sahi","henri3","fiis","gate","lga"],"days":[{"n":0,"dow":"Sat","dowLong":"Saturday","date":"Nov 7","label":"Arrival","title":"Fly to New York","color":"#2E4468","meta":"No stamps · travel only","html":"<div class=\"moon\" style=\"margin-top:18px\">✈︎<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Alaska AS 211 · SFO → JFK<\/h2>\n<p>Departed 7:00 AM, landed 3:35 PM with wheelchair assistance at the gate. Uber into Soho.<\/p>\n<p>Night one at the <b>Best Western Plus Soho<\/b>, 88 Walker St.<\/p>\n<div class=\"note ok\">Every site closes by 4–5 PM, so no stamps today.<\/div>"},{"n":1,"dow":"Sun","dowLong":"Sunday","date":"Nov 8","label":"Sun Nov 8","title":"Harbor, Downtown and Uptown","sub":"Battery → Liberty → Ellis → Wall St → Flatiron → Morningside → Hamilton Heights → Village","color":"#3C9D8F","drive":"Ferry + Uber","stamps":7,"start":"soho","end":"henri","tzline":"Eastern time","cutLabel":"How it went","cut":"Seven stamps plus the Ellis Island bonus. African Burial Ground was closed on Sunday, so it moved to Friday.","gmaps":"https://www.google.com/maps/dir/Castle+Clinton+National+Monument/Federal+Hall/Theodore+Roosevelt+Birthplace/General+Grant+National+Memorial/Hamilton+Grange/Stonewall+National+Monument"},{"n":2,"dow":"Fri","dowLong":"Friday","date":"Nov 13","label":"Work week","kicker":"Mon–Fri · Nov 9–13","title":"Work week, one stamp","sub":"Patlytics office → African Burial Ground","color":"#5B6FA8","drive":"Uber","stamps":1,"start":"henri","end":"henri2","tzline":"Eastern time","cutLabel":"How it went","cut":"Collected African Burial Ground on Friday, finishing the Manhattan run.","gmaps":"https://www.google.com/maps/dir/Hotel+Henri,+37+W+24th+St,+New+York/African+Burial+Ground+National+Monument"},{"n":3,"dow":"Sat","dowLong":"Saturday","date":"Nov 14","label":"Sat Nov 14","title":"Bonus day: Hyde Park and Long Island","sub":"Hyde Park → Mount Vernon → Oyster Bay","color":"#C9622A","drive":"By car","stamps":5,"start":"henri2","end":"henri3","tzline":"Eastern time","cutLabel":"How it went","cut":"The FAA grounding cancelled the Saturday flight, so up the Hudson for three Roosevelt-era stamps, Saint Paul's on the way back, then Sagamore Hill.","gmaps":"https://www.google.com/maps/dir/Home+of+Franklin+D.+Roosevelt+National+Historic+Site/Eleanor+Roosevelt+National+Historic+Site/Vanderbilt+Mansion+National+Historic+Site/Saint+Paul's+Church+National+Historic+Site/Sagamore+Hill+National+Historic+Site"},{"n":4,"dow":"Sun","dowLong":"Sunday","date":"Nov 15","label":"Sun Nov 15","title":"Fire Island, Jamaica Bay, home","sub":"Fire Island Lighthouse → Jamaica Bay → LaGuardia","color":"#8A5BB0","drive":"By car","stamps":2,"start":"henri3","end":"lga","tzline":"Eastern time","cutLabel":"How it went","cut":"Two more stamps before United home via O'Hare. Trip total: 15 new stamps.","gmaps":"https://www.google.com/maps/dir/Fire+Island+Lighthouse/Jamaica+Bay+Wildlife+Refuge/LaGuardia+Airport"}],"stops":[{"d":1,"kind":"stop","k":"caci","color":"#3C9D8F","ink":"#FFFFFF","boxColor":"#2B7A6F","from":"Soho","drive":"Uber","arrive":"~7:45 AM","z":"ET","name":"Castle Clinton NM","type":"National Monument","state":"NY","place":"The Battery","addr":"Castle Clinton National Monument","where":"Castle Clinton, Battery Park","hrs":"Stamped before the ferry security line.","leave":"~7:15 AM","about":"An 1811 harbor fort that later became an immigration station and the ticket office for the Statue ferries."},{"d":1,"kind":"stop","k":"stli","color":"#3C9D8F","ink":"#FFFFFF","boxColor":"#2B7A6F","from":"the Battery","drive":"Ferry","arrive":"~9:00 AM","z":"ET","name":"Statue of Liberty NM","type":"National Monument","state":"NY","place":"Liberty Island","addr":"Statue of Liberty National Monument","where":"Liberty Island","hrs":"Pedestal Reserve ticket, 8:40 AM ferry.","unit":"Statue of Liberty NM","also":[{"id":"elis","name":"Ellis Island (bonus cancellation)","where":"Ellis Island National Museum of Immigration","hrs":"Ferry from Liberty Island, ~10:00 AM."}],"about":"Liberty Enlightening the World, dedicated 1886. Ellis Island next door is part of the same monument."},{"d":1,"kind":"stop","k":"feha","color":"#3C9D8F","ink":"#FFFFFF","boxColor":"#2B7A6F","from":"Ellis Island","drive":"Ferry + walk","arrive":"~11:00 AM","z":"ET","name":"Federal Hall N Mem","type":"National Memorial","state":"NY","place":"Wall Street","addr":"Federal Hall National Memorial","where":"Visitor entrance at 15 Pine St","hrs":"Open on Sunday, as the NPS app said.","about":"Where George Washington took the oath as the first president in 1789."},{"d":1,"kind":"stop","k":"thrb","color":"#3C9D8F","ink":"#FFFFFF","boxColor":"#2B7A6F","from":"Federal Hall","drive":"Uber","arrive":"~1:15 PM","z":"ET","name":"Theodore Roosevelt Birthplace NHS","type":"National Historic Site","state":"NY","place":"Flatiron","addr":"Theodore Roosevelt Birthplace National Historic Site","where":"28 E 20th St","hrs":"Stamped.","about":"A reconstruction of the brownstone where TR was born in 1858."},{"d":1,"kind":"stop","k":"gegr","color":"#3C9D8F","ink":"#FFFFFF","boxColor":"#2B7A6F","from":"TR Birthplace","drive":"Uber","arrive":"~2:15 PM","z":"ET","name":"General Grant N Mem","type":"National Memorial","state":"NY","place":"Morningside Heights","addr":"General Grant National Memorial","where":"Riverside Dr & W 122nd St","hrs":"Stamped.","about":"Grant's Tomb, the largest mausoleum in North America."},{"d":1,"kind":"stop","k":"hagr","color":"#3C9D8F","ink":"#FFFFFF","boxColor":"#2B7A6F","from":"Grant's Tomb","drive":"Uber","arrive":"~3:00 PM","z":"ET","name":"Hamilton Grange N Mem","type":"National Memorial","state":"NY","place":"Hamilton Heights","addr":"Hamilton Grange National Memorial","where":"Visitor center, lower level, 414 W 141st St","hrs":"Stamped.","about":"Alexander Hamilton's country home, moved twice to its spot in St. Nicholas Park."},{"d":1,"kind":"stop","k":"ston","color":"#3C9D8F","ink":"#FFFFFF","boxColor":"#2B7A6F","from":"Hamilton Grange","drive":"Uber","arrive":"~3:35 PM","z":"ET","name":"Stonewall NM","type":"National Monument","state":"NY","place":"Greenwich Village","addr":"Stonewall National Monument","where":"51 Christopher St","hrs":"Made it before the 4 PM close.","about":"The first national monument dedicated to LGBTQ+ rights and history."},{"d":1,"kind":"night","k":"henri","from":"Stonewall","drive":"Uber","arrive":"evening","z":"ET","name":"Hotel Henri, Flatiron","addr":"Hotel Henri, 37 W 24th St, New York","note":"Home base for the work week, near the Patlytics office."},{"d":2,"kind":"stop","k":"afbg","color":"#5B6FA8","ink":"#FFFFFF","boxColor":"#3F5288","from":"the office","drive":"Uber","arrive":"Fri","z":"ET","name":"African Burial Ground NM","type":"National Monument","state":"NY","place":"Lower Manhattan","addr":"African Burial Ground National Monument","where":"Visitor center, 290 Broadway (Ted Weiss Federal Building)","hrs":"Tue–Sat 10:00–4:00 · airport-style security.","leave":"Fri","about":"The burial ground of an estimated 15,000 free and enslaved Africans in colonial New York."},{"d":2,"kind":"night","k":"henri2","from":"African Burial Ground","drive":"Uber","arrive":"evening","z":"ET","name":"Hotel Henri, Flatiron","addr":"Hotel Henri, 37 W 24th St, New York","note":"The Saturday flight home was cancelled by the FAA grounding, so the trip gained a bonus day."},{"d":3,"kind":"stop","k":"hofr","color":"#C9622A","ink":"#FFFFFF","boxColor":"#A44A1B","from":"Manhattan","drive":"Car","arrive":"Sat","z":"ET","name":"Home of FDR NHS","type":"National Historic Site","state":"NY","place":"Hyde Park","addr":"Home of Franklin D. Roosevelt National Historic Site","where":"Springwood and the FDR Presidential Library","hrs":"Stamped.","leave":"morning","about":"Springwood, FDR's lifelong home, and the first presidential library."},{"d":3,"kind":"stop","k":"elro","color":"#C9622A","ink":"#FFFFFF","boxColor":"#A44A1B","from":"Springwood","drive":"Car","arrive":"Sat","z":"ET","name":"Eleanor Roosevelt NHS","type":"National Historic Site","state":"NY","place":"Val-Kill","addr":"Eleanor Roosevelt National Historic Site","where":"Val-Kill","hrs":"Stamped.","about":"Val-Kill, the only national historic site dedicated to a first lady."},{"d":3,"kind":"stop","k":"vama","color":"#C9622A","ink":"#FFFFFF","boxColor":"#A44A1B","from":"Val-Kill","drive":"Car","arrive":"Sat","z":"ET","name":"Vanderbilt Mansion NHS","type":"National Historic Site","state":"NY","place":"Hyde Park","addr":"Vanderbilt Mansion National Historic Site","where":"On the bluff over the Hudson","hrs":"Stamped.","about":"A Gilded Age country house on the Hudson."},{"d":3,"kind":"stop","k":"sapa","color":"#C9622A","ink":"#FFFFFF","boxColor":"#A44A1B","from":"Hyde Park","drive":"Car","arrive":"Sat","z":"ET","name":"Saint Paul's Church NHS","type":"National Historic Site","state":"NY","place":"Mount Vernon","addr":"Saint Paul's Church National Historic Site","where":"897 S Columbus Ave, Mount Vernon","hrs":"Stamped.","about":"A colonial church whose green saw an election dispute that helped shape freedom of the press."},{"d":3,"kind":"stop","k":"sahi","color":"#C9622A","ink":"#FFFFFF","boxColor":"#A44A1B","from":"Mount Vernon","drive":"Car","arrive":"~3:30 PM","z":"ET","name":"Sagamore Hill NHS","type":"National Historic Site","state":"NY","place":"Oyster Bay","addr":"Sagamore Hill National Historic Site","where":"Old Orchard Museum, 20 Sagamore Hill Rd","hrs":"Stamped.","about":"Theodore Roosevelt's 'Summer White House' on Long Island."},{"d":3,"kind":"night","k":"henri3","from":"Sagamore Hill","drive":"Car","arrive":"evening","z":"ET","name":"Hotel Henri, Flatiron","addr":"Hotel Henri, 37 W 24th St, New York","note":"One extra night. Tomorrow: Fire Island, Jamaica Bay and the flight home."},{"d":4,"kind":"stop","k":"fiis","color":"#8A5BB0","ink":"#FFFFFF","boxColor":"#6B3F92","from":"Manhattan","drive":"Car","arrive":"morning","z":"ET","name":"Fire Island NS","type":"National Seashore","state":"NY","place":"Fire Island Lighthouse","addr":"Fire Island Lighthouse","where":"Fire Island Lighthouse, Keepers' Quarters","hrs":"Parked at Robert Moses State Park Field 5.","leave":"early","about":"A barrier island off Long Island's south shore; the 1858 lighthouse still stands at its western end."},{"d":4,"kind":"stop","k":"gate","color":"#8A5BB0","ink":"#FFFFFF","boxColor":"#6B3F92","from":"Fire Island","drive":"Car","arrive":"~12:15 PM","z":"ET","name":"Gateway NRA","type":"National Recreation Area","state":"NY","place":"Jamaica Bay Wildlife Refuge","addr":"Jamaica Bay Wildlife Refuge Visitor Center","where":"Jamaica Bay Wildlife Refuge Visitor Center","hrs":"Sat–Sun 10:00–4:00 · (718) 318-4340.","about":"A wildlife refuge inside city limits, minutes from JFK."},{"d":4,"kind":"home","k":"lga","from":"Jamaica Bay","drive":"Car","arrive":"~5:30 PM","z":"ET","title":"LaGuardia → home","note":"United UA 2426 to O'Hare at 7:29 PM, then UA 2106 to SFO, landing 12:53 AM Monday. 15 new stamps.","navTo":"LaGuardia Airport","navLabel":"LaGuardia ↗"}],"library":"index.html"};
+const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
+const LASTDAY = DAYS.length - 1;
+let n = 0; const NUMOF = {};
+STOPS.forEach(s => { if (s.kind === 'stop') { s.num = s.stampId ? NUMOF[s.stampId] : ++n; NUMOF[s.k] = s.num; } });
+const stopColor = s => s.color || DAYS[s.d].color;
+const dayColor = d => DAYS[d].color;
+const DL = d => DAYS[d].label || ('Day ' + d);
+const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
+
+/* ---------- stamp storage ---------- */
+const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
+const UNITS = [];
+STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: s.boxColor || stopColor(s) });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
+});
+const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const NSTAMPS = UNITS.length;
+let got = {};
+try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
+// stamps already collected (past trips): checked unless unticked on this device
+(TRIP.collected || []).forEach(id => { if (!(id in got)) got[id] = true; });
+function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
+
+/* ---------- maps ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+function routeD(keys) { return keys.map((k, i) => (i ? 'L' : 'M') + PT[k][0] + ' ' + PT[k][1]).join(''); }
+
+function buildMap(svg, o) {
+  // o: { focus:[keys], aspect, dayFocus, leg:[a,b], now:key }
+  const pad = o.pad || 60;
+  let xs = o.focus.map(k => PT[k][0]), ys = o.focus.map(k => PT[k][1]);
+  let x0 = Math.min(...xs) - pad, x1 = Math.max(...xs) + pad, y0 = Math.min(...ys) - pad, y1 = Math.max(...ys) + pad;
+  let w = Math.max(x1 - x0, o.minW || 220), h = Math.max(y1 - y0, (o.minW || 220) / o.aspect);
+  if (w / h > o.aspect) h = w / o.aspect; else w = h * o.aspect;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const vb = [cx - w / 2, cy - h / 2, w, h];
+  svg.setAttribute('viewBox', vb.map(v => v.toFixed(1)).join(' '));
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  const s = w / 1000;
+  const base = document.getElementById('basemap').cloneNode(true); base.removeAttribute('id');
+  base.querySelectorAll('.sl').forEach(t => t.setAttribute('font-size', (s * 22).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('font-size', (s * 17).toFixed(1)));
+  base.querySelectorAll('.cd').forEach(c => c.setAttribute('r', (s * 3.5).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('dy', (-s * 9).toFixed(1)));
+  svg.appendChild(base);
+  // whole route, faint
+  el('path', { d: routeD(ROUTE), class: 'rt', stroke: '#AEBBCF', 'stroke-width': 2 }, svg);
+  // day segments
+  for (let d = 1; d <= LASTDAY; d++) {
+    if (!DAYS[d].start) continue;
+    const a = ROUTE.indexOf(DAYS[d].start), b = ROUTE.indexOf(DAYS[d].end);
+    const dim = o.dayFocus && o.dayFocus !== d;
+    el('path', { d: routeD(ROUTE.slice(a, b + 1)), class: 'rt', stroke: DAYS[d].color, 'stroke-width': dim ? 2.5 : 4, opacity: dim ? .35 : .9 }, svg);
+  }
+  if (o.leg) el('path', { d: routeD(o.leg), class: 'leg' }, svg);
+  // airports
+  TRIP.airports.forEach(([k, lab]) => {
+    const g = el('g', { class: 'end' }, svg), r = s * 17;
+    const wr = r * (0.9 + 0.62 * lab.length);
+    el('rect', { x: PT[k][0] - wr / 2, y: PT[k][1] - r * .8, width: wr, height: r * 1.6, rx: r * .4 }, g);
+    const t = el('text', { x: PT[k][0], y: PT[k][1], 'font-size': (r * .9).toFixed(1) }, g); t.textContent = lab;
+  });
+  // overnight dots
+  STOPS.filter(x => x.kind === 'night').map(x => x.k).forEach(k => {
+    const c = el('circle', { cx: PT[k][0], cy: PT[k][1], r: s * 7, fill: '#1B2A3F', stroke: '#FFFFFF', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }, svg);
+  });
+  // points of interest (no stamp)
+  STOPS.filter(x => x.kind === 'point').forEach(x => {
+    const now = x.k === o.now;
+    el('circle', { cx: PT[x.k][0], cy: PT[x.k][1], r: s * (now ? 11 : 6), fill: now ? DAYS[x.d].color : '#FFFFFF', stroke: '#1B2A3F', 'stroke-width': now ? 3 : 1.5, 'vector-effect': 'non-scaling-stroke', opacity: o.dayFocus && o.dayFocus !== x.d ? .4 : 1 }, svg);
+  });
+  // pins (draw current last)
+  const r = s * (o.pinR || 16);
+  const list = STOPS.filter(x => x.kind === 'stop' && (!x.stampId || x.k === o.now));
+  list.sort((a, b) => (a.k === o.now) - (b.k === o.now));
+  list.forEach(st => {
+    const dim = o.dayFocus && o.dayFocus !== st.d;
+    const g = el('g', { class: 'pin' + (st.k === o.now ? ' now' : '') + (dim ? ' dim' : '') }, svg);
+    const rr = st.k === o.now ? r * 1.35 : r;
+    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: stopColor(st) }, g);
+    const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
+    if (st.ink) t.style.fill = st.ink;
+  });
+}
+
+/* ---------- pages ---------- */
+const pages = []; // {el, label, group}
+const book = document.getElementById('book');
+function addPage(cls, html, label, group, after) {
+  const p = document.createElement('section');
+  p.className = 'page ' + cls;
+  p.innerHTML = '<div class="scroll">' + html + '</div><div class="shade"></div>';
+  book.appendChild(p);
+  pages.push({ el: p, label, group });
+  if (after) after(p);
+  return pages.length - 1;
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const nav = a => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a);
+const firstPageOfDay = {};
+const pageOfStop = {};
+
+// Cover
+addPage('cover', `
+  ${TRIP.placeholder ? `<div class="ph">${esc(TRIP.placeholder)}</div>` : ''}
+  <div class="kicker" style="color:#3C9D8F">Trip book</div>
+  <h1 class="serif">${esc(TRIP.title)}</h1>
+  <div class="sub">${esc(TRIP.subtitle)}</div>
+  <svg class="map" id="coverMap" style="aspect-ratio:1/1.05"></svg>
+  <div style="margin-top:10px">
+    ${TRIP.chips.map((c, i) => `<span class="chip${i ? '' : ' hot'}">${esc(c)}</span>`).join('')}
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="tally"><div><div style="font-size:12px;color:#8FD3C8;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps this trip</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+  <div class="swipe">Swipe or tap Next to turn the page ›</div>
+  ${TRIP.itinerary ? `<a class="backlink" href="${TRIP.itinerary}">← Full itinerary page</a>` : ''}
+  ${TRIP.library ? `<a class="backlink" href="${TRIP.library}">📚 All trip books</a>` : ''}
+`, 'Cover · trip map', 'Start', p => {
+  buildMap(p.querySelector('#coverMap'), { focus: ROUTE, aspect: 1 / 1.05, pad: 34, pinR: 15 });
+});
+
+// Day 0
+const D0 = DAYS[0];
+addPage('', `
+  <div class="dayband" style="background:${D0.color}">
+    <div class="kicker">${DK(0)}</div>
+    <h2 class="serif">${esc(D0.title)}</h2>
+    <div class="meta">${esc(D0.meta || '')}</div>
+  </div>
+  ${D0.html || ''}
+`, DL(0) + ' · ' + D0.title, 0);
+
+// Days
+for (let d = 1; d <= LASTDAY; d++) {
+  const D = DAYS[d];
+  if (D.kind === 'cruise') {
+    firstPageOfDay[d] = addPage('', `
+      <div class="dayband" style="background:${D.color}">
+        <div class="kicker">${DK(d)}</div>
+        <h2 class="serif">${esc(D.title)}</h2>
+        ${D.sub ? `<div class="meta">${esc(D.sub)}</div>` : ''}
+      </div>
+      ${D.html || ''}
+    `, DL(d) + ' · ' + D.title, d);
+    continue;
+  }
+  const items = STOPS.filter(s => s.d === d);
+  const first = items[0];
+  const metaBits = [D.stamps ? D.stamps + ' stamp' + (D.stamps > 1 ? 's' : '') : '', D.drive ? '🚗 ' + D.drive + ' driving' : '', D.tzline || ''].filter(Boolean).join(' · ');
+  firstPageOfDay[d] = addPage('', `
+    <div class="dayband" style="background:${D.color}">
+      <div class="kicker">${DK(d)}</div>
+      <h2 class="serif">${D.title}</h2>
+      <div class="meta">${D.sub || ''}${metaBits ? '<br>' + metaBits : ''}</div>
+    </div>
+    <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
+    <ul class="tl">
+      <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}${s.ink ? ';color:' + s.ink : ''}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+    </ul>
+    ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
+    ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
+  `, DL(d) + ' · ' + D.title, d, p => {
+    buildMap(p.querySelector('#dm' + d), { focus: ROUTE.slice(ROUTE.indexOf(D.start), ROUTE.indexOf(D.end) + 1), aspect: 1.45, pad: 45, dayFocus: d });
+  });
+
+  items.forEach((s, i) => {
+    const fromKey = i === 0 ? D.start : items[i - 1].k;
+    const driveCard = `
+      <div class="drive">
+        <div class="car">🚗</div>
+        <div><div class="fr">${s.leave ? 'Leave ' + esc(s.from) + ' ' + s.leave : 'From ' + esc(s.from)}</div><div class="dt">${s.drive}</div>${s.tz ? `<div class="tz">${s.tz}</div>` : ''}</div>
+        <div class="arr"><div class="lab">${s.arriveLabel || 'Arrive'}</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
+      </div>
+      ${s.via ? `<div class="note" style="background:#F6EEDD">${esc(s.via)}</div>` : ''}`;
+    const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
+    let html, label;
+    if (s.kind === 'stop') {
+      const C = stopColor(s);
+      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: s.boxColor || C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
+      const dayStops = items.filter(x => x.kind === 'stop');
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><div class="num" style="background:${C}${s.ink ? ';color:' + s.ink : ''}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+          <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${s.optional ? `<div class="note ok">${esc(s.optional)}</div>` : ''}
+        ${units.map(u => `
+        <div class="stampbox" style="border-color:${u.color}">
+          <div class="kicker" style="color:${u.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+          <div class="where">${esc(u.where)}</div>
+          ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
+          <button class="got" data-got="${u.id}"></button>
+        </div>`).join('')}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
+        ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
+        <div class="foot">Re-check hours in the NPS app the week before.</div>`;
+      label = s.num + ' · ' + s.name;
+    } else if (s.kind === 'point') {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Along the way</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><h2 class="serif">${esc(s.name)}</h2>${s.place ? `<div class="place">${esc(s.place)}</div>` : ''}</div>
+        ${s.bonus ? `<div class="stampbox" style="border-color:#8FA0BC"><div class="kicker" style="color:#5C6A80">◈ ${esc(s.bonus.title || 'Bonus cancellation · optional')}</div><div class="where">${esc(s.bonus.where)}</div>${s.bonus.hrs ? `<div class="hrs">${esc(s.bonus.hrs)}</div>` : ''}</div>` : ''}
+        ${s.note ? `<p>${esc(s.note)}</p>` : ''}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>`;
+      label = '• ' + s.name;
+    } else if (s.kind === 'night') {
+      const next = DAYS[d + 1];
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + ' stamps · ' : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">☾</div>
+        <h2 class="serif">Sleep in ${esc(s.name)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
+        <div class="cut" style="background:#F6EEDD;border-left-color:${next.color}"><b>Tomorrow · ${DL(d + 1)}: ${esc(next.title)}</b><br>${nextLine}</div>`;
+      label = '☾ Sleep in ' + s.name;
+    } else {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Last leg</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">✈︎</div>
+        <h2 class="serif">${esc(s.title)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.navTo)}" target="_blank" rel="noopener">${esc(s.navLabel || 'Navigate ↗')}</a></div>
+        <div class="tally" style="background:#1B2A3F;color:#F3E9D6;margin-top:16px"><div><div style="font-size:12px;color:#8FD3C8;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps collected</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+        <ul class="chk" id="chk"></ul>`;
+      label = '✈︎ ' + s.title;
+    }
+    pageOfStop[s.k] = addPage('', html, label, d, p => {
+      const m = p.querySelector('[data-map]');
+      const [a, b] = m.dataset.map.split(',');
+      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: TRIP.legMinW || 400, dayFocus: d, pinR: 22 });
+    });
+  });
+}
+
+/* ---------- legend, checklist, stamps ---------- */
+document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)}${D.dow ? ' · ' + D.dow : ''}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + (D.stamps > 1 ? ' stamps' : ' stamp') : ''}</span></span></button>`).join('');
+document.getElementById('chk').innerHTML = UNITS.map(u =>
+  `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
+
+function renderGot() {
+  const c = UNITS.filter(u => got[u.id]).length;
+  document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
+  document.querySelectorAll('button.got').forEach(b => {
+    const on = !!got[b.dataset.got], col = UNIT[b.dataset.got].color;
+    b.classList.toggle('on', on); b.style.background = on ? col : '#EFE4CC';
+    b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
+  });
+  document.querySelectorAll('.chk li').forEach(li => {
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = UNIT[li.dataset.got].color;
+    bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#C9D2E0';
+  });
+}
+
+/* ---------- flipping ---------- */
+let idx = 0, busy = false;
+const pg = document.getElementById('pgnum'), bar = document.getElementById('bar'), prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+function chrome() {
+  pg.textContent = (idx + 1) + ' / ' + pages.length;
+  bar.style.width = ((idx) / (pages.length - 1) * 100) + '%';
+  prevB.disabled = idx === 0; nextB.disabled = idx === pages.length - 1;
+  try { localStorage.setItem(PKEY, idx); } catch (e) {}
+  try { history.replaceState(null, '', '#p' + (idx + 1)); } catch (e) {}
+}
+function show(i) { pages.forEach((p, j) => p.el.className = p.el.className.replace(/\b(show|under|flip-out|flip-in)\b/g, '').trim() + (j === i ? ' show' : '')); idx = i; chrome(); }
+function go(i) {
+  if (busy || i === idx || i < 0 || i >= pages.length) return;
+  const cur = pages[idx].el, nxt = pages[i].el;
+  nxt.querySelector('.scroll').scrollTop = 0;
+  busy = true;
+  const done = () => { pages.forEach((p, j) => { if (j !== i) p.el.classList.remove('show'); p.el.classList.remove('under', 'flip-out', 'flip-in'); }); idx = i; busy = false; chrome(); };
+  if (i > idx) {
+    nxt.classList.add('show', 'under'); cur.classList.add('flip-out');
+    cur.addEventListener('animationend', done, { once: true });
+  } else {
+    cur.classList.add('under'); nxt.classList.add('show', 'flip-in');
+    nxt.addEventListener('animationend', done, { once: true });
+  }
+  setTimeout(() => { if (busy) done(); }, 900);
+}
+prevB.onclick = () => go(idx - 1);
+nextB.onclick = () => go(idx + 1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(idx + 1); if (e.key === 'ArrowLeft') go(idx - 1); });
+let tx = 0, ty = 0;
+book.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+book.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(idx + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-got]');
+  if (g) { got[g.dataset.got] = !got[g.dataset.got]; saveGot(); renderGot(); return; }
+  const jd = e.target.closest('[data-jumpday]');
+  if (jd) { e.preventDefault(); go(firstPageOfDay[jd.dataset.jumpday]); return; }
+  const js = e.target.closest('[data-stop]');
+  if (js) { go(pageOfStop[js.dataset.stop]); return; }
+  const jf = e.target.closest('[data-jump]');
+  if (jf) { go(idx + 1); return; }
+});
+
+/* ---------- contents ---------- */
+const toc = document.getElementById('toc'), tocPanel = document.getElementById('tocPanel');
+function openToc() {
+  let h = '<div class="kicker" style="color:#3C9D8F">Pages</div>', grp = '';
+  pages.forEach((p, i) => {
+    if (p.group !== grp) { grp = p.group; const isDay = typeof grp === 'number'; h += `<h3 style="color:${isDay ? DAYS[grp].color : '#5C6A80'}">${isDay ? DL(grp) + (DAYS[grp].dow ? ' · ' + DAYS[grp].dow : '') : grp}</h3>`; }
+    h += `<a href="#" data-p="${i}" class="${i === idx ? 'cur' : ''}">${esc(p.label)}<span>${i + 1}</span></a>`;
+  });
+  tocPanel.innerHTML = h; toc.classList.add('open');
+}
+document.getElementById('tocBtn').onclick = openToc;
+toc.addEventListener('click', e => {
+  const a = e.target.closest('[data-p]');
+  if (a) { e.preventDefault(); toc.classList.remove('open'); go(+a.dataset.p); return; }
+  if (e.target === toc) toc.classList.remove('open');
+});
+
+/* ---------- start ---------- */
+renderGot();
+let start = 0;
+const hm = /#p(\d+)/.exec(location.hash);
+if (hm) start = Math.min(pages.length - 1, Math.max(0, +hm[1] - 1));
+else { try { const s = +localStorage.getItem(PKEY); if (s > 0 && s < pages.length) start = s; } catch (e) {} }
+show(start);
+</script>
+</body>
+</html>

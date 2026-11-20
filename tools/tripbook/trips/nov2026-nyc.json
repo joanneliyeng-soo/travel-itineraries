@@ -1,0 +1,676 @@
+{
+ "slug": "nov2026-nyc",
+ "book": "nyc-stamp-run",
+ "start": "2026-11-07",
+ "end": "2026-11-15",
+ "emoji": "🗽",
+ "title": "NYC Stamp Run",
+ "short": "NYC Stamp Run",
+ "placeholder": "",
+ "subtitle": "A work week in Manhattan that turned into 15 new stamps: the harbor and uptown on Sunday, African Burial Ground on Friday, then a cancelled flight became Hyde Park, Long Island and Jamaica Bay.",
+ "chips": [
+  "15 new stamps",
+  "+ Ellis Island bonus",
+  "Solo · Uber, ferry, car"
+ ],
+ "itinerary": "nov2026-nyc.html",
+ "collected": [
+  "caci",
+  "stli",
+  "elis",
+  "feha",
+  "thrb",
+  "gegr",
+  "hagr",
+  "ston",
+  "afbg",
+  "hofr",
+  "elro",
+  "vama",
+  "sapa",
+  "sahi",
+  "fiis",
+  "gate"
+ ],
+ "theme": {
+  "#1E1D33": "#142133",
+  "#26243F": "#1B2A3F",
+  "#2C2A47": "#25385A",
+  "#322F51": "#2E4468",
+  "#38355A": "#34507A",
+  "#E2603A": "#3C9D8F",
+  "#E9E6FA": "#F3E9D6",
+  "#CFCBE6": "#AEBBCF",
+  "#A9A4C8": "#8FD3C8",
+  "#C9C4E4": "#C9D2E0",
+  "#EDEAF9": "#F3E9D6",
+  "#EEEBF7": "#EFE4CC",
+  "#F1EFF7": "#F6EEDD",
+  "#6E6A88": "#5C6A80",
+  "#9C97B4": "#8FA0BC",
+  "#ECE9F2": "#EAD9B4",
+  "#FBFAF6": "#FBF6EC",
+  "#E7E3D9": "#EAD9B4",
+  "#EFEDE6": "#E3E8F0",
+  "#8F8AB4": "#8FD3C8",
+  "#B8B3C8": "#AEBBCF",
+  "#7C7896": "#5C6A80",
+  "#FFF3EE": "#EAF6F4"
+ },
+ "legMinW": 70,
+ "map": {
+  "bbox": [
+   [
+    -74.35,
+    41.9
+   ],
+   [
+    -73.05,
+    40.5
+   ]
+  ],
+  "states": [
+   "New York",
+   "New Jersey",
+   "Connecticut",
+   "Pennsylvania",
+   "Massachusetts"
+  ],
+  "highlight": [
+   "New York"
+  ],
+  "stateLabels": [
+   [
+    "NEW YORK",
+    -73.45,
+    41.45
+   ],
+   [
+    "N.J.",
+    -74.25,
+    40.9
+   ],
+   [
+    "CONN.",
+    -73.2,
+    41.3
+   ]
+  ],
+  "cities": [
+   [
+    "Manhattan",
+    -73.97,
+    40.78
+   ]
+  ],
+  "points": {
+   "jfk": [
+    -73.7781,
+    40.6413
+   ],
+   "soho": [
+    -74.0035,
+    40.7186
+   ],
+   "caci": [
+    -74.017,
+    40.7034
+   ],
+   "stli": [
+    -74.0445,
+    40.6892
+   ],
+   "feha": [
+    -74.0102,
+    40.7073
+   ],
+   "thrb": [
+    -73.9887,
+    40.7393
+   ],
+   "gegr": [
+    -73.9631,
+    40.8134
+   ],
+   "hagr": [
+    -73.9476,
+    40.8212
+   ],
+   "ston": [
+    -74.0021,
+    40.7336
+   ],
+   "henri": [
+    -73.9907,
+    40.7432
+   ],
+   "afbg": [
+    -74.0044,
+    40.7144
+   ],
+   "henri2": [
+    -73.9909,
+    40.743
+   ],
+   "hofr": [
+    -73.9349,
+    41.7676
+   ],
+   "elro": [
+    -73.8995,
+    41.7629
+   ],
+   "vama": [
+    -73.9417,
+    41.7958
+   ],
+   "sapa": [
+    -73.8236,
+    40.8975
+   ],
+   "sahi": [
+    -73.4985,
+    40.8855
+   ],
+   "henri3": [
+    -73.9905,
+    40.7434
+   ],
+   "fiis": [
+    -73.2187,
+    40.6324
+   ],
+   "gate": [
+    -73.8255,
+    40.6162
+   ],
+   "lga": [
+    -73.874,
+    40.7769
+   ]
+  }
+ },
+ "airports": [
+  [
+   "jfk",
+   "JFK"
+  ],
+  [
+   "lga",
+   "LGA"
+  ]
+ ],
+ "route": [
+  "jfk",
+  "soho",
+  "caci",
+  "stli",
+  "feha",
+  "thrb",
+  "gegr",
+  "hagr",
+  "ston",
+  "henri",
+  "afbg",
+  "henri2",
+  "hofr",
+  "elro",
+  "vama",
+  "sapa",
+  "sahi",
+  "henri3",
+  "fiis",
+  "gate",
+  "lga"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "Sat",
+   "dowLong": "Saturday",
+   "date": "Nov 7",
+   "label": "Arrival",
+   "title": "Fly to New York",
+   "color": "#2E4468",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Alaska AS 211 · SFO → JFK</h2>\n<p>Departed 7:00 AM, landed 3:35 PM with wheelchair assistance at the gate. Uber into Soho.</p>\n<p>Night one at the <b>Best Western Plus Soho</b>, 88 Walker St.</p>\n<div class=\"note ok\">Every site closes by 4–5 PM, so no stamps today.</div>"
+  },
+  {
+   "n": 1,
+   "dow": "Sun",
+   "dowLong": "Sunday",
+   "date": "Nov 8",
+   "label": "Sun Nov 8",
+   "title": "Harbor, Downtown and Uptown",
+   "sub": "Battery → Liberty → Ellis → Wall St → Flatiron → Morningside → Hamilton Heights → Village",
+   "color": "#3C9D8F",
+   "drive": "Ferry + Uber",
+   "stamps": 7,
+   "start": "soho",
+   "end": "henri",
+   "tzline": "Eastern time",
+   "cutLabel": "How it went",
+   "cut": "Seven stamps plus the Ellis Island bonus. African Burial Ground was closed on Sunday, so it moved to Friday.",
+   "gmaps": "https://www.google.com/maps/dir/Castle+Clinton+National+Monument/Federal+Hall/Theodore+Roosevelt+Birthplace/General+Grant+National+Memorial/Hamilton+Grange/Stonewall+National+Monument"
+  },
+  {
+   "n": 2,
+   "dow": "Fri",
+   "dowLong": "Friday",
+   "date": "Nov 13",
+   "label": "Work week",
+   "kicker": "Mon–Fri · Nov 9–13",
+   "title": "Work week, one stamp",
+   "sub": "Patlytics office → African Burial Ground",
+   "color": "#5B6FA8",
+   "drive": "Uber",
+   "stamps": 1,
+   "start": "henri",
+   "end": "henri2",
+   "tzline": "Eastern time",
+   "cutLabel": "How it went",
+   "cut": "Collected African Burial Ground on Friday, finishing the Manhattan run.",
+   "gmaps": "https://www.google.com/maps/dir/Hotel+Henri,+37+W+24th+St,+New+York/African+Burial+Ground+National+Monument"
+  },
+  {
+   "n": 3,
+   "dow": "Sat",
+   "dowLong": "Saturday",
+   "date": "Nov 14",
+   "label": "Sat Nov 14",
+   "title": "Bonus day: Hyde Park and Long Island",
+   "sub": "Hyde Park → Mount Vernon → Oyster Bay",
+   "color": "#C9622A",
+   "drive": "By car",
+   "stamps": 5,
+   "start": "henri2",
+   "end": "henri3",
+   "tzline": "Eastern time",
+   "cutLabel": "How it went",
+   "cut": "The FAA grounding cancelled the Saturday flight, so up the Hudson for three Roosevelt-era stamps, Saint Paul's on the way back, then Sagamore Hill.",
+   "gmaps": "https://www.google.com/maps/dir/Home+of+Franklin+D.+Roosevelt+National+Historic+Site/Eleanor+Roosevelt+National+Historic+Site/Vanderbilt+Mansion+National+Historic+Site/Saint+Paul's+Church+National+Historic+Site/Sagamore+Hill+National+Historic+Site"
+  },
+  {
+   "n": 4,
+   "dow": "Sun",
+   "dowLong": "Sunday",
+   "date": "Nov 15",
+   "label": "Sun Nov 15",
+   "title": "Fire Island, Jamaica Bay, home",
+   "sub": "Fire Island Lighthouse → Jamaica Bay → LaGuardia",
+   "color": "#8A5BB0",
+   "drive": "By car",
+   "stamps": 2,
+   "start": "henri3",
+   "end": "lga",
+   "tzline": "Eastern time",
+   "cutLabel": "How it went",
+   "cut": "Two more stamps before United home via O'Hare. Trip total: 15 new stamps.",
+   "gmaps": "https://www.google.com/maps/dir/Fire+Island+Lighthouse/Jamaica+Bay+Wildlife+Refuge/LaGuardia+Airport"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "caci",
+   "color": "#3C9D8F",
+   "ink": "#FFFFFF",
+   "boxColor": "#2B7A6F",
+   "from": "Soho",
+   "drive": "Uber",
+   "arrive": "~7:45 AM",
+   "z": "ET",
+   "name": "Castle Clinton NM",
+   "type": "National Monument",
+   "state": "NY",
+   "place": "The Battery",
+   "addr": "Castle Clinton National Monument",
+   "where": "Castle Clinton, Battery Park",
+   "hrs": "Stamped before the ferry security line.",
+   "leave": "~7:15 AM",
+   "about": "An 1811 harbor fort that later became an immigration station and the ticket office for the Statue ferries."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "stli",
+   "color": "#3C9D8F",
+   "ink": "#FFFFFF",
+   "boxColor": "#2B7A6F",
+   "from": "the Battery",
+   "drive": "Ferry",
+   "arrive": "~9:00 AM",
+   "z": "ET",
+   "name": "Statue of Liberty NM",
+   "type": "National Monument",
+   "state": "NY",
+   "place": "Liberty Island",
+   "addr": "Statue of Liberty National Monument",
+   "where": "Liberty Island",
+   "hrs": "Pedestal Reserve ticket, 8:40 AM ferry.",
+   "unit": "Statue of Liberty NM",
+   "also": [
+    {
+     "id": "elis",
+     "name": "Ellis Island (bonus cancellation)",
+     "where": "Ellis Island National Museum of Immigration",
+     "hrs": "Ferry from Liberty Island, ~10:00 AM."
+    }
+   ],
+   "about": "Liberty Enlightening the World, dedicated 1886. Ellis Island next door is part of the same monument."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "feha",
+   "color": "#3C9D8F",
+   "ink": "#FFFFFF",
+   "boxColor": "#2B7A6F",
+   "from": "Ellis Island",
+   "drive": "Ferry + walk",
+   "arrive": "~11:00 AM",
+   "z": "ET",
+   "name": "Federal Hall N Mem",
+   "type": "National Memorial",
+   "state": "NY",
+   "place": "Wall Street",
+   "addr": "Federal Hall National Memorial",
+   "where": "Visitor entrance at 15 Pine St",
+   "hrs": "Open on Sunday, as the NPS app said.",
+   "about": "Where George Washington took the oath as the first president in 1789."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "thrb",
+   "color": "#3C9D8F",
+   "ink": "#FFFFFF",
+   "boxColor": "#2B7A6F",
+   "from": "Federal Hall",
+   "drive": "Uber",
+   "arrive": "~1:15 PM",
+   "z": "ET",
+   "name": "Theodore Roosevelt Birthplace NHS",
+   "type": "National Historic Site",
+   "state": "NY",
+   "place": "Flatiron",
+   "addr": "Theodore Roosevelt Birthplace National Historic Site",
+   "where": "28 E 20th St",
+   "hrs": "Stamped.",
+   "about": "A reconstruction of the brownstone where TR was born in 1858."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "gegr",
+   "color": "#3C9D8F",
+   "ink": "#FFFFFF",
+   "boxColor": "#2B7A6F",
+   "from": "TR Birthplace",
+   "drive": "Uber",
+   "arrive": "~2:15 PM",
+   "z": "ET",
+   "name": "General Grant N Mem",
+   "type": "National Memorial",
+   "state": "NY",
+   "place": "Morningside Heights",
+   "addr": "General Grant National Memorial",
+   "where": "Riverside Dr & W 122nd St",
+   "hrs": "Stamped.",
+   "about": "Grant's Tomb, the largest mausoleum in North America."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "hagr",
+   "color": "#3C9D8F",
+   "ink": "#FFFFFF",
+   "boxColor": "#2B7A6F",
+   "from": "Grant's Tomb",
+   "drive": "Uber",
+   "arrive": "~3:00 PM",
+   "z": "ET",
+   "name": "Hamilton Grange N Mem",
+   "type": "National Memorial",
+   "state": "NY",
+   "place": "Hamilton Heights",
+   "addr": "Hamilton Grange National Memorial",
+   "where": "Visitor center, lower level, 414 W 141st St",
+   "hrs": "Stamped.",
+   "about": "Alexander Hamilton's country home, moved twice to its spot in St. Nicholas Park."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "ston",
+   "color": "#3C9D8F",
+   "ink": "#FFFFFF",
+   "boxColor": "#2B7A6F",
+   "from": "Hamilton Grange",
+   "drive": "Uber",
+   "arrive": "~3:35 PM",
+   "z": "ET",
+   "name": "Stonewall NM",
+   "type": "National Monument",
+   "state": "NY",
+   "place": "Greenwich Village",
+   "addr": "Stonewall National Monument",
+   "where": "51 Christopher St",
+   "hrs": "Made it before the 4 PM close.",
+   "about": "The first national monument dedicated to LGBTQ+ rights and history."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "henri",
+   "from": "Stonewall",
+   "drive": "Uber",
+   "arrive": "evening",
+   "z": "ET",
+   "name": "Hotel Henri, Flatiron",
+   "addr": "Hotel Henri, 37 W 24th St, New York",
+   "note": "Home base for the work week, near the Patlytics office."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "afbg",
+   "color": "#5B6FA8",
+   "ink": "#FFFFFF",
+   "boxColor": "#3F5288",
+   "from": "the office",
+   "drive": "Uber",
+   "arrive": "Fri",
+   "z": "ET",
+   "name": "African Burial Ground NM",
+   "type": "National Monument",
+   "state": "NY",
+   "place": "Lower Manhattan",
+   "addr": "African Burial Ground National Monument",
+   "where": "Visitor center, 290 Broadway (Ted Weiss Federal Building)",
+   "hrs": "Tue–Sat 10:00–4:00 · airport-style security.",
+   "leave": "Fri",
+   "about": "The burial ground of an estimated 15,000 free and enslaved Africans in colonial New York."
+  },
+  {
+   "d": 2,
+   "kind": "night",
+   "k": "henri2",
+   "from": "African Burial Ground",
+   "drive": "Uber",
+   "arrive": "evening",
+   "z": "ET",
+   "name": "Hotel Henri, Flatiron",
+   "addr": "Hotel Henri, 37 W 24th St, New York",
+   "note": "The Saturday flight home was cancelled by the FAA grounding, so the trip gained a bonus day."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "hofr",
+   "color": "#C9622A",
+   "ink": "#FFFFFF",
+   "boxColor": "#A44A1B",
+   "from": "Manhattan",
+   "drive": "Car",
+   "arrive": "Sat",
+   "z": "ET",
+   "name": "Home of FDR NHS",
+   "type": "National Historic Site",
+   "state": "NY",
+   "place": "Hyde Park",
+   "addr": "Home of Franklin D. Roosevelt National Historic Site",
+   "where": "Springwood and the FDR Presidential Library",
+   "hrs": "Stamped.",
+   "leave": "morning",
+   "about": "Springwood, FDR's lifelong home, and the first presidential library."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "elro",
+   "color": "#C9622A",
+   "ink": "#FFFFFF",
+   "boxColor": "#A44A1B",
+   "from": "Springwood",
+   "drive": "Car",
+   "arrive": "Sat",
+   "z": "ET",
+   "name": "Eleanor Roosevelt NHS",
+   "type": "National Historic Site",
+   "state": "NY",
+   "place": "Val-Kill",
+   "addr": "Eleanor Roosevelt National Historic Site",
+   "where": "Val-Kill",
+   "hrs": "Stamped.",
+   "about": "Val-Kill, the only national historic site dedicated to a first lady."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "vama",
+   "color": "#C9622A",
+   "ink": "#FFFFFF",
+   "boxColor": "#A44A1B",
+   "from": "Val-Kill",
+   "drive": "Car",
+   "arrive": "Sat",
+   "z": "ET",
+   "name": "Vanderbilt Mansion NHS",
+   "type": "National Historic Site",
+   "state": "NY",
+   "place": "Hyde Park",
+   "addr": "Vanderbilt Mansion National Historic Site",
+   "where": "On the bluff over the Hudson",
+   "hrs": "Stamped.",
+   "about": "A Gilded Age country house on the Hudson."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "sapa",
+   "color": "#C9622A",
+   "ink": "#FFFFFF",
+   "boxColor": "#A44A1B",
+   "from": "Hyde Park",
+   "drive": "Car",
+   "arrive": "Sat",
+   "z": "ET",
+   "name": "Saint Paul's Church NHS",
+   "type": "National Historic Site",
+   "state": "NY",
+   "place": "Mount Vernon",
+   "addr": "Saint Paul's Church National Historic Site",
+   "where": "897 S Columbus Ave, Mount Vernon",
+   "hrs": "Stamped.",
+   "about": "A colonial church whose green saw an election dispute that helped shape freedom of the press."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "sahi",
+   "color": "#C9622A",
+   "ink": "#FFFFFF",
+   "boxColor": "#A44A1B",
+   "from": "Mount Vernon",
+   "drive": "Car",
+   "arrive": "~3:30 PM",
+   "z": "ET",
+   "name": "Sagamore Hill NHS",
+   "type": "National Historic Site",
+   "state": "NY",
+   "place": "Oyster Bay",
+   "addr": "Sagamore Hill National Historic Site",
+   "where": "Old Orchard Museum, 20 Sagamore Hill Rd",
+   "hrs": "Stamped.",
+   "about": "Theodore Roosevelt's 'Summer White House' on Long Island."
+  },
+  {
+   "d": 3,
+   "kind": "night",
+   "k": "henri3",
+   "from": "Sagamore Hill",
+   "drive": "Car",
+   "arrive": "evening",
+   "z": "ET",
+   "name": "Hotel Henri, Flatiron",
+   "addr": "Hotel Henri, 37 W 24th St, New York",
+   "note": "One extra night. Tomorrow: Fire Island, Jamaica Bay and the flight home."
+  },
+  {
+   "d": 4,
+   "kind": "stop",
+   "k": "fiis",
+   "color": "#8A5BB0",
+   "ink": "#FFFFFF",
+   "boxColor": "#6B3F92",
+   "from": "Manhattan",
+   "drive": "Car",
+   "arrive": "morning",
+   "z": "ET",
+   "name": "Fire Island NS",
+   "type": "National Seashore",
+   "state": "NY",
+   "place": "Fire Island Lighthouse",
+   "addr": "Fire Island Lighthouse",
+   "where": "Fire Island Lighthouse, Keepers' Quarters",
+   "hrs": "Parked at Robert Moses State Park Field 5.",
+   "leave": "early",
+   "about": "A barrier island off Long Island's south shore; the 1858 lighthouse still stands at its western end."
+  },
+  {
+   "d": 4,
+   "kind": "stop",
+   "k": "gate",
+   "color": "#8A5BB0",
+   "ink": "#FFFFFF",
+   "boxColor": "#6B3F92",
+   "from": "Fire Island",
+   "drive": "Car",
+   "arrive": "~12:15 PM",
+   "z": "ET",
+   "name": "Gateway NRA",
+   "type": "National Recreation Area",
+   "state": "NY",
+   "place": "Jamaica Bay Wildlife Refuge",
+   "addr": "Jamaica Bay Wildlife Refuge Visitor Center",
+   "where": "Jamaica Bay Wildlife Refuge Visitor Center",
+   "hrs": "Sat–Sun 10:00–4:00 · (718) 318-4340.",
+   "about": "A wildlife refuge inside city limits, minutes from JFK."
+  },
+  {
+   "d": 4,
+   "kind": "home",
+   "k": "lga",
+   "from": "Jamaica Bay",
+   "drive": "Car",
+   "arrive": "~5:30 PM",
+   "z": "ET",
+   "title": "LaGuardia → home",
+   "note": "United UA 2426 to O'Hare at 7:29 PM, then UA 2106 to SFO, landing 12:53 AM Monday. 15 new stamps.",
+   "navTo": "LaGuardia Airport",
+   "navLabel": "LaGuardia ↗"
+  }
+ ]
+}
