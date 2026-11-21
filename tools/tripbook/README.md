@@ -45,7 +45,7 @@ Night fields: `name`, `note`. Home fields: `title`, `note`, `navTo`, `navLabel`.
 - `days[i].kind: "cruise"` makes a single free-form page for that day (`title`, `sub`, `color`, `html`); no map or stops.
 - `days[i].label` (e.g. `"Day 8"`, `"Days 5–7"`), `date` (e.g. `"Nov 24"`), and `kicker` (full override of the band's top line).
 - `days[i].cutLabel` renames the "Hard cutoffs" box (e.g. `"Backup plan"`).
-- `stops[i].unit` names the main stamp when a stop has more than one; `also: [{id, name, where, hrs}]` adds extra cancellations at the same stop, each with its own toggle.
+- `stops[i].unit` names the main stamp when a stop has more than one; `also: [{id, name, where, hrs}]` adds extra cancellations at the same stop, each with its own toggle. Add `"bonus": true` to one that isn't a separate NPS unit (e.g. Ellis Island under Statue of Liberty NM): it keeps its toggle but doesn't count toward the trip's stamp total.
 - `stops[i].via` adds a route note under the drive card; `arriveLabel` replaces "Arrive" (e.g. `"Flight"`); night/home stops accept `addr` and `html`.
 - `theme` swaps template colors: `{ "#templateHex": "#newHex" }`. See `trips/nov2026-destiny-everglades.json` for a full ocean palette.
 - `stops[i].color` colors that stop's pin, number and stamp box (use the itinerary's per-stamp key colors).

@@ -174,8 +174,8 @@
     40.8855
    ],
    "henri3": [
-    -73.9905,
-    40.7434
+    -73.8303,
+    40.7605
    ],
    "fiis": [
     -73.2187,
@@ -307,7 +307,7 @@
    "tzline": "Eastern time",
    "cutLabel": "How it went",
    "cut": "Two more stamps before United home via O'Hare. Trip total: 15 new stamps.",
-   "gmaps": "https://www.google.com/maps/dir/Fire+Island+Lighthouse/Jamaica+Bay+Wildlife+Refuge/LaGuardia+Airport"
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Flushing-LaGuardia/Fire+Island+Lighthouse/Jamaica+Bay+Wildlife+Refuge/LaGuardia+Airport"
   }
  ],
  "stops": [
@@ -356,7 +356,8 @@
      "id": "elis",
      "name": "Ellis Island (bonus cancellation)",
      "where": "Ellis Island National Museum of Immigration",
-     "hrs": "Ferry from Liberty Island, ~10:00 AM."
+     "hrs": "Ferry from Liberty Island, ~10:00 AM.",
+     "bonus": true
     }
    ],
    "about": "Liberty Enlightening the World, dedicated 1886. Ellis Island next door is part of the same monument."
@@ -615,9 +616,9 @@
    "drive": "Car",
    "arrive": "evening",
    "z": "ET",
-   "name": "Hotel Henri, Flatiron",
-   "addr": "Hotel Henri, 37 W 24th St, New York",
-   "note": "One extra night. Tomorrow: Fire Island, Jamaica Bay and the flight home."
+   "name": "Best Western Flushing-LaGuardia",
+   "addr": "Best Western Flushing-LaGuardia, 133-51 39th Ave, Flushing, NY 11354",
+   "note": "One extra night in Flushing, near LaGuardia. Tomorrow: Fire Island, Jamaica Bay and the flight home."
   },
   {
    "d": 4,
@@ -626,7 +627,7 @@
    "color": "#8A5BB0",
    "ink": "#FFFFFF",
    "boxColor": "#6B3F92",
-   "from": "Manhattan",
+   "from": "Flushing",
    "drive": "Car",
    "arrive": "morning",
    "z": "ET",

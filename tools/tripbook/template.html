@@ -220,10 +220,11 @@ const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
 const UNITS = [];
 STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
   UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: s.boxColor || stopColor(s) });
-  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s), bonus: !!u.bonus }));
 });
 const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
-const NSTAMPS = UNITS.length;
+// bonus cancellations (also[].bonus) get a toggle but don't count toward the trip's stamps
+const NSTAMPS = UNITS.filter(u => !u.bonus).length;
 let got = {};
 try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
 // stamps already collected (past trips): checked unless unticked on this device
@@ -472,7 +473,7 @@ document.getElementById('chk').innerHTML = UNITS.map(u =>
   `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
 
 function renderGot() {
-  const c = UNITS.filter(u => got[u.id]).length;
+  const c = UNITS.filter(u => got[u.id] && !u.bonus).length;
   document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
   document.querySelectorAll('button.got').forEach(b => {
     const on = !!got[b.dataset.got], col = UNIT[b.dataset.got].color;
