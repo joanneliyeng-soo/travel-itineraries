@@ -1,0 +1,660 @@
+{
+ "slug": "colorado-blackcanyon-mesaverde",
+ "book": "western-colorado",
+ "emoji": "🏜️",
+ "poster": "canyon",
+ "title": "Western Colorado Stamp Run",
+ "short": "West Colorado",
+ "placeholder": "Placeholder · best Memorial Day to Labor Day",
+ "subtitle": "Grand Junction in, Durango out. Colorado NM, Curecanti and the Black Canyon on Day 1, the San Juan Skyway to Hovenweep on Day 2, Mesa Verde on the way to the airport on Day 3. One southbound line with almost no doubling back.",
+ "chips": [
+  "6 new stamps",
+  "2 national parks",
+  "Mountain time"
+ ],
+ "itinerary": "colorado-blackcanyon-mesaverde.html",
+ "theme": {
+  "#1E1D33": "#2E1C2B",
+  "#26243F": "#372234",
+  "#2C2A47": "#40293D",
+  "#322F51": "#4A3047",
+  "#38355A": "#543852",
+  "#E2603A": "#D0683C",
+  "#E9E6FA": "#F7ECEF",
+  "#CFCBE6": "#D9C2CC",
+  "#A9A4C8": "#F2C14E",
+  "#C9C4E4": "#D9C2CC",
+  "#EDEAF9": "#F7ECEF",
+  "#EEEBF7": "#EFE3E8",
+  "#F1EFF7": "#FCF8F9",
+  "#6E6A88": "#7A6170",
+  "#9C97B4": "#AC93A2",
+  "#ECE9F2": "#EFE3E8",
+  "#FBFAF6": "#FCF8F9",
+  "#E7E3D9": "#EFE3E8",
+  "#EFEDE6": "#EFE3E8",
+  "#8F8AB4": "#F2C14E",
+  "#B8B3C8": "#D9C2CC",
+  "#7C7896": "#7A6170",
+  "#FFF3EE": "#FFF4F0"
+ },
+ "legMinW": 340,
+ "map": {
+  "bbox": [
+   [
+    -109.3,
+    39.3
+   ],
+   [
+    -107.0,
+    37.05
+   ]
+  ],
+  "states": [
+   "Colorado",
+   "Utah",
+   "New Mexico",
+   "Arizona"
+  ],
+  "highlight": [
+   "Colorado"
+  ],
+  "stateLabels": [
+   [
+    "COLORADO",
+    -107.35,
+    38.95
+   ],
+   [
+    "UTAH",
+    -109.15,
+    38.2
+   ]
+  ],
+  "cities": [
+   [
+    "Grand Junction",
+    -108.55,
+    39.07
+   ],
+   [
+    "Delta",
+    -108.069,
+    38.7422
+   ],
+   [
+    "Montrose",
+    -107.8623,
+    38.4883
+   ],
+   [
+    "Telluride",
+    -107.8123,
+    37.9375
+   ],
+   [
+    "Cortez",
+    -108.5774,
+    37.3485
+   ],
+   [
+    "Durango",
+    -107.8801,
+    37.2753
+   ]
+  ],
+  "points": {
+   "gjt": [
+    -108.5291,
+    39.1222
+   ],
+   "clif": [
+    -108.4558,
+    39.0908
+   ],
+   "coeast": [
+    -108.6355,
+    39.0575
+   ],
+   "w_rr1": [
+    -108.69,
+    39.05
+   ],
+   "w_rr2": [
+    -108.72,
+    39.08
+   ],
+   "saddle": [
+    -108.7345,
+    39.1009
+   ],
+   "w_fru": [
+    -108.73,
+    39.16
+   ],
+   "w_gj": [
+    -108.55,
+    39.07
+   ],
+   "w_whw": [
+    -108.35,
+    38.95
+   ],
+   "delta": [
+    -108.069,
+    38.7422
+   ],
+   "w_hot": [
+    -107.719,
+    38.799
+   ],
+   "w_craw": [
+    -107.61,
+    38.7
+   ],
+   "bmdam": [
+    -107.3362,
+    38.4527
+   ],
+   "elk": [
+    -107.1659,
+    38.4669
+   ],
+   "w_sap": [
+    -107.29,
+    38.47
+   ],
+   "w_cim": [
+    -107.555,
+    38.443
+   ],
+   "w_347": [
+    -107.8,
+    38.47
+   ],
+   "blca": [
+    -107.6866,
+    38.5551
+   ],
+   "srd": [
+    -107.736,
+    38.585
+   ],
+   "w_347b": [
+    -107.79,
+    38.5
+   ],
+   "mtr": [
+    -107.8623,
+    38.4883
+   ],
+   "w_ridg": [
+    -107.755,
+    38.153
+   ],
+   "w_dal": [
+    -107.83,
+    38.08
+   ],
+   "w_plac": [
+    -108.05,
+    38.016
+   ],
+   "tell": [
+    -107.8123,
+    37.9375
+   ],
+   "w_lh": [
+    -107.906,
+    37.81
+   ],
+   "w_rico": [
+    -108.03,
+    37.69
+   ],
+   "dol": [
+    -108.5045,
+    37.4739
+   ],
+   "w_pv": [
+    -108.77,
+    37.59
+   ],
+   "hove": [
+    -109.0753,
+    37.3858
+   ],
+   "w_mc": [
+    -108.85,
+    37.33
+   ],
+   "cort": [
+    -108.5774,
+    37.3485
+   ],
+   "meve": [
+    -108.4079,
+    37.3358
+   ],
+   "w_far": [
+    -108.45,
+    37.28
+   ],
+   "chap": [
+    -108.4883,
+    37.1846
+   ],
+   "w_far2": [
+    -108.451,
+    37.281
+   ],
+   "w_mancos": [
+    -108.29,
+    37.345
+   ],
+   "dur": [
+    -107.8801,
+    37.2753
+   ],
+   "dro": [
+    -107.7507,
+    37.1597
+   ]
+  }
+ },
+ "airports": [
+  [
+   "gjt",
+   "GJT"
+  ],
+  [
+   "dro",
+   "DRO"
+  ]
+ ],
+ "route": [
+  "gjt",
+  "clif",
+  "coeast",
+  "w_rr1",
+  "w_rr2",
+  "saddle",
+  "w_fru",
+  "w_gj",
+  "w_whw",
+  "delta",
+  "w_hot",
+  "w_craw",
+  "bmdam",
+  "elk",
+  "w_sap",
+  "w_cim",
+  "w_347",
+  "blca",
+  "srd",
+  "w_347b",
+  "mtr",
+  "w_ridg",
+  "w_dal",
+  "w_plac",
+  "tell",
+  "w_plac",
+  "w_lh",
+  "w_rico",
+  "dol",
+  "w_pv",
+  "hove",
+  "w_mc",
+  "cort",
+  "meve",
+  "w_far",
+  "chap",
+  "w_far2",
+  "w_mancos",
+  "dur",
+  "dro"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 0 · date TBD",
+   "title": "Fly to Grand Junction",
+   "color": "#543852",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">SFO → GJT after work</h2>\n<p>Breeze runs a summer-seasonal SFO → GJT nonstop on limited days. If it doesn’t fall on a Friday, United connects through Denver.</p>\n<p>Pick up a one-way rental, GJT → DRO (Costco Travel). The drop fee decides whether the open jaw still makes sense.</p>\n<p>Sleep at the <b>Best Western Grande River Inn & Suites</b> in Clifton, on the east side of town. Tomorrow leaves at 7:45 AM.</p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Best+Western+Grande+River+Inn+%26+Suites%2C+Clifton%2C+CO\" target=\"_blank\" rel=\"noopener\">Navigate to hotel ↗</a></div>\n<div class=\"cut\"><b>Once dates are set:</b> book the flights, the one-way car and hotels in Clifton, Montrose and Cortez. Memorial Day to Labor Day has daily hours everywhere. Columbus Day works for fall color, but Elk Creek has gone weekdays-only in past Octobers.</div>"
+  },
+  {
+   "n": 1,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 1 · date TBD",
+   "title": "Rims and reservoirs",
+   "sub": "Clifton → Rim Rock Drive → Delta → Blue Mesa → Black Canyon → Montrose",
+   "color": "#D0683C",
+   "drive": "~5h 30m",
+   "stamps": 3,
+   "start": "clif",
+   "end": "mtr",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "Cell service is spotty past Delta; download offline maps at lunch. The Black Canyon’s South Rim Fire (July 2025) area has reopened, but check park alerts before the trip.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Grande+River+Inn%2C+Clifton%2C+CO/Colorado+National+Monument+East+Entrance/Saddlehorn+Visitor+Center/Delta%2C+CO/Blue+Mesa+Dam/Elk+Creek+Visitor+Center/South+Rim+Visitor+Center%2C+Black+Canyon+of+the+Gunnison/Montrose%2C+CO"
+  },
+  {
+   "n": 2,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 2 · date TBD",
+   "title": "San Juan Skyway to the towers",
+   "sub": "Montrose → Dallas Divide → Telluride → Lizard Head Pass → Hovenweep → Cortez",
+   "color": "#4E8FB8",
+   "drive": "~4h 15m",
+   "stamps": 1,
+   "start": "mtr",
+   "end": "cort",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "Hovenweep is in Utah but on Mountain time like the rest of the trip. Its visitor center hours have been cut for staffing before; call (970) 233-9167 to confirm. Dolores is the last easy food and fuel.",
+   "gmaps": "https://www.google.com/maps/dir/Montrose%2C+CO/Telluride%2C+CO/Dolores%2C+CO/Hovenweep+Visitor+Center/Best+Western+Turquoise+Inn%2C+Cortez%2C+CO"
+  },
+  {
+   "n": 3,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 3 · date TBD",
+   "title": "Mesa Verde and fly home",
+   "sub": "Cortez → Mesa Verde → Chapin Mesa → Durango → DRO",
+   "color": "#B9883A",
+   "drive": "~2h 30m",
+   "stamps": 2,
+   "start": "cort",
+   "end": "dro",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "The Mesa Verde park road is a dead end, so you come back down the same way. No cliff-dwelling tours (they have ladders); everything here is drive-up overlooks.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Turquoise+Inn%2C+Cortez%2C+CO/Mesa+Verde+Visitor+and+Research+Center/Chapin+Mesa+Archeological+Museum/Durango%2C+CO/Durango-La+Plata+County+Airport"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "coeast",
+   "from": "Clifton",
+   "leave": "7:45 AM",
+   "drive": "~25m",
+   "arrive": "8:10 AM",
+   "z": "MT",
+   "via": "Through Grand Junction to the East Entrance.",
+   "name": "Rim Rock Drive",
+   "place": "Colorado NM · East Entrance",
+   "addr": "Colorado National Monument East Entrance, Grand Junction, CO",
+   "note": "Drive Rim Rock west and pull off at Cold Shivers Point, Independence Monument View and Grand View. About 18 miles to the visitor center; allow an hour with the overlooks."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "saddle",
+   "unit": "Colorado NM",
+   "color": "#D0683C",
+   "ink": "#FFFFFF",
+   "boxColor": "#D0683C",
+   "from": "the East Entrance",
+   "drive": "~1h with overlooks",
+   "arrive": "9:15 AM",
+   "z": "MT",
+   "via": "West along Rim Rock Drive.",
+   "name": "Colorado NM",
+   "type": "National Monument",
+   "place": "Saddlehorn Visitor Center",
+   "addr": "Saddlehorn Visitor Center, Colorado National Monument",
+   "where": "Saddlehorn Visitor Center",
+   "hrs": "Daily 9 AM – 4 PM, extended to 5 PM in summer.",
+   "ok": "Paved ramp and accessible restrooms. The canyon overlook is steps from the door.",
+   "about": "Sheer red-rock canyons and monoliths on the edge of the Uncompahgre Plateau, above the Grand Valley."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "delta",
+   "from": "Saddlehorn",
+   "drive": "~1h 5m",
+   "arrive": "10:50 AM",
+   "z": "MT",
+   "via": "Leave about 9:45. Down to Fruita, then I-70 and US-50.",
+   "name": "Early lunch in Delta",
+   "place": "Delta, CO",
+   "addr": "Delta, CO",
+   "note": "Eat and fuel up; services are thin for the next two hours. Leave about 11:30."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "bmdam",
+   "from": "Delta",
+   "drive": "~2h",
+   "arrive": "1:30 PM",
+   "z": "MT",
+   "via": "CO-92 through Hotchkiss and Crawford, 73 winding miles along the canyon rim. Google’s fastest route is US-50 via Montrose (~1h 10m), but it skips the rim.",
+   "name": "Pioneer Point & Blue Mesa Dam",
+   "place": "Curecanti NRA overlooks",
+   "addr": "Blue Mesa Dam, Gunnison, CO",
+   "note": "CO-92 runs along the rim above Morrow Point Reservoir, then crosses Blue Mesa Dam to US-50."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "elk",
+   "unit": "Curecanti NRA",
+   "color": "#D0683C",
+   "ink": "#FFFFFF",
+   "boxColor": "#D0683C",
+   "from": "Blue Mesa Dam",
+   "drive": "~15m",
+   "arrive": "2:05 PM",
+   "z": "MT",
+   "via": "Leave about 1:50. East on US-50 along Blue Mesa Reservoir.",
+   "name": "Curecanti NRA",
+   "type": "National Recreation Area",
+   "place": "Elk Creek Visitor Center",
+   "addr": "Elk Creek Visitor Center, Gunnison, CO",
+   "where": "Elk Creek Visitor Center",
+   "hrs": "Daily 8 AM – 5 PM in summer.",
+   "ok": "This short spur east and back is the trip’s only real backtrack. Cimarron VC has carried the stamp too, but it’s seasonal and often unstaffed.",
+   "about": "Three reservoirs on the Gunnison River, including Blue Mesa, Colorado’s largest lake."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "blca",
+   "unit": "Black Canyon of the Gunnison NP",
+   "color": "#D0683C",
+   "ink": "#FFFFFF",
+   "boxColor": "#D0683C",
+   "from": "Elk Creek",
+   "drive": "~55m",
+   "arrive": "3:25 PM",
+   "z": "MT",
+   "via": "Leave about 2:30. West on US-50, then north on CO-347.",
+   "name": "Black Canyon of the Gunnison NP",
+   "type": "National Park",
+   "place": "South Rim Visitor Center",
+   "addr": "South Rim Visitor Center, Black Canyon of the Gunnison National Park",
+   "where": "South Rim Visitor Center",
+   "hrs": "Summer about 8 AM – 5 PM daily; fall 9 AM – 4 PM with a lunch break.",
+   "ok": "New park for the 64. Gunnison Point overlook is right behind the building.",
+   "about": "A canyon so deep and narrow that parts of the floor get only 33 minutes of sun a day. The Painted Wall is 2,250 feet tall."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "srd",
+   "from": "the visitor center",
+   "drive": "~10m",
+   "arrive": "4:00 PM",
+   "z": "MT",
+   "via": "South Rim Drive, 7 miles and 12 overlooks.",
+   "name": "South Rim Drive",
+   "place": "Black Canyon NP",
+   "addr": "Painted Wall View, Black Canyon of the Gunnison National Park",
+   "note": "Chasm View and Painted Wall are the must-stops; most overlooks are a few steps from parking.",
+   "warn": "No water October–April."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "mtr",
+   "from": "South Rim Drive",
+   "drive": "~25m",
+   "arrive": "6:00 PM",
+   "z": "MT",
+   "via": "Leave about 5:30. Back down CO-347 to Montrose.",
+   "name": "Montrose, CO",
+   "addr": "SureStay Plus by Best Western Montrose, CO",
+   "note": "SureStay Plus by Best Western Montrose. Tomorrow leaves at 7:30 AM."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "tell",
+   "from": "Montrose",
+   "leave": "7:30 AM",
+   "drive": "~1h 25m",
+   "arrive": "8:55 AM",
+   "z": "MT",
+   "via": "US-550 south to Ridgway, then west on CO-62 over Dallas Divide (Mt. Sneffels pullout).",
+   "name": "Telluride",
+   "place": "Optional spur",
+   "addr": "Telluride, CO",
+   "note": "A short spur into the box canyon to see Bridal Veil Falls from town. Skip it to keep the day moving."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "dol",
+   "from": "Telluride",
+   "drive": "~1h 20m",
+   "arrive": "10:50 AM",
+   "z": "MT",
+   "via": "Leave about 9:30. CO-145 over Lizard Head Pass (10,222 ft).",
+   "name": "Lunch in Dolores",
+   "place": "Dolores, CO",
+   "addr": "Dolores, CO",
+   "note": "Last easy food and fuel before Hovenweep, which has none. Leave about 11:30."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "hove",
+   "unit": "Hovenweep NM",
+   "color": "#4E8FB8",
+   "ink": "#FFFFFF",
+   "boxColor": "#4E8FB8",
+   "from": "Dolores",
+   "drive": "~1h",
+   "arrive": "12:30 PM",
+   "z": "MT",
+   "via": "CO-184, US-491 and the paved Pleasant View road.",
+   "name": "Hovenweep NM",
+   "type": "National Monument",
+   "place": "Visitor center by the Square Tower Group",
+   "addr": "Hovenweep National Monument Visitor Center",
+   "where": "Visitor center",
+   "hrs": "Staffing-dependent; one season ran 10 AM – 3 PM, closed Tue/Wed. A Sunday early afternoon is the safe window.",
+   "warn": "Confirm hours in the NPS app or at (970) 233-9167.",
+   "ok": "A short walk from the visitor center reaches the first overlook toward Hovenweep Castle.",
+   "about": "Six groups of Ancestral Puebloan towers, built around 1200 on canyon rims straddling the Utah–Colorado line."
+  },
+  {
+   "d": 2,
+   "kind": "night",
+   "k": "cort",
+   "from": "Hovenweep",
+   "drive": "~1h",
+   "arrive": "2:30 PM",
+   "z": "MT",
+   "via": "Leave about 1:30. Out the other side via McElmo Canyon Road (paved).",
+   "name": "Cortez, CO",
+   "addr": "Best Western Turquoise Inn & Suites, 535 E Main St, Cortez, CO",
+   "note": "Best Western Turquoise Inn & Suites, 535 E Main St. Free afternoon. Tomorrow leaves at 8:15 AM."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "meve",
+   "unit": "Mesa Verde NP",
+   "color": "#B9883A",
+   "ink": "#FFFFFF",
+   "boxColor": "#B9883A",
+   "from": "Cortez",
+   "leave": "8:15 AM",
+   "drive": "~15m",
+   "arrive": "8:30 AM",
+   "z": "MT",
+   "via": "East on US-160 to the park entrance.",
+   "name": "Mesa Verde NP",
+   "type": "National Park",
+   "place": "Visitor & Research Center",
+   "addr": "Mesa Verde Visitor and Research Center, Mesa Verde National Park",
+   "where": "Visitor & Research Center by the entrance",
+   "hrs": "Daily 8:30 AM – 4 PM.",
+   "also": [
+    {
+     "id": "yuho",
+     "name": "Yucca House NM",
+     "where": "Same visitor center (no facilities at the site itself)"
+    }
+   ],
+   "ok": "New park for the 64.",
+   "about": "Nearly 5,000 archeological sites, including some 600 cliff dwellings tucked into the canyon walls."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "chap",
+   "from": "the entrance",
+   "drive": "~1h with Park Point",
+   "arrive": "9:45 AM",
+   "z": "MT",
+   "via": "Leave about 8:50. Up the park road to Chapin Mesa, with the Park Point overlook on the way.",
+   "name": "Chapin Mesa & Mesa Top Loop",
+   "place": "Mesa Verde NP",
+   "addr": "Chapin Mesa Archeological Museum, Mesa Verde National Park",
+   "bonus": {
+    "title": "Mesa Verde stamp variant · optional",
+    "where": "Chapin Mesa Archeological Museum",
+    "hrs": "8:30 AM – 4:30 PM, early May to late October (2026 hours)."
+   },
+   "note": "The Spruce Tree House overlook is next to the museum. Then the Mesa Top Loop: Square Tower House, Sun Point, and Sun Temple with the view across to Cliff Palace, all drive-up."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "dur",
+   "from": "Chapin Mesa",
+   "drive": "~1h 15m",
+   "arrive": "1:00 PM",
+   "z": "MT",
+   "via": "Leave about 11:45. Back down the park road, then US-160 east through Mancos.",
+   "name": "Lunch in Durango",
+   "place": "Durango, CO",
+   "addr": "Durango, CO",
+   "note": "Leave about 2:00 for the airport."
+  },
+  {
+   "d": 3,
+   "kind": "home",
+   "k": "dro",
+   "from": "Durango",
+   "drive": "~25m",
+   "arrive": "2:25 PM",
+   "z": "MT",
+   "title": "Durango → home",
+   "note": "Return the rental at DRO and fly home through Denver or Phoenix. Aim for a mid-afternoon flight or later.",
+   "navTo": "Durango-La Plata County Airport",
+   "navLabel": "Navigate to car return ↗"
+  }
+ ]
+}

@@ -1,0 +1,642 @@
+{
+ "slug": "slc-bozeman-yellowstone",
+ "book": "salt-lake-bozeman",
+ "emoji": "🏔️",
+ "poster": "teton",
+ "title": "Salt Lake to Bozeman",
+ "short": "SLC to Bozeman",
+ "placeholder": "Placeholder · late May to early October",
+ "subtitle": "One-way north from Salt Lake City. Timpanogos, Golden Spike and Fossil Butte on Day 1, the pioneer trails, Grand Teton and the Rockefeller Parkway on Day 2, then Old Faithful, Mammoth and out the Roosevelt Arch to Bozeman on Day 3.",
+ "chips": [
+  "8 new stamps",
+  "Grand Teton + Yellowstone",
+  "Mountain time"
+ ],
+ "itinerary": "slc-bozeman-yellowstone.html",
+ "theme": {
+  "#1E1D33": "#221B30",
+  "#26243F": "#2A223A",
+  "#2C2A47": "#322944",
+  "#322F51": "#3A304F",
+  "#38355A": "#43385A",
+  "#E2603A": "#E98A5C",
+  "#E9E6FA": "#F4EEF2",
+  "#CFCBE6": "#CFC3D6",
+  "#A9A4C8": "#F2C46B",
+  "#C9C4E4": "#CFC3D6",
+  "#EDEAF9": "#F4EEF2",
+  "#EEEBF7": "#ECE5EE",
+  "#F1EFF7": "#FBF8FA",
+  "#6E6A88": "#6F6482",
+  "#9C97B4": "#A094AE",
+  "#ECE9F2": "#ECE5EE",
+  "#FBFAF6": "#FBF8FA",
+  "#E7E3D9": "#ECE5EE",
+  "#EFEDE6": "#ECE5EE",
+  "#8F8AB4": "#F2C46B",
+  "#B8B3C8": "#CFC3D6",
+  "#7C7896": "#6F6482",
+  "#FFF3EE": "#FFF4F0"
+ },
+ "legMinW": 340,
+ "map": {
+  "bbox": [
+   [
+    -112.8,
+    45.9
+   ],
+   [
+    -110.3,
+    40.35
+   ]
+  ],
+  "states": [
+   "Utah",
+   "Idaho",
+   "Wyoming",
+   "Montana"
+  ],
+  "highlight": [
+   "Utah",
+   "Idaho",
+   "Wyoming",
+   "Montana"
+  ],
+  "stateLabels": [
+   [
+    "UTAH",
+    -111.6,
+    40.65
+   ],
+   [
+    "IDAHO",
+    -112.3,
+    42.9
+   ],
+   [
+    "WYOMING",
+    -110.45,
+    42.6
+   ],
+   [
+    "MONTANA",
+    -111.9,
+    45.5
+   ]
+  ],
+  "cities": [
+   [
+    "Salt Lake City",
+    -111.89,
+    40.76
+   ],
+   [
+    "Brigham City",
+    -112.015,
+    41.51
+   ],
+   [
+    "Montpelier",
+    -111.2971,
+    42.3225
+   ],
+   [
+    "Jackson",
+    -110.7624,
+    43.4799
+   ],
+   [
+    "Bozeman",
+    -111.04,
+    45.68
+   ]
+  ],
+  "points": {
+   "slca": [
+    -111.98,
+    40.789
+   ],
+   "w_lehi": [
+    -111.85,
+    40.43
+   ],
+   "timp": [
+    -111.7092,
+    40.444
+   ],
+   "w_ogd": [
+    -111.97,
+    41.22
+   ],
+   "w_bc": [
+    -112.015,
+    41.51
+   ],
+   "w_corr": [
+    -112.17,
+    41.73
+   ],
+   "gosp": [
+    -112.5513,
+    41.6181
+   ],
+   "w_tre": [
+    -112.165,
+    41.711
+   ],
+   "w_ogd2": [
+    -111.96,
+    41.2
+   ],
+   "w_echo": [
+    -111.44,
+    40.97
+   ],
+   "w_evan": [
+    -110.96,
+    41.27
+   ],
+   "w_189": [
+    -110.75,
+    41.6
+   ],
+   "fobu": [
+    -110.7704,
+    41.8366
+   ],
+   "w_cok": [
+    -110.957,
+    42.08
+   ],
+   "mont": [
+    -111.2971,
+    42.3225
+   ],
+   "orct": [
+    -111.2995,
+    42.327
+   ],
+   "w_aft": [
+    -110.93,
+    42.72
+   ],
+   "w_alp": [
+    -111.04,
+    43.17
+   ],
+   "jah": [
+    -110.7624,
+    43.4799
+   ],
+   "w_moose": [
+    -110.71,
+    43.656
+   ],
+   "jenny": [
+    -110.7223,
+    43.7515
+   ],
+   "w_jlj": [
+    -110.551,
+    43.845
+   ],
+   "flag": [
+    -110.667,
+    44.1073
+   ],
+   "w_lew": [
+    -110.63,
+    44.28
+   ],
+   "grant": [
+    -110.5564,
+    44.3936
+   ],
+   "w_wt": [
+    -110.572,
+    44.416
+   ],
+   "w_cp": [
+    -110.7,
+    44.44
+   ],
+   "of": [
+    -110.8292,
+    44.4586
+   ],
+   "midway": [
+    -110.838,
+    44.525
+   ],
+   "w_mad": [
+    -110.857,
+    44.646
+   ],
+   "w_nor": [
+    -110.7,
+    44.727
+   ],
+   "alb": [
+    -110.6995,
+    44.9764
+   ],
+   "arch": [
+    -110.7086,
+    45.0294
+   ],
+   "w_liv": [
+    -110.56,
+    45.66
+   ],
+   "bzn": [
+    -111.1612,
+    45.7784
+   ]
+  }
+ },
+ "airports": [
+  [
+   "slca",
+   "SLC"
+  ],
+  [
+   "bzn",
+   "BZN"
+  ]
+ ],
+ "route": [
+  "slca",
+  "w_lehi",
+  "timp",
+  "w_lehi",
+  "w_ogd",
+  "w_bc",
+  "gosp",
+  "w_tre",
+  "w_ogd2",
+  "w_echo",
+  "w_evan",
+  "w_189",
+  "fobu",
+  "w_cok",
+  "mont",
+  "orct",
+  "w_aft",
+  "w_alp",
+  "jah",
+  "w_moose",
+  "jenny",
+  "w_jlj",
+  "flag",
+  "w_lew",
+  "grant",
+  "w_wt",
+  "w_cp",
+  "of",
+  "midway",
+  "w_mad",
+  "w_nor",
+  "alb",
+  "arch",
+  "w_liv",
+  "bzn"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 0 · date TBD",
+   "title": "Before the trip",
+   "color": "#43385A",
+   "meta": "No stamps · this trip starts with an early flight",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Fly in Day 1 morning</h2>\n<p>Take the first wave out of OAK or SFO to <b>SLC</b> and land by about 9:00 AM Mountain. Clocks jump an hour ahead of home. Day 1 only works with an early arrival.</p>\n<p>Pick up a one-way rental, SLC → BZN (Costco Travel). Drop fees can add $200–500+, so compare companies.</p>\n<p>Fly home from <b>Bozeman</b> on Day 3 any time after about 5:30 PM. BZN has fewer flights on holiday weekends; price that leg first.</p>\n<div class=\"note warn\"><b>Late flight?</b> If you land after about 10:30, drop Timpanogos (it’s 40 minutes the wrong way) and keep Golden Spike and Fossil Butte.</div>\n<div class=\"cut\"><b>Once dates are set:</b> book Grant Village Lodge (or Old Faithful) first, since it sells out about a year ahead, then the Montpelier hotel. Juneteenth (Jun 18–20, 2027) is the safest window: everything on the route is on summer hours.</div>"
+  },
+  {
+   "n": 1,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 1 · date TBD",
+   "title": "Utah stamps, then Fossil Butte",
+   "sub": "SLC → American Fork Canyon → Promontory → Kemmerer → Montpelier",
+   "color": "#C7643F",
+   "drive": "~7h",
+   "stamps": 3,
+   "start": "slca",
+   "end": "mont",
+   "tzline": "Mountain time",
+   "cutLabel": "Hard cutoff",
+   "cut": "Fossil Butte closes at 5:30 PM in summer, so arrive by about 4:45 at the latest. Lunch is grab-and-go in Brigham City.",
+   "gmaps": "https://www.google.com/maps/dir/Salt+Lake+City+International+Airport/Timpanogos+Cave+Visitor+Center/Golden+Spike+National+Historical+Park/Fossil+Butte+National+Monument+Visitor+Center/Montpelier%2C+ID"
+  },
+  {
+   "n": 2,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 2 · date TBD",
+   "title": "The trails, the Tetons, into Yellowstone",
+   "sub": "Montpelier → Star Valley → Jackson → Jenny Lake → Flagg Ranch → Grant Village",
+   "color": "#5B7FB5",
+   "drive": "~4h 45m",
+   "stamps": 5,
+   "start": "mont",
+   "end": "grant",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "The trail center is closed Sundays, so Day 2 should be a Saturday. Flagg Ranch and Grant Village open for the season around Memorial Day; check if you go that weekend.",
+   "gmaps": "https://www.google.com/maps/dir/Montpelier%2C+ID/National+Oregon%2FCalifornia+Trail+Center/Jackson%2C+WY/Jenny+Lake+Visitor+Center/Flagg+Ranch+Information+Station/Grant+Village+Visitor+Center"
+  },
+  {
+   "n": 3,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 3 · date TBD",
+   "title": "Geysers, Mammoth, out to Bozeman",
+   "sub": "Grant Village → Old Faithful → Grand Prismatic → Mammoth → Roosevelt Arch → Bozeman",
+   "color": "#3E9A8C",
+   "drive": "~4h",
+   "stamps": 0,
+   "start": "grant",
+   "end": "bzn",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "Yellowstone’s interior roads close in winter, so Google Maps can’t route these legs now; the times here are summer estimates. Download offline maps before leaving Grant Village.",
+   "gmaps": "https://www.google.com/maps/dir/Grant+Village+Visitor+Center/Old+Faithful+Visitor+Education+Center/Grand+Prismatic+Spring/Albright+Visitor+Center/Roosevelt+Arch/Bozeman+Yellowstone+International+Airport"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "timp",
+   "unit": "Timpanogos Cave NM",
+   "color": "#C7643F",
+   "ink": "#FFFFFF",
+   "boxColor": "#C7643F",
+   "from": "SLC",
+   "leave": "9:30 AM",
+   "drive": "~1h",
+   "arrive": "10:30 AM",
+   "z": "MT",
+   "via": "I-15 south, then UT-92 up American Fork Canyon.",
+   "name": "Timpanogos Cave NM",
+   "type": "National Monument",
+   "place": "Visitor center at the canyon floor",
+   "addr": "Timpanogos Cave Visitor Center, American Fork, UT",
+   "where": "Visitor center",
+   "hrs": "Summer hours about 7 AM – 5:30 PM daily.",
+   "ok": "Stamp only. The cave tour starts with a steep 1.5-mile climb, so skip it.",
+   "about": "Three small, highly decorated caves high on the side of Mount Timpanogos, joined by tunnels."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "gosp",
+   "unit": "Golden Spike NHP",
+   "color": "#C7643F",
+   "ink": "#FFFFFF",
+   "boxColor": "#C7643F",
+   "from": "Timpanogos",
+   "drive": "~2h 10m",
+   "arrive": "1:15 PM",
+   "z": "MT",
+   "via": "Leave about 10:50. I-15 north, then UT-13 and UT-83 to Promontory. Grab lunch to go in Brigham City.",
+   "name": "Golden Spike NHP",
+   "type": "National Historical Park",
+   "place": "Promontory Summit visitor center",
+   "addr": "Golden Spike National Historical Park, Promontory, UT",
+   "where": "Promontory Summit visitor center",
+   "hrs": "Summer about 9 AM – 5 PM daily.",
+   "ok": "The last-spike site and the replica locomotives are right outside the visitor center.",
+   "about": "Where the Central Pacific and Union Pacific met on May 10, 1869, finishing the first transcontinental railroad."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "fobu",
+   "unit": "Fossil Butte NM",
+   "color": "#C7643F",
+   "ink": "#FFFFFF",
+   "boxColor": "#C7643F",
+   "from": "Golden Spike",
+   "drive": "~2h 45m",
+   "arrive": "4:30 PM",
+   "z": "MT",
+   "via": "Leave about 1:45. I-84 and I-80 east through Echo Canyon and Evanston, then US-189 north past Kemmerer.",
+   "name": "Fossil Butte NM",
+   "type": "National Monument",
+   "place": "Visitor center",
+   "addr": "Fossil Butte National Monument Visitor Center, 864 Chicken Creek Rd, Kemmerer, WY",
+   "where": "Visitor center",
+   "hrs": "Summer, about Memorial Day – Labor Day: daily 8 AM – 5:30 PM.",
+   "warn": "Closes 5:30 PM. If you’re running behind, skip the Brigham City lunch stop.",
+   "ok": "Fish, bats and a 13-foot crocodile in the stone, all inside the building.",
+   "about": "A 50-million-year-old lake bed, one of the richest fossil deposits in the world."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "mont",
+   "from": "Fossil Butte",
+   "drive": "~1h",
+   "arrive": "6:00 PM",
+   "z": "MT",
+   "via": "Leave about 5:00. US-30 west via Cokeville into Idaho.",
+   "name": "Montpelier, ID",
+   "addr": "Best Western Clover Creek Inn, Montpelier, ID",
+   "note": "Best Western Clover Creek Inn, or whatever’s open. The trail center is a few minutes away for tomorrow morning."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "orct",
+   "unit": "Oregon NHT",
+   "color": "#5B7FB5",
+   "ink": "#FFFFFF",
+   "boxColor": "#5B7FB5",
+   "from": "the hotel",
+   "leave": "8:55 AM",
+   "drive": "~5m",
+   "arrive": "9:00 AM",
+   "z": "MT",
+   "via": "Across Montpelier on US-89.",
+   "name": "Oregon & California Trails",
+   "type": "National Historic Trails · partner site",
+   "place": "National Oregon/California Trail Center",
+   "addr": "National Oregon/California Trail Center, 320 N 4th St, Montpelier, ID",
+   "where": "Trail center front desk",
+   "hrs": "Summer Mon–Sat 9 AM – 5 PM, closed Sunday.",
+   "also": [
+    {
+     "id": "cali",
+     "name": "California NHT",
+     "where": "Same desk at the trail center"
+    }
+   ],
+   "warn": "Partner site, not NPS-run. Call (208) 847-3800 the week before to confirm the stamps are out.",
+   "ok": "It sits on the old Clover Creek wagon encampment.",
+   "about": "Two of the overland routes west, sharing the same ruts through southern Idaho before splitting."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "jah",
+   "from": "Montpelier",
+   "drive": "~2h 10m",
+   "arrive": "12:00 PM",
+   "z": "MT",
+   "via": "Leave about 9:45. US-89 north through Star Valley and Alpine, then along the Snake River canyon.",
+   "name": "Lunch in Jackson",
+   "place": "Town square",
+   "addr": "Jackson, WY",
+   "note": "Leave about 12:50 for Grand Teton."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "jenny",
+   "unit": "Grand Teton NP",
+   "color": "#5B7FB5",
+   "ink": "#FFFFFF",
+   "boxColor": "#5B7FB5",
+   "from": "Jackson",
+   "drive": "~40m",
+   "arrive": "1:30 PM",
+   "z": "MT",
+   "via": "US-191 north to Moose, then Teton Park Road.",
+   "name": "Grand Teton NP",
+   "type": "National Park",
+   "place": "Jenny Lake Visitor Center",
+   "addr": "Jenny Lake Visitor Center, Grand Teton National Park",
+   "where": "Jenny Lake Visitor Center",
+   "hrs": "Daily in summer. Teton Park Road opens to cars around May 1.",
+   "ok": "The lake and the peaks are right behind the visitor center. New park for the 64.",
+   "about": "The Teton Range rises 7,000 feet straight off the valley floor, with no foothills in the way."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "flag",
+   "unit": "John D. Rockefeller Jr. Memorial Parkway",
+   "color": "#5B7FB5",
+   "ink": "#FFFFFF",
+   "boxColor": "#5B7FB5",
+   "from": "Jenny Lake",
+   "drive": "~55m",
+   "arrive": "2:55 PM",
+   "z": "MT",
+   "via": "Leave about 2:00. Past Jackson Lake on US-89/191; Oxbow Bend is a pullout on the way.",
+   "name": "Rockefeller Parkway",
+   "type": "Memorial Parkway",
+   "place": "Flagg Ranch Information Station",
+   "addr": "Flagg Ranch Information Station, Moran, WY",
+   "where": "Flagg Ranch Information Station",
+   "hrs": "Seasonal, about early June to early September.",
+   "warn": "Check the opening date on Memorial Day weekend. Colter Bay Visitor Center, on the way, usually carries the same stamp.",
+   "about": "The 24,000-acre corridor linking Grand Teton and Yellowstone."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "grant",
+   "unit": "Yellowstone NP",
+   "color": "#5B7FB5",
+   "ink": "#FFFFFF",
+   "boxColor": "#5B7FB5",
+   "from": "Flagg Ranch",
+   "drive": "~40m",
+   "arrive": "4:00 PM",
+   "z": "MT",
+   "via": "Leave about 3:20. In the South Entrance, past Lewis Lake. Summer estimate.",
+   "name": "Yellowstone NP",
+   "type": "National Park",
+   "place": "Grant Village Visitor Center",
+   "addr": "Grant Village Visitor Center, Yellowstone National Park",
+   "where": "Grant Village Visitor Center",
+   "hrs": "Summer hours, seasonal opening.",
+   "ok": "Check in at Grant Village Lodge next door. West Thumb Geyser Basin is 5 minutes up the road for an evening boardwalk.",
+   "about": "The first national park, set aside in 1872, on top of a supervolcano. Grant Village sits on the shore of Yellowstone Lake."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "of",
+   "from": "Grant Village",
+   "leave": "7:30 AM",
+   "drive": "~40m",
+   "arrive": "8:10 AM",
+   "z": "MT",
+   "via": "West over Craig Pass on the Grand Loop.",
+   "name": "Old Faithful",
+   "place": "Upper Geyser Basin",
+   "addr": "Old Faithful Visitor Education Center, Yellowstone National Park",
+   "bonus": {
+    "title": "Yellowstone stamp variant · optional",
+    "where": "Old Faithful Visitor Education Center",
+    "hrs": "Summer about 8 AM – 8 PM."
+   },
+   "note": "Check the next predicted eruption at the visitor center, then find a bench. It goes about every 90 minutes."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "midway",
+   "from": "Old Faithful",
+   "drive": "~15m",
+   "arrive": "10:00 AM",
+   "z": "MT",
+   "via": "Leave about 9:45. North to Midway Geyser Basin.",
+   "name": "Grand Prismatic Spring",
+   "place": "Midway Geyser Basin",
+   "addr": "Grand Prismatic Spring, Yellowstone National Park",
+   "note": "The boardwalk is a longer walk than most of these stops.",
+   "warn": "Skip it if the lot is full."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "alb",
+   "from": "Grand Prismatic",
+   "drive": "~1h 30m",
+   "arrive": "12:00 PM",
+   "z": "MT",
+   "via": "Leave about 10:30. Madison → Norris → Mammoth.",
+   "name": "Mammoth Hot Springs",
+   "place": "Albright Visitor Center",
+   "addr": "Albright Visitor Center, Mammoth, WY",
+   "bonus": {
+    "title": "Yellowstone Mammoth stamp · optional",
+    "where": "Albright Visitor Center",
+    "hrs": "Open year-round."
+   },
+   "note": "Lunch in Mammoth. Elk on the lawns, and the hot spring terraces are visible from the road."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "arch",
+   "from": "Mammoth",
+   "drive": "~10m",
+   "arrive": "1:10 PM",
+   "z": "MT",
+   "via": "Leave about 1:00. Down to Gardiner.",
+   "name": "Roosevelt Arch",
+   "place": "North Entrance, Gardiner",
+   "addr": "Roosevelt Arch, Gardiner, MT",
+   "note": "Photo stop on the way out of the park. “For the benefit and enjoyment of the people.”"
+  },
+  {
+   "d": 3,
+   "kind": "home",
+   "k": "bzn",
+   "from": "Gardiner",
+   "drive": "~1h 30m",
+   "arrive": "3:00 PM",
+   "z": "MT",
+   "title": "Bozeman → home",
+   "note": "Leave about 1:30. US-89 north through Paradise Valley, then I-90 west. Return the car at BZN; plenty of buffer for a 5:30 PM or later flight.",
+   "navTo": "Bozeman Yellowstone International Airport",
+   "navLabel": "Navigate to car return ↗"
+  }
+ ]
+}

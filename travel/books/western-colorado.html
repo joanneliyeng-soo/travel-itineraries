@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Western Colorado Stamp Run · Trip Book</title>
+<style>
+  html, body { margin:0 !important; padding:0 !important; background:#2E1C2B !important; color:#372234 !important; height:100%; overflow:hidden; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:15px; line-height:1.45; }
+  .serif { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  .app { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; padding:max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .topbar, .bottombar { width:100%; max-width:520px; display:flex; align-items:center; justify-content:space-between; color:#D9C2CC; font-size:13px; }
+  .topbar { padding:2px 4px 8px; }
+  .topbar .t { font-weight:600; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0 10px; }
+  .btn-ghost { background:#40293D; color:#F7ECEF; border:0; border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer; }
+  .pgnum { font-variant-numeric:tabular-nums; color:#F2C14E; white-space:nowrap; }
+
+  .book { position:relative; flex:1; width:100%; max-width:520px; perspective:1800px; }
+  .book::before { content:""; position:absolute; left:-4px; top:6px; bottom:-4px; right:4px; background:#EFE3E8; border-radius:6px 16px 16px 6px; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+  .page { position:absolute; inset:0; display:none; background:#FCF8F9; border-radius:4px 14px 14px 4px; overflow:hidden; transform-origin:left center; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .page::before { content:""; position:absolute; left:0; top:0; bottom:0; width:18px; background:linear-gradient(90deg, rgba(38,36,63,.16), rgba(38,36,63,0)); pointer-events:none; z-index:2; }
+  .page .scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:20px 20px 28px 26px; }
+  .page.show { display:block; }
+  .page.under { z-index:1; }
+  .page.flip-out { z-index:3; animation:flipOut .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page.flip-in { z-index:3; animation:flipIn .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page .shade { position:absolute; inset:0; background:linear-gradient(90deg, rgba(30,29,51,0), rgba(30,29,51,.35)); opacity:0; pointer-events:none; z-index:4; }
+  .page.flip-out .shade { animation:shadeIn .6s forwards; }
+  .page.flip-in .shade { animation:shadeOut .6s forwards; }
+  @keyframes flipOut { from { transform:rotateY(0deg); } to { transform:rotateY(-100deg); } }
+  @keyframes flipIn { from { transform:rotateY(-100deg); } to { transform:rotateY(0deg); } }
+  @keyframes shadeIn { to { opacity:1; } }
+  @keyframes shadeOut { from { opacity:1; } to { opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .page.flip-out, .page.flip-in { animation-duration:.01s; } }
+
+  .bottombar { padding-top:10px; gap:10px; }
+  .nav { background:#F7ECEF; color:#372234; border:0; border-radius:12px; padding:11px 16px; font-size:15px; font-weight:700; cursor:pointer; min-width:92px; }
+  .nav.next { background:#D0683C; color:#FFFFFF; }
+  .nav:disabled { opacity:.35; }
+  .progress { flex:1; height:6px; background:#40293D; border-radius:99px; overflow:hidden; }
+  .progress i { display:block; height:100%; background:#D0683C; width:0; transition:width .4s; }
+
+  /* shared page bits */
+  .kicker { font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  h1, h2 { margin:0; font-weight:700; color:#372234; }
+  h1 { font-size:30px; line-height:1.1; }
+  h2 { font-size:25px; line-height:1.15; }
+  .muted { color:#7A6170; }
+  .chip { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:99px; background:#EFE3E8; color:#372234; margin:0 4px 4px 0; }
+  .map { display:block; width:100%; border-radius:12px; background:#EFE3E8; margin:14px 0 4px; }
+  .map .st { fill:#F6F3EC; stroke:#D9C2CC; stroke-width:1; vector-effect:non-scaling-stroke; }
+  .map .st.on { fill:#FFFFFF; }
+  .map .sl { fill:#AC93A2; font-weight:700; letter-spacing:.12em; text-anchor:middle; }
+  .map .cl { fill:#7A6170; text-anchor:middle; }
+  .map .cd { fill:#7A6170; }
+  .map .rt { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  .map .leg { fill:none; stroke:#372234; stroke-width:3.5; stroke-dasharray:7 6; vector-effect:non-scaling-stroke; animation:dash 1.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset:-26; } }
+  .map .pin text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+  .map .pin circle { stroke:#FFFFFF; vector-effect:non-scaling-stroke; stroke-width:2; }
+  .map .pin.now circle { stroke:#372234; stroke-width:3; }
+  .map .pin.dim { opacity:.35; }
+  .map .end rect { fill:#372234; }
+  .map .end text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+
+  /* cover */
+  .cover .scroll { background:#372234; color:#F7ECEF; padding-top:22px; }
+  .cover h1 { color:#FFFFFF; font-size:31px; }
+  .cover .sub { color:#D9C2CC; margin-top:8px; font-size:14px; }
+  .cover .chip { background:#543852; color:#F7ECEF; }
+  .cover .chip.hot { background:#D0683C; color:#FFFFFF; }
+  .cover .ph { display:inline-block; border:1px dashed #F2C14E; color:#D9C2CC; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:99px; margin-bottom:12px; }
+  .legend { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .legend button { display:flex; align-items:center; gap:9px; background:#4A3047; border:0; color:#F7ECEF; padding:9px 10px; border-radius:10px; text-align:left; font-size:13px; cursor:pointer; }
+  .legend .sw { width:14px; height:14px; border-radius:50%; flex:none; }
+  .legend b { display:block; font-size:13.5px; }
+  .legend span.s { color:#F2C14E; font-size:11.5px; }
+  .backlink { display:block; text-align:center; margin-top:10px; color:#D9C2CC; font-size:13px; font-weight:700; text-decoration:none; }
+  .swipe { margin-top:16px; text-align:center; color:#F2C14E; font-size:13px; }
+  .tally { margin-top:14px; background:#4A3047; border-radius:12px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; }
+  .tally .n { font-size:24px; font-weight:800; color:#FFFFFF; }
+
+  /* day intro */
+  .dayband { margin:-20px -20px 0 -26px; padding:22px 20px 18px 26px; color:#FFFFFF; }
+  .dayband h2 { color:#FFFFFF; font-size:28px; }
+  .dayband .kicker { color:rgba(255,255,255,.85); }
+  .dayband .meta { margin-top:6px; font-size:13.5px; color:rgba(255,255,255,.92); }
+  .tl { list-style:none; margin:14px 0 0; padding:0; }
+  .tl li { display:grid; grid-template-columns:62px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid #EFE3E8; cursor:pointer; }
+  .tl li:last-child { border-bottom:0; }
+  .tl .tm { font-size:12.5px; font-weight:700; color:#7A6170; font-variant-numeric:tabular-nums; }
+  .tl .nm { font-weight:700; }
+  .tl .nm small { display:block; font-weight:400; color:#7A6170; font-size:12.5px; }
+  .tl .num { display:inline-flex; width:20px; height:20px; border-radius:50%; color:#FFFFFF; font-size:11px; font-weight:800; align-items:center; justify-content:center; margin-right:6px; vertical-align:1px; }
+  .cut { margin-top:14px; background:#FFF4F0; border-left:4px solid #D0683C; border-radius:8px; padding:10px 12px; font-size:13.5px; }
+  .gmaps { display:block; text-align:center; margin-top:14px; background:#372234; color:#FFFFFF; text-decoration:none; font-weight:700; padding:12px; border-radius:12px; }
+
+  /* stop page */
+  .drive { display:flex; align-items:stretch; gap:10px; background:#FCF8F9; border-radius:14px; padding:11px 12px; }
+  .drive .car { font-size:22px; line-height:1; padding-top:2px; }
+  .drive .dt { font-size:20px; font-weight:800; }
+  .drive .fr { font-size:12.5px; color:#7A6170; }
+  .drive .tz { display:inline-block; margin-top:5px; font-size:11.5px; font-weight:700; background:#372234; color:#FFFFFF; padding:2px 8px; border-radius:99px; }
+  .arr { margin-left:auto; text-align:right; flex:none; }
+  .arr .lab { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#7A6170; font-weight:700; }
+  .arr .t { white-space:nowrap; font-size:19px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .arr .z { font-size:11.5px; color:#7A6170; font-weight:700; }
+  .stopname { margin-top:14px; }
+  .stopname .num { display:inline-flex; width:30px; height:30px; border-radius:50%; color:#FFFFFF; font-size:14px; font-weight:800; align-items:center; justify-content:center; margin-bottom:8px; }
+  .place { margin-top:4px; color:#7A6170; font-size:13.5px; }
+  .stampbox { margin-top:14px; border:2px dashed; border-radius:14px; padding:12px 13px; }
+  .stampbox .kicker { margin-bottom:4px; }
+  .stampbox .where { font-weight:700; }
+  .stampbox .hrs { font-size:13.5px; margin-top:2px; }
+  .got { margin-top:11px; width:100%; border:0; border-radius:10px; padding:11px; font-size:15px; font-weight:800; cursor:pointer; background:#EFE3E8; color:#372234; }
+  .got.on { color:#FFFFFF; }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .actions a { flex:1; text-align:center; text-decoration:none; font-weight:700; font-size:14px; padding:11px 8px; border-radius:10px; background:#372234; color:#FFFFFF; }
+  .actions a.alt { background:#EFE3E8; color:#372234; }
+  .note { margin-top:10px; border-radius:10px; padding:9px 12px; font-size:13.5px; }
+  .note.warn { background:#FFF4F0; border-left:4px solid #D0683C; }
+  .note.acc { background:#EEF6F7; border-left:4px solid #2E8C9A; }
+  .note.ok { background:#F0F6EE; border-left:4px solid #5E9A4E; }
+  .about { margin-top:14px; font-size:14.5px; }
+  .about .kicker { color:#7A6170; margin-bottom:3px; }
+  .foot { margin-top:18px; font-size:12px; color:#AC93A2; text-align:center; }
+
+  /* night / final */
+  .moon { font-size:44px; margin-top:6px; }
+  .chk { list-style:none; padding:0; margin:12px 0 0; }
+  .chk li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #EFE3E8; font-size:14px; cursor:pointer; }
+  .chk .bx { width:22px; height:22px; border-radius:6px; border:2px solid #D9C2CC; flex:none; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:13px; font-weight:800; }
+  .chk li small { color:#7A6170; display:block; font-size:12px; }
+
+  /* contents */
+  .toc { position:fixed; inset:0; background:rgba(20,19,36,.6); display:none; z-index:50; }
+  .toc.open { display:block; }
+  .toc .panel { position:absolute; left:0; top:0; bottom:0; width:min(86vw, 380px); background:#FCF8F9; overflow-y:auto; padding:max(18px, env(safe-area-inset-top)) 16px 24px; box-shadow:4px 0 24px rgba(0,0,0,.35); }
+  .toc h3 { margin:16px 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+  .toc a { display:flex; justify-content:space-between; gap:8px; padding:8px 4px; color:#372234; text-decoration:none; border-bottom:1px solid #EFE3E8; font-size:14px; }
+  .toc a.cur { font-weight:800; }
+  .toc a span { color:#AC93A2; font-variant-numeric:tabular-nums; font-size:12.5px; }
+
+  /* Narrow tall phones (e.g. Galaxy Z Fold8 Ultra cover screen folded, ~21:9).
+     Tighter gutters, and on stop pages the stamp box and Navigate come before the leg map. */
+  @media (max-width: 430px) {
+    .app { padding-left:4px; padding-right:4px; }
+    .topbar { padding:0 2px 6px; }
+    .bottombar { padding-top:6px; }
+    .nav { min-width:78px; padding:10px 12px; }
+    .page .scroll { padding:16px 14px 24px 18px; display:flex; flex-direction:column; }
+    .page .scroll > * { flex:none; }
+    .dayband { margin:-16px -14px 0 -18px; padding:18px 14px 16px 18px; }
+    .dayband h2 { font-size:25px; }
+    .page .scroll > svg[data-map] { order:1; margin-top:16px; }
+    .page .scroll > .about, .page .scroll > .foot { order:2; }
+    .drive { padding:10px; gap:8px; }
+    .drive .car { font-size:18px; }
+    .drive .fr { font-size:12px; }
+    .arr .t { font-size:17px; }
+    .legend { grid-template-columns:1fr; gap:6px; }
+    .legend button { padding:8px 10px; }
+    .cover h1 { font-size:28px; }
+  }
+
+  /* Unfolded foldables and tablets (e.g. Galaxy Z Fold8 Ultra inner screen, ~1.1:1).
+     The book widens and each page goes two-column: map on the left, details beside it. */
+  @media (min-width: 700px) and (min-aspect-ratio: 3/4) {
+    .topbar, .bottombar, .book { max-width:1120px; }
+    body { font-size:16px; }
+    .page .scroll { padding:26px 30px 34px 36px; }
+    .dayband { margin:-26px -30px 0 -36px; padding:26px 30px 22px 36px; }
+    .page .scroll > .map { float:left; width:52%; margin:14px 26px 10px 0; }
+    .page .scroll > *:not(.map):not(.drive):not(.actions):not(.legend):not(.dayband) { display:flow-root; }
+    .page .scroll > div[style*="height:8px"] { display:block; }
+    .cover h1 { font-size:38px; }
+    .cover .legend { grid-template-columns:1fr; }
+    h2 { font-size:28px; }
+    .dayband h2 { font-size:32px; }
+    .actions a { padding:13px 8px; }
+    .toc .panel { width:min(60vw, 440px); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <button class="btn-ghost" id="tocBtn" aria-label="Contents">☰ Pages</button>
+    <div class="t">West Colorado</div>
+    <div class="pgnum" id="pgnum">1 / 1</div>
+  </div>
+  <div class="book" id="book"></div>
+  <div class="bottombar">
+    <button class="nav" id="prev">‹ Back</button>
+    <div class="progress"><i id="bar"></i></div>
+    <button class="nav next" id="next">Next ›</button>
+  </div>
+</div>
+<div class="toc" id="toc"><div class="panel" id="tocPanel"></div></div>
+
+<svg width="0" height="0" style="position:absolute"><g id="basemap"><path class="st" d="M-500,989.8L-457.4,989.7L-268.8,989L-261.8,991.4L15.2,991.4L206.2,991.1L206.2,1500L-500,1500Z"/><path class="st on" d="M1500,992.6L1494.4,992.5L1139.6,992.8L920.4,993.5L918.1,990.4L738.9,990.7L467.8,991.1L206.2,991.1L206.2,784.5L207.3,771.7L207.3,508L201.4,461.7L201.4,275.3L203.8,197.1L203.8,-483.8L204.9,-500L1500,-500Z"/><path class="st" d="M206.2,1500L206.2,991.1L206.2,991.1L467.8,991.1L738.9,990.7L918.1,990.4L920.4,993.5L1139.6,992.8L1494.4,992.5L1500,992.6L1500,1500Z"/><path class="st" d="M204.9,-500L203.8,-483.8L203.8,197.1L201.4,275.3L201.4,461.7L207.3,508L207.3,771.7L206.2,784.5L206.2,991.1L15.2,991.4L-261.8,991.4L-268.8,989L-457.4,989.7L-500,989.8L-500,-500Z"/><text class="sl" x="762.7" y="178.2">COLORADO</text><text class="sl" x="171.6" y="493.2">UTAH</text><circle class="cd" cx="368.6" cy="127.4" r="3"/><text class="cl" x="368.6" y="127.4">Grand Junction</text><circle class="cd" cx="526.6" cy="265.8" r="3"/><text class="cl" x="526.6" y="265.8">Delta</text><circle class="cd" cx="594.5" cy="372.5" r="3"/><text class="cl" x="594.5" y="372.5">Montrose</text><circle class="cd" cx="610.9" cy="602.7" r="3"/><text class="cl" x="610.9" y="602.7">Telluride</text><circle class="cd" cx="359.7" cy="846.9" r="3"/><text class="cl" x="359.7" y="846.9">Cortez</text><circle class="cd" cx="588.6" cy="877.2" r="3"/><text class="cl" x="588.6" y="877.2">Durango</text></g></svg>
+
+<script>
+const PT = {"gjt":[375.5,105.4],"clif":[399.6,118.6],"coeast":[340.6,132.7],"w_rr1":[322.7,135.9],"w_rr2":[312.8,123.2],"saddle":[308.1,114.4],"w_fru":[309.5,89.3],"w_gj":[368.6,127.4],"w_whw":[434.3,178.2],"delta":[526.6,265.8],"w_hot":[641.5,241.8],"w_craw":[677.3,283.5],"bmdam":[767.2,387.4],"elk":[823.2,381.5],"w_sap":[782.4,380.2],"w_cim":[695.4,391.5],"w_347":[614.9,380.2],"blca":[652.2,344.4],"srd":[635.9,331.9],"w_347b":[618.2,367.6],"mtr":[594.5,372.5],"w_ridg":[629.7,512.8],"w_dal":[605.1,543.3],"w_plac":[532.8,570],"tell":[610.9,602.7],"w_lh":[580.1,655.7],"w_rico":[539.4,705.6],"dol":[383.6,795.1],"w_pv":[296.4,747],"hove":[196.2,831.5],"w_mc":[270.1,854.6],"cort":[359.7,846.9],"meve":[415.3,852.2],"w_far":[401.5,875.2],"chap":[388.9,914.6],"w_far2":[401.2,874.8],"w_mancos":[454,848.4],"dur":[588.6,877.2],"dro":[631.1,924.8]};
+const TRIP = {"slug":"colorado-blackcanyon-mesaverde","book":"western-colorado","emoji":"🏜️","poster":"canyon","title":"Western Colorado Stamp Run","short":"West Colorado","placeholder":"Placeholder · best Memorial Day to Labor Day","subtitle":"Grand Junction in, Durango out. Colorado NM, Curecanti and the Black Canyon on Day 1, the San Juan Skyway to Hovenweep on Day 2, Mesa Verde on the way to the airport on Day 3. One southbound line with almost no doubling back.","chips":["6 new stamps","2 national parks","Mountain time"],"itinerary":"../colorado-blackcanyon-mesaverde.html","theme":{"#2E1C2B":"#2E1C2B","#372234":"#372234","#40293D":"#40293D","#4A3047":"#4A3047","#543852":"#543852","#D0683C":"#D0683C","#F7ECEF":"#F7ECEF","#D9C2CC":"#D9C2CC","#F2C14E":"#F2C14E","#D9C2CC":"#D9C2CC","#F7ECEF":"#F7ECEF","#EFE3E8":"#EFE3E8","#FCF8F9":"#FCF8F9","#7A6170":"#7A6170","#AC93A2":"#AC93A2","#EFE3E8":"#EFE3E8","#FCF8F9":"#FCF8F9","#EFE3E8":"#EFE3E8","#EFE3E8":"#EFE3E8","#F2C14E":"#F2C14E","#D9C2CC":"#D9C2CC","#7A6170":"#7A6170","#FFF4F0":"#FFF4F0"},"legMinW":340,"airports":[["gjt","GJT"],["dro","DRO"]],"route":["gjt","clif","coeast","w_rr1","w_rr2","saddle","w_fru","w_gj","w_whw","delta","w_hot","w_craw","bmdam","elk","w_sap","w_cim","w_347","blca","srd","w_347b","mtr","w_ridg","w_dal","w_plac","tell","w_plac","w_lh","w_rico","dol","w_pv","hove","w_mc","cort","meve","w_far","chap","w_far2","w_mancos","dur","dro"],"days":[{"n":0,"dow":"","dowLong":"","kicker":"Day 0 · date TBD","title":"Fly to Grand Junction","color":"#543852","meta":"No stamps · travel only","html":"<div class=\"moon\" style=\"margin-top:18px\">✈︎<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">SFO → GJT after work<\/h2>\n<p>Breeze runs a summer-seasonal SFO → GJT nonstop on limited days. If it doesn’t fall on a Friday, United connects through Denver.<\/p>\n<p>Pick up a one-way rental, GJT → DRO (Costco Travel). The drop fee decides whether the open jaw still makes sense.<\/p>\n<p>Sleep at the <b>Best Western Grande River Inn & Suites<\/b> in Clifton, on the east side of town. Tomorrow leaves at 7:45 AM.<\/p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Best+Western+Grande+River+Inn+%26+Suites%2C+Clifton%2C+CO\" target=\"_blank\" rel=\"noopener\">Navigate to hotel ↗<\/a><\/div>\n<div class=\"cut\"><b>Once dates are set:<\/b> book the flights, the one-way car and hotels in Clifton, Montrose and Cortez. Memorial Day to Labor Day has daily hours everywhere. Columbus Day works for fall color, but Elk Creek has gone weekdays-only in past Octobers.<\/div>"},{"n":1,"dow":"","dowLong":"","kicker":"Day 1 · date TBD","title":"Rims and reservoirs","sub":"Clifton → Rim Rock Drive → Delta → Blue Mesa → Black Canyon → Montrose","color":"#D0683C","drive":"~5h 30m","stamps":3,"start":"clif","end":"mtr","tzline":"Mountain time","cutLabel":"Good to know","cut":"Cell service is spotty past Delta; download offline maps at lunch. The Black Canyon’s South Rim Fire (July 2025) area has reopened, but check park alerts before the trip.","gmaps":"https://www.google.com/maps/dir/Best+Western+Grande+River+Inn%2C+Clifton%2C+CO/Colorado+National+Monument+East+Entrance/Saddlehorn+Visitor+Center/Delta%2C+CO/Blue+Mesa+Dam/Elk+Creek+Visitor+Center/South+Rim+Visitor+Center%2C+Black+Canyon+of+the+Gunnison/Montrose%2C+CO"},{"n":2,"dow":"","dowLong":"","kicker":"Day 2 · date TBD","title":"San Juan Skyway to the towers","sub":"Montrose → Dallas Divide → Telluride → Lizard Head Pass → Hovenweep → Cortez","color":"#4E8FB8","drive":"~4h 15m","stamps":1,"start":"mtr","end":"cort","tzline":"Mountain time","cutLabel":"Good to know","cut":"Hovenweep is in Utah but on Mountain time like the rest of the trip. Its visitor center hours have been cut for staffing before; call (970) 233-9167 to confirm. Dolores is the last easy food and fuel.","gmaps":"https://www.google.com/maps/dir/Montrose%2C+CO/Telluride%2C+CO/Dolores%2C+CO/Hovenweep+Visitor+Center/Best+Western+Turquoise+Inn%2C+Cortez%2C+CO"},{"n":3,"dow":"","dowLong":"","kicker":"Day 3 · date TBD","title":"Mesa Verde and fly home","sub":"Cortez → Mesa Verde → Chapin Mesa → Durango → DRO","color":"#B9883A","drive":"~2h 30m","stamps":2,"start":"cort","end":"dro","tzline":"Mountain time","cutLabel":"Good to know","cut":"The Mesa Verde park road is a dead end, so you come back down the same way. No cliff-dwelling tours (they have ladders); everything here is drive-up overlooks.","gmaps":"https://www.google.com/maps/dir/Best+Western+Turquoise+Inn%2C+Cortez%2C+CO/Mesa+Verde+Visitor+and+Research+Center/Chapin+Mesa+Archeological+Museum/Durango%2C+CO/Durango-La+Plata+County+Airport"}],"stops":[{"d":1,"kind":"point","k":"coeast","from":"Clifton","leave":"7:45 AM","drive":"~25m","arrive":"8:10 AM","z":"MT","via":"Through Grand Junction to the East Entrance.","name":"Rim Rock Drive","place":"Colorado NM · East Entrance","addr":"Colorado National Monument East Entrance, Grand Junction, CO","note":"Drive Rim Rock west and pull off at Cold Shivers Point, Independence Monument View and Grand View. About 18 miles to the visitor center; allow an hour with the overlooks."},{"d":1,"kind":"stop","k":"saddle","unit":"Colorado NM","color":"#D0683C","ink":"#FFFFFF","boxColor":"#D0683C","from":"the East Entrance","drive":"~1h with overlooks","arrive":"9:15 AM","z":"MT","via":"West along Rim Rock Drive.","name":"Colorado NM","type":"National Monument","place":"Saddlehorn Visitor Center","addr":"Saddlehorn Visitor Center, Colorado National Monument","where":"Saddlehorn Visitor Center","hrs":"Daily 9 AM – 4 PM, extended to 5 PM in summer.","ok":"Paved ramp and accessible restrooms. The canyon overlook is steps from the door.","about":"Sheer red-rock canyons and monoliths on the edge of the Uncompahgre Plateau, above the Grand Valley."},{"d":1,"kind":"point","k":"delta","from":"Saddlehorn","drive":"~1h 5m","arrive":"10:50 AM","z":"MT","via":"Leave about 9:45. Down to Fruita, then I-70 and US-50.","name":"Early lunch in Delta","place":"Delta, CO","addr":"Delta, CO","note":"Eat and fuel up; services are thin for the next two hours. Leave about 11:30."},{"d":1,"kind":"point","k":"bmdam","from":"Delta","drive":"~2h","arrive":"1:30 PM","z":"MT","via":"CO-92 through Hotchkiss and Crawford, 73 winding miles along the canyon rim. Google’s fastest route is US-50 via Montrose (~1h 10m), but it skips the rim.","name":"Pioneer Point & Blue Mesa Dam","place":"Curecanti NRA overlooks","addr":"Blue Mesa Dam, Gunnison, CO","note":"CO-92 runs along the rim above Morrow Point Reservoir, then crosses Blue Mesa Dam to US-50."},{"d":1,"kind":"stop","k":"elk","unit":"Curecanti NRA","color":"#D0683C","ink":"#FFFFFF","boxColor":"#D0683C","from":"Blue Mesa Dam","drive":"~15m","arrive":"2:05 PM","z":"MT","via":"Leave about 1:50. East on US-50 along Blue Mesa Reservoir.","name":"Curecanti NRA","type":"National Recreation Area","place":"Elk Creek Visitor Center","addr":"Elk Creek Visitor Center, Gunnison, CO","where":"Elk Creek Visitor Center","hrs":"Daily 8 AM – 5 PM in summer.","ok":"This short spur east and back is the trip’s only real backtrack. Cimarron VC has carried the stamp too, but it’s seasonal and often unstaffed.","about":"Three reservoirs on the Gunnison River, including Blue Mesa, Colorado’s largest lake."},{"d":1,"kind":"stop","k":"blca","unit":"Black Canyon of the Gunnison NP","color":"#D0683C","ink":"#FFFFFF","boxColor":"#D0683C","from":"Elk Creek","drive":"~55m","arrive":"3:25 PM","z":"MT","via":"Leave about 2:30. West on US-50, then north on CO-347.","name":"Black Canyon of the Gunnison NP","type":"National Park","place":"South Rim Visitor Center","addr":"South Rim Visitor Center, Black Canyon of the Gunnison National Park","where":"South Rim Visitor Center","hrs":"Summer about 8 AM – 5 PM daily; fall 9 AM – 4 PM with a lunch break.","ok":"New park for the 64. Gunnison Point overlook is right behind the building.","about":"A canyon so deep and narrow that parts of the floor get only 33 minutes of sun a day. The Painted Wall is 2,250 feet tall."},{"d":1,"kind":"point","k":"srd","from":"the visitor center","drive":"~10m","arrive":"4:00 PM","z":"MT","via":"South Rim Drive, 7 miles and 12 overlooks.","name":"South Rim Drive","place":"Black Canyon NP","addr":"Painted Wall View, Black Canyon of the Gunnison National Park","note":"Chasm View and Painted Wall are the must-stops; most overlooks are a few steps from parking.","warn":"No water October–April."},{"d":1,"kind":"night","k":"mtr","from":"South Rim Drive","drive":"~25m","arrive":"6:00 PM","z":"MT","via":"Leave about 5:30. Back down CO-347 to Montrose.","name":"Montrose, CO","addr":"SureStay Plus by Best Western Montrose, CO","note":"SureStay Plus by Best Western Montrose. Tomorrow leaves at 7:30 AM."},{"d":2,"kind":"point","k":"tell","from":"Montrose","leave":"7:30 AM","drive":"~1h 25m","arrive":"8:55 AM","z":"MT","via":"US-550 south to Ridgway, then west on CO-62 over Dallas Divide (Mt. Sneffels pullout).","name":"Telluride","place":"Optional spur","addr":"Telluride, CO","note":"A short spur into the box canyon to see Bridal Veil Falls from town. Skip it to keep the day moving."},{"d":2,"kind":"point","k":"dol","from":"Telluride","drive":"~1h 20m","arrive":"10:50 AM","z":"MT","via":"Leave about 9:30. CO-145 over Lizard Head Pass (10,222 ft).","name":"Lunch in Dolores","place":"Dolores, CO","addr":"Dolores, CO","note":"Last easy food and fuel before Hovenweep, which has none. Leave about 11:30."},{"d":2,"kind":"stop","k":"hove","unit":"Hovenweep NM","color":"#4E8FB8","ink":"#FFFFFF","boxColor":"#4E8FB8","from":"Dolores","drive":"~1h","arrive":"12:30 PM","z":"MT","via":"CO-184, US-491 and the paved Pleasant View road.","name":"Hovenweep NM","type":"National Monument","place":"Visitor center by the Square Tower Group","addr":"Hovenweep National Monument Visitor Center","where":"Visitor center","hrs":"Staffing-dependent; one season ran 10 AM – 3 PM, closed Tue/Wed. A Sunday early afternoon is the safe window.","warn":"Confirm hours in the NPS app or at (970) 233-9167.","ok":"A short walk from the visitor center reaches the first overlook toward Hovenweep Castle.","about":"Six groups of Ancestral Puebloan towers, built around 1200 on canyon rims straddling the Utah–Colorado line."},{"d":2,"kind":"night","k":"cort","from":"Hovenweep","drive":"~1h","arrive":"2:30 PM","z":"MT","via":"Leave about 1:30. Out the other side via McElmo Canyon Road (paved).","name":"Cortez, CO","addr":"Best Western Turquoise Inn & Suites, 535 E Main St, Cortez, CO","note":"Best Western Turquoise Inn & Suites, 535 E Main St. Free afternoon. Tomorrow leaves at 8:15 AM."},{"d":3,"kind":"stop","k":"meve","unit":"Mesa Verde NP","color":"#B9883A","ink":"#FFFFFF","boxColor":"#B9883A","from":"Cortez","leave":"8:15 AM","drive":"~15m","arrive":"8:30 AM","z":"MT","via":"East on US-160 to the park entrance.","name":"Mesa Verde NP","type":"National Park","place":"Visitor & Research Center","addr":"Mesa Verde Visitor and Research Center, Mesa Verde National Park","where":"Visitor & Research Center by the entrance","hrs":"Daily 8:30 AM – 4 PM.","also":[{"id":"yuho","name":"Yucca House NM","where":"Same visitor center (no facilities at the site itself)"}],"ok":"New park for the 64.","about":"Nearly 5,000 archeological sites, including some 600 cliff dwellings tucked into the canyon walls."},{"d":3,"kind":"point","k":"chap","from":"the entrance","drive":"~1h with Park Point","arrive":"9:45 AM","z":"MT","via":"Leave about 8:50. Up the park road to Chapin Mesa, with the Park Point overlook on the way.","name":"Chapin Mesa & Mesa Top Loop","place":"Mesa Verde NP","addr":"Chapin Mesa Archeological Museum, Mesa Verde National Park","bonus":{"title":"Mesa Verde stamp variant · optional","where":"Chapin Mesa Archeological Museum","hrs":"8:30 AM – 4:30 PM, early May to late October (2026 hours)."},"note":"The Spruce Tree House overlook is next to the museum. Then the Mesa Top Loop: Square Tower House, Sun Point, and Sun Temple with the view across to Cliff Palace, all drive-up."},{"d":3,"kind":"point","k":"dur","from":"Chapin Mesa","drive":"~1h 15m","arrive":"1:00 PM","z":"MT","via":"Leave about 11:45. Back down the park road, then US-160 east through Mancos.","name":"Lunch in Durango","place":"Durango, CO","addr":"Durango, CO","note":"Leave about 2:00 for the airport."},{"d":3,"kind":"home","k":"dro","from":"Durango","drive":"~25m","arrive":"2:25 PM","z":"MT","title":"Durango → home","note":"Return the rental at DRO and fly home through Denver or Phoenix. Aim for a mid-afternoon flight or later.","navTo":"Durango-La Plata County Airport","navLabel":"Navigate to car return ↗"}],"library":"index.html"};
+const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
+const LASTDAY = DAYS.length - 1;
+let n = 0; const NUMOF = {};
+STOPS.forEach(s => { if (s.kind === 'stop') { s.num = s.stampId ? NUMOF[s.stampId] : ++n; NUMOF[s.k] = s.num; } });
+const stopColor = s => s.color || DAYS[s.d].color;
+const dayColor = d => DAYS[d].color;
+const DL = d => DAYS[d].label || ('Day ' + d);
+const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
+
+/* ---------- stamp storage ---------- */
+const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
+const UNITS = [];
+STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: s.boxColor || stopColor(s) });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
+});
+const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const NSTAMPS = UNITS.length;
+let got = {};
+try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
+// stamps already collected (past trips): checked unless unticked on this device
+(TRIP.collected || []).forEach(id => { if (!(id in got)) got[id] = true; });
+function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
+
+/* ---------- maps ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+function routeD(keys) { return keys.map((k, i) => (i ? 'L' : 'M') + PT[k][0] + ' ' + PT[k][1]).join(''); }
+
+function buildMap(svg, o) {
+  // o: { focus:[keys], aspect, dayFocus, leg:[a,b], now:key }
+  const pad = o.pad || 60;
+  let xs = o.focus.map(k => PT[k][0]), ys = o.focus.map(k => PT[k][1]);
+  let x0 = Math.min(...xs) - pad, x1 = Math.max(...xs) + pad, y0 = Math.min(...ys) - pad, y1 = Math.max(...ys) + pad;
+  let w = Math.max(x1 - x0, o.minW || 220), h = Math.max(y1 - y0, (o.minW || 220) / o.aspect);
+  if (w / h > o.aspect) h = w / o.aspect; else w = h * o.aspect;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const vb = [cx - w / 2, cy - h / 2, w, h];
+  svg.setAttribute('viewBox', vb.map(v => v.toFixed(1)).join(' '));
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  const s = w / 1000;
+  const base = document.getElementById('basemap').cloneNode(true); base.removeAttribute('id');
+  base.querySelectorAll('.sl').forEach(t => t.setAttribute('font-size', (s * 22).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('font-size', (s * 17).toFixed(1)));
+  base.querySelectorAll('.cd').forEach(c => c.setAttribute('r', (s * 3.5).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('dy', (-s * 9).toFixed(1)));
+  svg.appendChild(base);
+  // whole route, faint
+  el('path', { d: routeD(ROUTE), class: 'rt', stroke: '#D9C2CC', 'stroke-width': 2 }, svg);
+  // day segments
+  for (let d = 1; d <= LASTDAY; d++) {
+    if (!DAYS[d].start) continue;
+    const a = ROUTE.indexOf(DAYS[d].start), b = ROUTE.indexOf(DAYS[d].end);
+    const dim = o.dayFocus && o.dayFocus !== d;
+    el('path', { d: routeD(ROUTE.slice(a, b + 1)), class: 'rt', stroke: DAYS[d].color, 'stroke-width': dim ? 2.5 : 4, opacity: dim ? .35 : .9 }, svg);
+  }
+  if (o.leg) el('path', { d: routeD(o.leg), class: 'leg' }, svg);
+  // airports
+  TRIP.airports.forEach(([k, lab]) => {
+    const g = el('g', { class: 'end' }, svg), r = s * 17;
+    const wr = r * (0.9 + 0.62 * lab.length);
+    el('rect', { x: PT[k][0] - wr / 2, y: PT[k][1] - r * .8, width: wr, height: r * 1.6, rx: r * .4 }, g);
+    const t = el('text', { x: PT[k][0], y: PT[k][1], 'font-size': (r * .9).toFixed(1) }, g); t.textContent = lab;
+  });
+  // overnight dots
+  STOPS.filter(x => x.kind === 'night').map(x => x.k).forEach(k => {
+    const c = el('circle', { cx: PT[k][0], cy: PT[k][1], r: s * 7, fill: '#372234', stroke: '#FFFFFF', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }, svg);
+  });
+  // points of interest (no stamp)
+  STOPS.filter(x => x.kind === 'point').forEach(x => {
+    const now = x.k === o.now;
+    el('circle', { cx: PT[x.k][0], cy: PT[x.k][1], r: s * (now ? 11 : 6), fill: now ? DAYS[x.d].color : '#FFFFFF', stroke: '#372234', 'stroke-width': now ? 3 : 1.5, 'vector-effect': 'non-scaling-stroke', opacity: o.dayFocus && o.dayFocus !== x.d ? .4 : 1 }, svg);
+  });
+  // pins (draw current last)
+  const r = s * (o.pinR || 16);
+  const list = STOPS.filter(x => x.kind === 'stop' && (!x.stampId || x.k === o.now));
+  list.sort((a, b) => (a.k === o.now) - (b.k === o.now));
+  list.forEach(st => {
+    const dim = o.dayFocus && o.dayFocus !== st.d;
+    const g = el('g', { class: 'pin' + (st.k === o.now ? ' now' : '') + (dim ? ' dim' : '') }, svg);
+    const rr = st.k === o.now ? r * 1.35 : r;
+    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: stopColor(st) }, g);
+    const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
+    if (st.ink) t.style.fill = st.ink;
+  });
+}
+
+/* ---------- pages ---------- */
+const pages = []; // {el, label, group}
+const book = document.getElementById('book');
+function addPage(cls, html, label, group, after) {
+  const p = document.createElement('section');
+  p.className = 'page ' + cls;
+  p.innerHTML = '<div class="scroll">' + html + '</div><div class="shade"></div>';
+  book.appendChild(p);
+  pages.push({ el: p, label, group });
+  if (after) after(p);
+  return pages.length - 1;
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const nav = a => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a);
+const firstPageOfDay = {};
+const pageOfStop = {};
+
+// Cover
+addPage('cover', `
+  ${TRIP.placeholder ? `<div class="ph">${esc(TRIP.placeholder)}</div>` : ''}
+  <div class="kicker" style="color:#D0683C">Trip book</div>
+  <h1 class="serif">${esc(TRIP.title)}</h1>
+  <div class="sub">${esc(TRIP.subtitle)}</div>
+  <svg class="map" id="coverMap" style="aspect-ratio:1/1.05"></svg>
+  <div style="margin-top:10px">
+    ${TRIP.chips.map((c, i) => `<span class="chip${i ? '' : ' hot'}">${esc(c)}</span>`).join('')}
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="tally"><div><div style="font-size:12px;color:#F2C14E;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps this trip</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+  <div class="swipe">Swipe or tap Next to turn the page ›</div>
+  ${TRIP.itinerary ? `<a class="backlink" href="${TRIP.itinerary}">← Full itinerary page</a>` : ''}
+  ${TRIP.library ? `<a class="backlink" href="${TRIP.library}">📚 All trip books</a>` : ''}
+`, 'Cover · trip map', 'Start', p => {
+  buildMap(p.querySelector('#coverMap'), { focus: ROUTE, aspect: 1 / 1.05, pad: 34, pinR: 15 });
+});
+
+// Day 0
+const D0 = DAYS[0];
+addPage('', `
+  <div class="dayband" style="background:${D0.color}">
+    <div class="kicker">${DK(0)}</div>
+    <h2 class="serif">${esc(D0.title)}</h2>
+    <div class="meta">${esc(D0.meta || '')}</div>
+  </div>
+  ${D0.html || ''}
+`, DL(0) + ' · ' + D0.title, 0);
+
+// Days
+for (let d = 1; d <= LASTDAY; d++) {
+  const D = DAYS[d];
+  if (D.kind === 'cruise') {
+    firstPageOfDay[d] = addPage('', `
+      <div class="dayband" style="background:${D.color}">
+        <div class="kicker">${DK(d)}</div>
+        <h2 class="serif">${esc(D.title)}</h2>
+        ${D.sub ? `<div class="meta">${esc(D.sub)}</div>` : ''}
+      </div>
+      ${D.html || ''}
+    `, DL(d) + ' · ' + D.title, d);
+    continue;
+  }
+  const items = STOPS.filter(s => s.d === d);
+  const first = items[0];
+  const metaBits = [D.stamps ? D.stamps + ' stamp' + (D.stamps > 1 ? 's' : '') : '', D.drive ? '🚗 ' + D.drive + ' driving' : '', D.tzline || ''].filter(Boolean).join(' · ');
+  firstPageOfDay[d] = addPage('', `
+    <div class="dayband" style="background:${D.color}">
+      <div class="kicker">${DK(d)}</div>
+      <h2 class="serif">${D.title}</h2>
+      <div class="meta">${D.sub || ''}${metaBits ? '<br>' + metaBits : ''}</div>
+    </div>
+    <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
+    <ul class="tl">
+      <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}${s.ink ? ';color:' + s.ink : ''}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+    </ul>
+    ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
+    ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
+  `, DL(d) + ' · ' + D.title, d, p => {
+    buildMap(p.querySelector('#dm' + d), { focus: ROUTE.slice(ROUTE.indexOf(D.start), ROUTE.indexOf(D.end) + 1), aspect: 1.45, pad: 45, dayFocus: d });
+  });
+
+  items.forEach((s, i) => {
+    const fromKey = i === 0 ? D.start : items[i - 1].k;
+    const driveCard = `
+      <div class="drive">
+        <div class="car">🚗</div>
+        <div><div class="fr">${s.leave ? 'Leave ' + esc(s.from) + ' ' + s.leave : 'From ' + esc(s.from)}</div><div class="dt">${s.drive}</div>${s.tz ? `<div class="tz">${s.tz}</div>` : ''}</div>
+        <div class="arr"><div class="lab">${s.arriveLabel || 'Arrive'}</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
+      </div>
+      ${s.via ? `<div class="note" style="background:#FCF8F9">${esc(s.via)}</div>` : ''}`;
+    const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
+    let html, label;
+    if (s.kind === 'stop') {
+      const C = stopColor(s);
+      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: s.boxColor || C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
+      const dayStops = items.filter(x => x.kind === 'stop');
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><div class="num" style="background:${C}${s.ink ? ';color:' + s.ink : ''}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+          <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${s.optional ? `<div class="note ok">${esc(s.optional)}</div>` : ''}
+        ${units.map(u => `
+        <div class="stampbox" style="border-color:${u.color}">
+          <div class="kicker" style="color:${u.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+          <div class="where">${esc(u.where)}</div>
+          ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
+          <button class="got" data-got="${u.id}"></button>
+        </div>`).join('')}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
+        ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
+        <div class="foot">Re-check hours in the NPS app the week before.</div>`;
+      label = s.num + ' · ' + s.name;
+    } else if (s.kind === 'point') {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Along the way</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><h2 class="serif">${esc(s.name)}</h2>${s.place ? `<div class="place">${esc(s.place)}</div>` : ''}</div>
+        ${s.bonus ? `<div class="stampbox" style="border-color:#AC93A2"><div class="kicker" style="color:#7A6170">◈ ${esc(s.bonus.title || 'Bonus cancellation · optional')}</div><div class="where">${esc(s.bonus.where)}</div>${s.bonus.hrs ? `<div class="hrs">${esc(s.bonus.hrs)}</div>` : ''}</div>` : ''}
+        ${s.note ? `<p>${esc(s.note)}</p>` : ''}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>`;
+      label = '• ' + s.name;
+    } else if (s.kind === 'night') {
+      const next = DAYS[d + 1];
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + (next.stamps === 1 ? ' stamp · ' : ' stamps · ') : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">☾</div>
+        <h2 class="serif">Sleep in ${esc(s.name)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
+        <div class="cut" style="background:#FCF8F9;border-left-color:${next.color}"><b>Tomorrow · ${DL(d + 1)}: ${esc(next.title)}</b><br>${nextLine}</div>`;
+      label = '☾ Sleep in ' + s.name;
+    } else {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Last leg</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">✈︎</div>
+        <h2 class="serif">${esc(s.title)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.navTo)}" target="_blank" rel="noopener">${esc(s.navLabel || 'Navigate ↗')}</a></div>
+        <div class="tally" style="background:#372234;color:#F7ECEF;margin-top:16px"><div><div style="font-size:12px;color:#F2C14E;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps collected</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+        <ul class="chk" id="chk"></ul>`;
+      label = '✈︎ ' + s.title;
+    }
+    pageOfStop[s.k] = addPage('', html, label, d, p => {
+      const m = p.querySelector('[data-map]');
+      const [a, b] = m.dataset.map.split(',');
+      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: TRIP.legMinW || 400, dayFocus: d, pinR: 22 });
+    });
+  });
+}
+
+/* ---------- legend, checklist, stamps ---------- */
+document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)}${D.dow ? ' · ' + D.dow : ''}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + (D.stamps > 1 ? ' stamps' : ' stamp') : ''}</span></span></button>`).join('');
+document.getElementById('chk').innerHTML = UNITS.map(u =>
+  `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
+
+function renderGot() {
+  const c = UNITS.filter(u => got[u.id]).length;
+  document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
+  document.querySelectorAll('button.got').forEach(b => {
+    const on = !!got[b.dataset.got], col = UNIT[b.dataset.got].color;
+    b.classList.toggle('on', on); b.style.background = on ? col : '#EFE3E8';
+    b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
+  });
+  document.querySelectorAll('.chk li').forEach(li => {
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = UNIT[li.dataset.got].color;
+    bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#D9C2CC';
+  });
+}
+
+/* ---------- flipping ---------- */
+let idx = 0, busy = false;
+const pg = document.getElementById('pgnum'), bar = document.getElementById('bar'), prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+function chrome() {
+  pg.textContent = (idx + 1) + ' / ' + pages.length;
+  bar.style.width = ((idx) / (pages.length - 1) * 100) + '%';
+  prevB.disabled = idx === 0; nextB.disabled = idx === pages.length - 1;
+  try { localStorage.setItem(PKEY, idx); } catch (e) {}
+  try { history.replaceState(null, '', '#p' + (idx + 1)); } catch (e) {}
+}
+function show(i) { pages.forEach((p, j) => p.el.className = p.el.className.replace(/\b(show|under|flip-out|flip-in)\b/g, '').trim() + (j === i ? ' show' : '')); idx = i; chrome(); }
+function go(i) {
+  if (busy || i === idx || i < 0 || i >= pages.length) return;
+  const cur = pages[idx].el, nxt = pages[i].el;
+  nxt.querySelector('.scroll').scrollTop = 0;
+  busy = true;
+  const done = () => { pages.forEach((p, j) => { if (j !== i) p.el.classList.remove('show'); p.el.classList.remove('under', 'flip-out', 'flip-in'); }); idx = i; busy = false; chrome(); };
+  if (i > idx) {
+    nxt.classList.add('show', 'under'); cur.classList.add('flip-out');
+    cur.addEventListener('animationend', done, { once: true });
+  } else {
+    cur.classList.add('under'); nxt.classList.add('show', 'flip-in');
+    nxt.addEventListener('animationend', done, { once: true });
+  }
+  setTimeout(() => { if (busy) done(); }, 900);
+}
+prevB.onclick = () => go(idx - 1);
+nextB.onclick = () => go(idx + 1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(idx + 1); if (e.key === 'ArrowLeft') go(idx - 1); });
+let tx = 0, ty = 0;
+book.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+book.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(idx + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-got]');
+  if (g) { got[g.dataset.got] = !got[g.dataset.got]; saveGot(); renderGot(); return; }
+  const jd = e.target.closest('[data-jumpday]');
+  if (jd) { e.preventDefault(); go(firstPageOfDay[jd.dataset.jumpday]); return; }
+  const js = e.target.closest('[data-stop]');
+  if (js) { go(pageOfStop[js.dataset.stop]); return; }
+  const jf = e.target.closest('[data-jump]');
+  if (jf) { go(idx + 1); return; }
+});
+
+/* ---------- contents ---------- */
+const toc = document.getElementById('toc'), tocPanel = document.getElementById('tocPanel');
+function openToc() {
+  let h = '<div class="kicker" style="color:#D0683C">Pages</div>', grp = '';
+  pages.forEach((p, i) => {
+    if (p.group !== grp) { grp = p.group; const isDay = typeof grp === 'number'; h += `<h3 style="color:${isDay ? DAYS[grp].color : '#7A6170'}">${isDay ? DL(grp) + (DAYS[grp].dow ? ' · ' + DAYS[grp].dow : '') : grp}</h3>`; }
+    h += `<a href="#" data-p="${i}" class="${i === idx ? 'cur' : ''}">${esc(p.label)}<span>${i + 1}</span></a>`;
+  });
+  tocPanel.innerHTML = h; toc.classList.add('open');
+}
+document.getElementById('tocBtn').onclick = openToc;
+toc.addEventListener('click', e => {
+  const a = e.target.closest('[data-p]');
+  if (a) { e.preventDefault(); toc.classList.remove('open'); go(+a.dataset.p); return; }
+  if (e.target === toc) toc.classList.remove('open');
+});
+
+/* ---------- start ---------- */
+renderGot();
+let start = 0;
+const hm = /#p(\d+)/.exec(location.hash);
+if (hm) start = Math.min(pages.length - 1, Math.max(0, +hm[1] - 1));
+else { try { const s = +localStorage.getItem(PKEY); if (s > 0 && s < pages.length) start = s; } catch (e) {} }
+show(start);
+</script>
+</body>
+</html>

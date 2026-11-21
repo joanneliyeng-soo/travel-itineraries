@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Yellowstone &amp; Wyoming · Trip Book</title>
+<style>
+  html, body { margin:0 !important; padding:0 !important; background:#14262B !important; color:#1B3036 !important; height:100%; overflow:hidden; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:15px; line-height:1.45; }
+  .serif { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  .app { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; padding:max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .topbar, .bottombar { width:100%; max-width:520px; display:flex; align-items:center; justify-content:space-between; color:#BBD0D2; font-size:13px; }
+  .topbar { padding:2px 4px 8px; }
+  .topbar .t { font-weight:600; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0 10px; }
+  .btn-ghost { background:#223A41; color:#EAF2F2; border:0; border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer; }
+  .pgnum { font-variant-numeric:tabular-nums; color:#E9C25A; white-space:nowrap; }
+
+  .book { position:relative; flex:1; width:100%; max-width:520px; perspective:1800px; }
+  .book::before { content:""; position:absolute; left:-4px; top:6px; bottom:-4px; right:4px; background:#E2ECEC; border-radius:6px 16px 16px 6px; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+  .page { position:absolute; inset:0; display:none; background:#F8FBFB; border-radius:4px 14px 14px 4px; overflow:hidden; transform-origin:left center; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .page::before { content:""; position:absolute; left:0; top:0; bottom:0; width:18px; background:linear-gradient(90deg, rgba(38,36,63,.16), rgba(38,36,63,0)); pointer-events:none; z-index:2; }
+  .page .scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:20px 20px 28px 26px; }
+  .page.show { display:block; }
+  .page.under { z-index:1; }
+  .page.flip-out { z-index:3; animation:flipOut .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page.flip-in { z-index:3; animation:flipIn .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page .shade { position:absolute; inset:0; background:linear-gradient(90deg, rgba(30,29,51,0), rgba(30,29,51,.35)); opacity:0; pointer-events:none; z-index:4; }
+  .page.flip-out .shade { animation:shadeIn .6s forwards; }
+  .page.flip-in .shade { animation:shadeOut .6s forwards; }
+  @keyframes flipOut { from { transform:rotateY(0deg); } to { transform:rotateY(-100deg); } }
+  @keyframes flipIn { from { transform:rotateY(-100deg); } to { transform:rotateY(0deg); } }
+  @keyframes shadeIn { to { opacity:1; } }
+  @keyframes shadeOut { from { opacity:1; } to { opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .page.flip-out, .page.flip-in { animation-duration:.01s; } }
+
+  .bottombar { padding-top:10px; gap:10px; }
+  .nav { background:#EAF2F2; color:#1B3036; border:0; border-radius:12px; padding:11px 16px; font-size:15px; font-weight:700; cursor:pointer; min-width:92px; }
+  .nav.next { background:#D9822B; color:#FFFFFF; }
+  .nav:disabled { opacity:.35; }
+  .progress { flex:1; height:6px; background:#223A41; border-radius:99px; overflow:hidden; }
+  .progress i { display:block; height:100%; background:#D9822B; width:0; transition:width .4s; }
+
+  /* shared page bits */
+  .kicker { font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  h1, h2 { margin:0; font-weight:700; color:#1B3036; }
+  h1 { font-size:30px; line-height:1.1; }
+  h2 { font-size:25px; line-height:1.15; }
+  .muted { color:#58747A; }
+  .chip { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:99px; background:#E2ECEC; color:#1B3036; margin:0 4px 4px 0; }
+  .map { display:block; width:100%; border-radius:12px; background:#E2ECEC; margin:14px 0 4px; }
+  .map .st { fill:#F6F3EC; stroke:#BBD0D2; stroke-width:1; vector-effect:non-scaling-stroke; }
+  .map .st.on { fill:#FFFFFF; }
+  .map .sl { fill:#8FA8AC; font-weight:700; letter-spacing:.12em; text-anchor:middle; }
+  .map .cl { fill:#58747A; text-anchor:middle; }
+  .map .cd { fill:#58747A; }
+  .map .rt { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  .map .leg { fill:none; stroke:#1B3036; stroke-width:3.5; stroke-dasharray:7 6; vector-effect:non-scaling-stroke; animation:dash 1.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset:-26; } }
+  .map .pin text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+  .map .pin circle { stroke:#FFFFFF; vector-effect:non-scaling-stroke; stroke-width:2; }
+  .map .pin.now circle { stroke:#1B3036; stroke-width:3; }
+  .map .pin.dim { opacity:.35; }
+  .map .end rect { fill:#1B3036; }
+  .map .end text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+
+  /* cover */
+  .cover .scroll { background:#1B3036; color:#EAF2F2; padding-top:22px; }
+  .cover h1 { color:#FFFFFF; font-size:31px; }
+  .cover .sub { color:#BBD0D2; margin-top:8px; font-size:14px; }
+  .cover .chip { background:#315058; color:#EAF2F2; }
+  .cover .chip.hot { background:#D9822B; color:#FFFFFF; }
+  .cover .ph { display:inline-block; border:1px dashed #E9C25A; color:#BBD0D2; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:99px; margin-bottom:12px; }
+  .legend { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .legend button { display:flex; align-items:center; gap:9px; background:#29444C; border:0; color:#EAF2F2; padding:9px 10px; border-radius:10px; text-align:left; font-size:13px; cursor:pointer; }
+  .legend .sw { width:14px; height:14px; border-radius:50%; flex:none; }
+  .legend b { display:block; font-size:13.5px; }
+  .legend span.s { color:#E9C25A; font-size:11.5px; }
+  .backlink { display:block; text-align:center; margin-top:10px; color:#BBD0D2; font-size:13px; font-weight:700; text-decoration:none; }
+  .swipe { margin-top:16px; text-align:center; color:#E9C25A; font-size:13px; }
+  .tally { margin-top:14px; background:#29444C; border-radius:12px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; }
+  .tally .n { font-size:24px; font-weight:800; color:#FFFFFF; }
+
+  /* day intro */
+  .dayband { margin:-20px -20px 0 -26px; padding:22px 20px 18px 26px; color:#FFFFFF; }
+  .dayband h2 { color:#FFFFFF; font-size:28px; }
+  .dayband .kicker { color:rgba(255,255,255,.85); }
+  .dayband .meta { margin-top:6px; font-size:13.5px; color:rgba(255,255,255,.92); }
+  .tl { list-style:none; margin:14px 0 0; padding:0; }
+  .tl li { display:grid; grid-template-columns:62px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid #E2ECEC; cursor:pointer; }
+  .tl li:last-child { border-bottom:0; }
+  .tl .tm { font-size:12.5px; font-weight:700; color:#58747A; font-variant-numeric:tabular-nums; }
+  .tl .nm { font-weight:700; }
+  .tl .nm small { display:block; font-weight:400; color:#58747A; font-size:12.5px; }
+  .tl .num { display:inline-flex; width:20px; height:20px; border-radius:50%; color:#FFFFFF; font-size:11px; font-weight:800; align-items:center; justify-content:center; margin-right:6px; vertical-align:1px; }
+  .cut { margin-top:14px; background:#FFF4F0; border-left:4px solid #D9822B; border-radius:8px; padding:10px 12px; font-size:13.5px; }
+  .gmaps { display:block; text-align:center; margin-top:14px; background:#1B3036; color:#FFFFFF; text-decoration:none; font-weight:700; padding:12px; border-radius:12px; }
+
+  /* stop page */
+  .drive { display:flex; align-items:stretch; gap:10px; background:#F8FBFB; border-radius:14px; padding:11px 12px; }
+  .drive .car { font-size:22px; line-height:1; padding-top:2px; }
+  .drive .dt { font-size:20px; font-weight:800; }
+  .drive .fr { font-size:12.5px; color:#58747A; }
+  .drive .tz { display:inline-block; margin-top:5px; font-size:11.5px; font-weight:700; background:#1B3036; color:#FFFFFF; padding:2px 8px; border-radius:99px; }
+  .arr { margin-left:auto; text-align:right; flex:none; }
+  .arr .lab { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#58747A; font-weight:700; }
+  .arr .t { white-space:nowrap; font-size:19px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .arr .z { font-size:11.5px; color:#58747A; font-weight:700; }
+  .stopname { margin-top:14px; }
+  .stopname .num { display:inline-flex; width:30px; height:30px; border-radius:50%; color:#FFFFFF; font-size:14px; font-weight:800; align-items:center; justify-content:center; margin-bottom:8px; }
+  .place { margin-top:4px; color:#58747A; font-size:13.5px; }
+  .stampbox { margin-top:14px; border:2px dashed; border-radius:14px; padding:12px 13px; }
+  .stampbox .kicker { margin-bottom:4px; }
+  .stampbox .where { font-weight:700; }
+  .stampbox .hrs { font-size:13.5px; margin-top:2px; }
+  .got { margin-top:11px; width:100%; border:0; border-radius:10px; padding:11px; font-size:15px; font-weight:800; cursor:pointer; background:#E2ECEC; color:#1B3036; }
+  .got.on { color:#FFFFFF; }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .actions a { flex:1; text-align:center; text-decoration:none; font-weight:700; font-size:14px; padding:11px 8px; border-radius:10px; background:#1B3036; color:#FFFFFF; }
+  .actions a.alt { background:#E2ECEC; color:#1B3036; }
+  .note { margin-top:10px; border-radius:10px; padding:9px 12px; font-size:13.5px; }
+  .note.warn { background:#FFF4F0; border-left:4px solid #D9822B; }
+  .note.acc { background:#EEF6F7; border-left:4px solid #2E8C9A; }
+  .note.ok { background:#F0F6EE; border-left:4px solid #5E9A4E; }
+  .about { margin-top:14px; font-size:14.5px; }
+  .about .kicker { color:#58747A; margin-bottom:3px; }
+  .foot { margin-top:18px; font-size:12px; color:#8FA8AC; text-align:center; }
+
+  /* night / final */
+  .moon { font-size:44px; margin-top:6px; }
+  .chk { list-style:none; padding:0; margin:12px 0 0; }
+  .chk li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #E2ECEC; font-size:14px; cursor:pointer; }
+  .chk .bx { width:22px; height:22px; border-radius:6px; border:2px solid #BBD0D2; flex:none; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:13px; font-weight:800; }
+  .chk li small { color:#58747A; display:block; font-size:12px; }
+
+  /* contents */
+  .toc { position:fixed; inset:0; background:rgba(20,19,36,.6); display:none; z-index:50; }
+  .toc.open { display:block; }
+  .toc .panel { position:absolute; left:0; top:0; bottom:0; width:min(86vw, 380px); background:#F8FBFB; overflow-y:auto; padding:max(18px, env(safe-area-inset-top)) 16px 24px; box-shadow:4px 0 24px rgba(0,0,0,.35); }
+  .toc h3 { margin:16px 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+  .toc a { display:flex; justify-content:space-between; gap:8px; padding:8px 4px; color:#1B3036; text-decoration:none; border-bottom:1px solid #E2ECEC; font-size:14px; }
+  .toc a.cur { font-weight:800; }
+  .toc a span { color:#8FA8AC; font-variant-numeric:tabular-nums; font-size:12.5px; }
+
+  /* Narrow tall phones (e.g. Galaxy Z Fold8 Ultra cover screen folded, ~21:9).
+     Tighter gutters, and on stop pages the stamp box and Navigate come before the leg map. */
+  @media (max-width: 430px) {
+    .app { padding-left:4px; padding-right:4px; }
+    .topbar { padding:0 2px 6px; }
+    .bottombar { padding-top:6px; }
+    .nav { min-width:78px; padding:10px 12px; }
+    .page .scroll { padding:16px 14px 24px 18px; display:flex; flex-direction:column; }
+    .page .scroll > * { flex:none; }
+    .dayband { margin:-16px -14px 0 -18px; padding:18px 14px 16px 18px; }
+    .dayband h2 { font-size:25px; }
+    .page .scroll > svg[data-map] { order:1; margin-top:16px; }
+    .page .scroll > .about, .page .scroll > .foot { order:2; }
+    .drive { padding:10px; gap:8px; }
+    .drive .car { font-size:18px; }
+    .drive .fr { font-size:12px; }
+    .arr .t { font-size:17px; }
+    .legend { grid-template-columns:1fr; gap:6px; }
+    .legend button { padding:8px 10px; }
+    .cover h1 { font-size:28px; }
+  }
+
+  /* Unfolded foldables and tablets (e.g. Galaxy Z Fold8 Ultra inner screen, ~1.1:1).
+     The book widens and each page goes two-column: map on the left, details beside it. */
+  @media (min-width: 700px) and (min-aspect-ratio: 3/4) {
+    .topbar, .bottombar, .book { max-width:1120px; }
+    body { font-size:16px; }
+    .page .scroll { padding:26px 30px 34px 36px; }
+    .dayband { margin:-26px -30px 0 -36px; padding:26px 30px 22px 36px; }
+    .page .scroll > .map { float:left; width:52%; margin:14px 26px 10px 0; }
+    .page .scroll > *:not(.map):not(.drive):not(.actions):not(.legend):not(.dayband) { display:flow-root; }
+    .page .scroll > div[style*="height:8px"] { display:block; }
+    .cover h1 { font-size:38px; }
+    .cover .legend { grid-template-columns:1fr; }
+    h2 { font-size:28px; }
+    .dayband h2 { font-size:32px; }
+    .actions a { padding:13px 8px; }
+    .toc .panel { width:min(60vw, 440px); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <button class="btn-ghost" id="tocBtn" aria-label="Contents">☰ Pages</button>
+    <div class="t">Wyoming</div>
+    <div class="pgnum" id="pgnum">1 / 1</div>
+  </div>
+  <div class="book" id="book"></div>
+  <div class="bottombar">
+    <button class="nav" id="prev">‹ Back</button>
+    <div class="progress"><i id="bar"></i></div>
+    <button class="nav next" id="next">Next ›</button>
+  </div>
+</div>
+<div class="toc" id="toc"><div class="panel" id="tocPanel"></div></div>
+
+<svg width="0" height="0" style="position:absolute"><g id="basemap"><path class="st on" d="M1500,899.4L1496.8,899.4L1493,899.7L1360.2,899.9L1285,899.7L1248.8,898.9L1069.3,898.9L984.8,899.2L851.9,899.2L777.3,899.6L698.8,899.7L670.3,900.3L597.3,900.1L546.2,899.7L546.2,822.6L546.8,784.2L546.2,694.7L546.2,574.7L546.8,545.5L546.8,349.1L546.2,344.4L546.2,250.3L545.7,201.4L546.2,175.6L545.1,143.4L544.6,91.2L545.1,62.3L586.3,61.9L598.4,64.1L645,63.8L651.1,62.3L675.8,63.2L689.5,61.7L737.2,62.1L843.7,61.2L849.7,62.5L971,62.5L1144.5,62.5L1152.2,63.2L1231.2,63.6L1328.9,63.8L1341.5,62.5L1414,62.5L1500,62.7L1500,899.4Z"/><path class="st" d="M1500,62.7L1414,62.5L1341.5,62.5L1328.9,63.8L1231.2,63.6L1152.2,63.2L1144.5,62.5L971,62.5L849.7,62.5L843.7,61.2L737.2,62.1L689.5,61.7L675.8,63.2L651.1,62.3L645,63.8L598.4,64.1L586.3,61.9L545.1,62.3L544.6,91.2L545.1,143.4L546.2,175.6L534.7,171.4L531.4,162.4L518.2,151.5L519.3,143.6L504,122L494.6,115.3L490.2,124.9L479.3,125.5L482,131.6L473.2,149.7L481.5,161.5L463.9,156.7L459,159.6L445.8,157.2L444.1,160.7L427.7,168.1L420.5,156.5L408.5,158L401.3,162.6L395.8,160.2L384.3,165.7L379.9,161.6L372.2,163.1L365.7,156.7L356.9,155.4L351.9,161.8L347,161.8L345.9,173.1L341.5,181.4L328.3,174.4L323.9,178L317.9,173.6L299.8,173.3L290.5,169.2L281.1,173.4L272.9,186.7L276.2,196.4L271.3,200.5L265.2,192.4L255.3,188L247.1,180.6L243.8,170.9L246.6,164.6L235,149.7L240,140.8L237.2,131.6L227.3,111.4L209.8,100.7L195.5,108.8L193.3,101.4L178,91.6L171.9,73.6L179.6,71.2L180.7,61L178.5,49.6L168.1,42.4L169.2,37.6L159.8,34.8L156,21.2L142.8,7.5L142.3,1L134.6,-9.1L135.7,-22.2L131.3,-25.7L128,-36.4L131.3,-42L130.8,-50.6L120.3,-50.6L124.2,-68.4L115.9,-73.1L109.3,-72.8L110.4,-77.7L105,-85.9L96.7,-90.8L91.8,-88.4L92.9,-80.7L84.6,-74.1L74.2,-58.7L63.8,-53.8L56.7,-56.1L55,-45.2L41.8,-37.3L39.1,-44.1L31.4,-48.2L24.3,-59.4L10.6,-59.4L12.7,-69.4L8.4,-76.1L18.2,-83.1L18.8,-92.1L8.4,-106.1L18.2,-122.8L32,-123L35.8,-131.3L28.7,-141.5L32,-150.8L21.5,-155.9L19.3,-166.1L24.3,-177.1L14.9,-183.3L16,-192.6L26.5,-193.9L25.9,-208.9L22.6,-214.6L29.8,-219.2L30.3,-241.3L37.4,-253.7L33.6,-266.8L40.2,-267.4L45.7,-290.9L44,-302L39.6,-303.9L25.4,-299.5L23.2,-295.5L11.1,-298.4L0.7,-297.4L-3.7,-304.9L-0.4,-312.3L-4.3,-318.1L-11.9,-319.8L-14.1,-314.1L-22.4,-310L-25.7,-313.3L-22.4,-323.8L-41,-335L-49.8,-346.3L-47.6,-359.9L-58.6,-371.5L-65.7,-371.3L-69,-382.8L-79.5,-398.6L-88.8,-409.1L-95.4,-411.6L-98.1,-418.7L-104.2,-420.1L-103.1,-427.4L-108,-435.4L-121.2,-437.3L-138.7,-446L-142.6,-456.5L-168.4,-473.4L-174.4,-473L-167.8,-480L-155.7,-481.5L-154.1,-485.8L-162.9,-487.2L-165.6,-498.2L-171.7,-499.2L-171.5,-500L1500,-500Z"/><path class="st" d="M86.9,1500L86.8,1494L87.4,1465.2L86.8,1415.3L87.4,1361.9L87.4,1079.5L87.9,1053.9L87.9,945.4L88.5,899.2L88.5,696.5L88.5,696.5L122,697.5L265.8,695.2L371.1,694.9L373.9,695.8L481.5,695.2L546.2,694.7L546.8,784.2L546.2,822.6L546.2,899.7L597.3,900.1L670.3,900.3L698.8,899.7L777.3,899.6L851.9,899.2L851.9,992.2L851.4,1000.1L851.4,1317.2L850.3,1353.6L850.3,1440.4L853,1462L853,1500L86.9,1500Z"/><path class="st" d="M-171.5,-500L-171.7,-499.2L-165.6,-498.2L-162.9,-487.2L-154.1,-485.8L-155.7,-481.5L-167.8,-480L-174.4,-473L-168.4,-473.4L-142.6,-456.5L-138.7,-446L-121.2,-437.3L-108,-435.4L-103.1,-427.4L-104.2,-420.1L-98.1,-418.7L-95.4,-411.6L-88.8,-409.1L-79.5,-398.6L-69,-382.8L-65.7,-371.3L-58.6,-371.5L-47.6,-359.9L-49.8,-346.3L-41,-335L-22.4,-323.8L-25.7,-313.3L-22.4,-310L-14.1,-314.1L-11.9,-319.8L-4.3,-318.1L-0.4,-312.3L-3.7,-304.9L0.7,-297.4L11.1,-298.4L23.2,-295.5L25.4,-299.5L39.6,-303.9L44,-302L45.7,-290.9L40.2,-267.4L33.6,-266.8L37.4,-253.7L30.3,-241.3L29.8,-219.2L22.6,-214.6L25.9,-208.9L26.5,-193.9L16,-192.6L14.9,-183.3L24.3,-177.1L19.3,-166.1L21.5,-155.9L32,-150.8L28.7,-141.5L35.8,-131.3L32,-123L18.2,-122.8L8.4,-106.1L18.8,-92.1L18.2,-83.1L8.4,-76.1L12.7,-69.4L10.6,-59.4L24.3,-59.4L31.4,-48.2L39.1,-44.1L41.8,-37.3L55,-45.2L56.7,-56.1L63.8,-53.8L74.2,-58.7L84.6,-74.1L92.9,-80.7L91.8,-88.4L96.7,-90.8L105,-85.9L110.4,-77.7L109.3,-72.8L115.9,-73.1L124.2,-68.4L120.3,-50.6L130.8,-50.6L131.3,-42L128,-36.4L131.3,-25.7L135.7,-22.2L134.6,-9.1L142.3,1L142.8,7.5L156,21.2L159.8,34.8L169.2,37.6L168.1,42.4L178.5,49.6L180.7,61L179.6,71.2L171.9,73.6L178,91.6L193.3,101.4L195.5,108.8L209.8,100.7L227.3,111.4L237.2,131.6L240,140.8L235,149.7L246.6,164.6L243.8,170.9L247.1,180.6L255.3,188L265.2,192.4L271.3,200.5L276.2,196.4L272.9,186.7L281.1,173.4L290.5,169.2L299.8,173.3L317.9,173.6L323.9,178L328.3,174.4L341.5,181.4L345.9,173.1L347,161.8L351.9,161.8L356.9,155.4L365.7,156.7L372.2,163.1L379.9,161.6L384.3,165.7L395.8,160.2L401.3,162.6L408.5,158L420.5,156.5L427.7,168.1L444.1,160.7L445.8,157.2L459,159.6L463.9,156.7L481.5,161.5L473.2,149.7L482,131.6L479.3,125.5L490.2,124.9L494.6,115.3L504,122L519.3,143.6L518.2,151.5L531.4,162.4L534.7,171.4L546.2,175.6L545.7,201.4L546.2,250.3L546.2,344.4L546.8,349.1L546.8,545.5L546.2,574.7L546.2,694.7L481.5,695.2L373.9,695.8L371.1,694.9L265.8,695.2L122,697.5L88.5,696.5L23.2,695.9L3.4,696.3L-28.4,694.7L-63,695.9L-106.4,695.9L-267.2,695.9L-368.2,695.1L-368.2,317.5L-367.1,306.8L-361,304.8L-361,294.9L-354.4,280.1L-353.9,272.3L-359.9,266.4L-360.5,258.8L-353.9,255.7L-348.4,244.3L-348.9,238.6L-358.8,235.5L-359.9,225.8L-370.9,228L-379.7,217.2L-390.1,221.8L-397.2,215.3L-392.8,205.1L-401.1,192.4L-396.7,185.8L-398.3,173.6L-388.5,164.8L-383,152.6L-378.6,134.7L-370.9,117.5L-353.3,108.5L-353.3,104.6L-343.5,90.5L-338.5,77.9L-342.4,67.1L-340.7,57.6L-333,49.5L-329.7,39.6L-322.6,32.2L-318.8,10.5L-313.8,1L-314.4,-5.7L-301.2,-33.8L-295.7,-38.1L-295.2,-48.4L-282,-68.6L-285.8,-78.8L-293,-88L-293,-98L-301.7,-107L-312.2,-107.4L-317.7,-116.2L-327.5,-115.3L-336.3,-129.4L-342.4,-134.5L-351.1,-154.7L-351.1,-154.7L-357.2,-172.3L-361,-174.4L-351.7,-192.1L-358.3,-199.6L-358.3,-211.6L-362.7,-221.9L-373.6,-236.3L-369.8,-245.5L-369.8,-485.4L-370.3,-495.5L-370.3,-500L-171.5,-500Z"/><text class="sl" x="637.6" y="508.6">WYOMING</text><text class="sl" x="385.3" y="298.1">IDAHO</text><text class="sl" x="446.5" y="51.7">MONTANA</text><text class="sl" x="461.8" y="879">UTAH</text><circle class="cd" cx="589.9" cy="387" r="3"/><text class="cl" x="589.9" y="387">Jackson</text><circle class="cd" cx="537.6" cy="135.3" r="3"/><text class="cl" x="537.6" y="135.3">West Yellowstone</text><circle class="cd" cx="624.3" cy="737.8" r="3"/><text class="cl" x="624.3" y="737.8">Kemmerer</text><circle class="cd" cx="396" cy="384.8" r="3"/><text class="cl" x="396" y="384.8">Idaho Falls</text><circle class="cd" cx="417.4" cy="947.8" r="3"/><text class="cl" x="417.4" y="947.8">Salt Lake City</text></g></svg>
+
+<script>
+const PT = {"jac":[593.6,360.1],"jach":[589.9,387],"ctvc":[596.5,350.3],"jenny":[596,329.6],"w_jlj":[622.2,309.8],"w_colt":[608.6,298.1],"flag":[604.4,254],"w_se":[604.6,248.1],"w_lew":[610.1,217.2],"w_wt":[619,188.1],"w_cp":[599.4,183],"w_ofp":[579.5,178.7],"w_mad":[575.4,138.8],"wy":[537.6,135.3],"w_mad2":[575.4,139],"of":[579.6,179],"midway":[578.3,164.8],"w_mad3":[575.5,138.6],"w_nor":[599.4,121.4],"alb":[599.5,67.6],"w_nor2":[599.2,121.2],"w_mad4":[575.4,138.8],"wy2":[537.6,135.3],"w_ash":[485,261.6],"w_if":[396,384.8],"w_swan":[492.4,399.6],"w_alp":[547.4,452.1],"w_aft":[564.2,546.1],"w_kem":[623.9,738.2],"fobu":[588.6,728.7],"w_evan":[559.6,844.5],"w_echo":[486.2,905.4],"slc":[403.8,941.8]};
+const TRIP = {"slug":"Yellowstone-grand-teton","book":"yellowstone-wyoming","emoji":"🦬","poster":"geyser","title":"Yellowstone & Wyoming","short":"Wyoming","placeholder":"Placeholder · best late May to September","subtitle":"Fly into Jackson Hole. Grand Teton and the Rockefeller Parkway on Day 1, Old Faithful and Mammoth on Day 2, then south through Idaho to Fossil Butte and a flight home from Salt Lake on Day 3.","chips":["4 new units","Yellowstone + Grand Teton","Mountain time"],"itinerary":"../Yellowstone-grand-teton.html","theme":{"#14262B":"#14262B","#1B3036":"#1B3036","#223A41":"#223A41","#29444C":"#29444C","#315058":"#315058","#D9822B":"#D9822B","#EAF2F2":"#EAF2F2","#BBD0D2":"#BBD0D2","#E9C25A":"#E9C25A","#BBD0D2":"#BBD0D2","#EAF2F2":"#EAF2F2","#E2ECEC":"#E2ECEC","#F8FBFB":"#F8FBFB","#58747A":"#58747A","#8FA8AC":"#8FA8AC","#E2ECEC":"#E2ECEC","#F8FBFB":"#F8FBFB","#E2ECEC":"#E2ECEC","#E2ECEC":"#E2ECEC","#E9C25A":"#E9C25A","#BBD0D2":"#BBD0D2","#58747A":"#58747A","#FFF4F0":"#FFF4F0"},"legMinW":340,"airports":[["jac","JAC"],["slc","SLC"]],"route":["jac","jach","ctvc","jenny","w_jlj","w_colt","flag","w_se","w_lew","w_wt","w_cp","w_ofp","w_mad","wy","w_mad2","of","midway","w_mad3","w_nor","alb","w_nor2","w_mad4","wy2","w_ash","w_if","w_swan","w_alp","w_aft","w_kem","fobu","w_evan","w_echo","slc"],"days":[{"n":0,"dow":"","dowLong":"","kicker":"Day 0 · date TBD","title":"Fly to Jackson Hole","color":"#315058","meta":"No stamps · travel only","html":"<div class=\"moon\" style=\"margin-top:18px\">✈︎<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK or SFO → JAC after work<\/h2>\n<p>Jackson Hole Airport sits inside Grand Teton, so the park starts at the runway. Nonstops vary by season; a connection through SLC or DEN is normal.<\/p>\n<p>Pick up a one-way rental, JAC → SLC (Costco Travel). Check the drop fee; if it’s steep, the fallback is a round trip from JAC and a 4-hour drive back on Day 3.<\/p>\n<p>Sleep in <b>Jackson<\/b>, about 15 minutes south. Tomorrow leaves at 7:30 AM.<\/p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Jackson%2C+WY\" target=\"_blank\" rel=\"noopener\">Navigate to Jackson ↗<\/a><\/div>\n<div class=\"cut\"><b>Once dates are set:<\/b> book West Yellowstone for Nights 1–2 first (summer rooms sell out months ahead), then Jackson for Night 0. Flagg Ranch and the Grand Teton visitor centers are seasonal, so late May to September is the window.<\/div>"},{"n":1,"dow":"","dowLong":"","kicker":"Day 1 · date TBD","title":"The Tetons, then into Yellowstone","sub":"Jackson → Moose → Jenny Lake → Flagg Ranch → West Yellowstone","color":"#D9822B","drive":"~3h 15m","stamps":2,"start":"jach","end":"wy","tzline":"Mountain time","cutLabel":"Good to know","cut":"Yellowstone’s interior roads close in winter, so Google Maps only routes the Flagg Ranch → West Yellowstone leg in season. The time here is the summer estimate. Cell service is thin inside both parks; download offline maps in Jackson.","gmaps":"https://www.google.com/maps/dir/Jackson%2C+WY/Craig+Thomas+Discovery+and+Visitor+Center/Jenny+Lake+Visitor+Center/Flagg+Ranch+Information+Station/West+Yellowstone%2C+MT"},{"n":2,"dow":"","dowLong":"","kicker":"Day 2 · date TBD","title":"Geysers and Mammoth","sub":"West Yellowstone → Old Faithful → Grand Prismatic → Mammoth → West Yellowstone","color":"#3F8FA8","drive":"~3h 30m","stamps":1,"start":"wy","end":"wy2","tzline":"Mountain time","cutLabel":"Good to know","cut":"Old Faithful, Grand Prismatic and the Mammoth terraces jam up by 10 AM in July and August, so the early start matters. Canyon Visitor Education Center (another Yellowstone stamp variant) is about 40 minutes off the loop if there’s energy left.","gmaps":"https://www.google.com/maps/dir/West+Yellowstone%2C+MT/Old+Faithful+Visitor+Education+Center/Grand+Prismatic+Spring/Albright+Visitor+Center/West+Yellowstone%2C+MT"},{"n":3,"dow":"","dowLong":"","kicker":"Day 3 · date TBD","title":"Fossil Butte, then fly home","sub":"West Yellowstone → Idaho Falls → Kemmerer → Salt Lake City","color":"#B5593F","drive":"~7h","stamps":1,"start":"wy2","end":"slc","tzline":"Mountain time","cutLabel":"Long day","cut":"This is the long one: about 4h 40m to Fossil Butte and 2h 25m on to SLC, roughly 400 miles. Book an SLC flight at 5 PM or later. Fossil Butte runs summer hours Memorial Day to Labor Day; outside that it may be weekdays only.","gmaps":"https://www.google.com/maps/dir/West+Yellowstone%2C+MT/Fossil+Butte+National+Monument+Visitor+Center/Salt+Lake+City+International+Airport"}],"stops":[{"d":1,"kind":"stop","k":"ctvc","color":"#D9822B","ink":"#FFFFFF","boxColor":"#D9822B","from":"Jackson","leave":"7:30 AM","drive":"~20m","arrive":"7:50 AM","z":"MT","via":"US-191 north past the airport to Moose Junction.","name":"Grand Teton NP","type":"National Park","place":"Craig Thomas Discovery & Visitor Center, Moose","addr":"Craig Thomas Discovery and Visitor Center, Moose, WY","where":"Craig Thomas Discovery & Visitor Center","hrs":"Seasonal, roughly spring through October, about 8 AM – 5 PM. Confirm for your dates.","ok":"Stamp first, then the big windows and relief map. New park for the 64.","about":"The Teton Range rises 7,000 feet straight off the valley floor with no foothills in the way, one of the youngest mountain ranges in the Rockies."},{"d":1,"kind":"point","k":"jenny","from":"Moose","drive":"~20m","arrive":"9:00 AM","z":"MT","via":"Leave about 8:40. North on Teton Park Road.","name":"Jenny Lake","place":"Grand Teton NP","addr":"Jenny Lake Visitor Center, Grand Teton National Park","bonus":{"title":"Grand Teton stamp variant · optional","where":"Jenny Lake Visitor Center","hrs":"Summer only, daily."},"note":"The peaks straight across the water. The paved path along the shore is flat for the first stretch. Oxbow Bend is a pullout on the way north.","ok":"Plan about an hour here."},{"d":1,"kind":"stop","k":"flag","unit":"John D. Rockefeller Jr. Memorial Parkway","color":"#D9822B","ink":"#FFFFFF","boxColor":"#D9822B","from":"Jenny Lake","drive":"~55m","arrive":"11:00 AM","z":"MT","via":"Leave about 10:05. Past Jackson Lake on US-89/191.","name":"Rockefeller Parkway","type":"Memorial Parkway","place":"Flagg Ranch Information Station","addr":"Flagg Ranch Information Station, Moran, WY","where":"Flagg Ranch Information Station","hrs":"Seasonal, about early June to early September.","warn":"If Flagg Ranch isn’t open yet, the same stamp is usually at Colter Bay Visitor Center, which you pass on the way.","ok":"Its own NPS unit between the two parks. A quick in-and-out; grab lunch here or at Colter Bay.","about":"Twenty-four thousand acres linking Grand Teton and Yellowstone, named for the man who bought up the valley land and gave it to the parks."},{"d":1,"kind":"night","k":"wy","from":"Flagg Ranch","drive":"~2h 15m","arrive":"2:00 PM","z":"MT","via":"Leave about 11:45. Through the South Entrance, past Lewis Lake and West Thumb, over Craig Pass and out the West Entrance. Summer estimate; Google can’t route it in winter.","name":"West Yellowstone, MT","addr":"West Yellowstone, MT","note":"Hotel TBD for Nights 1–2. You pass right by Old Faithful on the way; stop if the next eruption lines up. Early night: tomorrow leaves at 6:30 AM."},{"d":2,"kind":"stop","k":"of","unit":"Yellowstone NP","color":"#3F8FA8","ink":"#FFFFFF","boxColor":"#3F8FA8","from":"West Yellowstone","leave":"6:30 AM","drive":"~35m","arrive":"7:05 AM","z":"MT","via":"In the West Entrance to Madison Junction, then south along the Firehole. Watch for bison on the road.","name":"Yellowstone NP","type":"National Park","place":"Old Faithful Visitor Education Center","addr":"Old Faithful Visitor Education Center, Yellowstone National Park","where":"Old Faithful Visitor Education Center","hrs":"Late April to early November, about 8 AM – 8 PM in summer.","ok":"The center opens at 8, so walk the Upper Geyser Basin boardwalk first and come back for the stamp and the posted eruption times. Old Faithful goes about every 90 minutes.","about":"The first national park, set aside in 1872. Half the world’s geysers are here, on top of a supervolcano."},{"d":2,"kind":"point","k":"midway","from":"Old Faithful","drive":"~15m","arrive":"10:00 AM","z":"MT","via":"Leave about 9:45. North to Midway Geyser Basin.","name":"Grand Prismatic Spring","place":"Yellowstone NP","addr":"Grand Prismatic Spring, Yellowstone National Park","note":"The boardwalk loop at Midway, or the overlook trail from the Fairy Falls lot (about a mile, some uphill) for the rainbow view from above.","warn":"Lots fill by mid-morning. If it’s full, skip it and keep going."},{"d":2,"kind":"point","k":"alb","from":"Grand Prismatic","drive":"~1h 15m","arrive":"12:15 PM","z":"MT","via":"Leave about 11:00. Madison → Norris → Mammoth. Norris Geyser Basin is a good stop on the way.","name":"Mammoth Hot Springs","place":"Albright Visitor Center","addr":"Albright Visitor Center, Mammoth, WY","bonus":{"title":"Yellowstone stamp variant · optional","where":"Albright Visitor Center","hrs":"Open year-round, about 9 AM – 5 PM."},"note":"Lunch in Mammoth. Elk on the lawns, and the travertine terraces from the lower boardwalk, about 45 minutes.","ok":"A different Yellowstone cancellation from Old Faithful."},{"d":2,"kind":"night","k":"wy2","from":"Mammoth","drive":"~1h 30m","arrive":"4:00 PM","z":"MT","via":"Leave about 2:30. Back through Norris and Madison. Summer estimate.","name":"West Yellowstone, MT","addr":"West Yellowstone, MT","note":"Same hotel as last night. Tomorrow leaves at 6:30 AM for a long drive."},{"d":3,"kind":"stop","k":"fobu","unit":"Fossil Butte NM","color":"#B5593F","ink":"#FFFFFF","boxColor":"#B5593F","from":"West Yellowstone","leave":"6:30 AM","drive":"~4h 40m","arrive":"11:15 AM","z":"MT","via":"US-20 south through Ashton and Idaho Falls, US-26 along Palisades Reservoir to Alpine, then US-89 down Star Valley to Kemmerer, about 273 mi.","name":"Fossil Butte NM","type":"National Monument","place":"Visitor center","addr":"Fossil Butte National Monument Visitor Center, 864 Chicken Creek Rd, Kemmerer, WY","where":"Visitor center, 864 Chicken Creek Rd","hrs":"Summer, about Memorial Day – Labor Day: daily 8 AM – 5:30 PM. Off-season hours are shorter.","ok":"The fossils are inside: fish, bats, palm fronds and a 13-foot crocodile in the stone. Fully accessible; plan 45–60 minutes.","about":"A 50-million-year-old lake bed, one of the richest fossil deposits in the world."},{"d":3,"kind":"home","k":"slc","from":"Fossil Butte","drive":"~2h 25m","arrive":"2:45 PM","z":"MT","title":"Salt Lake City → home","note":"Leave about 12:15. I-80 west through Evanston and Echo Canyon. Return the car at SLC and fly home.","navTo":"Salt Lake City International Airport Rental Car","navLabel":"Navigate to car return ↗"}],"library":"index.html"};
+const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
+const LASTDAY = DAYS.length - 1;
+let n = 0; const NUMOF = {};
+STOPS.forEach(s => { if (s.kind === 'stop') { s.num = s.stampId ? NUMOF[s.stampId] : ++n; NUMOF[s.k] = s.num; } });
+const stopColor = s => s.color || DAYS[s.d].color;
+const dayColor = d => DAYS[d].color;
+const DL = d => DAYS[d].label || ('Day ' + d);
+const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
+
+/* ---------- stamp storage ---------- */
+const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
+const UNITS = [];
+STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: s.boxColor || stopColor(s) });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
+});
+const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const NSTAMPS = UNITS.length;
+let got = {};
+try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
+// stamps already collected (past trips): checked unless unticked on this device
+(TRIP.collected || []).forEach(id => { if (!(id in got)) got[id] = true; });
+function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
+
+/* ---------- maps ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+function routeD(keys) { return keys.map((k, i) => (i ? 'L' : 'M') + PT[k][0] + ' ' + PT[k][1]).join(''); }
+
+function buildMap(svg, o) {
+  // o: { focus:[keys], aspect, dayFocus, leg:[a,b], now:key }
+  const pad = o.pad || 60;
+  let xs = o.focus.map(k => PT[k][0]), ys = o.focus.map(k => PT[k][1]);
+  let x0 = Math.min(...xs) - pad, x1 = Math.max(...xs) + pad, y0 = Math.min(...ys) - pad, y1 = Math.max(...ys) + pad;
+  let w = Math.max(x1 - x0, o.minW || 220), h = Math.max(y1 - y0, (o.minW || 220) / o.aspect);
+  if (w / h > o.aspect) h = w / o.aspect; else w = h * o.aspect;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const vb = [cx - w / 2, cy - h / 2, w, h];
+  svg.setAttribute('viewBox', vb.map(v => v.toFixed(1)).join(' '));
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  const s = w / 1000;
+  const base = document.getElementById('basemap').cloneNode(true); base.removeAttribute('id');
+  base.querySelectorAll('.sl').forEach(t => t.setAttribute('font-size', (s * 22).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('font-size', (s * 17).toFixed(1)));
+  base.querySelectorAll('.cd').forEach(c => c.setAttribute('r', (s * 3.5).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('dy', (-s * 9).toFixed(1)));
+  svg.appendChild(base);
+  // whole route, faint
+  el('path', { d: routeD(ROUTE), class: 'rt', stroke: '#BBD0D2', 'stroke-width': 2 }, svg);
+  // day segments
+  for (let d = 1; d <= LASTDAY; d++) {
+    if (!DAYS[d].start) continue;
+    const a = ROUTE.indexOf(DAYS[d].start), b = ROUTE.indexOf(DAYS[d].end);
+    const dim = o.dayFocus && o.dayFocus !== d;
+    el('path', { d: routeD(ROUTE.slice(a, b + 1)), class: 'rt', stroke: DAYS[d].color, 'stroke-width': dim ? 2.5 : 4, opacity: dim ? .35 : .9 }, svg);
+  }
+  if (o.leg) el('path', { d: routeD(o.leg), class: 'leg' }, svg);
+  // airports
+  TRIP.airports.forEach(([k, lab]) => {
+    const g = el('g', { class: 'end' }, svg), r = s * 17;
+    const wr = r * (0.9 + 0.62 * lab.length);
+    el('rect', { x: PT[k][0] - wr / 2, y: PT[k][1] - r * .8, width: wr, height: r * 1.6, rx: r * .4 }, g);
+    const t = el('text', { x: PT[k][0], y: PT[k][1], 'font-size': (r * .9).toFixed(1) }, g); t.textContent = lab;
+  });
+  // overnight dots
+  STOPS.filter(x => x.kind === 'night').map(x => x.k).forEach(k => {
+    const c = el('circle', { cx: PT[k][0], cy: PT[k][1], r: s * 7, fill: '#1B3036', stroke: '#FFFFFF', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }, svg);
+  });
+  // points of interest (no stamp)
+  STOPS.filter(x => x.kind === 'point').forEach(x => {
+    const now = x.k === o.now;
+    el('circle', { cx: PT[x.k][0], cy: PT[x.k][1], r: s * (now ? 11 : 6), fill: now ? DAYS[x.d].color : '#FFFFFF', stroke: '#1B3036', 'stroke-width': now ? 3 : 1.5, 'vector-effect': 'non-scaling-stroke', opacity: o.dayFocus && o.dayFocus !== x.d ? .4 : 1 }, svg);
+  });
+  // pins (draw current last)
+  const r = s * (o.pinR || 16);
+  const list = STOPS.filter(x => x.kind === 'stop' && (!x.stampId || x.k === o.now));
+  list.sort((a, b) => (a.k === o.now) - (b.k === o.now));
+  list.forEach(st => {
+    const dim = o.dayFocus && o.dayFocus !== st.d;
+    const g = el('g', { class: 'pin' + (st.k === o.now ? ' now' : '') + (dim ? ' dim' : '') }, svg);
+    const rr = st.k === o.now ? r * 1.35 : r;
+    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: stopColor(st) }, g);
+    const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
+    if (st.ink) t.style.fill = st.ink;
+  });
+}
+
+/* ---------- pages ---------- */
+const pages = []; // {el, label, group}
+const book = document.getElementById('book');
+function addPage(cls, html, label, group, after) {
+  const p = document.createElement('section');
+  p.className = 'page ' + cls;
+  p.innerHTML = '<div class="scroll">' + html + '</div><div class="shade"></div>';
+  book.appendChild(p);
+  pages.push({ el: p, label, group });
+  if (after) after(p);
+  return pages.length - 1;
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const nav = a => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a);
+const firstPageOfDay = {};
+const pageOfStop = {};
+
+// Cover
+addPage('cover', `
+  ${TRIP.placeholder ? `<div class="ph">${esc(TRIP.placeholder)}</div>` : ''}
+  <div class="kicker" style="color:#D9822B">Trip book</div>
+  <h1 class="serif">${esc(TRIP.title)}</h1>
+  <div class="sub">${esc(TRIP.subtitle)}</div>
+  <svg class="map" id="coverMap" style="aspect-ratio:1/1.05"></svg>
+  <div style="margin-top:10px">
+    ${TRIP.chips.map((c, i) => `<span class="chip${i ? '' : ' hot'}">${esc(c)}</span>`).join('')}
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="tally"><div><div style="font-size:12px;color:#E9C25A;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps this trip</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+  <div class="swipe">Swipe or tap Next to turn the page ›</div>
+  ${TRIP.itinerary ? `<a class="backlink" href="${TRIP.itinerary}">← Full itinerary page</a>` : ''}
+  ${TRIP.library ? `<a class="backlink" href="${TRIP.library}">📚 All trip books</a>` : ''}
+`, 'Cover · trip map', 'Start', p => {
+  buildMap(p.querySelector('#coverMap'), { focus: ROUTE, aspect: 1 / 1.05, pad: 34, pinR: 15 });
+});
+
+// Day 0
+const D0 = DAYS[0];
+addPage('', `
+  <div class="dayband" style="background:${D0.color}">
+    <div class="kicker">${DK(0)}</div>
+    <h2 class="serif">${esc(D0.title)}</h2>
+    <div class="meta">${esc(D0.meta || '')}</div>
+  </div>
+  ${D0.html || ''}
+`, DL(0) + ' · ' + D0.title, 0);
+
+// Days
+for (let d = 1; d <= LASTDAY; d++) {
+  const D = DAYS[d];
+  if (D.kind === 'cruise') {
+    firstPageOfDay[d] = addPage('', `
+      <div class="dayband" style="background:${D.color}">
+        <div class="kicker">${DK(d)}</div>
+        <h2 class="serif">${esc(D.title)}</h2>
+        ${D.sub ? `<div class="meta">${esc(D.sub)}</div>` : ''}
+      </div>
+      ${D.html || ''}
+    `, DL(d) + ' · ' + D.title, d);
+    continue;
+  }
+  const items = STOPS.filter(s => s.d === d);
+  const first = items[0];
+  const metaBits = [D.stamps ? D.stamps + ' stamp' + (D.stamps > 1 ? 's' : '') : '', D.drive ? '🚗 ' + D.drive + ' driving' : '', D.tzline || ''].filter(Boolean).join(' · ');
+  firstPageOfDay[d] = addPage('', `
+    <div class="dayband" style="background:${D.color}">
+      <div class="kicker">${DK(d)}</div>
+      <h2 class="serif">${D.title}</h2>
+      <div class="meta">${D.sub || ''}${metaBits ? '<br>' + metaBits : ''}</div>
+    </div>
+    <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
+    <ul class="tl">
+      <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}${s.ink ? ';color:' + s.ink : ''}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+    </ul>
+    ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
+    ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
+  `, DL(d) + ' · ' + D.title, d, p => {
+    buildMap(p.querySelector('#dm' + d), { focus: ROUTE.slice(ROUTE.indexOf(D.start), ROUTE.indexOf(D.end) + 1), aspect: 1.45, pad: 45, dayFocus: d });
+  });
+
+  items.forEach((s, i) => {
+    const fromKey = i === 0 ? D.start : items[i - 1].k;
+    const driveCard = `
+      <div class="drive">
+        <div class="car">🚗</div>
+        <div><div class="fr">${s.leave ? 'Leave ' + esc(s.from) + ' ' + s.leave : 'From ' + esc(s.from)}</div><div class="dt">${s.drive}</div>${s.tz ? `<div class="tz">${s.tz}</div>` : ''}</div>
+        <div class="arr"><div class="lab">${s.arriveLabel || 'Arrive'}</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
+      </div>
+      ${s.via ? `<div class="note" style="background:#F8FBFB">${esc(s.via)}</div>` : ''}`;
+    const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
+    let html, label;
+    if (s.kind === 'stop') {
+      const C = stopColor(s);
+      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: s.boxColor || C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
+      const dayStops = items.filter(x => x.kind === 'stop');
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><div class="num" style="background:${C}${s.ink ? ';color:' + s.ink : ''}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+          <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${s.optional ? `<div class="note ok">${esc(s.optional)}</div>` : ''}
+        ${units.map(u => `
+        <div class="stampbox" style="border-color:${u.color}">
+          <div class="kicker" style="color:${u.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+          <div class="where">${esc(u.where)}</div>
+          ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
+          <button class="got" data-got="${u.id}"></button>
+        </div>`).join('')}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
+        ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
+        <div class="foot">Re-check hours in the NPS app the week before.</div>`;
+      label = s.num + ' · ' + s.name;
+    } else if (s.kind === 'point') {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Along the way</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><h2 class="serif">${esc(s.name)}</h2>${s.place ? `<div class="place">${esc(s.place)}</div>` : ''}</div>
+        ${s.bonus ? `<div class="stampbox" style="border-color:#8FA8AC"><div class="kicker" style="color:#58747A">◈ ${esc(s.bonus.title || 'Bonus cancellation · optional')}</div><div class="where">${esc(s.bonus.where)}</div>${s.bonus.hrs ? `<div class="hrs">${esc(s.bonus.hrs)}</div>` : ''}</div>` : ''}
+        ${s.note ? `<p>${esc(s.note)}</p>` : ''}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>`;
+      label = '• ' + s.name;
+    } else if (s.kind === 'night') {
+      const next = DAYS[d + 1];
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + (next.stamps === 1 ? ' stamp · ' : ' stamps · ') : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">☾</div>
+        <h2 class="serif">Sleep in ${esc(s.name)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
+        <div class="cut" style="background:#F8FBFB;border-left-color:${next.color}"><b>Tomorrow · ${DL(d + 1)}: ${esc(next.title)}</b><br>${nextLine}</div>`;
+      label = '☾ Sleep in ' + s.name;
+    } else {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Last leg</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">✈︎</div>
+        <h2 class="serif">${esc(s.title)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.navTo)}" target="_blank" rel="noopener">${esc(s.navLabel || 'Navigate ↗')}</a></div>
+        <div class="tally" style="background:#1B3036;color:#EAF2F2;margin-top:16px"><div><div style="font-size:12px;color:#E9C25A;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps collected</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+        <ul class="chk" id="chk"></ul>`;
+      label = '✈︎ ' + s.title;
+    }
+    pageOfStop[s.k] = addPage('', html, label, d, p => {
+      const m = p.querySelector('[data-map]');
+      const [a, b] = m.dataset.map.split(',');
+      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: TRIP.legMinW || 400, dayFocus: d, pinR: 22 });
+    });
+  });
+}
+
+/* ---------- legend, checklist, stamps ---------- */
+document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)}${D.dow ? ' · ' + D.dow : ''}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + (D.stamps > 1 ? ' stamps' : ' stamp') : ''}</span></span></button>`).join('');
+document.getElementById('chk').innerHTML = UNITS.map(u =>
+  `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
+
+function renderGot() {
+  const c = UNITS.filter(u => got[u.id]).length;
+  document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
+  document.querySelectorAll('button.got').forEach(b => {
+    const on = !!got[b.dataset.got], col = UNIT[b.dataset.got].color;
+    b.classList.toggle('on', on); b.style.background = on ? col : '#E2ECEC';
+    b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
+  });
+  document.querySelectorAll('.chk li').forEach(li => {
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = UNIT[li.dataset.got].color;
+    bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#BBD0D2';
+  });
+}
+
+/* ---------- flipping ---------- */
+let idx = 0, busy = false;
+const pg = document.getElementById('pgnum'), bar = document.getElementById('bar'), prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+function chrome() {
+  pg.textContent = (idx + 1) + ' / ' + pages.length;
+  bar.style.width = ((idx) / (pages.length - 1) * 100) + '%';
+  prevB.disabled = idx === 0; nextB.disabled = idx === pages.length - 1;
+  try { localStorage.setItem(PKEY, idx); } catch (e) {}
+  try { history.replaceState(null, '', '#p' + (idx + 1)); } catch (e) {}
+}
+function show(i) { pages.forEach((p, j) => p.el.className = p.el.className.replace(/\b(show|under|flip-out|flip-in)\b/g, '').trim() + (j === i ? ' show' : '')); idx = i; chrome(); }
+function go(i) {
+  if (busy || i === idx || i < 0 || i >= pages.length) return;
+  const cur = pages[idx].el, nxt = pages[i].el;
+  nxt.querySelector('.scroll').scrollTop = 0;
+  busy = true;
+  const done = () => { pages.forEach((p, j) => { if (j !== i) p.el.classList.remove('show'); p.el.classList.remove('under', 'flip-out', 'flip-in'); }); idx = i; busy = false; chrome(); };
+  if (i > idx) {
+    nxt.classList.add('show', 'under'); cur.classList.add('flip-out');
+    cur.addEventListener('animationend', done, { once: true });
+  } else {
+    cur.classList.add('under'); nxt.classList.add('show', 'flip-in');
+    nxt.addEventListener('animationend', done, { once: true });
+  }
+  setTimeout(() => { if (busy) done(); }, 900);
+}
+prevB.onclick = () => go(idx - 1);
+nextB.onclick = () => go(idx + 1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(idx + 1); if (e.key === 'ArrowLeft') go(idx - 1); });
+let tx = 0, ty = 0;
+book.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+book.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(idx + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-got]');
+  if (g) { got[g.dataset.got] = !got[g.dataset.got]; saveGot(); renderGot(); return; }
+  const jd = e.target.closest('[data-jumpday]');
+  if (jd) { e.preventDefault(); go(firstPageOfDay[jd.dataset.jumpday]); return; }
+  const js = e.target.closest('[data-stop]');
+  if (js) { go(pageOfStop[js.dataset.stop]); return; }
+  const jf = e.target.closest('[data-jump]');
+  if (jf) { go(idx + 1); return; }
+});
+
+/* ---------- contents ---------- */
+const toc = document.getElementById('toc'), tocPanel = document.getElementById('tocPanel');
+function openToc() {
+  let h = '<div class="kicker" style="color:#D9822B">Pages</div>', grp = '';
+  pages.forEach((p, i) => {
+    if (p.group !== grp) { grp = p.group; const isDay = typeof grp === 'number'; h += `<h3 style="color:${isDay ? DAYS[grp].color : '#58747A'}">${isDay ? DL(grp) + (DAYS[grp].dow ? ' · ' + DAYS[grp].dow : '') : grp}</h3>`; }
+    h += `<a href="#" data-p="${i}" class="${i === idx ? 'cur' : ''}">${esc(p.label)}<span>${i + 1}</span></a>`;
+  });
+  tocPanel.innerHTML = h; toc.classList.add('open');
+}
+document.getElementById('tocBtn').onclick = openToc;
+toc.addEventListener('click', e => {
+  const a = e.target.closest('[data-p]');
+  if (a) { e.preventDefault(); toc.classList.remove('open'); go(+a.dataset.p); return; }
+  if (e.target === toc) toc.classList.remove('open');
+});
+
+/* ---------- start ---------- */
+renderGot();
+let start = 0;
+const hm = /#p(\d+)/.exec(location.hash);
+if (hm) start = Math.min(pages.length - 1, Math.max(0, +hm[1] - 1));
+else { try { const s = +localStorage.getItem(PKEY); if (s > 0 && s < pages.length) start = s; } catch (e) {} }
+show(start);
+</script>
+</body>
+</html>

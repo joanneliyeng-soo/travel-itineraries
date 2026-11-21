@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Salt Lake to Bozeman · Trip Book</title>
+<style>
+  html, body { margin:0 !important; padding:0 !important; background:#221B30 !important; color:#2A223A !important; height:100%; overflow:hidden; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:15px; line-height:1.45; }
+  .serif { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  .app { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; padding:max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .topbar, .bottombar { width:100%; max-width:520px; display:flex; align-items:center; justify-content:space-between; color:#CFC3D6; font-size:13px; }
+  .topbar { padding:2px 4px 8px; }
+  .topbar .t { font-weight:600; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0 10px; }
+  .btn-ghost { background:#322944; color:#F4EEF2; border:0; border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer; }
+  .pgnum { font-variant-numeric:tabular-nums; color:#F2C46B; white-space:nowrap; }
+
+  .book { position:relative; flex:1; width:100%; max-width:520px; perspective:1800px; }
+  .book::before { content:""; position:absolute; left:-4px; top:6px; bottom:-4px; right:4px; background:#ECE5EE; border-radius:6px 16px 16px 6px; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+  .page { position:absolute; inset:0; display:none; background:#FBF8FA; border-radius:4px 14px 14px 4px; overflow:hidden; transform-origin:left center; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .page::before { content:""; position:absolute; left:0; top:0; bottom:0; width:18px; background:linear-gradient(90deg, rgba(38,36,63,.16), rgba(38,36,63,0)); pointer-events:none; z-index:2; }
+  .page .scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:20px 20px 28px 26px; }
+  .page.show { display:block; }
+  .page.under { z-index:1; }
+  .page.flip-out { z-index:3; animation:flipOut .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page.flip-in { z-index:3; animation:flipIn .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page .shade { position:absolute; inset:0; background:linear-gradient(90deg, rgba(30,29,51,0), rgba(30,29,51,.35)); opacity:0; pointer-events:none; z-index:4; }
+  .page.flip-out .shade { animation:shadeIn .6s forwards; }
+  .page.flip-in .shade { animation:shadeOut .6s forwards; }
+  @keyframes flipOut { from { transform:rotateY(0deg); } to { transform:rotateY(-100deg); } }
+  @keyframes flipIn { from { transform:rotateY(-100deg); } to { transform:rotateY(0deg); } }
+  @keyframes shadeIn { to { opacity:1; } }
+  @keyframes shadeOut { from { opacity:1; } to { opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .page.flip-out, .page.flip-in { animation-duration:.01s; } }
+
+  .bottombar { padding-top:10px; gap:10px; }
+  .nav { background:#F4EEF2; color:#2A223A; border:0; border-radius:12px; padding:11px 16px; font-size:15px; font-weight:700; cursor:pointer; min-width:92px; }
+  .nav.next { background:#E98A5C; color:#FFFFFF; }
+  .nav:disabled { opacity:.35; }
+  .progress { flex:1; height:6px; background:#322944; border-radius:99px; overflow:hidden; }
+  .progress i { display:block; height:100%; background:#E98A5C; width:0; transition:width .4s; }
+
+  /* shared page bits */
+  .kicker { font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  h1, h2 { margin:0; font-weight:700; color:#2A223A; }
+  h1 { font-size:30px; line-height:1.1; }
+  h2 { font-size:25px; line-height:1.15; }
+  .muted { color:#6F6482; }
+  .chip { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:99px; background:#ECE5EE; color:#2A223A; margin:0 4px 4px 0; }
+  .map { display:block; width:100%; border-radius:12px; background:#ECE5EE; margin:14px 0 4px; }
+  .map .st { fill:#F6F3EC; stroke:#CFC3D6; stroke-width:1; vector-effect:non-scaling-stroke; }
+  .map .st.on { fill:#FFFFFF; }
+  .map .sl { fill:#A094AE; font-weight:700; letter-spacing:.12em; text-anchor:middle; }
+  .map .cl { fill:#6F6482; text-anchor:middle; }
+  .map .cd { fill:#6F6482; }
+  .map .rt { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  .map .leg { fill:none; stroke:#2A223A; stroke-width:3.5; stroke-dasharray:7 6; vector-effect:non-scaling-stroke; animation:dash 1.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset:-26; } }
+  .map .pin text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+  .map .pin circle { stroke:#FFFFFF; vector-effect:non-scaling-stroke; stroke-width:2; }
+  .map .pin.now circle { stroke:#2A223A; stroke-width:3; }
+  .map .pin.dim { opacity:.35; }
+  .map .end rect { fill:#2A223A; }
+  .map .end text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+
+  /* cover */
+  .cover .scroll { background:#2A223A; color:#F4EEF2; padding-top:22px; }
+  .cover h1 { color:#FFFFFF; font-size:31px; }
+  .cover .sub { color:#CFC3D6; margin-top:8px; font-size:14px; }
+  .cover .chip { background:#43385A; color:#F4EEF2; }
+  .cover .chip.hot { background:#E98A5C; color:#FFFFFF; }
+  .cover .ph { display:inline-block; border:1px dashed #F2C46B; color:#CFC3D6; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:99px; margin-bottom:12px; }
+  .legend { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .legend button { display:flex; align-items:center; gap:9px; background:#3A304F; border:0; color:#F4EEF2; padding:9px 10px; border-radius:10px; text-align:left; font-size:13px; cursor:pointer; }
+  .legend .sw { width:14px; height:14px; border-radius:50%; flex:none; }
+  .legend b { display:block; font-size:13.5px; }
+  .legend span.s { color:#F2C46B; font-size:11.5px; }
+  .backlink { display:block; text-align:center; margin-top:10px; color:#CFC3D6; font-size:13px; font-weight:700; text-decoration:none; }
+  .swipe { margin-top:16px; text-align:center; color:#F2C46B; font-size:13px; }
+  .tally { margin-top:14px; background:#3A304F; border-radius:12px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; }
+  .tally .n { font-size:24px; font-weight:800; color:#FFFFFF; }
+
+  /* day intro */
+  .dayband { margin:-20px -20px 0 -26px; padding:22px 20px 18px 26px; color:#FFFFFF; }
+  .dayband h2 { color:#FFFFFF; font-size:28px; }
+  .dayband .kicker { color:rgba(255,255,255,.85); }
+  .dayband .meta { margin-top:6px; font-size:13.5px; color:rgba(255,255,255,.92); }
+  .tl { list-style:none; margin:14px 0 0; padding:0; }
+  .tl li { display:grid; grid-template-columns:62px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid #ECE5EE; cursor:pointer; }
+  .tl li:last-child { border-bottom:0; }
+  .tl .tm { font-size:12.5px; font-weight:700; color:#6F6482; font-variant-numeric:tabular-nums; }
+  .tl .nm { font-weight:700; }
+  .tl .nm small { display:block; font-weight:400; color:#6F6482; font-size:12.5px; }
+  .tl .num { display:inline-flex; width:20px; height:20px; border-radius:50%; color:#FFFFFF; font-size:11px; font-weight:800; align-items:center; justify-content:center; margin-right:6px; vertical-align:1px; }
+  .cut { margin-top:14px; background:#FFF4F0; border-left:4px solid #E98A5C; border-radius:8px; padding:10px 12px; font-size:13.5px; }
+  .gmaps { display:block; text-align:center; margin-top:14px; background:#2A223A; color:#FFFFFF; text-decoration:none; font-weight:700; padding:12px; border-radius:12px; }
+
+  /* stop page */
+  .drive { display:flex; align-items:stretch; gap:10px; background:#FBF8FA; border-radius:14px; padding:11px 12px; }
+  .drive .car { font-size:22px; line-height:1; padding-top:2px; }
+  .drive .dt { font-size:20px; font-weight:800; }
+  .drive .fr { font-size:12.5px; color:#6F6482; }
+  .drive .tz { display:inline-block; margin-top:5px; font-size:11.5px; font-weight:700; background:#2A223A; color:#FFFFFF; padding:2px 8px; border-radius:99px; }
+  .arr { margin-left:auto; text-align:right; flex:none; }
+  .arr .lab { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#6F6482; font-weight:700; }
+  .arr .t { white-space:nowrap; font-size:19px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .arr .z { font-size:11.5px; color:#6F6482; font-weight:700; }
+  .stopname { margin-top:14px; }
+  .stopname .num { display:inline-flex; width:30px; height:30px; border-radius:50%; color:#FFFFFF; font-size:14px; font-weight:800; align-items:center; justify-content:center; margin-bottom:8px; }
+  .place { margin-top:4px; color:#6F6482; font-size:13.5px; }
+  .stampbox { margin-top:14px; border:2px dashed; border-radius:14px; padding:12px 13px; }
+  .stampbox .kicker { margin-bottom:4px; }
+  .stampbox .where { font-weight:700; }
+  .stampbox .hrs { font-size:13.5px; margin-top:2px; }
+  .got { margin-top:11px; width:100%; border:0; border-radius:10px; padding:11px; font-size:15px; font-weight:800; cursor:pointer; background:#ECE5EE; color:#2A223A; }
+  .got.on { color:#FFFFFF; }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .actions a { flex:1; text-align:center; text-decoration:none; font-weight:700; font-size:14px; padding:11px 8px; border-radius:10px; background:#2A223A; color:#FFFFFF; }
+  .actions a.alt { background:#ECE5EE; color:#2A223A; }
+  .note { margin-top:10px; border-radius:10px; padding:9px 12px; font-size:13.5px; }
+  .note.warn { background:#FFF4F0; border-left:4px solid #E98A5C; }
+  .note.acc { background:#EEF6F7; border-left:4px solid #2E8C9A; }
+  .note.ok { background:#F0F6EE; border-left:4px solid #5E9A4E; }
+  .about { margin-top:14px; font-size:14.5px; }
+  .about .kicker { color:#6F6482; margin-bottom:3px; }
+  .foot { margin-top:18px; font-size:12px; color:#A094AE; text-align:center; }
+
+  /* night / final */
+  .moon { font-size:44px; margin-top:6px; }
+  .chk { list-style:none; padding:0; margin:12px 0 0; }
+  .chk li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #ECE5EE; font-size:14px; cursor:pointer; }
+  .chk .bx { width:22px; height:22px; border-radius:6px; border:2px solid #CFC3D6; flex:none; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:13px; font-weight:800; }
+  .chk li small { color:#6F6482; display:block; font-size:12px; }
+
+  /* contents */
+  .toc { position:fixed; inset:0; background:rgba(20,19,36,.6); display:none; z-index:50; }
+  .toc.open { display:block; }
+  .toc .panel { position:absolute; left:0; top:0; bottom:0; width:min(86vw, 380px); background:#FBF8FA; overflow-y:auto; padding:max(18px, env(safe-area-inset-top)) 16px 24px; box-shadow:4px 0 24px rgba(0,0,0,.35); }
+  .toc h3 { margin:16px 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+  .toc a { display:flex; justify-content:space-between; gap:8px; padding:8px 4px; color:#2A223A; text-decoration:none; border-bottom:1px solid #ECE5EE; font-size:14px; }
+  .toc a.cur { font-weight:800; }
+  .toc a span { color:#A094AE; font-variant-numeric:tabular-nums; font-size:12.5px; }
+
+  /* Narrow tall phones (e.g. Galaxy Z Fold8 Ultra cover screen folded, ~21:9).
+     Tighter gutters, and on stop pages the stamp box and Navigate come before the leg map. */
+  @media (max-width: 430px) {
+    .app { padding-left:4px; padding-right:4px; }
+    .topbar { padding:0 2px 6px; }
+    .bottombar { padding-top:6px; }
+    .nav { min-width:78px; padding:10px 12px; }
+    .page .scroll { padding:16px 14px 24px 18px; display:flex; flex-direction:column; }
+    .page .scroll > * { flex:none; }
+    .dayband { margin:-16px -14px 0 -18px; padding:18px 14px 16px 18px; }
+    .dayband h2 { font-size:25px; }
+    .page .scroll > svg[data-map] { order:1; margin-top:16px; }
+    .page .scroll > .about, .page .scroll > .foot { order:2; }
+    .drive { padding:10px; gap:8px; }
+    .drive .car { font-size:18px; }
+    .drive .fr { font-size:12px; }
+    .arr .t { font-size:17px; }
+    .legend { grid-template-columns:1fr; gap:6px; }
+    .legend button { padding:8px 10px; }
+    .cover h1 { font-size:28px; }
+  }
+
+  /* Unfolded foldables and tablets (e.g. Galaxy Z Fold8 Ultra inner screen, ~1.1:1).
+     The book widens and each page goes two-column: map on the left, details beside it. */
+  @media (min-width: 700px) and (min-aspect-ratio: 3/4) {
+    .topbar, .bottombar, .book { max-width:1120px; }
+    body { font-size:16px; }
+    .page .scroll { padding:26px 30px 34px 36px; }
+    .dayband { margin:-26px -30px 0 -36px; padding:26px 30px 22px 36px; }
+    .page .scroll > .map { float:left; width:52%; margin:14px 26px 10px 0; }
+    .page .scroll > *:not(.map):not(.drive):not(.actions):not(.legend):not(.dayband) { display:flow-root; }
+    .page .scroll > div[style*="height:8px"] { display:block; }
+    .cover h1 { font-size:38px; }
+    .cover .legend { grid-template-columns:1fr; }
+    h2 { font-size:28px; }
+    .dayband h2 { font-size:32px; }
+    .actions a { padding:13px 8px; }
+    .toc .panel { width:min(60vw, 440px); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <button class="btn-ghost" id="tocBtn" aria-label="Contents">☰ Pages</button>
+    <div class="t">SLC to Bozeman</div>
+    <div class="pgnum" id="pgnum">1 / 1</div>
+  </div>
+  <div class="book" id="book"></div>
+  <div class="bottombar">
+    <button class="nav" id="prev">‹ Back</button>
+    <div class="progress"><i id="bar"></i></div>
+    <button class="nav next" id="next">Next ›</button>
+  </div>
+</div>
+<div class="toc" id="toc"><div class="panel" id="tocPanel"></div></div>
+
+<svg width="0" height="0" style="position:absolute"><g id="basemap"><path class="st on" d="M1425,188.9L1425.4,210.3L1425.4,480.3L1425.9,481.5L1425.9,531.6L1425.9,864L1329.7,864.3L1326.6,864.5L1219.3,864.7L1158.6,864.5L1129.3,863.8L984.4,863.8L916.2,864.1L808.9,864.1L748.6,864.4L685.2,864.5L662.2,865L603.2,864.8L562,864.5L562,802.2L562.5,771.2L562,699L562,602L562.5,578.5L562.5,419.9L562,416.1L562,340.1L561.6,300.6L562,279.8L561.1,253.8L560.7,211.6L561.1,188.3L594.4,188L604.1,189.8L641.8,189.5L646.7,188.3L666.6,189L677.7,187.8L716.3,188.1L802.3,187.4L807.1,188.4L905.1,188.4L1045.1,188.4L1051.3,189L1115.2,189.3L1194.1,189.5L1204.3,188.4L1262.8,188.4L1374,188.7Z"/><path class="st on" d="M1426.3,-500L1426.3,-422L1426.7,-419.3L1426.7,22L1427.2,56.6L1427.2,188.3L1425,188.9L1374,188.7L1262.8,188.4L1204.3,188.4L1194.1,189.5L1115.2,189.3L1051.3,189L1045.1,188.4L905.1,188.4L807.1,188.4L802.3,187.4L716.3,188.1L677.7,187.8L666.6,189L646.7,188.3L641.8,189.5L604.1,189.8L594.4,188L561.1,188.3L560.7,211.6L561.1,253.8L562,279.8L552.7,276.4L550.1,269.1L539.4,260.3L540.3,253.9L527.9,236.5L520.4,231.1L516.8,238.8L508,239.3L510.2,244.2L503.1,258.8L509.7,268.4L495.5,264.5L491.6,266.9L480.9,264.9L479.6,267.8L466.3,273.7L460.5,264.3L450.8,265.5L445,269.2L440.6,267.3L431.3,271.8L427.7,268.5L421.5,269.7L416.2,264.5L409.1,263.4L405.1,268.7L401.1,268.7L400.3,277.7L396.7,284.4L386.1,278.8L382.5,281.7L377.7,278.2L363,277.9L355.5,274.6L348,278L341.3,288.7L344,296.6L340,299.9L335.1,293.3L327.1,289.8L320.5,283.8L317.8,275.9L320,270.9L310.7,258.8L314.7,251.7L312.5,244.2L304.5,227.9L290.3,219.3L278.8,225.8L277,219.9L264.6,211.9L259.8,197.4L266,195.5L266.8,187.2L265.1,178.1L256.7,172.2L257.5,168.3L250,166L246.9,155.1L236.3,144.1L235.8,138.8L229.6,130.6L230.5,120.1L227,117.2L224.3,108.6L227,104L226.5,97.1L218.1,97.1L221.2,82.7L214.5,78.9L209.2,79.2L210.1,75.3L205.7,68.6L199,64.6L195,66.6L195.9,72.8L189.3,78.1L180.9,90.6L172.4,94.5L166.7,92.7L165.3,101.5L154.7,107.8L152.5,102.4L146.3,99.1L140.5,90L129.4,90L131.2,81.9L127.7,76.5L135.7,70.9L136.1,63.6L127.7,52.3L135.7,38.8L146.7,38.6L149.8,31.9L144.1,23.7L146.7,16.2L138.3,12.1L136.5,3.8L140.5,-5L133,-10.1L133.9,-17.6L142.3,-18.7L141.9,-30.8L139.2,-35.4L145,-39L145.4,-56.9L151.2,-66.9L148.1,-77.5L153.4,-78L157.8,-96.9L156.5,-105.9L152.9,-107.4L141.4,-103.9L139.6,-100.6L129.9,-103L121.5,-102.2L117.9,-108.2L120.6,-114.2L117.5,-118.9L111.3,-120.3L109.5,-115.6L102.9,-112.4L100.2,-115L102.9,-123.5L87.8,-132.5L80.7,-141.7L82.5,-152.7L73.6,-162L67.8,-161.9L65.2,-171.2L56.8,-184L49.2,-192.4L43.9,-194.4L41.7,-200.2L36.8,-201.3L37.7,-207.2L33.7,-213.6L23.1,-215.2L8.9,-222.2L5.8,-230.7L-15,-244.3L-19.9,-244L-14.6,-249.6L-4.8,-250.9L-3.5,-254.3L-10.6,-255.4L-12.8,-264.4L-17.7,-265.2L-16.8,-270.5L-11.1,-275.5L-16.4,-284.2L-15.5,-294.1L-21.2,-297.9L-24.3,-305.3L-27.9,-304.4L-31.4,-318.3L-38.1,-321.6L-55.4,-345.6L-55.8,-390L-55.4,-407.3L-55.4,-500L1426.3,-500Z"/><path class="st on" d="M632.3,1500L630.7,1499.4L559.8,1499.7L516.8,1499.8L378.1,1500L279.7,1500L191.1,1500L191.1,1382.5L191.5,1381L191.1,1344.5L191.5,1321.1L191.1,1280.9L191.5,1237.7L191.5,1009.7L191.9,989.1L191.9,901.4L192.4,864.1L192.4,700.4L192.4,700.4L219.4,701.3L335.5,699.4L420.6,699.1L422.9,699.8L509.7,699.4L562,699L562.5,771.2L562,802.2L562,864.5L603.2,864.8L662.2,865L685.2,864.5L748.6,864.4L808.9,864.1L808.9,939.2L808.5,945.6L808.5,1201.7L807.6,1231.1L807.6,1301.2L809.8,1318.6L809.8,1417.7L809.3,1422.5L809.3,1500L632.3,1500Z"/><path class="st on" d="M-55.4,-500L-55.4,-407.3L-55.8,-390L-55.4,-345.6L-38.1,-321.6L-31.4,-318.3L-27.9,-304.4L-24.3,-305.3L-21.2,-297.9L-15.5,-294.1L-16.4,-284.2L-11.1,-275.5L-16.8,-270.5L-17.7,-265.2L-12.8,-264.4L-10.6,-255.4L-3.5,-254.3L-4.8,-250.9L-14.6,-249.6L-19.9,-244L-15,-244.3L5.8,-230.7L8.9,-222.2L23.1,-215.2L33.7,-213.6L37.7,-207.2L36.8,-201.3L41.7,-200.2L43.9,-194.4L49.2,-192.4L56.8,-184L65.2,-171.2L67.8,-161.9L73.6,-162L82.5,-152.7L80.7,-141.7L87.8,-132.5L102.9,-123.5L100.2,-115L102.9,-112.4L109.5,-115.6L111.3,-120.3L117.5,-118.9L120.6,-114.2L117.9,-108.2L121.5,-102.2L129.9,-103L139.6,-100.6L141.4,-103.9L152.9,-107.4L156.5,-105.9L157.8,-96.9L153.4,-78L148.1,-77.5L151.2,-66.9L145.4,-56.9L145,-39L139.2,-35.4L141.9,-30.8L142.3,-18.7L133.9,-17.6L133,-10.1L140.5,-5L136.5,3.8L138.3,12.1L146.7,16.2L144.1,23.7L149.8,31.9L146.7,38.6L135.7,38.8L127.7,52.3L136.1,63.6L135.7,70.9L127.7,76.5L131.2,81.9L129.4,90L140.5,90L146.3,99.1L152.5,102.4L154.7,107.8L165.3,101.5L166.7,92.7L172.4,94.5L180.9,90.6L189.3,78.1L195.9,72.8L195,66.6L199,64.6L205.7,68.6L210.1,75.3L209.2,79.2L214.5,78.9L221.2,82.7L218.1,97.1L226.5,97.1L227,104L224.3,108.6L227,117.2L230.5,120.1L229.6,130.6L235.8,138.8L236.3,144.1L246.9,155.1L250,166L257.5,168.3L256.7,172.2L265.1,178.1L266.8,187.2L266,195.5L259.8,197.4L264.6,211.9L277,219.9L278.8,225.8L290.3,219.3L304.5,227.9L312.5,244.2L314.7,251.7L310.7,258.8L320,270.9L317.8,275.9L320.5,283.8L327.1,289.8L335.1,293.3L340,299.9L344,296.6L341.3,288.7L348,278L355.5,274.6L363,277.9L377.7,278.2L382.5,281.7L386.1,278.8L396.7,284.4L400.3,277.7L401.1,268.7L405.1,268.7L409.1,263.4L416.2,264.5L421.5,269.7L427.7,268.5L431.3,271.8L440.6,267.3L445,269.2L450.8,265.5L460.5,264.3L466.3,273.7L479.6,267.8L480.9,264.9L491.6,266.9L495.5,264.5L509.7,268.4L503.1,258.8L510.2,244.2L508,239.3L516.8,238.8L520.4,231.1L527.9,236.5L540.3,253.9L539.4,260.3L550.1,269.1L552.7,276.4L562,279.8L561.6,300.6L562,340.1L562,416.1L562.5,419.9L562.5,578.5L562,602L562,699L509.7,699.4L422.9,699.8L420.6,699.1L335.5,699.4L219.4,701.3L192.4,700.4L139.6,700L123.7,700.3L98,699L70.1,700L35,700L-94.8,700L-176.4,699.3L-176.4,394.4L-175.5,385.7L-170.6,384.1L-170.6,376.1L-165.3,364.2L-164.8,357.9L-169.7,353.1L-170.2,346.9L-164.8,344.4L-160.4,335.3L-160.9,330.7L-168.8,328.2L-169.7,320.3L-178.6,322.1L-185.7,313.4L-194.1,317.1L-199.9,311.9L-196.3,303.6L-203,293.3L-199.4,288L-200.7,278.2L-192.8,271L-188.3,261.2L-184.8,246.8L-178.6,232.9L-164.4,225.6L-164.4,222.4L-156.4,211L-152.4,200.9L-155.5,192.2L-154.2,184.5L-148,177.9L-145.3,169.9L-139.6,163.9L-136.5,146.5L-132.5,138.8L-132.9,133.4L-122.3,110.7L-117.9,107.2L-117.4,98.9L-106.8,82.5L-109.9,74.3L-115.7,66.9L-115.7,58.9L-122.7,51.6L-131.2,51.3L-135.6,44.1L-143.6,44.9L-150.7,33.4L-155.5,29.3L-162.6,13L-162.6,13L-167.5,-1.2L-170.6,-2.9L-163.1,-17.1L-168.4,-23.3L-168.4,-32.9L-171.9,-41.2L-180.8,-52.9L-177.7,-60.3L-177.7,-254L-178.1,-262.2L-178.1,-373.1L-177.3,-418.7L-177.3,-489.3L-177.2,-500L-55.4,-500Z"/><text class="sl" x="493.8" y="921.3">UTAH</text><text class="sl" x="407.4" y="548.7">IDAHO</text><text class="sl" x="635.8" y="599.1">WYOMING</text><text class="sl" x="456.8" y="100.7">MONTANA</text><circle class="cd" cx="458" cy="903.4" r="3"/><text class="cl" x="458" y="903.4">Salt Lake City</text><circle class="cd" cx="442.6" cy="780.4" r="3"/><text class="cl" x="442.6" y="780.4">Brigham City</text><circle class="cd" cx="531.2" cy="645.6" r="3"/><text class="cl" x="531.2" y="645.6">Montpelier</text><circle class="cd" cx="597.3" cy="450.5" r="3"/><text class="cl" x="597.3" y="450.5">Jackson</text><circle class="cd" cx="563" cy="69" r="3"/><text class="cl" x="563" y="69">Bozeman</text></g></svg>
+
+<script>
+const PT = {"slca":[446.9,898.6],"w_lehi":[463,957],"timp":[480.3,954.8],"w_ogd":[448.1,828.1],"w_bc":[442.6,780.4],"w_corr":[423.4,744.1],"gosp":[376.4,762.6],"w_tre":[424.1,747.2],"w_ogd2":[449.4,831.4],"w_echo":[513.6,869.1],"w_evan":[572.9,819.9],"w_189":[598.8,765.5],"fobu":[596.3,726.4],"w_cok":[573.2,686],"mont":[531.2,645.6],"orct":[530.9,644.8],"w_aft":[576.6,579],"w_alp":[563,503.1],"jah":[597.3,450.5],"w_moose":[603.7,420.4],"jenny":[602.2,404.1],"w_jlj":[623.4,388.1],"flag":[609,343.1],"w_lew":[613.6,313.4],"grant":[622.7,293.8],"w_wt":[620.8,289.9],"w_cp":[605,285.7],"of":[589,282.5],"midway":[587.9,271],"w_mad":[585.6,250.1],"w_nor":[605,236],"alb":[605,192.5],"arch":[603.9,183.3],"w_liv":[622.2,72.5],"bzn":[548,51.6]};
+const TRIP = {"slug":"slc-bozeman-yellowstone","book":"salt-lake-bozeman","emoji":"🏔️","poster":"teton","title":"Salt Lake to Bozeman","short":"SLC to Bozeman","placeholder":"Placeholder · late May to early October","subtitle":"One-way north from Salt Lake City. Timpanogos, Golden Spike and Fossil Butte on Day 1, the pioneer trails, Grand Teton and the Rockefeller Parkway on Day 2, then Old Faithful, Mammoth and out the Roosevelt Arch to Bozeman on Day 3.","chips":["8 new stamps","Grand Teton + Yellowstone","Mountain time"],"itinerary":"../slc-bozeman-yellowstone.html","theme":{"#221B30":"#221B30","#2A223A":"#2A223A","#322944":"#322944","#3A304F":"#3A304F","#43385A":"#43385A","#E98A5C":"#E98A5C","#F4EEF2":"#F4EEF2","#CFC3D6":"#CFC3D6","#F2C46B":"#F2C46B","#CFC3D6":"#CFC3D6","#F4EEF2":"#F4EEF2","#ECE5EE":"#ECE5EE","#FBF8FA":"#FBF8FA","#6F6482":"#6F6482","#A094AE":"#A094AE","#ECE5EE":"#ECE5EE","#FBF8FA":"#FBF8FA","#ECE5EE":"#ECE5EE","#ECE5EE":"#ECE5EE","#F2C46B":"#F2C46B","#CFC3D6":"#CFC3D6","#6F6482":"#6F6482","#FFF4F0":"#FFF4F0"},"legMinW":340,"airports":[["slca","SLC"],["bzn","BZN"]],"route":["slca","w_lehi","timp","w_lehi","w_ogd","w_bc","gosp","w_tre","w_ogd2","w_echo","w_evan","w_189","fobu","w_cok","mont","orct","w_aft","w_alp","jah","w_moose","jenny","w_jlj","flag","w_lew","grant","w_wt","w_cp","of","midway","w_mad","w_nor","alb","arch","w_liv","bzn"],"days":[{"n":0,"dow":"","dowLong":"","kicker":"Day 0 · date TBD","title":"Before the trip","color":"#43385A","meta":"No stamps · this trip starts with an early flight","html":"<div class=\"moon\" style=\"margin-top:18px\">✈︎<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Fly in Day 1 morning<\/h2>\n<p>Take the first wave out of OAK or SFO to <b>SLC<\/b> and land by about 9:00 AM Mountain. Clocks jump an hour ahead of home. Day 1 only works with an early arrival.<\/p>\n<p>Pick up a one-way rental, SLC → BZN (Costco Travel). Drop fees can add $200–500+, so compare companies.<\/p>\n<p>Fly home from <b>Bozeman<\/b> on Day 3 any time after about 5:30 PM. BZN has fewer flights on holiday weekends; price that leg first.<\/p>\n<div class=\"note warn\"><b>Late flight?<\/b> If you land after about 10:30, drop Timpanogos (it’s 40 minutes the wrong way) and keep Golden Spike and Fossil Butte.<\/div>\n<div class=\"cut\"><b>Once dates are set:<\/b> book Grant Village Lodge (or Old Faithful) first, since it sells out about a year ahead, then the Montpelier hotel. Juneteenth (Jun 18–20, 2027) is the safest window: everything on the route is on summer hours.<\/div>"},{"n":1,"dow":"","dowLong":"","kicker":"Day 1 · date TBD","title":"Utah stamps, then Fossil Butte","sub":"SLC → American Fork Canyon → Promontory → Kemmerer → Montpelier","color":"#C7643F","drive":"~7h","stamps":3,"start":"slca","end":"mont","tzline":"Mountain time","cutLabel":"Hard cutoff","cut":"Fossil Butte closes at 5:30 PM in summer, so arrive by about 4:45 at the latest. Lunch is grab-and-go in Brigham City.","gmaps":"https://www.google.com/maps/dir/Salt+Lake+City+International+Airport/Timpanogos+Cave+Visitor+Center/Golden+Spike+National+Historical+Park/Fossil+Butte+National+Monument+Visitor+Center/Montpelier%2C+ID"},{"n":2,"dow":"","dowLong":"","kicker":"Day 2 · date TBD","title":"The trails, the Tetons, into Yellowstone","sub":"Montpelier → Star Valley → Jackson → Jenny Lake → Flagg Ranch → Grant Village","color":"#5B7FB5","drive":"~4h 45m","stamps":5,"start":"mont","end":"grant","tzline":"Mountain time","cutLabel":"Good to know","cut":"The trail center is closed Sundays, so Day 2 should be a Saturday. Flagg Ranch and Grant Village open for the season around Memorial Day; check if you go that weekend.","gmaps":"https://www.google.com/maps/dir/Montpelier%2C+ID/National+Oregon%2FCalifornia+Trail+Center/Jackson%2C+WY/Jenny+Lake+Visitor+Center/Flagg+Ranch+Information+Station/Grant+Village+Visitor+Center"},{"n":3,"dow":"","dowLong":"","kicker":"Day 3 · date TBD","title":"Geysers, Mammoth, out to Bozeman","sub":"Grant Village → Old Faithful → Grand Prismatic → Mammoth → Roosevelt Arch → Bozeman","color":"#3E9A8C","drive":"~4h","stamps":0,"start":"grant","end":"bzn","tzline":"Mountain time","cutLabel":"Good to know","cut":"Yellowstone’s interior roads close in winter, so Google Maps can’t route these legs now; the times here are summer estimates. Download offline maps before leaving Grant Village.","gmaps":"https://www.google.com/maps/dir/Grant+Village+Visitor+Center/Old+Faithful+Visitor+Education+Center/Grand+Prismatic+Spring/Albright+Visitor+Center/Roosevelt+Arch/Bozeman+Yellowstone+International+Airport"}],"stops":[{"d":1,"kind":"stop","k":"timp","unit":"Timpanogos Cave NM","color":"#C7643F","ink":"#FFFFFF","boxColor":"#C7643F","from":"SLC","leave":"9:30 AM","drive":"~1h","arrive":"10:30 AM","z":"MT","via":"I-15 south, then UT-92 up American Fork Canyon.","name":"Timpanogos Cave NM","type":"National Monument","place":"Visitor center at the canyon floor","addr":"Timpanogos Cave Visitor Center, American Fork, UT","where":"Visitor center","hrs":"Summer hours about 7 AM – 5:30 PM daily.","ok":"Stamp only. The cave tour starts with a steep 1.5-mile climb, so skip it.","about":"Three small, highly decorated caves high on the side of Mount Timpanogos, joined by tunnels."},{"d":1,"kind":"stop","k":"gosp","unit":"Golden Spike NHP","color":"#C7643F","ink":"#FFFFFF","boxColor":"#C7643F","from":"Timpanogos","drive":"~2h 10m","arrive":"1:15 PM","z":"MT","via":"Leave about 10:50. I-15 north, then UT-13 and UT-83 to Promontory. Grab lunch to go in Brigham City.","name":"Golden Spike NHP","type":"National Historical Park","place":"Promontory Summit visitor center","addr":"Golden Spike National Historical Park, Promontory, UT","where":"Promontory Summit visitor center","hrs":"Summer about 9 AM – 5 PM daily.","ok":"The last-spike site and the replica locomotives are right outside the visitor center.","about":"Where the Central Pacific and Union Pacific met on May 10, 1869, finishing the first transcontinental railroad."},{"d":1,"kind":"stop","k":"fobu","unit":"Fossil Butte NM","color":"#C7643F","ink":"#FFFFFF","boxColor":"#C7643F","from":"Golden Spike","drive":"~2h 45m","arrive":"4:30 PM","z":"MT","via":"Leave about 1:45. I-84 and I-80 east through Echo Canyon and Evanston, then US-189 north past Kemmerer.","name":"Fossil Butte NM","type":"National Monument","place":"Visitor center","addr":"Fossil Butte National Monument Visitor Center, 864 Chicken Creek Rd, Kemmerer, WY","where":"Visitor center","hrs":"Summer, about Memorial Day – Labor Day: daily 8 AM – 5:30 PM.","warn":"Closes 5:30 PM. If you’re running behind, skip the Brigham City lunch stop.","ok":"Fish, bats and a 13-foot crocodile in the stone, all inside the building.","about":"A 50-million-year-old lake bed, one of the richest fossil deposits in the world."},{"d":1,"kind":"night","k":"mont","from":"Fossil Butte","drive":"~1h","arrive":"6:00 PM","z":"MT","via":"Leave about 5:00. US-30 west via Cokeville into Idaho.","name":"Montpelier, ID","addr":"Best Western Clover Creek Inn, Montpelier, ID","note":"Best Western Clover Creek Inn, or whatever’s open. The trail center is a few minutes away for tomorrow morning."},{"d":2,"kind":"stop","k":"orct","unit":"Oregon NHT","color":"#5B7FB5","ink":"#FFFFFF","boxColor":"#5B7FB5","from":"the hotel","leave":"8:55 AM","drive":"~5m","arrive":"9:00 AM","z":"MT","via":"Across Montpelier on US-89.","name":"Oregon & California Trails","type":"National Historic Trails · partner site","place":"National Oregon/California Trail Center","addr":"National Oregon/California Trail Center, 320 N 4th St, Montpelier, ID","where":"Trail center front desk","hrs":"Summer Mon–Sat 9 AM – 5 PM, closed Sunday.","also":[{"id":"cali","name":"California NHT","where":"Same desk at the trail center"}],"warn":"Partner site, not NPS-run. Call (208) 847-3800 the week before to confirm the stamps are out.","ok":"It sits on the old Clover Creek wagon encampment.","about":"Two of the overland routes west, sharing the same ruts through southern Idaho before splitting."},{"d":2,"kind":"point","k":"jah","from":"Montpelier","drive":"~2h 10m","arrive":"12:00 PM","z":"MT","via":"Leave about 9:45. US-89 north through Star Valley and Alpine, then along the Snake River canyon.","name":"Lunch in Jackson","place":"Town square","addr":"Jackson, WY","note":"Leave about 12:50 for Grand Teton."},{"d":2,"kind":"stop","k":"jenny","unit":"Grand Teton NP","color":"#5B7FB5","ink":"#FFFFFF","boxColor":"#5B7FB5","from":"Jackson","drive":"~40m","arrive":"1:30 PM","z":"MT","via":"US-191 north to Moose, then Teton Park Road.","name":"Grand Teton NP","type":"National Park","place":"Jenny Lake Visitor Center","addr":"Jenny Lake Visitor Center, Grand Teton National Park","where":"Jenny Lake Visitor Center","hrs":"Daily in summer. Teton Park Road opens to cars around May 1.","ok":"The lake and the peaks are right behind the visitor center. New park for the 64.","about":"The Teton Range rises 7,000 feet straight off the valley floor, with no foothills in the way."},{"d":2,"kind":"stop","k":"flag","unit":"John D. Rockefeller Jr. Memorial Parkway","color":"#5B7FB5","ink":"#FFFFFF","boxColor":"#5B7FB5","from":"Jenny Lake","drive":"~55m","arrive":"2:55 PM","z":"MT","via":"Leave about 2:00. Past Jackson Lake on US-89/191; Oxbow Bend is a pullout on the way.","name":"Rockefeller Parkway","type":"Memorial Parkway","place":"Flagg Ranch Information Station","addr":"Flagg Ranch Information Station, Moran, WY","where":"Flagg Ranch Information Station","hrs":"Seasonal, about early June to early September.","warn":"Check the opening date on Memorial Day weekend. Colter Bay Visitor Center, on the way, usually carries the same stamp.","about":"The 24,000-acre corridor linking Grand Teton and Yellowstone."},{"d":2,"kind":"stop","k":"grant","unit":"Yellowstone NP","color":"#5B7FB5","ink":"#FFFFFF","boxColor":"#5B7FB5","from":"Flagg Ranch","drive":"~40m","arrive":"4:00 PM","z":"MT","via":"Leave about 3:20. In the South Entrance, past Lewis Lake. Summer estimate.","name":"Yellowstone NP","type":"National Park","place":"Grant Village Visitor Center","addr":"Grant Village Visitor Center, Yellowstone National Park","where":"Grant Village Visitor Center","hrs":"Summer hours, seasonal opening.","ok":"Check in at Grant Village Lodge next door. West Thumb Geyser Basin is 5 minutes up the road for an evening boardwalk.","about":"The first national park, set aside in 1872, on top of a supervolcano. Grant Village sits on the shore of Yellowstone Lake."},{"d":3,"kind":"point","k":"of","from":"Grant Village","leave":"7:30 AM","drive":"~40m","arrive":"8:10 AM","z":"MT","via":"West over Craig Pass on the Grand Loop.","name":"Old Faithful","place":"Upper Geyser Basin","addr":"Old Faithful Visitor Education Center, Yellowstone National Park","bonus":{"title":"Yellowstone stamp variant · optional","where":"Old Faithful Visitor Education Center","hrs":"Summer about 8 AM – 8 PM."},"note":"Check the next predicted eruption at the visitor center, then find a bench. It goes about every 90 minutes."},{"d":3,"kind":"point","k":"midway","from":"Old Faithful","drive":"~15m","arrive":"10:00 AM","z":"MT","via":"Leave about 9:45. North to Midway Geyser Basin.","name":"Grand Prismatic Spring","place":"Midway Geyser Basin","addr":"Grand Prismatic Spring, Yellowstone National Park","note":"The boardwalk is a longer walk than most of these stops.","warn":"Skip it if the lot is full."},{"d":3,"kind":"point","k":"alb","from":"Grand Prismatic","drive":"~1h 30m","arrive":"12:00 PM","z":"MT","via":"Leave about 10:30. Madison → Norris → Mammoth.","name":"Mammoth Hot Springs","place":"Albright Visitor Center","addr":"Albright Visitor Center, Mammoth, WY","bonus":{"title":"Yellowstone Mammoth stamp · optional","where":"Albright Visitor Center","hrs":"Open year-round."},"note":"Lunch in Mammoth. Elk on the lawns, and the hot spring terraces are visible from the road."},{"d":3,"kind":"point","k":"arch","from":"Mammoth","drive":"~10m","arrive":"1:10 PM","z":"MT","via":"Leave about 1:00. Down to Gardiner.","name":"Roosevelt Arch","place":"North Entrance, Gardiner","addr":"Roosevelt Arch, Gardiner, MT","note":"Photo stop on the way out of the park. “For the benefit and enjoyment of the people.”"},{"d":3,"kind":"home","k":"bzn","from":"Gardiner","drive":"~1h 30m","arrive":"3:00 PM","z":"MT","title":"Bozeman → home","note":"Leave about 1:30. US-89 north through Paradise Valley, then I-90 west. Return the car at BZN; plenty of buffer for a 5:30 PM or later flight.","navTo":"Bozeman Yellowstone International Airport","navLabel":"Navigate to car return ↗"}],"library":"index.html"};
+const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
+const LASTDAY = DAYS.length - 1;
+let n = 0; const NUMOF = {};
+STOPS.forEach(s => { if (s.kind === 'stop') { s.num = s.stampId ? NUMOF[s.stampId] : ++n; NUMOF[s.k] = s.num; } });
+const stopColor = s => s.color || DAYS[s.d].color;
+const dayColor = d => DAYS[d].color;
+const DL = d => DAYS[d].label || ('Day ' + d);
+const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
+
+/* ---------- stamp storage ---------- */
+const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
+const UNITS = [];
+STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: s.boxColor || stopColor(s) });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
+});
+const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const NSTAMPS = UNITS.length;
+let got = {};
+try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
+// stamps already collected (past trips): checked unless unticked on this device
+(TRIP.collected || []).forEach(id => { if (!(id in got)) got[id] = true; });
+function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
+
+/* ---------- maps ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+function routeD(keys) { return keys.map((k, i) => (i ? 'L' : 'M') + PT[k][0] + ' ' + PT[k][1]).join(''); }
+
+function buildMap(svg, o) {
+  // o: { focus:[keys], aspect, dayFocus, leg:[a,b], now:key }
+  const pad = o.pad || 60;
+  let xs = o.focus.map(k => PT[k][0]), ys = o.focus.map(k => PT[k][1]);
+  let x0 = Math.min(...xs) - pad, x1 = Math.max(...xs) + pad, y0 = Math.min(...ys) - pad, y1 = Math.max(...ys) + pad;
+  let w = Math.max(x1 - x0, o.minW || 220), h = Math.max(y1 - y0, (o.minW || 220) / o.aspect);
+  if (w / h > o.aspect) h = w / o.aspect; else w = h * o.aspect;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const vb = [cx - w / 2, cy - h / 2, w, h];
+  svg.setAttribute('viewBox', vb.map(v => v.toFixed(1)).join(' '));
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  const s = w / 1000;
+  const base = document.getElementById('basemap').cloneNode(true); base.removeAttribute('id');
+  base.querySelectorAll('.sl').forEach(t => t.setAttribute('font-size', (s * 22).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('font-size', (s * 17).toFixed(1)));
+  base.querySelectorAll('.cd').forEach(c => c.setAttribute('r', (s * 3.5).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('dy', (-s * 9).toFixed(1)));
+  svg.appendChild(base);
+  // whole route, faint
+  el('path', { d: routeD(ROUTE), class: 'rt', stroke: '#CFC3D6', 'stroke-width': 2 }, svg);
+  // day segments
+  for (let d = 1; d <= LASTDAY; d++) {
+    if (!DAYS[d].start) continue;
+    const a = ROUTE.indexOf(DAYS[d].start), b = ROUTE.indexOf(DAYS[d].end);
+    const dim = o.dayFocus && o.dayFocus !== d;
+    el('path', { d: routeD(ROUTE.slice(a, b + 1)), class: 'rt', stroke: DAYS[d].color, 'stroke-width': dim ? 2.5 : 4, opacity: dim ? .35 : .9 }, svg);
+  }
+  if (o.leg) el('path', { d: routeD(o.leg), class: 'leg' }, svg);
+  // airports
+  TRIP.airports.forEach(([k, lab]) => {
+    const g = el('g', { class: 'end' }, svg), r = s * 17;
+    const wr = r * (0.9 + 0.62 * lab.length);
+    el('rect', { x: PT[k][0] - wr / 2, y: PT[k][1] - r * .8, width: wr, height: r * 1.6, rx: r * .4 }, g);
+    const t = el('text', { x: PT[k][0], y: PT[k][1], 'font-size': (r * .9).toFixed(1) }, g); t.textContent = lab;
+  });
+  // overnight dots
+  STOPS.filter(x => x.kind === 'night').map(x => x.k).forEach(k => {
+    const c = el('circle', { cx: PT[k][0], cy: PT[k][1], r: s * 7, fill: '#2A223A', stroke: '#FFFFFF', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }, svg);
+  });
+  // points of interest (no stamp)
+  STOPS.filter(x => x.kind === 'point').forEach(x => {
+    const now = x.k === o.now;
+    el('circle', { cx: PT[x.k][0], cy: PT[x.k][1], r: s * (now ? 11 : 6), fill: now ? DAYS[x.d].color : '#FFFFFF', stroke: '#2A223A', 'stroke-width': now ? 3 : 1.5, 'vector-effect': 'non-scaling-stroke', opacity: o.dayFocus && o.dayFocus !== x.d ? .4 : 1 }, svg);
+  });
+  // pins (draw current last)
+  const r = s * (o.pinR || 16);
+  const list = STOPS.filter(x => x.kind === 'stop' && (!x.stampId || x.k === o.now));
+  list.sort((a, b) => (a.k === o.now) - (b.k === o.now));
+  list.forEach(st => {
+    const dim = o.dayFocus && o.dayFocus !== st.d;
+    const g = el('g', { class: 'pin' + (st.k === o.now ? ' now' : '') + (dim ? ' dim' : '') }, svg);
+    const rr = st.k === o.now ? r * 1.35 : r;
+    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: stopColor(st) }, g);
+    const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
+    if (st.ink) t.style.fill = st.ink;
+  });
+}
+
+/* ---------- pages ---------- */
+const pages = []; // {el, label, group}
+const book = document.getElementById('book');
+function addPage(cls, html, label, group, after) {
+  const p = document.createElement('section');
+  p.className = 'page ' + cls;
+  p.innerHTML = '<div class="scroll">' + html + '</div><div class="shade"></div>';
+  book.appendChild(p);
+  pages.push({ el: p, label, group });
+  if (after) after(p);
+  return pages.length - 1;
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const nav = a => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a);
+const firstPageOfDay = {};
+const pageOfStop = {};
+
+// Cover
+addPage('cover', `
+  ${TRIP.placeholder ? `<div class="ph">${esc(TRIP.placeholder)}</div>` : ''}
+  <div class="kicker" style="color:#E98A5C">Trip book</div>
+  <h1 class="serif">${esc(TRIP.title)}</h1>
+  <div class="sub">${esc(TRIP.subtitle)}</div>
+  <svg class="map" id="coverMap" style="aspect-ratio:1/1.05"></svg>
+  <div style="margin-top:10px">
+    ${TRIP.chips.map((c, i) => `<span class="chip${i ? '' : ' hot'}">${esc(c)}</span>`).join('')}
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="tally"><div><div style="font-size:12px;color:#F2C46B;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps this trip</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+  <div class="swipe">Swipe or tap Next to turn the page ›</div>
+  ${TRIP.itinerary ? `<a class="backlink" href="${TRIP.itinerary}">← Full itinerary page</a>` : ''}
+  ${TRIP.library ? `<a class="backlink" href="${TRIP.library}">📚 All trip books</a>` : ''}
+`, 'Cover · trip map', 'Start', p => {
+  buildMap(p.querySelector('#coverMap'), { focus: ROUTE, aspect: 1 / 1.05, pad: 34, pinR: 15 });
+});
+
+// Day 0
+const D0 = DAYS[0];
+addPage('', `
+  <div class="dayband" style="background:${D0.color}">
+    <div class="kicker">${DK(0)}</div>
+    <h2 class="serif">${esc(D0.title)}</h2>
+    <div class="meta">${esc(D0.meta || '')}</div>
+  </div>
+  ${D0.html || ''}
+`, DL(0) + ' · ' + D0.title, 0);
+
+// Days
+for (let d = 1; d <= LASTDAY; d++) {
+  const D = DAYS[d];
+  if (D.kind === 'cruise') {
+    firstPageOfDay[d] = addPage('', `
+      <div class="dayband" style="background:${D.color}">
+        <div class="kicker">${DK(d)}</div>
+        <h2 class="serif">${esc(D.title)}</h2>
+        ${D.sub ? `<div class="meta">${esc(D.sub)}</div>` : ''}
+      </div>
+      ${D.html || ''}
+    `, DL(d) + ' · ' + D.title, d);
+    continue;
+  }
+  const items = STOPS.filter(s => s.d === d);
+  const first = items[0];
+  const metaBits = [D.stamps ? D.stamps + ' stamp' + (D.stamps > 1 ? 's' : '') : '', D.drive ? '🚗 ' + D.drive + ' driving' : '', D.tzline || ''].filter(Boolean).join(' · ');
+  firstPageOfDay[d] = addPage('', `
+    <div class="dayband" style="background:${D.color}">
+      <div class="kicker">${DK(d)}</div>
+      <h2 class="serif">${D.title}</h2>
+      <div class="meta">${D.sub || ''}${metaBits ? '<br>' + metaBits : ''}</div>
+    </div>
+    <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
+    <ul class="tl">
+      <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}${s.ink ? ';color:' + s.ink : ''}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+    </ul>
+    ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
+    ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
+  `, DL(d) + ' · ' + D.title, d, p => {
+    buildMap(p.querySelector('#dm' + d), { focus: ROUTE.slice(ROUTE.indexOf(D.start), ROUTE.indexOf(D.end) + 1), aspect: 1.45, pad: 45, dayFocus: d });
+  });
+
+  items.forEach((s, i) => {
+    const fromKey = i === 0 ? D.start : items[i - 1].k;
+    const driveCard = `
+      <div class="drive">
+        <div class="car">🚗</div>
+        <div><div class="fr">${s.leave ? 'Leave ' + esc(s.from) + ' ' + s.leave : 'From ' + esc(s.from)}</div><div class="dt">${s.drive}</div>${s.tz ? `<div class="tz">${s.tz}</div>` : ''}</div>
+        <div class="arr"><div class="lab">${s.arriveLabel || 'Arrive'}</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
+      </div>
+      ${s.via ? `<div class="note" style="background:#FBF8FA">${esc(s.via)}</div>` : ''}`;
+    const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
+    let html, label;
+    if (s.kind === 'stop') {
+      const C = stopColor(s);
+      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: s.boxColor || C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
+      const dayStops = items.filter(x => x.kind === 'stop');
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><div class="num" style="background:${C}${s.ink ? ';color:' + s.ink : ''}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+          <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${s.optional ? `<div class="note ok">${esc(s.optional)}</div>` : ''}
+        ${units.map(u => `
+        <div class="stampbox" style="border-color:${u.color}">
+          <div class="kicker" style="color:${u.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+          <div class="where">${esc(u.where)}</div>
+          ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
+          <button class="got" data-got="${u.id}"></button>
+        </div>`).join('')}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
+        ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
+        <div class="foot">Re-check hours in the NPS app the week before.</div>`;
+      label = s.num + ' · ' + s.name;
+    } else if (s.kind === 'point') {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Along the way</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><h2 class="serif">${esc(s.name)}</h2>${s.place ? `<div class="place">${esc(s.place)}</div>` : ''}</div>
+        ${s.bonus ? `<div class="stampbox" style="border-color:#A094AE"><div class="kicker" style="color:#6F6482">◈ ${esc(s.bonus.title || 'Bonus cancellation · optional')}</div><div class="where">${esc(s.bonus.where)}</div>${s.bonus.hrs ? `<div class="hrs">${esc(s.bonus.hrs)}</div>` : ''}</div>` : ''}
+        ${s.note ? `<p>${esc(s.note)}</p>` : ''}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>`;
+      label = '• ' + s.name;
+    } else if (s.kind === 'night') {
+      const next = DAYS[d + 1];
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + (next.stamps === 1 ? ' stamp · ' : ' stamps · ') : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">☾</div>
+        <h2 class="serif">Sleep in ${esc(s.name)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
+        <div class="cut" style="background:#FBF8FA;border-left-color:${next.color}"><b>Tomorrow · ${DL(d + 1)}: ${esc(next.title)}</b><br>${nextLine}</div>`;
+      label = '☾ Sleep in ' + s.name;
+    } else {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Last leg</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">✈︎</div>
+        <h2 class="serif">${esc(s.title)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.navTo)}" target="_blank" rel="noopener">${esc(s.navLabel || 'Navigate ↗')}</a></div>
+        <div class="tally" style="background:#2A223A;color:#F4EEF2;margin-top:16px"><div><div style="font-size:12px;color:#F2C46B;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps collected</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+        <ul class="chk" id="chk"></ul>`;
+      label = '✈︎ ' + s.title;
+    }
+    pageOfStop[s.k] = addPage('', html, label, d, p => {
+      const m = p.querySelector('[data-map]');
+      const [a, b] = m.dataset.map.split(',');
+      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: TRIP.legMinW || 400, dayFocus: d, pinR: 22 });
+    });
+  });
+}
+
+/* ---------- legend, checklist, stamps ---------- */
+document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)}${D.dow ? ' · ' + D.dow : ''}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + (D.stamps > 1 ? ' stamps' : ' stamp') : ''}</span></span></button>`).join('');
+document.getElementById('chk').innerHTML = UNITS.map(u =>
+  `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
+
+function renderGot() {
+  const c = UNITS.filter(u => got[u.id]).length;
+  document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
+  document.querySelectorAll('button.got').forEach(b => {
+    const on = !!got[b.dataset.got], col = UNIT[b.dataset.got].color;
+    b.classList.toggle('on', on); b.style.background = on ? col : '#ECE5EE';
+    b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
+  });
+  document.querySelectorAll('.chk li').forEach(li => {
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = UNIT[li.dataset.got].color;
+    bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#CFC3D6';
+  });
+}
+
+/* ---------- flipping ---------- */
+let idx = 0, busy = false;
+const pg = document.getElementById('pgnum'), bar = document.getElementById('bar'), prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+function chrome() {
+  pg.textContent = (idx + 1) + ' / ' + pages.length;
+  bar.style.width = ((idx) / (pages.length - 1) * 100) + '%';
+  prevB.disabled = idx === 0; nextB.disabled = idx === pages.length - 1;
+  try { localStorage.setItem(PKEY, idx); } catch (e) {}
+  try { history.replaceState(null, '', '#p' + (idx + 1)); } catch (e) {}
+}
+function show(i) { pages.forEach((p, j) => p.el.className = p.el.className.replace(/\b(show|under|flip-out|flip-in)\b/g, '').trim() + (j === i ? ' show' : '')); idx = i; chrome(); }
+function go(i) {
+  if (busy || i === idx || i < 0 || i >= pages.length) return;
+  const cur = pages[idx].el, nxt = pages[i].el;
+  nxt.querySelector('.scroll').scrollTop = 0;
+  busy = true;
+  const done = () => { pages.forEach((p, j) => { if (j !== i) p.el.classList.remove('show'); p.el.classList.remove('under', 'flip-out', 'flip-in'); }); idx = i; busy = false; chrome(); };
+  if (i > idx) {
+    nxt.classList.add('show', 'under'); cur.classList.add('flip-out');
+    cur.addEventListener('animationend', done, { once: true });
+  } else {
+    cur.classList.add('under'); nxt.classList.add('show', 'flip-in');
+    nxt.addEventListener('animationend', done, { once: true });
+  }
+  setTimeout(() => { if (busy) done(); }, 900);
+}
+prevB.onclick = () => go(idx - 1);
+nextB.onclick = () => go(idx + 1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(idx + 1); if (e.key === 'ArrowLeft') go(idx - 1); });
+let tx = 0, ty = 0;
+book.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+book.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(idx + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-got]');
+  if (g) { got[g.dataset.got] = !got[g.dataset.got]; saveGot(); renderGot(); return; }
+  const jd = e.target.closest('[data-jumpday]');
+  if (jd) { e.preventDefault(); go(firstPageOfDay[jd.dataset.jumpday]); return; }
+  const js = e.target.closest('[data-stop]');
+  if (js) { go(pageOfStop[js.dataset.stop]); return; }
+  const jf = e.target.closest('[data-jump]');
+  if (jf) { go(idx + 1); return; }
+});
+
+/* ---------- contents ---------- */
+const toc = document.getElementById('toc'), tocPanel = document.getElementById('tocPanel');
+function openToc() {
+  let h = '<div class="kicker" style="color:#E98A5C">Pages</div>', grp = '';
+  pages.forEach((p, i) => {
+    if (p.group !== grp) { grp = p.group; const isDay = typeof grp === 'number'; h += `<h3 style="color:${isDay ? DAYS[grp].color : '#6F6482'}">${isDay ? DL(grp) + (DAYS[grp].dow ? ' · ' + DAYS[grp].dow : '') : grp}</h3>`; }
+    h += `<a href="#" data-p="${i}" class="${i === idx ? 'cur' : ''}">${esc(p.label)}<span>${i + 1}</span></a>`;
+  });
+  tocPanel.innerHTML = h; toc.classList.add('open');
+}
+document.getElementById('tocBtn').onclick = openToc;
+toc.addEventListener('click', e => {
+  const a = e.target.closest('[data-p]');
+  if (a) { e.preventDefault(); toc.classList.remove('open'); go(+a.dataset.p); return; }
+  if (e.target === toc) toc.classList.remove('open');
+});
+
+/* ---------- start ---------- */
+renderGot();
+let start = 0;
+const hm = /#p(\d+)/.exec(location.hash);
+if (hm) start = Math.min(pages.length - 1, Math.max(0, +hm[1] - 1));
+else { try { const s = +localStorage.getItem(PKEY); if (s > 0 && s < pages.length) start = s; } catch (e) {} }
+show(start);
+</script>
+</body>
+</html>

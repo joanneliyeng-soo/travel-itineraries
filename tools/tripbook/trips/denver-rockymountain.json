@@ -1,0 +1,457 @@
+{
+ "slug": "denver-rockymountain",
+ "book": "denver-rocky-mountain",
+ "emoji": "🦌",
+ "poster": "tundra",
+ "title": "Denver Rocky Mountain Run",
+ "short": "Rocky Mountain",
+ "placeholder": "Placeholder · best June to mid-October",
+ "subtitle": "A regular weekend from Denver. Over Trail Ridge Road through Rocky Mountain National Park on Saturday, Florissant’s petrified redwoods and Garden of the Gods on Sunday, home Sunday night.",
+ "chips": [
+  "2 new units",
+  "Up to 4 Rocky stamps",
+  "Mountain time"
+ ],
+ "itinerary": "denver-rockymountain.html",
+ "theme": {
+  "#1E1D33": "#33261D",
+  "#26243F": "#3C2D23",
+  "#2C2A47": "#46352A",
+  "#322F51": "#503D31",
+  "#38355A": "#5A4639",
+  "#E2603A": "#3F86B5",
+  "#E9E6FA": "#F6F1EC",
+  "#CFCBE6": "#D8CBBF",
+  "#A9A4C8": "#E9B44C",
+  "#C9C4E4": "#D8CBBF",
+  "#EDEAF9": "#F6F1EC",
+  "#EEEBF7": "#EEE6DF",
+  "#F1EFF7": "#FCFAF8",
+  "#6E6A88": "#7A6A5D",
+  "#9C97B4": "#A99A8D",
+  "#ECE9F2": "#EEE6DF",
+  "#FBFAF6": "#FCFAF8",
+  "#E7E3D9": "#EEE6DF",
+  "#EFEDE6": "#EEE6DF",
+  "#8F8AB4": "#E9B44C",
+  "#B8B3C8": "#D8CBBF",
+  "#7C7896": "#7A6A5D",
+  "#FFF3EE": "#FFF4F0"
+ },
+ "legMinW": 340,
+ "map": {
+  "bbox": [
+   [
+    -106.1,
+    40.55
+   ],
+   [
+    -104.55,
+    38.75
+   ]
+  ],
+  "states": [
+   "Colorado",
+   "Wyoming"
+  ],
+  "highlight": [
+   "Colorado"
+  ],
+  "stateLabels": [
+   [
+    "COLORADO",
+    -104.9,
+    40.3
+   ]
+  ],
+  "cities": [
+   [
+    "Denver",
+    -104.99,
+    39.74
+   ],
+   [
+    "Longmont",
+    -105.1,
+    40.17
+   ],
+   [
+    "Estes Park",
+    -105.52,
+    40.377
+   ],
+   [
+    "Grand Lake",
+    -105.82,
+    40.25
+   ],
+   [
+    "Golden",
+    -105.2211,
+    39.7555
+   ],
+   [
+    "Colorado Springs",
+    -104.82,
+    38.83
+   ]
+  ],
+  "points": {
+   "den": [
+    -104.6737,
+    39.8561
+   ],
+   "lgm": [
+    -105.1153,
+    40.1505
+   ],
+   "w_lyons": [
+    -105.27,
+    40.225
+   ],
+   "w_ep": [
+    -105.52,
+    40.377
+   ],
+   "bmvc": [
+    -105.5608,
+    40.3662
+   ],
+   "frvc": [
+    -105.5888,
+    40.4022
+   ],
+   "w_rc": [
+    -105.665,
+    40.405
+   ],
+   "w_fc": [
+    -105.715,
+    40.42
+   ],
+   "alpv": [
+    -105.7545,
+    40.4409
+   ],
+   "w_mp": [
+    -105.811,
+    40.42
+   ],
+   "w_cr": [
+    -105.85,
+    40.33
+   ],
+   "kaw": [
+    -105.8326,
+    40.2669
+   ],
+   "w_gl": [
+    -105.82,
+    40.25
+   ],
+   "w_gran": [
+    -105.94,
+    40.086
+   ],
+   "w_bp": [
+    -105.777,
+    39.798
+   ],
+   "w_emp": [
+    -105.68,
+    39.76
+   ],
+   "w_ids": [
+    -105.51,
+    39.74
+   ],
+   "gold": [
+    -105.2211,
+    39.7555
+   ],
+   "w_mor": [
+    -105.19,
+    39.65
+   ],
+   "w_sed": [
+    -104.96,
+    39.44
+   ],
+   "w_deck": [
+    -105.22,
+    39.255
+   ],
+   "w_wp": [
+    -105.06,
+    38.99
+   ],
+   "flfo": [
+    -105.2855,
+    38.9136
+   ],
+   "w_wp2": [
+    -105.061,
+    38.991
+   ],
+   "w_cas": [
+    -104.95,
+    38.9
+   ],
+   "gog": [
+    -104.8698,
+    38.8784
+   ],
+   "w_cs": [
+    -104.82,
+    38.9
+   ],
+   "w_mon": [
+    -104.86,
+    39.09
+   ],
+   "w_cr2": [
+    -104.86,
+    39.37
+   ],
+   "w_par": [
+    -104.77,
+    39.55
+   ],
+   "dena": [
+    -104.6737,
+    39.8562
+   ]
+  }
+ },
+ "airports": [
+  [
+   "den",
+   "DEN"
+  ]
+ ],
+ "route": [
+  "den",
+  "lgm",
+  "w_lyons",
+  "w_ep",
+  "bmvc",
+  "frvc",
+  "w_rc",
+  "w_fc",
+  "alpv",
+  "w_mp",
+  "w_cr",
+  "kaw",
+  "w_gl",
+  "w_gran",
+  "w_bp",
+  "w_emp",
+  "w_ids",
+  "gold",
+  "w_mor",
+  "w_sed",
+  "w_deck",
+  "w_wp",
+  "flfo",
+  "w_wp2",
+  "w_cas",
+  "gog",
+  "w_cs",
+  "w_mon",
+  "w_cr2",
+  "w_par",
+  "dena"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 0 · date TBD",
+   "title": "Fly to Denver",
+   "color": "#5A4639",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK → DEN after work</h2>\n<p>Clocks jump an hour forward. Pick up the round-trip rental at DEN (Costco Travel).</p>\n<p>About 55 minutes to the <b>Best Western Plus Plaza Hotel</b>, 1900 Ken Pratt Blvd, Longmont. It puts Estes Park an hour away in the morning. Tomorrow leaves at 7:00 AM.</p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Best+Western+Plus+Plaza+Hotel%2C+1900+Ken+Pratt+Blvd%2C+Longmont%2C+CO\" target=\"_blank\" rel=\"noopener\">Navigate to hotel ↗</a></div>\n<div class=\"cut\"><b>Once dates are set:</b> book flights, the car, Longmont for Friday and a Golden or Lakewood hotel for Saturday. If the weekend is on or before mid-October, check whether Bear Lake Road still needs a timed-entry permit (recreation.gov).</div>"
+  },
+  {
+   "n": 1,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 1 · date TBD",
+   "title": "Over Trail Ridge Road",
+   "sub": "Longmont → Estes Park → Trail Ridge Road → Grand Lake → Golden",
+   "color": "#3F86B5",
+   "drive": "~5h",
+   "stamps": 1,
+   "start": "lgm",
+   "end": "gold",
+   "tzline": "Mountain time",
+   "cutLabel": "Trail Ridge",
+   "cut": "Version A, Trail Ridge open (usually late May to mid-October). Call (970) 586-1222 the morning before. <b>If it’s closed:</b> Beaver Meadows, then Bear Lake Road and Sprague Lake, Fall River if open, up to the closure gate at Many Parks Curve, and down the Peak to Peak Byway through Nederland and Boulder Canyon to Golden. Kawuneeche gets skipped. Google can’t route Trail Ridge in winter, so those legs are summer estimates.",
+   "gmaps": "https://www.google.com/maps/dir/Best+Western+Plus+Plaza+Hotel%2C+Longmont%2C+CO/Beaver+Meadows+Visitor+Center/Fall+River+Visitor+Center/Alpine+Visitor+Center/Kawuneeche+Visitor+Center/Golden%2C+CO"
+  },
+  {
+   "n": 2,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 2 · date TBD",
+   "title": "Florissant, then home",
+   "sub": "Golden → Woodland Park → Florissant → Garden of the Gods → DEN",
+   "color": "#C9792E",
+   "drive": "~4h 20m",
+   "stamps": 1,
+   "start": "gold",
+   "end": "dena",
+   "tzline": "Mountain time",
+   "cutLabel": "Good to know",
+   "cut": "South on the back road through Deckers, north on I-25, so no backtracking. Allow 2+ hours from Garden of the Gods for the drive and rental return; aim for a flight around 6 PM or later.",
+   "gmaps": "https://www.google.com/maps/dir/Golden%2C+CO/Florissant+Fossil+Beds+National+Monument/Garden+of+the+Gods+Visitor+Center/Denver+International+Airport"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "bmvc",
+   "unit": "Rocky Mountain NP",
+   "color": "#3F86B5",
+   "ink": "#FFFFFF",
+   "boxColor": "#3F86B5",
+   "from": "Longmont",
+   "leave": "7:00 AM",
+   "drive": "~1h",
+   "arrive": "8:00 AM",
+   "z": "MT",
+   "via": "US-36 through Lyons and Estes Park.",
+   "name": "Rocky Mountain NP",
+   "type": "National Park",
+   "place": "Beaver Meadows Visitor Center",
+   "addr": "Beaver Meadows Visitor Center, 1000 US-36, Estes Park, CO",
+   "where": "Beaver Meadows Visitor Center",
+   "hrs": "Opens 8 AM, year-round.",
+   "ok": "Park film, relief map, accessible restrooms. New park for the 64.",
+   "about": "Over 400 square miles of the Front Range, with Trail Ridge Road crossing the Continental Divide at 12,183 feet."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "frvc",
+   "from": "Beaver Meadows",
+   "drive": "~10m",
+   "arrive": "8:45 AM",
+   "z": "MT",
+   "via": "Leave about 8:30. Around to the Fall River Entrance.",
+   "name": "Fall River Visitor Center",
+   "place": "Rocky Mountain NP",
+   "addr": "Fall River Visitor Center, Estes Park, CO",
+   "bonus": {
+    "title": "Rocky stamp variant · if open",
+    "where": "Fall River Visitor Center",
+    "hrs": "Select dates only in fall and winter. Skip it if closed."
+   },
+   "note": "In through the Fall River Entrance onto Trail Ridge."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "alpv",
+   "from": "Fall River",
+   "drive": "~1h 15m with overlooks",
+   "arrive": "10:30 AM",
+   "z": "MT",
+   "via": "Leave about 9:15. Trail Ridge Road with Rainbow Curve, Forest Canyon Overlook and the roadside pull-outs.",
+   "name": "Alpine Visitor Center",
+   "place": "11,796 ft",
+   "addr": "Alpine Visitor Center, Rocky Mountain National Park",
+   "bonus": {
+    "title": "Rocky stamp variant · optional",
+    "where": "Alpine Visitor Center",
+    "hrs": "Open only while Trail Ridge is open. Fall hours start later in the morning."
+   },
+   "note": "Tundra all around. Take it slow at this altitude; there are paved paths right by the building.",
+   "warn": "Afternoon thunderstorms are common up here in summer. Be off the high road by early afternoon."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "kaw",
+   "from": "Alpine",
+   "drive": "~45m",
+   "arrive": "12:15 PM",
+   "z": "MT",
+   "via": "Leave about 11:30. Over Milner Pass and down the west side.",
+   "name": "Kawuneeche Visitor Center",
+   "place": "West entrance, near Grand Lake",
+   "addr": "Kawuneeche Visitor Center, 16018 US-34, Grand Lake, CO",
+   "bonus": {
+    "title": "Rocky stamp variant · optional",
+    "where": "Kawuneeche Visitor Center",
+    "hrs": "Daily in summer."
+   },
+   "note": "Then lunch in Grand Lake village, a few minutes south. Moose are often in the Kawuneeche Valley meadows."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "gold",
+   "from": "Grand Lake",
+   "drive": "~2h",
+   "arrive": "4:00 PM",
+   "z": "MT",
+   "via": "Leave about 2:00. US-40 through Granby and over Berthoud Pass, then I-70 east.",
+   "name": "Golden, CO",
+   "addr": "Golden, CO",
+   "note": "Hotel in Golden or Lakewood, Best Western preferred, TBD. Tomorrow leaves at 7:30 AM."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "flfo",
+   "unit": "Florissant Fossil Beds NM",
+   "color": "#C9792E",
+   "ink": "#FFFFFF",
+   "boxColor": "#C9792E",
+   "from": "Golden",
+   "leave": "7:30 AM",
+   "drive": "~2h",
+   "arrive": "9:30 AM",
+   "z": "MT",
+   "via": "South through Sedalia and Deckers on CO-67 to Woodland Park, then US-24 west.",
+   "name": "Florissant Fossil Beds NM",
+   "type": "National Monument",
+   "place": "Visitor center",
+   "addr": "Florissant Fossil Beds National Monument, 15807 Teller County Rd 1, Florissant, CO",
+   "where": "Visitor center",
+   "hrs": "About 9 AM – 4:30 PM (longer in summer).",
+   "ok": "Giant petrified redwood stumps are right behind the visitor center on a short, flat path.",
+   "about": "A lake buried by volcanic ash 34 million years ago, preserving redwoods and thousands of insect and leaf fossils."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "gog",
+   "from": "Florissant",
+   "drive": "~45m",
+   "arrive": "11:45 AM",
+   "z": "MT",
+   "via": "Leave about 11:00. US-24 east down Ute Pass.",
+   "name": "Garden of the Gods",
+   "place": "City park · no NPS stamp",
+   "addr": "Garden of the Gods Visitor Center, Colorado Springs, CO",
+   "note": "The paved central loop runs among the red rock fins, with Pikes Peak behind. Lunch nearby."
+  },
+  {
+   "d": 2,
+   "kind": "home",
+   "k": "dena",
+   "from": "Colorado Springs",
+   "drive": "~1h 30m",
+   "arrive": "3:30 PM",
+   "z": "MT",
+   "title": "Denver → home",
+   "note": "Leave about 2:00. I-25 north, then E-470 to DEN. Return the car and fly home.",
+   "navTo": "Denver International Airport Rental Car Return",
+   "navLabel": "Navigate to car return ↗"
+  }
+ ]
+}

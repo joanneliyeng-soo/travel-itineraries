@@ -1,0 +1,826 @@
+{
+ "slug": "hawaii-bigisland",
+ "book": "big-island",
+ "emoji": "🌋",
+ "poster": "lava",
+ "title": "Big Island Loop",
+ "short": "Big Island",
+ "placeholder": "Placeholder · on hold until airfares ease",
+ "subtitle": "Seven days clockwise around Hawaiʻi Island from Kona with no backtracking: Kaloko-Honokōhau on landing day, Kohala and Hāmākua, two nights at the volcano, then Kaʻū, Kahuku and the Place of Refuge on the way back to Kona.",
+ "chips": [
+  "5 new stamps",
+  "Hawaiʻi Volcanoes NP",
+  "Hawaii time"
+ ],
+ "itinerary": "hawaii-bigisland.html",
+ "theme": {
+  "#1E1D33": "#1F1D24",
+  "#26243F": "#27242D",
+  "#2C2A47": "#2F2B36",
+  "#322F51": "#38333F",
+  "#38355A": "#413B49",
+  "#E2603A": "#D94F7A",
+  "#E9E6FA": "#FBF0F2",
+  "#CFCBE6": "#E2CAD2",
+  "#A9A4C8": "#F2A541",
+  "#C9C4E4": "#E2CAD2",
+  "#EDEAF9": "#FBF0F2",
+  "#EEEBF7": "#F3E6EA",
+  "#F1EFF7": "#FDF9FA",
+  "#6E6A88": "#75687A",
+  "#9C97B4": "#A697AB",
+  "#ECE9F2": "#F3E6EA",
+  "#FBFAF6": "#FDF9FA",
+  "#E7E3D9": "#F3E6EA",
+  "#EFEDE6": "#F3E6EA",
+  "#8F8AB4": "#F2A541",
+  "#B8B3C8": "#E2CAD2",
+  "#7C7896": "#75687A",
+  "#FFF3EE": "#FFF4F0"
+ },
+ "legMinW": 300,
+ "map": {
+  "bbox": [
+   [
+    -156.12,
+    20.3
+   ],
+   [
+    -154.85,
+    18.95
+   ]
+  ],
+  "states": [
+   "Hawaii"
+  ],
+  "highlight": [
+   "Hawaii"
+  ],
+  "stateLabels": [
+   [
+    "HAWAIʻI",
+    -155.5,
+    19.6
+   ]
+  ],
+  "cities": [
+   [
+    "Kailua-Kona",
+    -155.9917,
+    19.6388
+   ],
+   [
+    "Waimea",
+    -155.6717,
+    20.023
+   ],
+   [
+    "Hilo",
+    -155.0868,
+    19.7241
+   ],
+   [
+    "Volcano",
+    -155.2236,
+    19.4358
+   ],
+   [
+    "Nāʻālehu",
+    -155.59,
+    19.065
+   ]
+  ],
+  "points": {
+   "koa": [
+    -156.0429,
+    19.7369
+   ],
+   "kaho": [
+    -156.0218,
+    19.6787
+   ],
+   "kvil": [
+    -155.9969,
+    19.6396
+   ],
+   "kona": [
+    -155.9917,
+    19.6388
+   ],
+   "w_wai": [
+    -155.88,
+    19.93
+   ],
+   "puhe": [
+    -155.8218,
+    20.0256
+   ],
+   "w_hawi": [
+    -155.83,
+    20.24
+   ],
+   "polo": [
+    -155.7338,
+    20.2036
+   ],
+   "w_kmr": [
+    -155.76,
+    20.1
+   ],
+   "waim": [
+    -155.6717,
+    20.023
+   ],
+   "w_hono": [
+    -155.47,
+    20.08
+   ],
+   "waip": [
+    -155.5843,
+    20.118
+   ],
+   "w_hono2": [
+    -155.469,
+    20.079
+   ],
+   "w_laup": [
+    -155.24,
+    19.99
+   ],
+   "ono": [
+    -155.1,
+    19.81
+   ],
+   "hilo": [
+    -155.0868,
+    19.7241
+   ],
+   "rain": [
+    -155.1094,
+    19.7193
+   ],
+   "w_keaau": [
+    -155.04,
+    19.62
+   ],
+   "w_mtv": [
+    -155.1,
+    19.55
+   ],
+   "kmc": [
+    -155.2739,
+    19.4327
+   ],
+   "crim": [
+    -155.2475,
+    19.4155
+   ],
+   "vinn": [
+    -155.2236,
+    19.4358
+   ],
+   "w_cc1": [
+    -155.24,
+    19.4
+   ],
+   "pauahi": [
+    -155.243,
+    19.364
+   ],
+   "w_kea": [
+    -155.15,
+    19.31
+   ],
+   "holei": [
+    -155.0979,
+    19.2945
+   ],
+   "w_kea2": [
+    -155.151,
+    19.311
+   ],
+   "thurs": [
+    -155.2385,
+    19.4136
+   ],
+   "vinn2": [
+    -155.2236,
+    19.4359
+   ],
+   "w_pah": [
+    -155.48,
+    19.2
+   ],
+   "puna": [
+    -155.5048,
+    19.1358
+   ],
+   "w_naal": [
+    -155.59,
+    19.065
+   ],
+   "kahu": [
+    -155.678,
+    19.064
+   ],
+   "w_ocv": [
+    -155.77,
+    19.1
+   ],
+   "w_hoo": [
+    -155.88,
+    19.25
+   ],
+   "puho": [
+    -155.9099,
+    19.4227
+   ],
+   "w_kea3": [
+    -155.92,
+    19.52
+   ],
+   "kona2": [
+    -155.9917,
+    19.6389
+   ],
+   "hulihee": [
+    -155.9963,
+    19.6393
+   ],
+   "kona3": [
+    -155.9916,
+    19.6388
+   ],
+   "koa2": [
+    -156.0428,
+    19.7369
+   ]
+  }
+ },
+ "airports": [
+  [
+   "koa",
+   "KOA"
+  ]
+ ],
+ "route": [
+  "koa",
+  "kaho",
+  "kvil",
+  "kona",
+  "w_wai",
+  "puhe",
+  "w_hawi",
+  "polo",
+  "w_kmr",
+  "waim",
+  "w_hono",
+  "waip",
+  "w_hono2",
+  "w_laup",
+  "ono",
+  "hilo",
+  "rain",
+  "w_keaau",
+  "w_mtv",
+  "kmc",
+  "crim",
+  "vinn",
+  "w_cc1",
+  "pauahi",
+  "w_kea",
+  "holei",
+  "w_kea2",
+  "thurs",
+  "vinn2",
+  "w_pah",
+  "puna",
+  "w_naal",
+  "kahu",
+  "w_ocv",
+  "w_hoo",
+  "puho",
+  "w_kea3",
+  "kona2",
+  "hulihee",
+  "kona3",
+  "koa2"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 0 · date TBD",
+   "title": "Before the trip",
+   "color": "#413B49",
+   "meta": "No stamps · getting there",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Bay Area → KOA</h2>\n<p>Take a morning nonstop to <b>Kona</b> on United, Alaska or Southwest; Day 1 assumes you land around 1 PM. Hawaii doesn’t do daylight saving, so it’s 2–3 hours behind home.</p>\n<p>Pick up the round-trip rental at KOA (Costco Travel).</p>\n<p>Start on a <b>Sunday</b> so Kahuku, open Thursday–Sunday only, lands on Day 5, with Day 6 as a Friday fallback.</p>\n<div class=\"cut\"><b>Once fares come down:</b> book Kona for Nights 1 and 5–6, Hilo for Night 2 and an accessible room at Volcano Inn (or Volcano Village Lodge) for Nights 3–4. Reserve Volcano House dinner for Day 4, (808) 930-6910.</div>"
+  },
+  {
+   "n": 1,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 1 · date TBD",
+   "title": "Land in Kona",
+   "sub": "KOA → Kaloko-Honokōhau → Kailua Village",
+   "color": "#D94F7A",
+   "drive": "~35m",
+   "stamps": 2,
+   "start": "koa",
+   "end": "kona",
+   "tzline": "Hawaii time",
+   "cutLabel": "Hard cutoff",
+   "cut": "Cars at the Kaloko-Honokōhau visitor center lot must be out by 4:00 PM, so arrive by 3:15 at the latest.",
+   "gmaps": "https://www.google.com/maps/dir/Ellison+Onizuka+Kona+International+Airport/Hale+Ho%CA%BBokipa%2C+Kaloko-Honok%C5%8Dhau+National+Historical+Park/Kailua-Kona%2C+HI"
+  },
+  {
+   "n": 2,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 2 · date TBD",
+   "title": "Kohala, Waimea, Hāmākua",
+   "sub": "Kona → Kawaihae → Pololū → Waimea → Waipiʻo → Hilo",
+   "color": "#2F8F9D",
+   "drive": "~4h 45m",
+   "stamps": 1,
+   "start": "kona",
+   "end": "hilo",
+   "tzline": "Hawaii time",
+   "cutLabel": "Good to know",
+   "cut": "The longest driving day. Pololū is optional if you’re running late; it’s a dead end, so it costs about an hour and a half round trip.",
+   "gmaps": "https://www.google.com/maps/dir/Kailua-Kona%2C+HI/Puukohola+Heiau+National+Historic+Site/Pololu+Valley+Lookout/Waimea%2C+HI/Waipio+Valley+Lookout/Onomea+Scenic+Drive/Hilo%2C+HI"
+  },
+  {
+   "n": 3,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 3 · date TBD",
+   "title": "Up to Kīlauea",
+   "sub": "Hilo → Rainbow Falls → Hawaiʻi Volcanoes → Volcano",
+   "color": "#E07A3A",
+   "drive": "~1h 15m",
+   "stamps": 1,
+   "start": "hilo",
+   "end": "vinn",
+   "tzline": "Hawaii time",
+   "cutLabel": "Good to know",
+   "cut": "Kīlauea Visitor Center is due to reopen in late 2026; if it has, the stamp moves back there from the Kilauea Military Camp Welcome Center. Several overlooks were closed for parts of 2026, so check what’s open.",
+   "gmaps": "https://www.google.com/maps/dir/Hilo%2C+HI/Rainbow+Falls%2C+Hilo/Kilauea+Military+Camp/Kilauea+Iki+Overlook/Volcano+Inn%2C+Volcano%2C+HI"
+  },
+  {
+   "n": 4,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 4 · date TBD",
+   "title": "Chain of Craters Road",
+   "sub": "Volcano → Chain of Craters → Hōlei Sea Arch → Volcano",
+   "color": "#7B6BB5",
+   "drive": "~1h 45m",
+   "stamps": 0,
+   "start": "vinn",
+   "end": "vinn2",
+   "tzline": "Hawaii time",
+   "cutLabel": "Good to know",
+   "cut": "No stamps today and no services below the summit. Bring water and food.",
+   "gmaps": "https://www.google.com/maps/dir/Volcano+Inn%2C+Volcano%2C+HI/Pauahi+Crater/Holei+Sea+Arch/Thurston+Lava+Tube/Volcano+Inn%2C+Volcano%2C+HI"
+  },
+  {
+   "n": 5,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 5 · date TBD",
+   "title": "Kaʻū to the Place of Refuge",
+   "sub": "Volcano → Punaluʻu → Kahuku → Hōnaunau → Kona",
+   "color": "#C9A03A",
+   "drive": "~2h 40m",
+   "stamps": 1,
+   "start": "vinn2",
+   "end": "kona2",
+   "tzline": "Hawaii time",
+   "cutLabel": "Good to know",
+   "cut": "Kahuku is open Thursday–Sunday only and reopened Sept 3, 2026 after hurricane damage, with upper Kahuku Road still closed. Confirm before going. Friday (Day 6) is the fallback.",
+   "gmaps": "https://www.google.com/maps/dir/Volcano+Inn%2C+Volcano%2C+HI/Punaluu+Black+Sand+Beach/Kahuku+Unit%2C+Hawaii+Volcanoes+National+Park/Puuhonua+o+Honaunau+National+Historical+Park/Kailua-Kona%2C+HI"
+  },
+  {
+   "n": 6,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 6 · date TBD",
+   "title": "Slow Kona day",
+   "sub": "Kailua Village",
+   "color": "#2F8F9D",
+   "drive": "~10m",
+   "stamps": 0,
+   "start": "kona2",
+   "end": "kona3",
+   "tzline": "Hawaii time",
+   "cutLabel": "Buffer day",
+   "cut": "Stamp buffer: Kahuku is still open Friday if Thursday fell through, and Hōnaunau and Kaloko-Honokōhau are each under 45 minutes away.",
+   "gmaps": "https://www.google.com/maps/dir/Kailua-Kona%2C+HI/Hulihee+Palace"
+  },
+  {
+   "n": 7,
+   "dow": "",
+   "dowLong": "",
+   "kicker": "Day 7 · date TBD",
+   "title": "Fly home",
+   "sub": "Kona → KOA",
+   "color": "#D94F7A",
+   "drive": "~25m",
+   "stamps": 0,
+   "start": "kona3",
+   "end": "koa2",
+   "tzline": "Hawaii time",
+   "cutLabel": "Good to know",
+   "cut": "Midday nonstop home. Allow time for the rental return and the open-air terminal.",
+   "gmaps": "https://www.google.com/maps/dir/Kailua-Kona%2C+HI/Ellison+Onizuka+Kona+International+Airport"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "kaho",
+   "unit": "Kaloko-Honokōhau NHP",
+   "color": "#D94F7A",
+   "ink": "#FFFFFF",
+   "boxColor": "#D94F7A",
+   "from": "KOA",
+   "leave": "1:45 PM",
+   "drive": "~10m",
+   "arrive": "2:00 PM",
+   "z": "HST",
+   "via": "South on Queen Kaʻahumanu Hwy, half a mile north of the Honokōhau Harbor turn.",
+   "name": "Kaloko-Honokōhau NHP",
+   "type": "National Historical Park",
+   "place": "Hale Hoʻokipa visitor center",
+   "addr": "Hale Hoʻokipa Visitor Center, Kaloko-Honokōhau National Historical Park, Kailua-Kona, HI",
+   "where": "Hale Hoʻokipa visitor center",
+   "hrs": "Daily 8:30 AM – 4 PM.",
+   "also": [
+    {
+     "id": "alka",
+     "name": "Ala Kahakai NHT",
+     "where": "Same desk. Puʻukoholā and Hōnaunau also carry it."
+    }
+   ],
+   "warn": "The lot closes at 4:00 PM.",
+   "ok": "Ancient fishponds and petroglyphs along the coast; green sea turtles often bask on the beach.",
+   "about": "A Hawaiian settlement on the lava coast, with fishponds, house sites and a hōlua slide."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "kvil",
+   "from": "Kaloko-Honokōhau",
+   "drive": "~15m",
+   "arrive": "evening",
+   "z": "HST",
+   "via": "South into Kailua-Kona.",
+   "name": "Kailua Village seawall",
+   "place": "Aliʻi Drive",
+   "addr": "Aliʻi Drive, Kailua-Kona, HI",
+   "note": "Dinner on Aliʻi Drive and sunset over the water."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "kona",
+   "from": "Aliʻi Drive",
+   "drive": "~5m",
+   "arrive": "night",
+   "z": "HST",
+   "via": "Up the hill.",
+   "name": "Kailua-Kona",
+   "addr": "Holiday Inn Express & Suites Kailua-Kona, 75-146 Sarona Rd, Kailua-Kona, HI",
+   "note": "Holiday Inn Express & Suites Kailua-Kona. Tomorrow leaves at 7:45 AM."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
+   "k": "puhe",
+   "unit": "Puʻukoholā Heiau NHS",
+   "color": "#2F8F9D",
+   "ink": "#FFFFFF",
+   "boxColor": "#2F8F9D",
+   "from": "Kona",
+   "leave": "7:45 AM",
+   "drive": "~50m",
+   "arrive": "8:35 AM",
+   "z": "HST",
+   "via": "North on Queen Kaʻahumanu Hwy past the resorts to Kawaihae, about 35 mi.",
+   "name": "Puʻukoholā Heiau NHS",
+   "type": "National Historic Site",
+   "place": "Visitor center, Kawaihae",
+   "addr": "Puukohola Heiau National Historic Site, 62-3601 Kawaihae Rd, Kawaihae, HI",
+   "where": "Visitor center",
+   "hrs": "Daily 8:30 AM – 4:30 PM. Parking lot closes at 4:00.",
+   "ok": "The heiau is in view from the visitor center lanai. The paved path down is a steep climb back up, so the lanai view is plenty. Ala Kahakai stamp here too.",
+   "about": "The temple Kamehameha built in 1790–91 on the way to uniting the islands."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "polo",
+   "from": "Kawaihae",
+   "drive": "~40m",
+   "arrive": "10:00 AM",
+   "z": "HST",
+   "via": "Leave about 9:20. Hwy 270 up the Kohala coast through Hāwī.",
+   "name": "Pololū Valley Lookout",
+   "place": "End of Hwy 270",
+   "addr": "Pololu Valley Lookout, Kapaau, HI",
+   "note": "Roadside lookout over the valley and sea cliffs. Optional if running late."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "waim",
+   "from": "Pololū",
+   "drive": "~55m",
+   "arrive": "11:30 AM",
+   "z": "HST",
+   "via": "Leave about 10:35. Back through Hāwī, then Kohala Mountain Road over the ranchland.",
+   "name": "Lunch in Waimea",
+   "place": "Upcountry ranch town, 2,600 ft",
+   "addr": "Waimea, HI",
+   "note": "Leave about 12:45."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "waip",
+   "from": "Waimea",
+   "drive": "~35m",
+   "arrive": "1:20 PM",
+   "z": "HST",
+   "via": "Hwy 19 east to Honokaʻa, then Hwy 240 to the end.",
+   "name": "Waipiʻo Valley Lookout",
+   "place": "End of Hwy 240",
+   "addr": "Waipio Valley Lookout, Honokaa, HI",
+   "note": "Overlook a few steps from parking."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "ono",
+   "from": "Waipiʻo",
+   "drive": "~1h",
+   "arrive": "3:00 PM",
+   "z": "HST",
+   "via": "Leave about 2:00. Hwy 19 down the Hāmākua Coast.",
+   "name": "Onomea Scenic Drive",
+   "place": "Just north of Hilo",
+   "addr": "Onomea Scenic Drive, Papaikou, HI",
+   "note": "Four-mile rainforest loop, seen from the car."
+  },
+  {
+   "d": 2,
+   "kind": "night",
+   "k": "hilo",
+   "from": "Onomea",
+   "drive": "~15m",
+   "arrive": "4:00 PM",
+   "z": "HST",
+   "via": "Back on Hwy 19 into town.",
+   "name": "Hilo",
+   "addr": "Hilo, HI",
+   "note": "Hotel TBD. Tomorrow starts at 8:30 AM."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "rain",
+   "from": "Hilo",
+   "leave": "8:20 AM",
+   "drive": "~10m",
+   "arrive": "8:30 AM",
+   "z": "HST",
+   "via": "Waiānuenue Ave up from downtown.",
+   "name": "Rainbow Falls & Liliʻuokalani Gardens",
+   "place": "Hilo",
+   "addr": "Rainbow Falls, Hilo, HI",
+   "note": "Falls overlook beside the parking lot (rainbows on sunny mornings), then the flat paved garden paths on the bayfront."
+  },
+  {
+   "d": 3,
+   "kind": "stop",
+   "k": "kmc",
+   "unit": "Hawaiʻi Volcanoes NP",
+   "color": "#E07A3A",
+   "ink": "#FFFFFF",
+   "boxColor": "#E07A3A",
+   "from": "Hilo",
+   "drive": "~55m",
+   "arrive": "11:00 AM",
+   "z": "HST",
+   "via": "Leave about 10:00. Hwy 11 up through Keaʻau and Mountain View, 1.2 mi past the park entrance.",
+   "name": "Hawaiʻi Volcanoes NP",
+   "type": "National Park",
+   "place": "Welcome Center at Kilauea Military Camp",
+   "addr": "Welcome Center, Kilauea Military Camp, Crater Rim Dr, Hawaii Volcanoes National Park",
+   "where": "Temporary Welcome Center at KMC",
+   "hrs": "Daily 9 AM – 4:45 PM.",
+   "warn": "Park at the ballfield, not the KMC front lot.",
+   "ok": "New park for the 64.",
+   "about": "Two of the world’s most active volcanoes, Kīlauea and Mauna Loa, from the summit caldera down to the sea."
+  },
+  {
+   "d": 3,
+   "kind": "point",
+   "k": "crim",
+   "from": "KMC",
+   "drive": "~10m",
+   "arrive": "1:00 PM",
+   "z": "HST",
+   "via": "Crater Rim Drive.",
+   "name": "Crater Rim Drive overlooks",
+   "place": "Hawaiʻi Volcanoes NP",
+   "addr": "Kilauea Iki Overlook, Hawaii Volcanoes National Park",
+   "note": "Steam Vents and Kīlauea Iki Overlook. Uēkahuna and Kīlauea Overlook were closed for parts of 2026. After dark, if Kīlauea is erupting inside Halemaʻumaʻu, come back for the glow; check USGS first."
+  },
+  {
+   "d": 3,
+   "kind": "night",
+   "k": "vinn",
+   "from": "the summit",
+   "drive": "~10m",
+   "arrive": "afternoon",
+   "z": "HST",
+   "via": "Out to Volcano Village.",
+   "name": "Volcano Village",
+   "addr": "Volcano Inn, 19-3820 Old Volcano Rd, Volcano, HI",
+   "note": "Volcano Inn (accessible room) or Volcano Village Lodge, Nights 3–4. It’s cool and damp at 3,700 ft; bring a layer."
+  },
+  {
+   "d": 4,
+   "kind": "point",
+   "k": "pauahi",
+   "from": "Volcano",
+   "leave": "9:00 AM",
+   "drive": "~20m",
+   "arrive": "9:20 AM",
+   "z": "HST",
+   "via": "Chain of Craters Road from Crater Rim Drive.",
+   "name": "Chain of Craters Road",
+   "place": "Pauahi Crater and Kealakomo",
+   "addr": "Pauahi Crater, Hawaii Volcanoes National Park",
+   "note": "About 19 miles and 3,700 feet down to the coast, over old lava flows. Pull off at Pauahi Crater and the Kealakomo overlook."
+  },
+  {
+   "d": 4,
+   "kind": "point",
+   "k": "holei",
+   "from": "Pauahi",
+   "drive": "~45m with stops",
+   "arrive": "11:30 AM",
+   "z": "HST",
+   "via": "Down to the end of the road.",
+   "name": "Hōlei Sea Arch",
+   "place": "End of Chain of Craters Road",
+   "addr": "Holei Sea Arch, Hawaii Volcanoes National Park",
+   "note": "A lava sea arch a short walk from the end-of-road parking.",
+   "warn": "No water, food or shade down here."
+  },
+  {
+   "d": 4,
+   "kind": "point",
+   "k": "thurs",
+   "from": "Hōlei",
+   "drive": "~45m",
+   "arrive": "2:00 PM",
+   "z": "HST",
+   "via": "Back up Chain of Craters Road.",
+   "name": "Thurston Lava Tube",
+   "place": "Optional",
+   "addr": "Thurston Lava Tube, Hawaii Volcanoes National Park",
+   "note": "Short but uneven, with steps through the tube. Easy to skip."
+  },
+  {
+   "d": 4,
+   "kind": "night",
+   "k": "vinn2",
+   "from": "Thurston",
+   "drive": "~10m",
+   "arrive": "evening",
+   "z": "HST",
+   "via": "Out to Volcano Village.",
+   "name": "Volcano Village",
+   "addr": "Volcano Inn, 19-3820 Old Volcano Rd, Volcano, HI",
+   "note": "Dinner at The Rim at Volcano House on the crater edge (reserve ahead). Tomorrow leaves at 7:30 AM."
+  },
+  {
+   "d": 5,
+   "kind": "point",
+   "k": "puna",
+   "from": "Volcano",
+   "leave": "7:30 AM",
+   "drive": "~40m",
+   "arrive": "8:10 AM",
+   "z": "HST",
+   "via": "Hwy 11 south through Kaʻū.",
+   "name": "Punaluʻu Black Sand Beach",
+   "place": "Kaʻū coast",
+   "addr": "Punaluu Black Sand Beach, Pahala, HI",
+   "note": "Black sand and basking sea turtles, a short walk from parking. Give the turtles 10 feet."
+  },
+  {
+   "d": 5,
+   "kind": "point",
+   "k": "kahu",
+   "from": "Punaluʻu",
+   "drive": "~30m",
+   "arrive": "9:15 AM",
+   "z": "HST",
+   "via": "Leave about 8:45. Hwy 11 through Nāʻālehu to mile 70.5.",
+   "name": "Kahuku Unit",
+   "place": "Hawaiʻi Volcanoes NP",
+   "addr": "Kahuku Unit, Hawaii Volcanoes National Park, Ocean View, HI",
+   "bonus": {
+    "title": "Kahuku cancellation · separate from the summit",
+    "where": "Kahuku Visitor Contact Station",
+    "hrs": "Thursday–Sunday 8 AM – 4 PM."
+   },
+   "note": "A former cattle ranch on the slopes of Mauna Loa. Free entry.",
+   "warn": "Thursday–Sunday only. Confirm it’s open before going."
+  },
+  {
+   "d": 5,
+   "kind": "stop",
+   "k": "puho",
+   "unit": "Puʻuhonua o Hōnaunau NHP",
+   "color": "#C9A03A",
+   "ink": "#1F1D24",
+   "boxColor": "#A9822A",
+   "from": "Kahuku",
+   "drive": "~55m",
+   "arrive": "11:00 AM",
+   "z": "HST",
+   "via": "Leave about 10:05. Hwy 11 north through Ocean View, then down Hwy 160 to the coast.",
+   "name": "Puʻuhonua o Hōnaunau NHP",
+   "type": "National Historical Park",
+   "place": "Visitor center",
+   "addr": "Puuhonua o Honaunau National Historical Park, State Hwy 160, Honaunau, HI",
+   "where": "Visitor center",
+   "hrs": "Daily 8:30 AM – 4:30 PM.",
+   "ok": "Royal grounds, Hale o Keawe and the great wall on a flat sandy path. Ala Kahakai stamp here too. Lunch nearby.",
+   "about": "The Place of Refuge: a sanctuary where those who broke kapu could be absolved, if they reached it."
+  },
+  {
+   "d": 5,
+   "kind": "night",
+   "k": "kona2",
+   "from": "Hōnaunau",
+   "drive": "~40m",
+   "arrive": "afternoon",
+   "z": "HST",
+   "via": "Hwy 11 north to Kailua-Kona.",
+   "name": "Kailua-Kona",
+   "addr": "Holiday Inn Express & Suites Kailua-Kona, 75-146 Sarona Rd, Kailua-Kona, HI",
+   "note": "Same hotel as Night 1, for Nights 5–6."
+  },
+  {
+   "d": 6,
+   "kind": "point",
+   "k": "hulihee",
+   "from": "the hotel",
+   "leave": "10:00 AM",
+   "drive": "~5m",
+   "arrive": "10:05 AM",
+   "z": "HST",
+   "via": "Down to Aliʻi Drive.",
+   "name": "Hulihēʻe Palace",
+   "place": "Kailua Village",
+   "addr": "Hulihee Palace, 75-5718 Alii Dr, Kailua-Kona, HI",
+   "note": "The royal summer palace on the bay. Afternoon free; farewell sunset on the Kona coast, then pack."
+  },
+  {
+   "d": 6,
+   "kind": "night",
+   "k": "kona3",
+   "from": "Aliʻi Drive",
+   "drive": "~5m",
+   "arrive": "evening",
+   "z": "HST",
+   "via": "Up the hill.",
+   "name": "Kailua-Kona",
+   "addr": "Holiday Inn Express & Suites Kailua-Kona, 75-146 Sarona Rd, Kailua-Kona, HI",
+   "note": "Last night. Fly home tomorrow."
+  },
+  {
+   "d": 7,
+   "kind": "home",
+   "k": "koa2",
+   "from": "Kailua-Kona",
+   "leave": "morning",
+   "drive": "~25m",
+   "arrive": "late morning",
+   "z": "HST",
+   "title": "Kona → home",
+   "note": "Return the rental at KOA and take the midday nonstop home.",
+   "navTo": "Ellison Onizuka Kona International Airport",
+   "navLabel": "Navigate to car return ↗"
+  }
+ ]
+}
