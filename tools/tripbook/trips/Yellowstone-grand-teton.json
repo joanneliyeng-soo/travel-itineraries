@@ -6,7 +6,7 @@
  "title": "Yellowstone & Wyoming",
  "short": "Wyoming",
  "placeholder": "Placeholder · best late May to September",
- "subtitle": "A round trip from Jackson Hole. Fossil Butte out and back on Day 1, Grand Teton, the Rockefeller Parkway and Old Faithful on Day 2, then Grand Prismatic and Mammoth before heading back over Teton Pass on Day 3.",
+ "subtitle": "A round trip from Jackson Hole. Fossil Butte out and back on Day 1, Grand Teton, the Rockefeller Parkway and Old Faithful on Day 2, then Grand Prismatic early on Day 3 before heading back over Teton Pass.",
  "chips": [
   "4 new units",
   "Yellowstone + Grand Teton",
@@ -292,10 +292,6 @@
   "w_mad2",
   "midway",
   "w_mad3",
-  "w_nor",
-  "alb",
-  "w_nor2",
-  "w_mad4",
   "w_wyt",
   "w_ash",
   "w_drig",
@@ -354,17 +350,17 @@
    "dow": "",
    "dowLong": "",
    "kicker": "Day 3 · date TBD",
-   "title": "Hot springs, then home",
-   "sub": "West Yellowstone → Grand Prismatic → Mammoth → Teton Pass → JAC",
+   "title": "Grand Prismatic, then home",
+   "sub": "West Yellowstone → Grand Prismatic → Driggs → Teton Pass → JAC",
    "color": "#3F8FA8",
-   "drive": "~6h",
+   "drive": "~4h 15m",
    "stamps": 0,
    "start": "wy",
    "end": "jac2",
    "tzline": "Mountain time",
    "cutLabel": "Good to know",
-   "cut": "Book a flight at 5 PM or later. Skip Mammoth and it’s West Yellowstone → JAC in about 2h 50m for an early-afternoon flight. Teton Pass (WY-22) is steep; it’s the direct way back to Jackson from Idaho.",
-   "gmaps": "https://www.google.com/maps/dir/West+Yellowstone%2C+MT/Grand+Prismatic+Spring/Albright+Visitor+Center/West+Yellowstone%2C+MT/Jackson+Hole+Airport"
+   "cut": "Out through Idaho, so no road repeats. Teton Pass (WY-22) is steep but paved; it’s the direct way back to Jackson from Idaho. A flight at 2 PM or later works.",
+   "gmaps": "https://www.google.com/maps/dir/West+Yellowstone%2C+MT/Grand+Prismatic+Spring/West+Yellowstone%2C+MT/Jackson+Hole+Airport"
   }
  ],
  "stops": [
@@ -524,34 +520,14 @@
   },
   {
    "d": 3,
-   "kind": "point",
-   "k": "alb",
-   "from": "Grand Prismatic",
-   "drive": "~1h 15m",
-   "arrive": "9:45 AM",
-   "z": "MT",
-   "via": "Leave about 8:30. Madison → Norris → Mammoth. Norris Geyser Basin is a good short stop on the way.",
-   "name": "Mammoth Hot Springs",
-   "place": "Albright Visitor Center",
-   "addr": "Albright Visitor Center, Mammoth, WY",
-   "bonus": {
-    "title": "Yellowstone stamp variant · optional",
-    "where": "Albright Visitor Center",
-    "hrs": "Open year-round, about 9 AM – 5 PM."
-   },
-   "note": "Elk on the lawns, and the travertine terraces from the lower boardwalk, about 45 minutes.",
-   "ok": "A different Yellowstone cancellation from Old Faithful."
-  },
-  {
-   "d": 3,
    "kind": "home",
    "k": "jac2",
-   "from": "Mammoth",
-   "drive": "~4h 15m",
-   "arrive": "3:00 PM",
+   "from": "Grand Prismatic",
+   "drive": "~3h 30m",
+   "arrive": "12:00 PM",
    "z": "MT",
    "title": "Jackson Hole → home",
-   "note": "Leave about 10:45. Back through Norris and Madison to West Yellowstone, then US-20 into Idaho, ID-33 through Driggs and over Teton Pass. Grab lunch to go. Return the car at JAC and fly home.",
+   "note": "Leave about 8:30. Back out the West Entrance (~40m), then US-20 into Idaho, ID-33 through Driggs and over Teton Pass (~2h 50m). Lunch in Driggs or Jackson. Return the car at JAC and fly home.",
    "navTo": "Jackson Hole Airport",
    "navLabel": "Navigate to car return ↗"
   }
