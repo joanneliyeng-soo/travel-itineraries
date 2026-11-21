@@ -37,7 +37,8 @@ const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 const cards = trips.map(t => {
   const ps = scene(t), bg = ps.band, panel = 'rgba(255,255,255,.22)', accent = ps.ac;
   const units = t.stops.filter(x => x.kind === 'stop' && !x.stampId).reduce((n, x) => n + 1 + (x.also || []).length, 0);
-  const h = hash(t.slug), sh = 182 + (h % 4) * 6, sw = 28 + (h >> 3) % 4 * 3;
+  // spine thickness = stamps on the trip (2 stamps → thin, 19 → chunky); height stays random
+  const h = hash(t.slug), sh = 182 + (h % 4) * 6, sw = Math.round(Math.min(52, Math.max(24, 22 + units * 1.6)));
   const pa = art(t, 'art'), title = t.short || t.title;
   return `<a class="bk" href="${esc(t.book)}.html" data-slug="${esc(t.slug)}" data-units="${units}" data-collected="${esc((t.collected || []).join(' '))}" data-start="${esc(t.start || '')}" data-end="${esc(t.end || '')}" aria-label="${esc(t.title)}, ${esc(range(t))}" style="--bg:${bg};--panel:${panel};--ac:${accent};--ink:${ps.ink};--sh:${sh}px;--sw:${sw}px">
   <span class="face">
