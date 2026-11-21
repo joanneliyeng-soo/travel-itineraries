@@ -6,7 +6,7 @@
  "title": "Yellowstone & Wyoming",
  "short": "Wyoming",
  "placeholder": "Placeholder · best late May to September",
- "subtitle": "Fly into Jackson Hole. Grand Teton and the Rockefeller Parkway on Day 1, Old Faithful and Mammoth on Day 2, then south through Idaho to Fossil Butte and a flight home from Salt Lake on Day 3.",
+ "subtitle": "A round trip from Jackson Hole. Fossil Butte out and back on Day 1, Grand Teton, the Rockefeller Parkway and Old Faithful on Day 2, then Grand Prismatic and Mammoth before heading back over Teton Pass on Day 3.",
  "chips": [
   "4 new units",
   "Yellowstone + Grand Teton",
@@ -42,12 +42,12 @@
  "map": {
   "bbox": [
    [
-    -112.5,
-    45.15
+    -111.6,
+    45.1
    ],
    [
-    -110.2,
-    40.65
+    -109.9,
+    41.7
    ]
   ],
   "states": [
@@ -62,23 +62,18 @@
   "stateLabels": [
    [
     "WYOMING",
-    -110.45,
-    42.9
+    -110.2,
+    43.1
    ],
    [
     "IDAHO",
-    -112.1,
-    43.9
+    -111.4,
+    43.2
    ],
    [
     "MONTANA",
-    -111.7,
-    45.05
-   ],
-   [
-    "UTAH",
-    -111.6,
-    41.1
+    -111.3,
+    45.0
    ]
   ],
   "cities": [
@@ -98,14 +93,14 @@
     41.792
    ],
    [
-    "Idaho Falls",
-    -112.03,
-    43.49
+    "Pinedale",
+    -109.86,
+    42.87
    ],
    [
-    "Salt Lake City",
-    -111.89,
-    40.76
+    "Driggs",
+    -111.11,
+    43.72
    ]
   ],
   "points": {
@@ -116,6 +111,46 @@
    "jach": [
     -110.7624,
     43.4799
+   ],
+   "w_hob": [
+    -110.73,
+    43.33
+   ],
+   "w_dan": [
+    -110.07,
+    42.86
+   ],
+   "w_lab": [
+    -110.19,
+    42.26
+   ],
+   "w_kem": [
+    -110.54,
+    41.79
+   ],
+   "fobu": [
+    -110.7704,
+    41.8366
+   ],
+   "w_kem2": [
+    -110.541,
+    41.791
+   ],
+   "w_lab2": [
+    -110.191,
+    42.261
+   ],
+   "w_dan2": [
+    -110.071,
+    42.861
+   ],
+   "w_hob2": [
+    -110.731,
+    43.331
+   ],
+   "jach2": [
+    -110.7624,
+    43.48
    ],
    "ctvc": [
     -110.7186,
@@ -153,9 +188,9 @@
     -110.7,
     44.44
    ],
-   "w_ofp": [
-    -110.83,
-    44.46
+   "of": [
+    -110.8292,
+    44.4586
    ],
    "w_mad": [
     -110.857,
@@ -166,19 +201,15 @@
     44.6621
    ],
    "w_mad2": [
-    -110.857,
+    -110.856,
     44.645
-   ],
-   "of": [
-    -110.8292,
-    44.4586
    ],
    "midway": [
     -110.838,
     44.525
    ],
    "w_mad3": [
-    -110.856,
+    -110.857,
     44.647
    ],
    "w_nor": [
@@ -194,52 +225,36 @@
     44.728
    ],
    "w_mad4": [
-    -110.857,
+    -110.858,
     44.646
    ],
-   "wy2": [
-    -111.1041,
-    44.6621
+   "w_wyt": [
+    -111.104,
+    44.662
    ],
    "w_ash": [
     -111.448,
     44.072
    ],
-   "w_if": [
-    -112.03,
-    43.49
+   "w_drig": [
+    -111.11,
+    43.72
    ],
-   "w_swan": [
-    -111.4,
-    43.42
+   "w_vic": [
+    -111.1,
+    43.6
    ],
-   "w_alp": [
-    -111.04,
-    43.17
+   "w_tp": [
+    -110.95,
+    43.5
    ],
-   "w_aft": [
-    -110.93,
-    42.72
+   "w_wil": [
+    -110.87,
+    43.5
    ],
-   "w_kem": [
-    -110.54,
-    41.79
-   ],
-   "fobu": [
-    -110.7704,
-    41.8366
-   ],
-   "w_evan": [
-    -110.96,
-    41.27
-   ],
-   "w_echo": [
-    -111.44,
-    40.97
-   ],
-   "slc": [
-    -111.9791,
-    40.7899
+   "jac2": [
+    -110.7376,
+    43.6074
    ]
   }
  },
@@ -247,15 +262,21 @@
   [
    "jac",
    "JAC"
-  ],
-  [
-   "slc",
-   "SLC"
   ]
  ],
  "route": [
   "jac",
   "jach",
+  "w_hob",
+  "w_dan",
+  "w_lab",
+  "w_kem",
+  "fobu",
+  "w_kem2",
+  "w_lab2",
+  "w_dan2",
+  "w_hob2",
+  "jach2",
   "ctvc",
   "jenny",
   "w_jlj",
@@ -265,28 +286,23 @@
   "w_lew",
   "w_wt",
   "w_cp",
-  "w_ofp",
+  "of",
   "w_mad",
   "wy",
   "w_mad2",
-  "of",
   "midway",
   "w_mad3",
   "w_nor",
   "alb",
   "w_nor2",
   "w_mad4",
-  "wy2",
+  "w_wyt",
   "w_ash",
-  "w_if",
-  "w_swan",
-  "w_alp",
-  "w_aft",
-  "w_kem",
-  "fobu",
-  "w_evan",
-  "w_echo",
-  "slc"
+  "w_drig",
+  "w_vic",
+  "w_tp",
+  "w_wil",
+  "jac2"
  ],
  "days": [
   {
@@ -297,65 +313,102 @@
    "title": "Fly to Jackson Hole",
    "color": "#315058",
    "meta": "No stamps · travel only",
-   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK or SFO → JAC after work</h2>\n<p>Jackson Hole Airport sits inside Grand Teton, so the park starts at the runway. Nonstops vary by season; a connection through SLC or DEN is normal.</p>\n<p>Pick up a one-way rental, JAC → SLC (Costco Travel). Check the drop fee; if it’s steep, the fallback is a round trip from JAC and a 4-hour drive back on Day 3.</p>\n<p>Sleep in <b>Jackson</b>, about 15 minutes south. Tomorrow leaves at 7:30 AM.</p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Jackson%2C+WY\" target=\"_blank\" rel=\"noopener\">Navigate to Jackson ↗</a></div>\n<div class=\"cut\"><b>Once dates are set:</b> book West Yellowstone for Nights 1–2 first (summer rooms sell out months ahead), then Jackson for Night 0. Flagg Ranch and the Grand Teton visitor centers are seasonal, so late May to September is the window.</div>"
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">OAK or SFO → JAC after work</h2>\n<p>Jackson Hole Airport sits inside Grand Teton, so the park starts at the runway. Nonstops vary by season; a connection through SLC or DEN is normal.</p>\n<p>Pick up a round-trip rental at JAC (Costco Travel). No one-way drop fee.</p>\n<p>Sleep in <b>Jackson</b> for two nights, about 15 minutes south. Tomorrow leaves at 7:45 AM.</p>\n<div class=\"actions\"><a href=\"https://www.google.com/maps/dir/?api=1&destination=Jackson%2C+WY\" target=\"_blank\" rel=\"noopener\">Navigate to Jackson ↗</a></div>\n<div class=\"cut\"><b>Once dates are set:</b> book West Yellowstone for Night 2 and Jackson for Nights 0–1 (summer rooms sell out months ahead). Flagg Ranch and Fossil Butte’s daily hours run roughly Memorial Day to Labor Day, so that’s the window.</div>"
   },
   {
    "n": 1,
    "dow": "",
    "dowLong": "",
    "kicker": "Day 1 · date TBD",
-   "title": "The Tetons, then into Yellowstone",
-   "sub": "Jackson → Moose → Jenny Lake → Flagg Ranch → West Yellowstone",
-   "color": "#D9822B",
-   "drive": "~3h 15m",
-   "stamps": 2,
+   "title": "Fossil Butte and back",
+   "sub": "Jackson → Hoback Junction → Kemmerer → Jackson",
+   "color": "#B5593F",
+   "drive": "~5h 30m",
+   "stamps": 1,
    "start": "jach",
-   "end": "wy",
+   "end": "jach2",
    "tzline": "Mountain time",
    "cutLabel": "Good to know",
-   "cut": "Yellowstone’s interior roads close in winter, so Google Maps only routes the Flagg Ranch → West Yellowstone leg in season. The time here is the summer estimate. Cell service is thin inside both parks; download offline maps in Jackson.",
-   "gmaps": "https://www.google.com/maps/dir/Jackson%2C+WY/Craig+Thomas+Discovery+and+Visitor+Center/Jenny+Lake+Visitor+Center/Flagg+Ranch+Information+Station/West+Yellowstone%2C+MT"
+   "cut": "The long drive is today, so the park days stay in the parks. The afternoon is free in Jackson.",
+   "gmaps": "https://www.google.com/maps/dir/Jackson%2C+WY/Fossil+Butte+National+Monument+Visitor+Center/Jackson%2C+WY"
   },
   {
    "n": 2,
    "dow": "",
    "dowLong": "",
    "kicker": "Day 2 · date TBD",
-   "title": "Geysers and Mammoth",
-   "sub": "West Yellowstone → Old Faithful → Grand Prismatic → Mammoth → West Yellowstone",
-   "color": "#3F8FA8",
+   "title": "The Tetons, then Old Faithful",
+   "sub": "Jackson → Moose → Jenny Lake → Flagg Ranch → Old Faithful → West Yellowstone",
+   "color": "#D9822B",
    "drive": "~3h 30m",
-   "stamps": 1,
-   "start": "wy",
-   "end": "wy2",
+   "stamps": 3,
+   "start": "jach2",
+   "end": "wy",
    "tzline": "Mountain time",
    "cutLabel": "Good to know",
-   "cut": "Old Faithful, Grand Prismatic and the Mammoth terraces jam up by 10 AM in July and August, so the early start matters. Canyon Visitor Education Center (another Yellowstone stamp variant) is about 40 minutes off the loop if there’s energy left.",
-   "gmaps": "https://www.google.com/maps/dir/West+Yellowstone%2C+MT/Old+Faithful+Visitor+Education+Center/Grand+Prismatic+Spring/Albright+Visitor+Center/West+Yellowstone%2C+MT"
+   "cut": "Yellowstone’s interior roads close in winter, so Google Maps only routes the Flagg Ranch → Old Faithful → West Yellowstone legs in season; times are summer estimates. Download offline maps in Jackson.",
+   "gmaps": "https://www.google.com/maps/dir/Jackson%2C+WY/Craig+Thomas+Discovery+and+Visitor+Center/Jenny+Lake+Visitor+Center/Flagg+Ranch+Information+Station/Old+Faithful+Visitor+Education+Center/West+Yellowstone%2C+MT"
   },
   {
    "n": 3,
    "dow": "",
    "dowLong": "",
    "kicker": "Day 3 · date TBD",
-   "title": "Fossil Butte, then fly home",
-   "sub": "West Yellowstone → Idaho Falls → Kemmerer → Salt Lake City",
-   "color": "#B5593F",
-   "drive": "~7h",
-   "stamps": 1,
-   "start": "wy2",
-   "end": "slc",
+   "title": "Hot springs, then home",
+   "sub": "West Yellowstone → Grand Prismatic → Mammoth → Teton Pass → JAC",
+   "color": "#3F8FA8",
+   "drive": "~6h",
+   "stamps": 0,
+   "start": "wy",
+   "end": "jac2",
    "tzline": "Mountain time",
-   "cutLabel": "Long day",
-   "cut": "This is the long one: about 4h 40m to Fossil Butte and 2h 25m on to SLC, roughly 400 miles. Book an SLC flight at 5 PM or later. Fossil Butte runs summer hours Memorial Day to Labor Day; outside that it may be weekdays only.",
-   "gmaps": "https://www.google.com/maps/dir/West+Yellowstone%2C+MT/Fossil+Butte+National+Monument+Visitor+Center/Salt+Lake+City+International+Airport"
+   "cutLabel": "Good to know",
+   "cut": "Book a flight at 5 PM or later. Skip Mammoth and it’s West Yellowstone → JAC in about 2h 50m for an early-afternoon flight. Teton Pass (WY-22) is steep; it’s the direct way back to Jackson from Idaho.",
+   "gmaps": "https://www.google.com/maps/dir/West+Yellowstone%2C+MT/Grand+Prismatic+Spring/Albright+Visitor+Center/West+Yellowstone%2C+MT/Jackson+Hole+Airport"
   }
  ],
  "stops": [
   {
    "d": 1,
    "kind": "stop",
+   "k": "fobu",
+   "unit": "Fossil Butte NM",
+   "color": "#B5593F",
+   "ink": "#FFFFFF",
+   "boxColor": "#B5593F",
+   "from": "Jackson",
+   "leave": "7:45 AM",
+   "drive": "~2h 45m",
+   "arrive": "10:30 AM",
+   "z": "MT",
+   "via": "US-189/191 south through Hoback Junction, then US-189 through Daniel and La Barge, about 155 mi.",
+   "name": "Fossil Butte NM",
+   "type": "National Monument",
+   "place": "Visitor center",
+   "addr": "Fossil Butte National Monument Visitor Center, 864 Chicken Creek Rd, Kemmerer, WY",
+   "where": "Visitor center, 864 Chicken Creek Rd",
+   "hrs": "Summer, about Memorial Day – Labor Day: daily 8 AM – 5:30 PM. Off-season hours are shorter.",
+   "ok": "The fossils are inside: fish, bats, palm fronds and a 13-foot crocodile in the stone. Fully accessible; plan about an hour.",
+   "about": "A 50-million-year-old lake bed, one of the richest fossil deposits in the world."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "jach2",
+   "from": "Fossil Butte",
+   "drive": "~2h 45m",
+   "arrive": "2:30 PM",
+   "z": "MT",
+   "via": "Leave about 11:30. The same road back north; lunch in Kemmerer or along the way.",
+   "name": "Jackson, WY",
+   "addr": "Jackson, WY",
+   "note": "Same hotel. Free afternoon: the Town Square antler arches and the Elk Refuge pullouts north of town. Tomorrow leaves at 7:30 AM."
+  },
+  {
+   "d": 2,
+   "kind": "stop",
    "k": "ctvc",
+   "unit": "Grand Teton NP",
    "color": "#D9822B",
    "ink": "#FFFFFF",
    "boxColor": "#D9822B",
@@ -372,10 +425,10 @@
    "where": "Craig Thomas Discovery & Visitor Center",
    "hrs": "Seasonal, roughly spring through October, about 8 AM – 5 PM. Confirm for your dates.",
    "ok": "Stamp first, then the big windows and relief map. New park for the 64.",
-   "about": "The Teton Range rises 7,000 feet straight off the valley floor with no foothills in the way, one of the youngest mountain ranges in the Rockies."
+   "about": "The Teton Range rises 7,000 feet straight off the valley floor with no foothills in the way."
   },
   {
-   "d": 1,
+   "d": 2,
    "kind": "point",
    "k": "jenny",
    "from": "Moose",
@@ -395,7 +448,7 @@
    "ok": "Plan about an hour here."
   },
   {
-   "d": 1,
+   "d": 2,
    "kind": "stop",
    "k": "flag",
    "unit": "John D. Rockefeller Jr. Memorial Parkway",
@@ -414,69 +467,70 @@
    "where": "Flagg Ranch Information Station",
    "hrs": "Seasonal, about early June to early September.",
    "warn": "If Flagg Ranch isn’t open yet, the same stamp is usually at Colter Bay Visitor Center, which you pass on the way.",
-   "ok": "Its own NPS unit between the two parks. A quick in-and-out; grab lunch here or at Colter Bay.",
+   "ok": "Its own NPS unit between the two parks. A quick in-and-out.",
    "about": "Twenty-four thousand acres linking Grand Teton and Yellowstone, named for the man who bought up the valley land and gave it to the parks."
-  },
-  {
-   "d": 1,
-   "kind": "night",
-   "k": "wy",
-   "from": "Flagg Ranch",
-   "drive": "~2h 15m",
-   "arrive": "2:00 PM",
-   "z": "MT",
-   "via": "Leave about 11:45. Through the South Entrance, past Lewis Lake and West Thumb, over Craig Pass and out the West Entrance. Summer estimate; Google can’t route it in winter.",
-   "name": "West Yellowstone, MT",
-   "addr": "West Yellowstone, MT",
-   "note": "Hotel TBD for Nights 1–2. You pass right by Old Faithful on the way; stop if the next eruption lines up. Early night: tomorrow leaves at 6:30 AM."
   },
   {
    "d": 2,
    "kind": "stop",
    "k": "of",
    "unit": "Yellowstone NP",
-   "color": "#3F8FA8",
+   "color": "#D9822B",
    "ink": "#FFFFFF",
-   "boxColor": "#3F8FA8",
-   "from": "West Yellowstone",
-   "leave": "6:30 AM",
-   "drive": "~35m",
-   "arrive": "7:05 AM",
+   "boxColor": "#D9822B",
+   "from": "Flagg Ranch",
+   "drive": "~1h 15m",
+   "arrive": "12:30 PM",
    "z": "MT",
-   "via": "In the West Entrance to Madison Junction, then south along the Firehole. Watch for bison on the road.",
+   "via": "Leave about 11:15. In the South Entrance, past Lewis Lake and West Thumb, over Craig Pass. Summer estimate.",
    "name": "Yellowstone NP",
    "type": "National Park",
    "place": "Old Faithful Visitor Education Center",
    "addr": "Old Faithful Visitor Education Center, Yellowstone National Park",
    "where": "Old Faithful Visitor Education Center",
    "hrs": "Late April to early November, about 8 AM – 8 PM in summer.",
-   "ok": "The center opens at 8, so walk the Upper Geyser Basin boardwalk first and come back for the stamp and the posted eruption times. Old Faithful goes about every 90 minutes.",
+   "warn": "Afternoon is the busiest time here in July–August; give parking extra time.",
+   "ok": "Lunch, stamp, then check the posted eruption time; Old Faithful goes about every 90 minutes. The Upper Geyser Basin boardwalk starts out front.",
    "about": "The first national park, set aside in 1872. Half the world’s geysers are here, on top of a supervolcano."
   },
   {
    "d": 2,
+   "kind": "night",
+   "k": "wy",
+   "from": "Old Faithful",
+   "drive": "~45m",
+   "arrive": "3:30 PM",
+   "z": "MT",
+   "via": "Leave about 2:45. North along the Firehole and out the West Entrance.",
+   "name": "West Yellowstone, MT",
+   "addr": "West Yellowstone, MT",
+   "note": "Hotel TBD for one night. Tomorrow leaves at 7:00 AM to beat the Grand Prismatic crowds."
+  },
+  {
+   "d": 3,
    "kind": "point",
    "k": "midway",
-   "from": "Old Faithful",
-   "drive": "~15m",
-   "arrive": "10:00 AM",
+   "from": "West Yellowstone",
+   "leave": "7:00 AM",
+   "drive": "~40m",
+   "arrive": "7:40 AM",
    "z": "MT",
-   "via": "Leave about 9:45. North to Midway Geyser Basin.",
+   "via": "In the West Entrance to Madison Junction, then south. Watch for bison on the road.",
    "name": "Grand Prismatic Spring",
    "place": "Yellowstone NP",
    "addr": "Grand Prismatic Spring, Yellowstone National Park",
    "note": "The boardwalk loop at Midway, or the overlook trail from the Fairy Falls lot (about a mile, some uphill) for the rainbow view from above.",
-   "warn": "Lots fill by mid-morning. If it’s full, skip it and keep going."
+   "ok": "Early morning is the window for parking."
   },
   {
-   "d": 2,
+   "d": 3,
    "kind": "point",
    "k": "alb",
    "from": "Grand Prismatic",
    "drive": "~1h 15m",
-   "arrive": "12:15 PM",
+   "arrive": "9:45 AM",
    "z": "MT",
-   "via": "Leave about 11:00. Madison → Norris → Mammoth. Norris Geyser Basin is a good stop on the way.",
+   "via": "Leave about 8:30. Madison → Norris → Mammoth. Norris Geyser Basin is a good short stop on the way.",
    "name": "Mammoth Hot Springs",
    "place": "Albright Visitor Center",
    "addr": "Albright Visitor Center, Mammoth, WY",
@@ -485,56 +539,20 @@
     "where": "Albright Visitor Center",
     "hrs": "Open year-round, about 9 AM – 5 PM."
    },
-   "note": "Lunch in Mammoth. Elk on the lawns, and the travertine terraces from the lower boardwalk, about 45 minutes.",
+   "note": "Elk on the lawns, and the travertine terraces from the lower boardwalk, about 45 minutes.",
    "ok": "A different Yellowstone cancellation from Old Faithful."
-  },
-  {
-   "d": 2,
-   "kind": "night",
-   "k": "wy2",
-   "from": "Mammoth",
-   "drive": "~1h 30m",
-   "arrive": "4:00 PM",
-   "z": "MT",
-   "via": "Leave about 2:30. Back through Norris and Madison. Summer estimate.",
-   "name": "West Yellowstone, MT",
-   "addr": "West Yellowstone, MT",
-   "note": "Same hotel as last night. Tomorrow leaves at 6:30 AM for a long drive."
-  },
-  {
-   "d": 3,
-   "kind": "stop",
-   "k": "fobu",
-   "unit": "Fossil Butte NM",
-   "color": "#B5593F",
-   "ink": "#FFFFFF",
-   "boxColor": "#B5593F",
-   "from": "West Yellowstone",
-   "leave": "6:30 AM",
-   "drive": "~4h 40m",
-   "arrive": "11:15 AM",
-   "z": "MT",
-   "via": "US-20 south through Ashton and Idaho Falls, US-26 along Palisades Reservoir to Alpine, then US-89 down Star Valley to Kemmerer, about 273 mi.",
-   "name": "Fossil Butte NM",
-   "type": "National Monument",
-   "place": "Visitor center",
-   "addr": "Fossil Butte National Monument Visitor Center, 864 Chicken Creek Rd, Kemmerer, WY",
-   "where": "Visitor center, 864 Chicken Creek Rd",
-   "hrs": "Summer, about Memorial Day – Labor Day: daily 8 AM – 5:30 PM. Off-season hours are shorter.",
-   "ok": "The fossils are inside: fish, bats, palm fronds and a 13-foot crocodile in the stone. Fully accessible; plan 45–60 minutes.",
-   "about": "A 50-million-year-old lake bed, one of the richest fossil deposits in the world."
   },
   {
    "d": 3,
    "kind": "home",
-   "k": "slc",
-   "from": "Fossil Butte",
-   "drive": "~2h 25m",
-   "arrive": "2:45 PM",
+   "k": "jac2",
+   "from": "Mammoth",
+   "drive": "~4h 15m",
+   "arrive": "3:00 PM",
    "z": "MT",
-   "title": "Salt Lake City → home",
-   "note": "Leave about 12:15. I-80 west through Evanston and Echo Canyon. Return the car at SLC and fly home.",
-   "navTo": "Salt Lake City International Airport Rental Car",
+   "title": "Jackson Hole → home",
+   "note": "Leave about 10:45. Back through Norris and Madison to West Yellowstone, then US-20 into Idaho, ID-33 through Driggs and over Teton Pass. Grab lunch to go. Return the car at JAC and fly home.",
+   "navTo": "Jackson Hole Airport",
    "navLabel": "Navigate to car return ↗"
   }
  ]
