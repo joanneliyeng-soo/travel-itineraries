@@ -182,6 +182,31 @@ ${[8, 22, 40, 178, 192].map((x, i) => pine(x, 170, 28 + (i % 3) * 8, '#1E3040'))
 <path d="M176 156Q178 120 168 94" stroke="#26181F" stroke-width="4" fill="none"/>
 <g fill="#26181F"><path d="M168 94Q152 88 144 100Q156 92 168 96Z"/><path d="M168 94Q184 86 194 98Q180 92 168 96Z"/><path d="M168 94Q162 78 150 76Q162 82 167 95Z"/><path d="M168 94Q176 78 188 78Q176 84 169 95Z"/></g>`,
   },
+  lakeshore: {
+    sky: '#F4C79E', sun: '#FBE6C6', band: '#20203A', ink: '#20203A', ac: '#7FC4E8',
+    art: `<circle cx="150" cy="50" r="18" fill="#FBE6C6"/>
+<g fill="#4A4F78"><rect x="10" y="84" width="10" height="26"/><rect x="22" y="70" width="9" height="40"/><path d="M33 110V58H36V48H40V58H43V110Z"/><rect x="45" y="76" width="10" height="34"/><rect x="57" y="66" width="8" height="44"/><rect x="67" y="88" width="10" height="22"/></g>
+<rect y="108" width="200" height="30" fill="#3D86B0"/>
+<g stroke="#9FD0EA" stroke-width="2" stroke-linecap="round"><path d="M20 118H60M100 124H150M60 130H96"/></g>
+<path d="M0 140Q30 122 70 132Q110 118 150 130Q180 124 200 130V170H0Z" fill="#EBD6AE"/>
+<path d="M0 156Q60 140 120 152T200 148V170H0Z" fill="#D6B47E"/>
+<g stroke="#5E7A3A" stroke-width="2" stroke-linecap="round"><path d="M150 140L146 128M150 140L152 126M150 140L156 130M30 150L26 140M30 150L33 138M170 152L168 142M170 152L174 143"/></g>`,
+  },
+  fort: {
+    sky: '#F6B99A', sun: '#FCE3C4', band: '#1A2A4A', ink: '#1A2A4A', ac: '#7FD1B9',
+    art: `<circle cx="60" cy="56" r="20" fill="#FCE3C4"/>
+<rect y="104" width="200" height="66" fill="#2E7FA0"/>
+<g stroke="#8FD0DE" stroke-width="2" stroke-linecap="round"><path d="M10 116H40M150 120H190"/></g>
+<path d="M146 104H186L182 98H152Z" fill="#1A2A4A"/><rect x="156" y="92" width="22" height="6" fill="#F4EEE2"/><rect x="164" y="86" width="5" height="6" fill="#C4572E"/>
+<path d="M30 150L52 112H148L170 150Z" fill="#D9C7A4"/>
+<path d="M52 112L44 104H68L62 112ZM138 112L132 104H156L148 112Z" fill="#C8B38C"/>
+<rect x="56" y="100" width="88" height="14" fill="#E6D6B4"/>
+<g fill="#C8B38C"><rect x="58" y="94" width="8" height="6"/><rect x="74" y="94" width="8" height="6"/><rect x="90" y="94" width="8" height="6"/><rect x="106" y="94" width="8" height="6"/><rect x="122" y="94" width="8" height="6"/><rect x="134" y="94" width="8" height="6"/></g>
+<path d="M96 100V80" stroke="#1A2A4A" stroke-width="2"/><path d="M96 80H110L106 85L110 90H96Z" fill="#F0705A"/>
+<path d="M0 170V150Q60 140 120 150T200 146V170Z" fill="#6E8F5A"/>
+<path d="M18 152Q22 118 14 96" stroke="#1A2A4A" stroke-width="4" fill="none"/>
+<g fill="#1A2A4A"><path d="M14 96Q0 90 -6 102Q4 94 14 98Z"/><path d="M14 96Q28 88 38 100Q26 94 14 98Z"/><path d="M14 96Q10 80 0 78Q10 84 13 97Z"/><path d="M14 96Q20 80 32 80Q22 86 15 97Z"/></g>`,
+  }
 };
 
 export const scene = t => SCENES[t.poster] || SCENES.rockies;

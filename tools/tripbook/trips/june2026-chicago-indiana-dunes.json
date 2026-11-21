@@ -1,0 +1,435 @@
+{
+ "slug": "june2026-chicago-indiana-dunes",
+ "book": "chicago-indiana-dunes",
+ "start": "2026-06-27",
+ "end": "2026-06-28",
+ "emoji": "🌭",
+ "poster": "lakeshore",
+ "title": "Chicago & Indiana Dunes",
+ "short": "Chicago & Dunes",
+ "placeholder": "",
+ "subtitle": "Jun 27–28, 2026, with Michael. A redeye into O’Hare, Pullman and Emmett Till in one stop and the Indiana Dunes on Saturday, then the Shedd, the Field Museum and the Pokémon fossil exhibit on Sunday before the flight home.",
+ "chips": [
+  "3 new stamps",
+  "Indiana Dunes NP",
+  "Illinois · Indiana"
+ ],
+ "itinerary": "june2026-chicago-indiana-dunes.html",
+ "collected": [
+  "pull",
+  "emti",
+  "dune"
+ ],
+ "theme": {
+  "#1E1D33": "#20203A",
+  "#26243F": "#282844",
+  "#2C2A47": "#30304F",
+  "#322F51": "#38385A",
+  "#38355A": "#414166",
+  "#E2603A": "#E0484F",
+  "#E9E6FA": "#F1F2F8",
+  "#CFCBE6": "#C9CCE0",
+  "#A9A4C8": "#7FC4E8",
+  "#C9C4E4": "#C9CCE0",
+  "#EDEAF9": "#F1F2F8",
+  "#EEEBF7": "#E8E9F2",
+  "#F1EFF7": "#FAFAFD",
+  "#6E6A88": "#686A8A",
+  "#9C97B4": "#9B9DB8",
+  "#ECE9F2": "#E8E9F2",
+  "#FBFAF6": "#FAFAFD",
+  "#E7E3D9": "#E8E9F2",
+  "#EFEDE6": "#E8E9F2",
+  "#8F8AB4": "#7FC4E8",
+  "#B8B3C8": "#C9CCE0",
+  "#7C7896": "#686A8A",
+  "#FFF3EE": "#FFF4F0"
+ },
+ "legMinW": 330,
+ "map": {
+  "bbox": [
+   [
+    -87.95,
+    42.0
+   ],
+   [
+    -87.0,
+    41.6
+   ]
+  ],
+  "states": [
+   "Illinois",
+   "Indiana",
+   "Michigan",
+   "Wisconsin"
+  ],
+  "highlight": [
+   "Illinois",
+   "Indiana"
+  ],
+  "stateLabels": [
+   [
+    "ILLINOIS",
+    -87.85,
+    41.72
+   ],
+   [
+    "INDIANA",
+    -87.25,
+    41.52
+   ]
+  ],
+  "cities": [
+   [
+    "Chicago",
+    -87.63,
+    41.88
+   ],
+   [
+    "Gary",
+    -87.33,
+    41.6
+   ],
+   [
+    "Hammond",
+    -87.5,
+    41.58
+   ]
+  ],
+  "points": {
+   "orda": [
+    -87.9073,
+    41.9786
+   ],
+   "w_ken": [
+    -87.8,
+    41.96
+   ],
+   "mich": [
+    -87.735,
+    41.92
+   ],
+   "w_dt": [
+    -87.65,
+    41.88
+   ],
+   "w_ryan": [
+    -87.63,
+    41.78
+   ],
+   "pull": [
+    -87.6081,
+    41.6926
+   ],
+   "w_dr": [
+    -87.62,
+    41.76
+   ],
+   "lunch": [
+    -87.6267,
+    41.8714
+   ],
+   "w_sky": [
+    -87.56,
+    41.7
+   ],
+   "w_hamm": [
+    -87.48,
+    41.64
+   ],
+   "w_gary": [
+    -87.33,
+    41.6
+   ],
+   "dune": [
+    -87.0538,
+    41.6331
+   ],
+   "w_gary2": [
+    -87.331,
+    41.601
+   ],
+   "w_sky2": [
+    -87.561,
+    41.701
+   ],
+   "chin": [
+    -87.6324,
+    41.8532
+   ],
+   "w_drop": [
+    -87.7,
+    41.9
+   ],
+   "hotel": [
+    -87.6245,
+    41.8686
+   ],
+   "mich2": [
+    -87.7351,
+    41.9201
+   ],
+   "shedd": [
+    -87.614,
+    41.8676
+   ],
+   "field": [
+    -87.617,
+    41.8663
+   ],
+   "w_ken2": [
+    -87.7,
+    41.93
+   ],
+   "ord2": [
+    -87.9072,
+    41.9787
+   ]
+  }
+ },
+ "airports": [
+  [
+   "orda",
+   "ORD"
+  ]
+ ],
+ "route": [
+  "orda",
+  "w_ken",
+  "mich",
+  "w_dt",
+  "w_ryan",
+  "pull",
+  "w_dr",
+  "lunch",
+  "w_sky",
+  "w_hamm",
+  "w_gary",
+  "dune",
+  "w_gary2",
+  "w_sky2",
+  "chin",
+  "w_drop",
+  "hotel",
+  "mich2",
+  "shedd",
+  "field",
+  "w_ken2",
+  "ord2"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "label": "Day 0",
+   "dow": "Fri",
+   "dowLong": "Friday",
+   "date": "Jun 26",
+   "title": "Redeye to Chicago",
+   "color": "#414166",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">SFO → ORD overnight</h2>\n<p><b>American AA 2554</b> · SFO 11:10 PM Fri → ORD 5:39 AM Sat · seats 32A &amp; 32B · conf. <b>WRPPLZ</b>.</p>\n<p>Rental car from O’Hare. Michael joins both days.</p>"
+  },
+  {
+   "n": 1,
+   "label": "Day 1",
+   "dow": "Sat",
+   "dowLong": "Saturday",
+   "date": "Jun 27",
+   "title": "Pullman and the Dunes",
+   "sub": "O’Hare → Hermosa → Pullman → South Loop → Indiana Dunes → Chinatown → downtown",
+   "color": "#E0484F",
+   "drive": "~3h 15m",
+   "stamps": 3,
+   "start": "orda",
+   "end": "hotel",
+   "tzline": "Central time",
+   "cutLabel": "Good to know",
+   "cut": "Pullman’s visitor center gives two stamps at one desk: Pullman NHP and Emmett Till &amp; Mamie Till-Mobley NM. Indiana Dunes is on Central time too, at the Porter visitor center.",
+   "gmaps": "https://www.google.com/maps/dir/O%27Hare+International+Airport/Pullman+National+Historical+Park+Visitor+Center/Lou+Malnati%27s+South+Loop/Indiana+Dunes+Visitor+Center/Chinatown%2C+Chicago/Downtown+Chicago"
+  },
+  {
+   "n": 2,
+   "label": "Day 2",
+   "dow": "Sun",
+   "dowLong": "Sunday",
+   "date": "Jun 28",
+   "title": "Museum Campus, then home",
+   "sub": "Downtown → Hermosa → Shedd → Field Museum → O’Hare",
+   "color": "#3D86B0",
+   "drive": "~1h 15m",
+   "start": "hotel",
+   "end": "ord2",
+   "tzline": "Central time",
+   "cutLabel": "Good to know",
+   "cut": "The Shedd and the Field Museum share Museum Campus: park once at Soldier Field North Garage and walk between them.",
+   "gmaps": "https://www.google.com/maps/dir/Downtown+Chicago/Shedd+Aquarium/Field+Museum/O%27Hare+International+Airport"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "mich",
+   "from": "O’Hare",
+   "leave": "5:39 AM",
+   "drive": "~45m",
+   "arrive": "6:45 AM",
+   "z": "CDT",
+   "via": "Land, pick up the rental, west side to Hermosa.",
+   "name": "Pick up Michael",
+   "place": "Hermosa / West Humboldt Park",
+   "addr": "Hermosa, Chicago, IL",
+   "note": "An early start after the redeye. Time to spare before Pullman opens at 10."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "pull",
+   "unit": "Pullman NHP",
+   "color": "#E0484F",
+   "ink": "#FFFFFF",
+   "boxColor": "#E0484F",
+   "from": "Hermosa",
+   "drive": "~45m",
+   "arrive": "10:00 AM",
+   "z": "CDT",
+   "via": "Down the Dan Ryan (I-94) to 111th St.",
+   "name": "Pullman NHP",
+   "type": "National Historical Park",
+   "place": "Visitor center, 610 E 111th St",
+   "addr": "Pullman National Historical Park Visitor Center, 610 E 111th St, Chicago, IL",
+   "where": "Visitor center",
+   "hrs": "Wed–Sun 10 AM – 4 PM. Free.",
+   "also": [
+    {
+     "id": "emti",
+     "name": "Emmett Till & Mamie Till-Mobley NM",
+     "where": "Same desk at the Pullman visitor center"
+    }
+   ],
+   "ok": "Fully wheelchair accessible. Exhibits on the company town and the 1894 strike.",
+   "about": "George Pullman’s planned factory town for railcar workers, and the birthplace of the Brotherhood of Sleeping Car Porters."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "lunch",
+   "from": "Pullman",
+   "drive": "~20m",
+   "arrive": "11:45 AM",
+   "z": "CDT",
+   "via": "Back north to the South Loop.",
+   "name": "Deep-dish lunch",
+   "place": "South Loop",
+   "addr": "Lou Malnati's Pizzeria, 805 S State St, Chicago, IL",
+   "note": "Lou Malnati’s or Giordano’s. Deep dish takes ~45 minutes to bake, so order as soon as you sit down."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "dune",
+   "unit": "Indiana Dunes NP",
+   "color": "#E0484F",
+   "ink": "#FFFFFF",
+   "boxColor": "#E0484F",
+   "from": "the South Loop",
+   "drive": "~45m",
+   "arrive": "2:00 PM",
+   "z": "CDT",
+   "via": "Leave about 1:15. East on I-90 (the Skyway) into Indiana.",
+   "name": "Indiana Dunes NP",
+   "type": "National Park",
+   "place": "Indiana Dunes Visitor Center, Porter",
+   "addr": "Indiana Dunes Visitor Center, 1215 N State Road 49, Porter, IN",
+   "where": "Indiana Dunes Visitor Center",
+   "hrs": "Summer daily 8 AM – 6 PM.",
+   "ok": "New park for the 64. Then down to the Lake Michigan beach.",
+   "about": "Fifteen miles of Lake Michigan shoreline with dunes, wetlands and prairie, one of the most biodiverse corners of the park system."
+  },
+  {
+   "d": 1,
+   "kind": "point",
+   "k": "chin",
+   "from": "Indiana Dunes",
+   "drive": "~55m",
+   "arrive": "4:30 PM",
+   "z": "CDT",
+   "via": "Leave about 3:30. Back west on I-90/94.",
+   "name": "Early dinner in Chinatown",
+   "place": "Noodleverse 面八方",
+   "addr": "2002 S Wentworth Ave, Chicago, IL",
+   "note": "Noodles in the Chinatown food court. Then drop Michael in Hermosa."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "hotel",
+   "from": "Hermosa",
+   "drive": "~15m",
+   "arrive": "6:00 PM",
+   "z": "CDT",
+   "via": "After dropping Michael, back downtown.",
+   "name": "Downtown Chicago",
+   "addr": "Downtown Chicago, IL",
+   "note": "Check in and rest; you’ve been up since yesterday."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "mich2",
+   "from": "downtown",
+   "leave": "7:40 AM",
+   "drive": "~20m",
+   "arrive": "8:00 AM",
+   "z": "CDT",
+   "via": "Northwest to Hermosa.",
+   "name": "Pick up Michael",
+   "place": "Hermosa / West Humboldt Park",
+   "addr": "Hermosa, Chicago, IL",
+   "note": "No breakfast stop; straight to the Shedd."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "shedd",
+   "from": "Hermosa",
+   "drive": "~30m",
+   "arrive": "9:00 AM",
+   "z": "CDT",
+   "via": "To Museum Campus; park at Soldier Field North Garage.",
+   "name": "Shedd Aquarium",
+   "place": "Museum Campus",
+   "addr": "Shedd Aquarium, 1200 S DuSable Lake Shore Dr, Chicago, IL",
+   "note": "Tickets for 9 AM entry; be inside by 9:30. Lunch on Museum Campus around 11:30."
+  },
+  {
+   "d": 2,
+   "kind": "point",
+   "k": "field",
+   "from": "the Shedd",
+   "drive": "5-min walk",
+   "arrive": "12:30 PM",
+   "z": "CDT",
+   "via": "Next door on Museum Campus.",
+   "name": "Field Museum",
+   "place": "Pokémon Fossil Exhibit at 3:30",
+   "addr": "Field Museum, 1400 S Lake Shore Dr, Chicago, IL",
+   "note": "Browse (Sue the T. rex) until the timed Pokémon Fossil Exhibit entry at 3:30 PM. Out about 5:30, then drop Michael in Hermosa."
+  },
+  {
+   "d": 2,
+   "kind": "home",
+   "k": "ord2",
+   "from": "Hermosa",
+   "leave": "6:00 PM",
+   "drive": "~35m",
+   "arrive": "9:00 PM",
+   "z": "CDT",
+   "title": "Chicago → home",
+   "note": "Return the rental and eat dinner past security. AA 3054, ORD 9:00 PM → SFO 11:58 PM.",
+   "navTo": "O'Hare International Airport Rental Car Center",
+   "navLabel": "Navigate to car return ↗",
+   "arriveLabel": "Flight"
+  }
+ ]
+}

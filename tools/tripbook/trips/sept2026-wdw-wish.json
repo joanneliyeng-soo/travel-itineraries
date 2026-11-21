@@ -1,0 +1,430 @@
+{
+ "slug": "sept2026-wdw-wish",
+ "book": "disney-world-wish",
+ "start": "2026-09-05",
+ "end": "2026-09-14",
+ "emoji": "🏰",
+ "poster": "fort",
+ "title": "Disney World & the Wish",
+ "short": "Disney & the Wish",
+ "placeholder": "",
+ "subtitle": "Sep 5–14, 2026, with Jason and Jenny. A Northeast Florida coast stamp run on Sunday, four Walt Disney World park days, then Halloween on the High Seas aboard the Disney Wish.",
+ "chips": [
+  "4 new stamps",
+  "Disney Wish cruise",
+  "Party of four"
+ ],
+ "itinerary": "sept2026-wdw-wish.html",
+ "collected": [
+  "canv",
+  "foma",
+  "casa",
+  "timu"
+ ],
+ "theme": {
+  "#1E1D33": "#1A2A4A",
+  "#26243F": "#213354",
+  "#2C2A47": "#283C5F",
+  "#322F51": "#30466A",
+  "#38355A": "#385075",
+  "#E2603A": "#F0705A",
+  "#E9E6FA": "#EEF3F8",
+  "#CFCBE6": "#C4D0DF",
+  "#A9A4C8": "#7FD1B9",
+  "#C9C4E4": "#C4D0DF",
+  "#EDEAF9": "#EEF3F8",
+  "#EEEBF7": "#E5ECF3",
+  "#F1EFF7": "#F9FBFD",
+  "#6E6A88": "#5E6E88",
+  "#9C97B4": "#94A2B8",
+  "#ECE9F2": "#E5ECF3",
+  "#FBFAF6": "#F9FBFD",
+  "#E7E3D9": "#E5ECF3",
+  "#EFEDE6": "#E5ECF3",
+  "#8F8AB4": "#7FD1B9",
+  "#B8B3C8": "#C4D0DF",
+  "#7C7896": "#5E6E88",
+  "#FFF3EE": "#FFF4F0"
+ },
+ "legMinW": 330,
+ "map": {
+  "bbox": [
+   [
+    -81.85,
+    30.5
+   ],
+   [
+    -80.5,
+    28.25
+   ]
+  ],
+  "states": [
+   "Florida",
+   "Georgia"
+  ],
+  "highlight": [
+   "Florida"
+  ],
+  "stateLabels": [
+   [
+    "FLORIDA",
+    -81.75,
+    29.2
+   ]
+  ],
+  "cities": [
+   [
+    "Orlando",
+    -81.38,
+    28.54
+   ],
+   [
+    "Daytona Beach",
+    -81.02,
+    29.21
+   ],
+   [
+    "St. Augustine",
+    -81.31,
+    29.9
+   ],
+   [
+    "Jacksonville",
+    -81.66,
+    30.33
+   ],
+   [
+    "Cape Canaveral",
+    -80.6,
+    28.39
+   ]
+  ],
+  "points": {
+   "mco": [
+    -81.3081,
+    28.4312
+   ],
+   "cor": [
+    -81.559,
+    28.3675
+   ],
+   "w_i4a": [
+    -81.38,
+    28.55
+   ],
+   "w_i4b": [
+    -81.27,
+    28.8
+   ],
+   "w_i4c": [
+    -81.05,
+    28.98
+   ],
+   "canv": [
+    -80.8287,
+    28.927
+   ],
+   "w_nsb": [
+    -80.95,
+    29.03
+   ],
+   "w_i95a": [
+    -81.12,
+    29.3
+   ],
+   "w_flag": [
+    -81.21,
+    29.5
+   ],
+   "foma": [
+    -81.239,
+    29.7154
+   ],
+   "casa": [
+    -81.3115,
+    29.8978
+   ],
+   "w_i95b": [
+    -81.45,
+    30.15
+   ],
+   "w_jax": [
+    -81.55,
+    30.32
+   ],
+   "timu": [
+    -81.4983,
+    30.3866
+   ],
+   "w_jax2": [
+    -81.6,
+    30.28
+   ],
+   "w_i95c": [
+    -81.48,
+    29.9
+   ],
+   "w_i95d": [
+    -81.2,
+    29.4
+   ],
+   "w_i4d": [
+    -81.28,
+    28.8
+   ],
+   "w_i4e": [
+    -81.4,
+    28.55
+   ],
+   "cor2": [
+    -81.5589,
+    28.3676
+   ],
+   "ssr": [
+    -81.513,
+    28.3723
+   ],
+   "w_528": [
+    -81.0,
+    28.45
+   ],
+   "pcv": [
+    -80.6195,
+    28.4106
+   ],
+   "w_5282": [
+    -81.01,
+    28.451
+   ],
+   "mco2": [
+    -81.308,
+    28.4313
+   ]
+  }
+ },
+ "airports": [
+  [
+   "mco",
+   "MCO"
+  ],
+  [
+   "pcv",
+   "PORT"
+  ]
+ ],
+ "route": [
+  "mco",
+  "cor",
+  "w_i4a",
+  "w_i4b",
+  "w_i4c",
+  "canv",
+  "w_nsb",
+  "w_i95a",
+  "w_flag",
+  "foma",
+  "casa",
+  "w_i95b",
+  "w_jax",
+  "timu",
+  "w_jax2",
+  "w_i95c",
+  "w_i95d",
+  "w_i4d",
+  "w_i4e",
+  "cor2",
+  "ssr",
+  "w_528",
+  "pcv",
+  "w_5282",
+  "mco2"
+ ],
+ "days": [
+  {
+   "n": 0,
+   "label": "Day 0",
+   "dow": "Sat",
+   "dowLong": "Saturday",
+   "date": "Sep 5",
+   "title": "Fly to Orlando",
+   "color": "#385075",
+   "meta": "No stamps · travel only",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">SFO → MCO</h2>\n<p><b>United UA 583</b> · SFO 8:15 AM → MCO 4:44 PM · conf. <b>JDWWKL</b>.</p>\n<p>Rental car from MCO to <b>Coronado Springs</b> for two nights, then an easy evening of dinner and wandering at Disney Springs.</p>"
+  },
+  {
+   "n": 1,
+   "label": "Day 1",
+   "dow": "Sun",
+   "dowLong": "Sunday",
+   "date": "Sep 6",
+   "title": "Northeast Florida stamp run",
+   "sub": "Coronado Springs → New Smyrna → St. Augustine → Jacksonville → Coronado Springs",
+   "color": "#F0705A",
+   "drive": "~5h 30m",
+   "stamps": 4,
+   "start": "cor",
+   "end": "cor2",
+   "tzline": "Eastern time",
+   "cutLabel": "How it went",
+   "cut": "Planned as six stops up into Georgia; the day ran south to north and stopped after Fort Caroline. Cumberland Island NS (St. Marys) and Fort Frederica NM (St. Simons Island) are saved for a future Georgia coast run. Times here are approximate.",
+   "gmaps": "https://www.google.com/maps/dir/Disney%27s+Coronado+Springs+Resort/Apollo+Beach+Visitor+Center%2C+Canaveral+National+Seashore/Fort+Matanzas+National+Monument/Castillo+de+San+Marcos/Fort+Caroline+National+Memorial/Disney%27s+Coronado+Springs+Resort"
+  },
+  {
+   "n": 2,
+   "kind": "cruise",
+   "label": "Days 2–5",
+   "dow": "Mon–Thu",
+   "kicker": "Days 2–5 · Mon Sep 7 – Thu Sep 10",
+   "title": "Walt Disney World",
+   "sub": "Four parks · Saratoga Springs",
+   "color": "#7B6BB5",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">🏰</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Four park days</h2>\n<p>Moved from Coronado Springs to <b>Saratoga Springs</b> (DVC) on Monday, all four of you through Friday.</p>\n<p><b>Mon Sep 7</b> · Hollywood Studios<br><b>Tue Sep 8</b> · Animal Kingdom<br><b>Wed Sep 9</b> · EPCOT<br><b>Thu Sep 10</b> · Magic Kingdom</p>\n<p>Joanne brought her own wheelchair, so no ECV rental.</p>"
+  },
+  {
+   "n": 3,
+   "kind": "cruise",
+   "label": "Days 6–8",
+   "dow": "Fri–Sun",
+   "kicker": "Days 6–8 · Fri Sep 11 – Sun Sep 13",
+   "title": "The Disney Wish",
+   "sub": "Halloween on the High Seas from Port Canaveral",
+   "color": "#2E7FA0",
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">🚢</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Halloween on the High Seas</h2>\n<p>Disney transportation from Saratoga Springs to Port Canaveral on Friday, Sep 11, and aboard the <b>Disney Wish</b> for three nights.</p>\n<p>Joanne &amp; John: res. #44363623, category 07A, 8:15 PM dining. Jason &amp; Jenny: res. #44685575, stateroom 9172.</p>"
+  },
+  {
+   "n": 4,
+   "label": "Day 9",
+   "dow": "Mon",
+   "dowLong": "Monday",
+   "date": "Sep 14",
+   "title": "Debark & fly home",
+   "sub": "Port Canaveral → MCO",
+   "color": "#385075",
+   "start": "pcv",
+   "end": "mco2",
+   "tzline": "",
+   "cutLabel": "Good to know",
+   "cut": "Disney transportation from the port to MCO.",
+   "gmaps": "https://www.google.com/maps/dir/Port+Canaveral+Cruise+Terminal/Orlando+International+Airport"
+  }
+ ],
+ "stops": [
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "canv",
+   "unit": "Canaveral NS",
+   "color": "#F0705A",
+   "ink": "#FFFFFF",
+   "boxColor": "#F0705A",
+   "from": "Coronado Springs",
+   "leave": "morning",
+   "drive": "~1h 15m",
+   "arrive": "morning",
+   "z": "EDT",
+   "via": "I-4 east to I-95, then to the north (Apollo Beach) entrance.",
+   "name": "Canaveral NS",
+   "type": "National Seashore",
+   "place": "Apollo Beach Visitor Center",
+   "addr": "Apollo Beach Visitor Center, 7611 S Atlantic Ave, New Smyrna Beach, FL",
+   "where": "Apollo Beach Visitor Center",
+   "hrs": "Daily 9 AM – 5 PM.",
+   "ok": "North entrance only; there’s no through-road to the Playalinda side.",
+   "about": "The longest stretch of undeveloped beach on Florida’s Atlantic coast, next door to the Kennedy Space Center."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "foma",
+   "unit": "Fort Matanzas NM",
+   "color": "#F0705A",
+   "ink": "#FFFFFF",
+   "boxColor": "#F0705A",
+   "from": "New Smyrna Beach",
+   "drive": "~1h",
+   "arrive": "late morning",
+   "z": "EDT",
+   "via": "North on I-95, then A1A onto Anastasia Island.",
+   "name": "Fort Matanzas NM",
+   "type": "National Monument",
+   "place": "Visitor center, Anastasia Island",
+   "addr": "Fort Matanzas National Monument, 8636 A1A S, St. Augustine, FL",
+   "where": "Visitor center",
+   "hrs": "Daily 9 AM – 5:30 PM.",
+   "ok": "The stamp is at the visitor center; the ferry only goes out to the fort itself.",
+   "about": "A small 1740s Spanish coquina watchtower guarding St. Augustine’s back door at Matanzas Inlet."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "casa",
+   "unit": "Castillo de San Marcos NM",
+   "color": "#F0705A",
+   "ink": "#FFFFFF",
+   "boxColor": "#F0705A",
+   "from": "Fort Matanzas",
+   "drive": "~20m",
+   "arrive": "midday",
+   "z": "EDT",
+   "via": "Up A1A into St. Augustine.",
+   "name": "Castillo de San Marcos NM",
+   "type": "National Monument",
+   "place": "Bookstore inside the fort",
+   "addr": "Castillo de San Marcos, 1 S Castillo Dr, St. Augustine, FL",
+   "where": "Bookstore inside the fort",
+   "hrs": "Daily 9 AM – 5:15 PM.",
+   "ok": "On-site paid parking, or a 10-minute walk from the Historic Downtown garage.",
+   "about": "The oldest masonry fort in the continental U.S., built of coquina by Spain starting in 1672."
+  },
+  {
+   "d": 1,
+   "kind": "stop",
+   "k": "timu",
+   "unit": "Timucuan Ecological & Historic Preserve",
+   "color": "#F0705A",
+   "ink": "#FFFFFF",
+   "boxColor": "#F0705A",
+   "from": "St. Augustine",
+   "drive": "~45m",
+   "arrive": "afternoon",
+   "z": "EDT",
+   "via": "North on I-95 and across the St. Johns to the Fort Caroline visitor center.",
+   "name": "Timucuan Preserve",
+   "type": "Ecological & Historic Preserve",
+   "place": "Fort Caroline visitor center",
+   "addr": "Timucuan Preserve Visitor Center, 12713 Fort Caroline Rd, Jacksonville, FL",
+   "where": "Fort Caroline visitor center",
+   "hrs": "Wed–Sun 9 AM – 5 PM.",
+   "ok": "The last stop of the day; Cumberland Island and Fort Frederica were left for another trip.",
+   "about": "Salt marshes, waterways and history at the mouth of the St. Johns River, including the site of the 1564 French Fort Caroline."
+  },
+  {
+   "d": 1,
+   "kind": "night",
+   "k": "cor2",
+   "from": "Jacksonville",
+   "drive": "~2h 30m",
+   "arrive": "evening",
+   "z": "EDT",
+   "via": "I-95 south, then I-4 west. Returned the rental at the Disney Car Care Center.",
+   "name": "Coronado Springs",
+   "addr": "Disney's Coronado Springs Resort, Lake Buena Vista, FL",
+   "note": "Second night at Coronado Springs; tomorrow it’s over to Saratoga Springs."
+  },
+  {
+   "d": 4,
+   "kind": "home",
+   "k": "mco2",
+   "from": "Port Canaveral",
+   "leave": "after debarking",
+   "drive": "~45m",
+   "arrive": "3:00 PM",
+   "z": "EDT",
+   "title": "Orlando → home",
+   "note": "Disney transportation from the ship to MCO. United UA 425, MCO 3:00 PM → SFO 5:50 PM.",
+   "navTo": "Orlando International Airport",
+   "navLabel": "Navigate to MCO ↗",
+   "arriveLabel": "Flight"
+  }
+ ]
+}

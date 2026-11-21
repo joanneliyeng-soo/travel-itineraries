@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<title>Disney World &amp; the Wish · Trip Book</title>
+<style>
+  html, body { margin:0 !important; padding:0 !important; background:#1A2A4A !important; color:#213354 !important; height:100%; overflow:hidden; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size:15px; line-height:1.45; }
+  .serif { font-family:"Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
+
+  .app { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; padding:max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom)); }
+  .topbar, .bottombar { width:100%; max-width:520px; display:flex; align-items:center; justify-content:space-between; color:#C4D0DF; font-size:13px; }
+  .topbar { padding:2px 4px 8px; }
+  .topbar .t { font-weight:600; letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin:0 10px; }
+  .btn-ghost { background:#283C5F; color:#EEF3F8; border:0; border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; cursor:pointer; }
+  .pgnum { font-variant-numeric:tabular-nums; color:#7FD1B9; white-space:nowrap; }
+
+  .book { position:relative; flex:1; width:100%; max-width:520px; perspective:1800px; }
+  .book::before { content:""; position:absolute; left:-4px; top:6px; bottom:-4px; right:4px; background:#E5ECF3; border-radius:6px 16px 16px 6px; box-shadow:0 10px 30px rgba(0,0,0,.45); }
+  .page { position:absolute; inset:0; display:none; background:#F9FBFD; border-radius:4px 14px 14px 4px; overflow:hidden; transform-origin:left center; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .page::before { content:""; position:absolute; left:0; top:0; bottom:0; width:18px; background:linear-gradient(90deg, rgba(38,36,63,.16), rgba(38,36,63,0)); pointer-events:none; z-index:2; }
+  .page .scroll { position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:20px 20px 28px 26px; }
+  .page.show { display:block; }
+  .page.under { z-index:1; }
+  .page.flip-out { z-index:3; animation:flipOut .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page.flip-in { z-index:3; animation:flipIn .6s cubic-bezier(.45,.05,.55,.95) forwards; }
+  .page .shade { position:absolute; inset:0; background:linear-gradient(90deg, rgba(30,29,51,0), rgba(30,29,51,.35)); opacity:0; pointer-events:none; z-index:4; }
+  .page.flip-out .shade { animation:shadeIn .6s forwards; }
+  .page.flip-in .shade { animation:shadeOut .6s forwards; }
+  @keyframes flipOut { from { transform:rotateY(0deg); } to { transform:rotateY(-100deg); } }
+  @keyframes flipIn { from { transform:rotateY(-100deg); } to { transform:rotateY(0deg); } }
+  @keyframes shadeIn { to { opacity:1; } }
+  @keyframes shadeOut { from { opacity:1; } to { opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { .page.flip-out, .page.flip-in { animation-duration:.01s; } }
+
+  .bottombar { padding-top:10px; gap:10px; }
+  .nav { background:#EEF3F8; color:#213354; border:0; border-radius:12px; padding:11px 16px; font-size:15px; font-weight:700; cursor:pointer; min-width:92px; }
+  .nav.next { background:#F0705A; color:#FFFFFF; }
+  .nav:disabled { opacity:.35; }
+  .progress { flex:1; height:6px; background:#283C5F; border-radius:99px; overflow:hidden; }
+  .progress i { display:block; height:100%; background:#F0705A; width:0; transition:width .4s; }
+
+  /* shared page bits */
+  .kicker { font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+  h1, h2 { margin:0; font-weight:700; color:#213354; }
+  h1 { font-size:30px; line-height:1.1; }
+  h2 { font-size:25px; line-height:1.15; }
+  .muted { color:#5E6E88; }
+  .chip { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:99px; background:#E5ECF3; color:#213354; margin:0 4px 4px 0; }
+  .map { display:block; width:100%; border-radius:12px; background:#E5ECF3; margin:14px 0 4px; }
+  .map .st { fill:#F6F3EC; stroke:#C4D0DF; stroke-width:1; vector-effect:non-scaling-stroke; }
+  .map .st.on { fill:#FFFFFF; }
+  .map .sl { fill:#94A2B8; font-weight:700; letter-spacing:.12em; text-anchor:middle; }
+  .map .cl { fill:#5E6E88; text-anchor:middle; }
+  .map .cd { fill:#5E6E88; }
+  .map .rt { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+  .map .leg { fill:none; stroke:#213354; stroke-width:3.5; stroke-dasharray:7 6; vector-effect:non-scaling-stroke; animation:dash 1.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset:-26; } }
+  .map .pin text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+  .map .pin circle { stroke:#FFFFFF; vector-effect:non-scaling-stroke; stroke-width:2; }
+  .map .pin.now circle { stroke:#213354; stroke-width:3; }
+  .map .pin.dim { opacity:.35; }
+  .map .end rect { fill:#213354; }
+  .map .end text { fill:#FFFFFF; font-weight:800; text-anchor:middle; dominant-baseline:central; }
+
+  /* cover */
+  .cover .scroll { background:#213354; color:#EEF3F8; padding-top:22px; }
+  .cover h1 { color:#FFFFFF; font-size:31px; }
+  .cover .sub { color:#C4D0DF; margin-top:8px; font-size:14px; }
+  .cover .chip { background:#385075; color:#EEF3F8; }
+  .cover .chip.hot { background:#F0705A; color:#FFFFFF; }
+  .cover .ph { display:inline-block; border:1px dashed #7FD1B9; color:#C4D0DF; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 9px; border-radius:99px; margin-bottom:12px; }
+  .legend { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .legend button { display:flex; align-items:center; gap:9px; background:#30466A; border:0; color:#EEF3F8; padding:9px 10px; border-radius:10px; text-align:left; font-size:13px; cursor:pointer; }
+  .legend .sw { width:14px; height:14px; border-radius:50%; flex:none; }
+  .legend b { display:block; font-size:13.5px; }
+  .legend span.s { color:#7FD1B9; font-size:11.5px; }
+  .backlink { display:block; text-align:center; margin-top:10px; color:#C4D0DF; font-size:13px; font-weight:700; text-decoration:none; }
+  .swipe { margin-top:16px; text-align:center; color:#7FD1B9; font-size:13px; }
+  .tally { margin-top:14px; background:#30466A; border-radius:12px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; }
+  .tally .n { font-size:24px; font-weight:800; color:#FFFFFF; }
+
+  /* day intro */
+  .dayband { margin:-20px -20px 0 -26px; padding:22px 20px 18px 26px; color:#FFFFFF; }
+  .dayband h2 { color:#FFFFFF; font-size:28px; }
+  .dayband .kicker { color:rgba(255,255,255,.85); }
+  .dayband .meta { margin-top:6px; font-size:13.5px; color:rgba(255,255,255,.92); }
+  .tl { list-style:none; margin:14px 0 0; padding:0; }
+  .tl li { display:grid; grid-template-columns:62px 1fr; gap:10px; padding:9px 0; border-bottom:1px solid #E5ECF3; cursor:pointer; }
+  .tl li:last-child { border-bottom:0; }
+  .tl .tm { font-size:12.5px; font-weight:700; color:#5E6E88; font-variant-numeric:tabular-nums; }
+  .tl .nm { font-weight:700; }
+  .tl .nm small { display:block; font-weight:400; color:#5E6E88; font-size:12.5px; }
+  .tl .num { display:inline-flex; width:20px; height:20px; border-radius:50%; color:#FFFFFF; font-size:11px; font-weight:800; align-items:center; justify-content:center; margin-right:6px; vertical-align:1px; }
+  .cut { margin-top:14px; background:#FFF4F0; border-left:4px solid #F0705A; border-radius:8px; padding:10px 12px; font-size:13.5px; }
+  .gmaps { display:block; text-align:center; margin-top:14px; background:#213354; color:#FFFFFF; text-decoration:none; font-weight:700; padding:12px; border-radius:12px; }
+
+  /* stop page */
+  .drive { display:flex; align-items:stretch; gap:10px; background:#F9FBFD; border-radius:14px; padding:11px 12px; }
+  .drive .car { font-size:22px; line-height:1; padding-top:2px; }
+  .drive .dt { font-size:20px; font-weight:800; }
+  .drive .fr { font-size:12.5px; color:#5E6E88; }
+  .drive .tz { display:inline-block; margin-top:5px; font-size:11.5px; font-weight:700; background:#213354; color:#FFFFFF; padding:2px 8px; border-radius:99px; }
+  .arr { margin-left:auto; text-align:right; flex:none; }
+  .arr .lab { font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#5E6E88; font-weight:700; }
+  .arr .t { white-space:nowrap; font-size:19px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .arr .z { font-size:11.5px; color:#5E6E88; font-weight:700; }
+  .stopname { margin-top:14px; }
+  .stopname .num { display:inline-flex; width:30px; height:30px; border-radius:50%; color:#FFFFFF; font-size:14px; font-weight:800; align-items:center; justify-content:center; margin-bottom:8px; }
+  .place { margin-top:4px; color:#5E6E88; font-size:13.5px; }
+  .stampbox { margin-top:14px; border:2px dashed; border-radius:14px; padding:12px 13px; }
+  .stampbox .kicker { margin-bottom:4px; }
+  .stampbox .where { font-weight:700; }
+  .stampbox .hrs { font-size:13.5px; margin-top:2px; }
+  .got { margin-top:11px; width:100%; border:0; border-radius:10px; padding:11px; font-size:15px; font-weight:800; cursor:pointer; background:#E5ECF3; color:#213354; }
+  .got.on { color:#FFFFFF; }
+  .actions { display:flex; gap:8px; margin-top:10px; }
+  .actions a { flex:1; text-align:center; text-decoration:none; font-weight:700; font-size:14px; padding:11px 8px; border-radius:10px; background:#213354; color:#FFFFFF; }
+  .actions a.alt { background:#E5ECF3; color:#213354; }
+  .note { margin-top:10px; border-radius:10px; padding:9px 12px; font-size:13.5px; }
+  .note.warn { background:#FFF4F0; border-left:4px solid #F0705A; }
+  .note.acc { background:#EEF6F7; border-left:4px solid #2E8C9A; }
+  .note.ok { background:#F0F6EE; border-left:4px solid #5E9A4E; }
+  .about { margin-top:14px; font-size:14.5px; }
+  .about .kicker { color:#5E6E88; margin-bottom:3px; }
+  .foot { margin-top:18px; font-size:12px; color:#94A2B8; text-align:center; }
+
+  /* night / final */
+  .moon { font-size:44px; margin-top:6px; }
+  .chk { list-style:none; padding:0; margin:12px 0 0; }
+  .chk li { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #E5ECF3; font-size:14px; cursor:pointer; }
+  .chk .bx { width:22px; height:22px; border-radius:6px; border:2px solid #C4D0DF; flex:none; display:flex; align-items:center; justify-content:center; color:#FFFFFF; font-size:13px; font-weight:800; }
+  .chk li small { color:#5E6E88; display:block; font-size:12px; }
+
+  /* contents */
+  .toc { position:fixed; inset:0; background:rgba(20,19,36,.6); display:none; z-index:50; }
+  .toc.open { display:block; }
+  .toc .panel { position:absolute; left:0; top:0; bottom:0; width:min(86vw, 380px); background:#F9FBFD; overflow-y:auto; padding:max(18px, env(safe-area-inset-top)) 16px 24px; box-shadow:4px 0 24px rgba(0,0,0,.35); }
+  .toc h3 { margin:16px 0 6px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+  .toc a { display:flex; justify-content:space-between; gap:8px; padding:8px 4px; color:#213354; text-decoration:none; border-bottom:1px solid #E5ECF3; font-size:14px; }
+  .toc a.cur { font-weight:800; }
+  .toc a span { color:#94A2B8; font-variant-numeric:tabular-nums; font-size:12.5px; }
+
+  /* Narrow tall phones (e.g. Galaxy Z Fold8 Ultra cover screen folded, ~21:9).
+     Tighter gutters, and on stop pages the stamp box and Navigate come before the leg map. */
+  @media (max-width: 430px) {
+    .app { padding-left:4px; padding-right:4px; }
+    .topbar { padding:0 2px 6px; }
+    .bottombar { padding-top:6px; }
+    .nav { min-width:78px; padding:10px 12px; }
+    .page .scroll { padding:16px 14px 24px 18px; display:flex; flex-direction:column; }
+    .page .scroll > * { flex:none; }
+    .dayband { margin:-16px -14px 0 -18px; padding:18px 14px 16px 18px; }
+    .dayband h2 { font-size:25px; }
+    .page .scroll > svg[data-map] { order:1; margin-top:16px; }
+    .page .scroll > .about, .page .scroll > .foot { order:2; }
+    .drive { padding:10px; gap:8px; }
+    .drive .car { font-size:18px; }
+    .drive .fr { font-size:12px; }
+    .arr .t { font-size:17px; }
+    .legend { grid-template-columns:1fr; gap:6px; }
+    .legend button { padding:8px 10px; }
+    .cover h1 { font-size:28px; }
+  }
+
+  /* Unfolded foldables and tablets (e.g. Galaxy Z Fold8 Ultra inner screen, ~1.1:1).
+     The book widens and each page goes two-column: map on the left, details beside it. */
+  @media (min-width: 700px) and (min-aspect-ratio: 3/4) {
+    .topbar, .bottombar, .book { max-width:1120px; }
+    body { font-size:16px; }
+    .page .scroll { padding:26px 30px 34px 36px; }
+    .dayband { margin:-26px -30px 0 -36px; padding:26px 30px 22px 36px; }
+    .page .scroll > .map { float:left; width:52%; margin:14px 26px 10px 0; }
+    .page .scroll > *:not(.map):not(.drive):not(.actions):not(.legend):not(.dayband) { display:flow-root; }
+    .page .scroll > div[style*="height:8px"] { display:block; }
+    .cover h1 { font-size:38px; }
+    .cover .legend { grid-template-columns:1fr; }
+    h2 { font-size:28px; }
+    .dayband h2 { font-size:32px; }
+    .actions a { padding:13px 8px; }
+    .toc .panel { width:min(60vw, 440px); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <button class="btn-ghost" id="tocBtn" aria-label="Contents">☰ Pages</button>
+    <div class="t">Disney &amp; the Wish</div>
+    <div class="pgnum" id="pgnum">1 / 1</div>
+  </div>
+  <div class="book" id="book"></div>
+  <div class="bottombar">
+    <button class="nav" id="prev">‹ Back</button>
+    <div class="progress"><i id="bar"></i></div>
+    <button class="nav next" id="next">Next ›</button>
+  </div>
+</div>
+<div class="toc" id="toc"><div class="panel" id="tocPanel"></div></div>
+
+<svg width="0" height="0" style="position:absolute"><g id="basemap"><path class="st on" d="M-500,-40.4L-324.1,-29.9L-54.9,-11.4L121.5,1L114.9,6L117.5,26.7L126.7,36.2L122.8,61.9L137.1,89.5L185.5,84.8L185.5,57.6L193.3,40.5L197.2,-2.7L181.6,-35.7L186.8,-57.6L185.5,-75.4L195.9,-81.2L190.7,-89.9L206.4,-87L218.2,-108.5L237.7,-106L246.9,-93.9L269.1,-92.8L292.6,-82.7L301.8,-73.6L344.9,-66.6L367.1,-60.1L385.4,-65.6L402.4,-58.6L407.6,-53.9L402.4,-12.8L406.3,20.6L401.1,28.6L414.1,37.6L419.4,72.1L420.7,113L450.7,253.7L467.7,300.2L467.7,318.6L504.3,427.3L546.1,530.7L584,612.8L668.9,760L718.6,831.3L723.8,853.7L736.9,883.3L713.3,903.5L708.1,922.7L706.8,953.6L713.3,999.8L721.2,1033.8L742.1,1085.2L787.8,1180.3L807.4,1238.9L814,1268.6L820.5,1278.8L834.9,1328.1L857.1,1381.6L868.8,1404.8L876.7,1437.9L893.7,1476.2L899.5,1500L60.3,1500L60.3,1500L37.8,1459L26.1,1425.9L1.3,1376.7L-34,1324.3L-52.3,1304.5L-57.5,1284.1L-70.6,1262.6L-57.5,1269.3L-56.2,1279.9L-36.6,1269.3L-23.6,1243.9L-7.9,1234L9.1,1199.4L26.1,1187.4L23.5,1179.3L41.8,1170.1L56.1,1140.4L49.6,1113.9L20.9,1106.4L27.4,1146.4L-1.4,1135.8L6.5,1123.8L5.2,1100.8L-1.4,1087L-51,1061.8L-49.7,1084.8L-64.1,1094.7L-49.7,1107.8L-28.8,1110L-14.4,1148.9L-27.5,1163.7L-27.5,1185.6L-32.7,1195.2L-60.2,1197.3L-64.1,1208.6L-54.9,1222L-66.7,1232.6L-71.9,1218.5L-69.3,1189.2L-87.6,1159.1L-99.4,1149.9L-109.8,1129.4L-102,1065L-108.5,1041.6L-113.7,983.4L-102,983.1L-102,1016.1L-96.7,1047.6L-85,1050.1L-90.2,995.9L-78.4,982.7L-77.1,968.2L-66.7,952.6L-66.7,939.1L-57.5,921.3L-57.5,907.4L-45.8,890.7L-44.5,858.3L-37.9,828.8L-45.8,805.3L-43.2,785.3L-60.2,775L-54.9,760L-66.7,721.1L-51,698.2L-78.4,658.9L-74.5,647.9L-85,628.2L-98,627.1L-91.5,615.3L-92.8,597.8L-102,593.1L-163.4,584.9L-175.1,603.1L-184.3,604.6L-196,568.7L-192.1,552.6L-210.4,541.1L-226.1,537.9L-228.7,515.3L-237.9,494.5L-252.2,478.4L-271.8,476.2L-278.4,460.4L-309.7,443.1L-309.7,403.2L-314.9,379.1L-330.6,376.6L-343.7,362.9L-360.7,356.8L-377.7,334.8L-377.7,319.7L-389.4,307.1L-395.9,288.7L-414.2,272.8L-450.8,250.5L-500,226L-500,-40.4Z"/><path class="st" d="M527.5,-500L516.1,-489.8L493.8,-494.5L489.9,-488.7L505.6,-476.5L516.1,-478.4L514.7,-447.5L505.6,-424.7L469,-415.2L469,-407.1L491.2,-410.8L499.1,-402L469,-354L461.2,-320.6L470.3,-315.9L463.8,-304.9L457.3,-269.4L440.3,-261.4L429.8,-239.8L418.1,-238.7L418.1,-212.8L408.9,-187.6L399.8,-188.3L384.1,-172.3L401.1,-163.5L415.4,-172.3L416.8,-142.8L395.8,-84.1L402.4,-58.6L385.4,-65.6L367.1,-60.1L344.9,-66.6L301.8,-73.6L292.6,-82.7L269.1,-92.8L246.9,-93.9L237.7,-106L218.2,-108.5L206.4,-87L190.7,-89.9L195.9,-81.2L185.5,-75.4L186.8,-57.6L181.6,-35.7L197.2,-2.7L193.3,40.5L185.5,57.6L185.5,84.8L137.1,89.5L122.8,61.9L126.7,36.2L117.5,26.7L114.9,6L121.5,1L-54.9,-11.4L-324.1,-29.9L-500,-40.4L-500,-500Z"/><text class="sl" x="290.7" y="575.6">FLORIDA</text><circle class="cd" cx="425.4" cy="850" r="3"/><text class="cl" x="425.4" y="850">Orlando</text><circle class="cd" cx="556.4" cy="571.5" r="3"/><text class="cl" x="556.4" y="571.5">Daytona Beach</text><circle class="cd" cx="450.9" cy="282.7" r="3"/><text class="cl" x="450.9" y="282.7">St. Augustine</text><circle class="cd" cx="323.4" cy="101.8" r="3"/><text class="cl" x="323.4" y="101.8">Jacksonville</text><circle class="cd" cx="709.3" cy="912.1" r="3"/><text class="cl" x="709.3" y="912.1">Cape Canaveral</text></g></svg>
+
+<script>
+const PT = {"mco":[451.5,895.1],"cor":[360.2,921.4],"w_i4a":[425.4,845.9],"w_i4b":[465.4,742.1],"w_i4c":[545.5,667.3],"canv":[626.1,689.3],"w_nsb":[581.9,646.5],"w_i95a":[520,533.9],"w_flag":[487.3,450.3],"foma":[476.7,360.2],"casa":[450.3,283.6],"w_i95b":[399.9,177.6],"w_jax":[363.5,106],"timu":[382.3,77.9],"w_jax2":[345.3,122.8],"w_i95c":[389,282.7],"w_i95d":[490.9,492.2],"w_i4d":[461.8,742.1],"w_i4e":[418.1,845.9],"cor2":[360.3,921.4],"ssr":[377,919.4],"w_528":[563.7,887.3],"pcv":[702.2,903.6],"w_5282":[560.1,886.9],"mco2":[451.6,895]};
+const TRIP = {"slug":"sept2026-wdw-wish","book":"disney-world-wish","start":"2026-09-05","end":"2026-09-14","emoji":"🏰","poster":"fort","title":"Disney World & the Wish","short":"Disney & the Wish","placeholder":"","subtitle":"Sep 5–14, 2026, with Jason and Jenny. A Northeast Florida coast stamp run on Sunday, four Walt Disney World park days, then Halloween on the High Seas aboard the Disney Wish.","chips":["4 new stamps","Disney Wish cruise","Party of four"],"itinerary":"../sept2026-wdw-wish.html","collected":["canv","foma","casa","timu"],"theme":{"#1A2A4A":"#1A2A4A","#213354":"#213354","#283C5F":"#283C5F","#30466A":"#30466A","#385075":"#385075","#F0705A":"#F0705A","#EEF3F8":"#EEF3F8","#C4D0DF":"#C4D0DF","#7FD1B9":"#7FD1B9","#C4D0DF":"#C4D0DF","#EEF3F8":"#EEF3F8","#E5ECF3":"#E5ECF3","#F9FBFD":"#F9FBFD","#5E6E88":"#5E6E88","#94A2B8":"#94A2B8","#E5ECF3":"#E5ECF3","#F9FBFD":"#F9FBFD","#E5ECF3":"#E5ECF3","#E5ECF3":"#E5ECF3","#7FD1B9":"#7FD1B9","#C4D0DF":"#C4D0DF","#5E6E88":"#5E6E88","#FFF4F0":"#FFF4F0"},"legMinW":330,"airports":[["mco","MCO"],["pcv","PORT"]],"route":["mco","cor","w_i4a","w_i4b","w_i4c","canv","w_nsb","w_i95a","w_flag","foma","casa","w_i95b","w_jax","timu","w_jax2","w_i95c","w_i95d","w_i4d","w_i4e","cor2","ssr","w_528","pcv","w_5282","mco2"],"days":[{"n":0,"label":"Day 0","dow":"Sat","dowLong":"Saturday","date":"Sep 5","title":"Fly to Orlando","color":"#385075","meta":"No stamps · travel only","html":"<div class=\"moon\" style=\"margin-top:18px\">✈︎<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">SFO → MCO<\/h2>\n<p><b>United UA 583<\/b> · SFO 8:15 AM → MCO 4:44 PM · conf. <b>JDWWKL<\/b>.<\/p>\n<p>Rental car from MCO to <b>Coronado Springs<\/b> for two nights, then an easy evening of dinner and wandering at Disney Springs.<\/p>"},{"n":1,"label":"Day 1","dow":"Sun","dowLong":"Sunday","date":"Sep 6","title":"Northeast Florida stamp run","sub":"Coronado Springs → New Smyrna → St. Augustine → Jacksonville → Coronado Springs","color":"#F0705A","drive":"~5h 30m","stamps":4,"start":"cor","end":"cor2","tzline":"Eastern time","cutLabel":"How it went","cut":"Planned as six stops up into Georgia; the day ran south to north and stopped after Fort Caroline. Cumberland Island NS (St. Marys) and Fort Frederica NM (St. Simons Island) are saved for a future Georgia coast run. Times here are approximate.","gmaps":"https://www.google.com/maps/dir/Disney%27s+Coronado+Springs+Resort/Apollo+Beach+Visitor+Center%2C+Canaveral+National+Seashore/Fort+Matanzas+National+Monument/Castillo+de+San+Marcos/Fort+Caroline+National+Memorial/Disney%27s+Coronado+Springs+Resort"},{"n":2,"kind":"cruise","label":"Days 2–5","dow":"Mon–Thu","kicker":"Days 2–5 · Mon Sep 7 – Thu Sep 10","title":"Walt Disney World","sub":"Four parks · Saratoga Springs","color":"#7B6BB5","html":"<div class=\"moon\" style=\"margin-top:18px\">🏰<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Four park days<\/h2>\n<p>Moved from Coronado Springs to <b>Saratoga Springs<\/b> (DVC) on Monday, all four of you through Friday.<\/p>\n<p><b>Mon Sep 7<\/b> · Hollywood Studios<br><b>Tue Sep 8<\/b> · Animal Kingdom<br><b>Wed Sep 9<\/b> · EPCOT<br><b>Thu Sep 10<\/b> · Magic Kingdom<\/p>\n<p>Joanne brought her own wheelchair, so no ECV rental.<\/p>"},{"n":3,"kind":"cruise","label":"Days 6–8","dow":"Fri–Sun","kicker":"Days 6–8 · Fri Sep 11 – Sun Sep 13","title":"The Disney Wish","sub":"Halloween on the High Seas from Port Canaveral","color":"#2E7FA0","html":"<div class=\"moon\" style=\"margin-top:18px\">🚢<\/div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">Halloween on the High Seas<\/h2>\n<p>Disney transportation from Saratoga Springs to Port Canaveral on Friday, Sep 11, and aboard the <b>Disney Wish<\/b> for three nights.<\/p>\n<p>Joanne &amp; John: res. #44363623, category 07A, 8:15 PM dining. Jason &amp; Jenny: res. #44685575, stateroom 9172.<\/p>"},{"n":4,"label":"Day 9","dow":"Mon","dowLong":"Monday","date":"Sep 14","title":"Debark & fly home","sub":"Port Canaveral → MCO","color":"#385075","start":"pcv","end":"mco2","tzline":"","cutLabel":"Good to know","cut":"Disney transportation from the port to MCO.","gmaps":"https://www.google.com/maps/dir/Port+Canaveral+Cruise+Terminal/Orlando+International+Airport"}],"stops":[{"d":1,"kind":"stop","k":"canv","unit":"Canaveral NS","color":"#F0705A","ink":"#FFFFFF","boxColor":"#F0705A","from":"Coronado Springs","leave":"morning","drive":"~1h 15m","arrive":"morning","z":"EDT","via":"I-4 east to I-95, then to the north (Apollo Beach) entrance.","name":"Canaveral NS","type":"National Seashore","place":"Apollo Beach Visitor Center","addr":"Apollo Beach Visitor Center, 7611 S Atlantic Ave, New Smyrna Beach, FL","where":"Apollo Beach Visitor Center","hrs":"Daily 9 AM – 5 PM.","ok":"North entrance only; there’s no through-road to the Playalinda side.","about":"The longest stretch of undeveloped beach on Florida’s Atlantic coast, next door to the Kennedy Space Center."},{"d":1,"kind":"stop","k":"foma","unit":"Fort Matanzas NM","color":"#F0705A","ink":"#FFFFFF","boxColor":"#F0705A","from":"New Smyrna Beach","drive":"~1h","arrive":"late morning","z":"EDT","via":"North on I-95, then A1A onto Anastasia Island.","name":"Fort Matanzas NM","type":"National Monument","place":"Visitor center, Anastasia Island","addr":"Fort Matanzas National Monument, 8636 A1A S, St. Augustine, FL","where":"Visitor center","hrs":"Daily 9 AM – 5:30 PM.","ok":"The stamp is at the visitor center; the ferry only goes out to the fort itself.","about":"A small 1740s Spanish coquina watchtower guarding St. Augustine’s back door at Matanzas Inlet."},{"d":1,"kind":"stop","k":"casa","unit":"Castillo de San Marcos NM","color":"#F0705A","ink":"#FFFFFF","boxColor":"#F0705A","from":"Fort Matanzas","drive":"~20m","arrive":"midday","z":"EDT","via":"Up A1A into St. Augustine.","name":"Castillo de San Marcos NM","type":"National Monument","place":"Bookstore inside the fort","addr":"Castillo de San Marcos, 1 S Castillo Dr, St. Augustine, FL","where":"Bookstore inside the fort","hrs":"Daily 9 AM – 5:15 PM.","ok":"On-site paid parking, or a 10-minute walk from the Historic Downtown garage.","about":"The oldest masonry fort in the continental U.S., built of coquina by Spain starting in 1672."},{"d":1,"kind":"stop","k":"timu","unit":"Timucuan Ecological & Historic Preserve","color":"#F0705A","ink":"#FFFFFF","boxColor":"#F0705A","from":"St. Augustine","drive":"~45m","arrive":"afternoon","z":"EDT","via":"North on I-95 and across the St. Johns to the Fort Caroline visitor center.","name":"Timucuan Preserve","type":"Ecological & Historic Preserve","place":"Fort Caroline visitor center","addr":"Timucuan Preserve Visitor Center, 12713 Fort Caroline Rd, Jacksonville, FL","where":"Fort Caroline visitor center","hrs":"Wed–Sun 9 AM – 5 PM.","ok":"The last stop of the day; Cumberland Island and Fort Frederica were left for another trip.","about":"Salt marshes, waterways and history at the mouth of the St. Johns River, including the site of the 1564 French Fort Caroline."},{"d":1,"kind":"night","k":"cor2","from":"Jacksonville","drive":"~2h 30m","arrive":"evening","z":"EDT","via":"I-95 south, then I-4 west. Returned the rental at the Disney Car Care Center.","name":"Coronado Springs","addr":"Disney's Coronado Springs Resort, Lake Buena Vista, FL","note":"Second night at Coronado Springs; tomorrow it’s over to Saratoga Springs."},{"d":4,"kind":"home","k":"mco2","from":"Port Canaveral","leave":"after debarking","drive":"~45m","arrive":"3:00 PM","z":"EDT","title":"Orlando → home","note":"Disney transportation from the ship to MCO. United UA 425, MCO 3:00 PM → SFO 5:50 PM.","navTo":"Orlando International Airport","navLabel":"Navigate to MCO ↗","arriveLabel":"Flight"}],"library":"index.html"};
+const ROUTE = TRIP.route, DAYS = TRIP.days, STOPS = TRIP.stops;
+const LASTDAY = DAYS.length - 1;
+let n = 0; const NUMOF = {};
+STOPS.forEach(s => { if (s.kind === 'stop') { s.num = s.stampId ? NUMOF[s.stampId] : ++n; NUMOF[s.k] = s.num; } });
+const stopColor = s => s.color || DAYS[s.d].color;
+const dayColor = d => DAYS[d].color;
+const DL = d => DAYS[d].label || ('Day ' + d);
+const DK = d => DAYS[d].kicker || (DL(d) + ' · ' + DAYS[d].dowLong + (DAYS[d].date ? ', ' + DAYS[d].date : ''));
+
+/* ---------- stamp storage ---------- */
+const SKEY = TRIP.slug + '-book-stamps', PKEY = TRIP.slug + '-book-page';
+const UNITS = [];
+STOPS.filter(s => s.kind === 'stop' && !s.stampId).forEach(s => {
+  UNITS.push({ id: s.k, name: s.unit || s.name, d: s.d, place: s.place, label: s.num, color: s.boxColor || stopColor(s) });
+  (s.also || []).forEach(u => UNITS.push({ id: u.id, name: u.name, d: s.d, place: s.place, label: s.num + '+', color: u.color || stopColor(s) }));
+});
+const UNIT = Object.fromEntries(UNITS.map(u => [u.id, u]));
+const NSTAMPS = UNITS.length;
+let got = {};
+try { got = JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { got = {}; }
+// stamps already collected (past trips): checked unless unticked on this device
+(TRIP.collected || []).forEach(id => { if (!(id in got)) got[id] = true; });
+function saveGot() { try { localStorage.setItem(SKEY, JSON.stringify(got)); } catch (e) {} }
+
+/* ---------- maps ---------- */
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; }
+function routeD(keys) { return keys.map((k, i) => (i ? 'L' : 'M') + PT[k][0] + ' ' + PT[k][1]).join(''); }
+
+function buildMap(svg, o) {
+  // o: { focus:[keys], aspect, dayFocus, leg:[a,b], now:key }
+  const pad = o.pad || 60;
+  let xs = o.focus.map(k => PT[k][0]), ys = o.focus.map(k => PT[k][1]);
+  let x0 = Math.min(...xs) - pad, x1 = Math.max(...xs) + pad, y0 = Math.min(...ys) - pad, y1 = Math.max(...ys) + pad;
+  let w = Math.max(x1 - x0, o.minW || 220), h = Math.max(y1 - y0, (o.minW || 220) / o.aspect);
+  if (w / h > o.aspect) h = w / o.aspect; else w = h * o.aspect;
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  const vb = [cx - w / 2, cy - h / 2, w, h];
+  svg.setAttribute('viewBox', vb.map(v => v.toFixed(1)).join(' '));
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  const s = w / 1000;
+  const base = document.getElementById('basemap').cloneNode(true); base.removeAttribute('id');
+  base.querySelectorAll('.sl').forEach(t => t.setAttribute('font-size', (s * 22).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('font-size', (s * 17).toFixed(1)));
+  base.querySelectorAll('.cd').forEach(c => c.setAttribute('r', (s * 3.5).toFixed(1)));
+  base.querySelectorAll('.cl').forEach(t => t.setAttribute('dy', (-s * 9).toFixed(1)));
+  svg.appendChild(base);
+  // whole route, faint
+  el('path', { d: routeD(ROUTE), class: 'rt', stroke: '#C4D0DF', 'stroke-width': 2 }, svg);
+  // day segments
+  for (let d = 1; d <= LASTDAY; d++) {
+    if (!DAYS[d].start) continue;
+    const a = ROUTE.indexOf(DAYS[d].start), b = ROUTE.indexOf(DAYS[d].end);
+    const dim = o.dayFocus && o.dayFocus !== d;
+    el('path', { d: routeD(ROUTE.slice(a, b + 1)), class: 'rt', stroke: DAYS[d].color, 'stroke-width': dim ? 2.5 : 4, opacity: dim ? .35 : .9 }, svg);
+  }
+  if (o.leg) el('path', { d: routeD(o.leg), class: 'leg' }, svg);
+  // airports
+  TRIP.airports.forEach(([k, lab]) => {
+    const g = el('g', { class: 'end' }, svg), r = s * 17;
+    const wr = r * (0.9 + 0.62 * lab.length);
+    el('rect', { x: PT[k][0] - wr / 2, y: PT[k][1] - r * .8, width: wr, height: r * 1.6, rx: r * .4 }, g);
+    const t = el('text', { x: PT[k][0], y: PT[k][1], 'font-size': (r * .9).toFixed(1) }, g); t.textContent = lab;
+  });
+  // overnight dots
+  STOPS.filter(x => x.kind === 'night').map(x => x.k).forEach(k => {
+    const c = el('circle', { cx: PT[k][0], cy: PT[k][1], r: s * 7, fill: '#213354', stroke: '#FFFFFF', 'stroke-width': 1.5, 'vector-effect': 'non-scaling-stroke' }, svg);
+  });
+  // points of interest (no stamp)
+  STOPS.filter(x => x.kind === 'point').forEach(x => {
+    const now = x.k === o.now;
+    el('circle', { cx: PT[x.k][0], cy: PT[x.k][1], r: s * (now ? 11 : 6), fill: now ? DAYS[x.d].color : '#FFFFFF', stroke: '#213354', 'stroke-width': now ? 3 : 1.5, 'vector-effect': 'non-scaling-stroke', opacity: o.dayFocus && o.dayFocus !== x.d ? .4 : 1 }, svg);
+  });
+  // pins (draw current last)
+  const r = s * (o.pinR || 16);
+  const list = STOPS.filter(x => x.kind === 'stop' && (!x.stampId || x.k === o.now));
+  list.sort((a, b) => (a.k === o.now) - (b.k === o.now));
+  list.forEach(st => {
+    const dim = o.dayFocus && o.dayFocus !== st.d;
+    const g = el('g', { class: 'pin' + (st.k === o.now ? ' now' : '') + (dim ? ' dim' : '') }, svg);
+    const rr = st.k === o.now ? r * 1.35 : r;
+    el('circle', { cx: PT[st.k][0], cy: PT[st.k][1], r: rr, fill: stopColor(st) }, g);
+    const t = el('text', { x: PT[st.k][0], y: PT[st.k][1], 'font-size': (rr * 1.05).toFixed(1) }, g); t.textContent = st.num;
+    if (st.ink) t.style.fill = st.ink;
+  });
+}
+
+/* ---------- pages ---------- */
+const pages = []; // {el, label, group}
+const book = document.getElementById('book');
+function addPage(cls, html, label, group, after) {
+  const p = document.createElement('section');
+  p.className = 'page ' + cls;
+  p.innerHTML = '<div class="scroll">' + html + '</div><div class="shade"></div>';
+  book.appendChild(p);
+  pages.push({ el: p, label, group });
+  if (after) after(p);
+  return pages.length - 1;
+}
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const nav = a => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a);
+const firstPageOfDay = {};
+const pageOfStop = {};
+
+// Cover
+addPage('cover', `
+  ${TRIP.placeholder ? `<div class="ph">${esc(TRIP.placeholder)}</div>` : ''}
+  <div class="kicker" style="color:#F0705A">Trip book</div>
+  <h1 class="serif">${esc(TRIP.title)}</h1>
+  <div class="sub">${esc(TRIP.subtitle)}</div>
+  <svg class="map" id="coverMap" style="aspect-ratio:1/1.05"></svg>
+  <div style="margin-top:10px">
+    ${TRIP.chips.map((c, i) => `<span class="chip${i ? '' : ' hot'}">${esc(c)}</span>`).join('')}
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="tally"><div><div style="font-size:12px;color:#7FD1B9;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps this trip</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+  <div class="swipe">Swipe or tap Next to turn the page ›</div>
+  ${TRIP.itinerary ? `<a class="backlink" href="${TRIP.itinerary}">← Full itinerary page</a>` : ''}
+  ${TRIP.library ? `<a class="backlink" href="${TRIP.library}">📚 All trip books</a>` : ''}
+`, 'Cover · trip map', 'Start', p => {
+  buildMap(p.querySelector('#coverMap'), { focus: ROUTE, aspect: 1 / 1.05, pad: 34, pinR: 15 });
+});
+
+// Day 0
+const D0 = DAYS[0];
+addPage('', `
+  <div class="dayband" style="background:${D0.color}">
+    <div class="kicker">${DK(0)}</div>
+    <h2 class="serif">${esc(D0.title)}</h2>
+    <div class="meta">${esc(D0.meta || '')}</div>
+  </div>
+  ${D0.html || ''}
+`, DL(0) + ' · ' + D0.title, 0);
+
+// Days
+for (let d = 1; d <= LASTDAY; d++) {
+  const D = DAYS[d];
+  if (D.kind === 'cruise') {
+    firstPageOfDay[d] = addPage('', `
+      <div class="dayband" style="background:${D.color}">
+        <div class="kicker">${DK(d)}</div>
+        <h2 class="serif">${esc(D.title)}</h2>
+        ${D.sub ? `<div class="meta">${esc(D.sub)}</div>` : ''}
+      </div>
+      ${D.html || ''}
+    `, DL(d) + ' · ' + D.title, d);
+    continue;
+  }
+  const items = STOPS.filter(s => s.d === d);
+  const first = items[0];
+  const metaBits = [D.stamps ? D.stamps + ' stamp' + (D.stamps > 1 ? 's' : '') : '', D.drive ? '🚗 ' + D.drive + ' driving' : '', D.tzline || ''].filter(Boolean).join(' · ');
+  firstPageOfDay[d] = addPage('', `
+    <div class="dayband" style="background:${D.color}">
+      <div class="kicker">${DK(d)}</div>
+      <h2 class="serif">${D.title}</h2>
+      <div class="meta">${D.sub || ''}${metaBits ? '<br>' + metaBits : ''}</div>
+    </div>
+    <svg class="map" id="dm${d}" style="aspect-ratio:1.45/1"></svg>
+    <ul class="tl">
+      <li data-jump="first"><div class="tm">${first.leave}<br>${first.z}</div><div class="nm">Leave ${esc(first.from)}</div></li>
+      ${items.map(s => `<li data-stop="${s.k}"><div class="tm">${s.arrive}<br>${s.z}</div><div class="nm">${s.kind === 'stop' ? `<span class="num" style="background:${stopColor(s)}${s.ink ? ';color:' + s.ink : ''}">${s.num}</span>` : (s.kind === 'night' ? '☾ ' : s.kind === 'point' ? '• ' : '✈︎ ')}${esc(s.kind === 'night' ? 'Sleep in ' + s.name : (s.title || s.name))}<small>🚗 ${s.drive} from ${esc(s.from)}</small></div></li>`).join('')}
+    </ul>
+    ${D.cut ? `<div class="cut"><b>${esc(D.cutLabel || 'Hard cutoffs')}:</b> ${D.cut}</div>` : ''}
+    ${D.gmaps ? `<a class="gmaps" href="${D.gmaps}" target="_blank" rel="noopener">Open ${DL(d)} route in Google Maps ↗</a>` : ''}
+  `, DL(d) + ' · ' + D.title, d, p => {
+    buildMap(p.querySelector('#dm' + d), { focus: ROUTE.slice(ROUTE.indexOf(D.start), ROUTE.indexOf(D.end) + 1), aspect: 1.45, pad: 45, dayFocus: d });
+  });
+
+  items.forEach((s, i) => {
+    const fromKey = i === 0 ? D.start : items[i - 1].k;
+    const driveCard = `
+      <div class="drive">
+        <div class="car">🚗</div>
+        <div><div class="fr">${s.leave ? 'Leave ' + esc(s.from) + ' ' + s.leave : 'From ' + esc(s.from)}</div><div class="dt">${s.drive}</div>${s.tz ? `<div class="tz">${s.tz}</div>` : ''}</div>
+        <div class="arr"><div class="lab">${s.arriveLabel || 'Arrive'}</div><div class="t">${s.arrive}</div><div class="z">${s.z}</div></div>
+      </div>
+      ${s.via ? `<div class="note" style="background:#F9FBFD">${esc(s.via)}</div>` : ''}`;
+    const mapSvg = `<svg class="map" style="aspect-ratio:1.7/1" data-map="${fromKey},${s.k}"></svg>`;
+    let html, label;
+    if (s.kind === 'stop') {
+      const C = stopColor(s);
+      const units = [{ id: s.stampId || s.k, name: s.unit, where: s.where, hrs: s.hrs, color: s.boxColor || C }].concat((s.also || []).map(u => Object.assign({ color: u.color || C }, u)));
+      const dayStops = items.filter(x => x.kind === 'stop');
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Stop ${dayStops.indexOf(s) + 1} of ${dayStops.length}</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><div class="num" style="background:${C}${s.ink ? ';color:' + s.ink : ''}">${s.num}</div><h2 class="serif">${esc(s.name)}</h2>
+          <div class="place">${esc(s.type)} · ${esc(s.place)}</div></div>
+        ${s.optional ? `<div class="note ok">${esc(s.optional)}</div>` : ''}
+        ${units.map(u => `
+        <div class="stampbox" style="border-color:${u.color}">
+          <div class="kicker" style="color:${u.color}">◈ ${units.length > 1 ? esc(u.name) : 'Stamp'}</div>
+          <div class="where">${esc(u.where)}</div>
+          ${u.hrs ? `<div class="hrs">${esc(u.hrs)}</div>` : ''}
+          <button class="got" data-got="${u.id}"></button>
+        </div>`).join('')}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>
+        ${s.about ? `<div class="about"><div class="kicker">About this place</div>${esc(s.about)}</div>` : ''}
+        <div class="foot">Re-check hours in the NPS app the week before.</div>`;
+      label = s.num + ' · ' + s.name;
+    } else if (s.kind === 'point') {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Along the way</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="stopname"><h2 class="serif">${esc(s.name)}</h2>${s.place ? `<div class="place">${esc(s.place)}</div>` : ''}</div>
+        ${s.bonus ? `<div class="stampbox" style="border-color:#94A2B8"><div class="kicker" style="color:#5E6E88">◈ ${esc(s.bonus.title || 'Bonus cancellation · optional')}</div><div class="where">${esc(s.bonus.where)}</div>${s.bonus.hrs ? `<div class="hrs">${esc(s.bonus.hrs)}</div>` : ''}</div>` : ''}
+        ${s.note ? `<p>${esc(s.note)}</p>` : ''}
+        ${s.warn ? `<div class="note warn">⚠ ${esc(s.warn)}</div>` : ''}
+        ${s.acc ? `<div class="note acc">♿ ${esc(s.acc)}</div>` : ''}
+        ${s.ok ? `<div class="note ok">✓ ${esc(s.ok)}</div>` : ''}
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a><a class="alt" href="#" data-jumpday="${d}">${DL(d)} overview</a></div>`;
+      label = '• ' + s.name;
+    } else if (s.kind === 'night') {
+      const next = DAYS[d + 1];
+      const nextLine = next.kind === 'cruise' ? esc(next.sub || '') : `${next.stamps ? next.stamps + (next.stamps === 1 ? ' stamp · ' : ' stamps · ') : ''}${next.drive ? '🚗 ' + next.drive + '. ' : ''}${next.cut || ''}`;
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · End of the day</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">☾</div>
+        <h2 class="serif">Sleep in ${esc(s.name)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.addr || s.name)}" target="_blank" rel="noopener">Navigate ↗</a></div>
+        <div class="cut" style="background:#F9FBFD;border-left-color:${next.color}"><b>Tomorrow · ${DL(d + 1)}: ${esc(next.title)}</b><br>${nextLine}</div>`;
+      label = '☾ Sleep in ' + s.name;
+    } else {
+      html = `
+        <div class="kicker" style="color:${D.color}">${DL(d)} · Last leg</div>
+        <div style="height:8px"></div>
+        ${driveCard}
+        ${mapSvg}
+        <div class="moon">✈︎</div>
+        <h2 class="serif">${esc(s.title)}</h2>
+        <p>${esc(s.note)}</p>
+        ${s.html || ''}
+        <div class="actions"><a href="${nav(s.navTo)}" target="_blank" rel="noopener">${esc(s.navLabel || 'Navigate ↗')}</a></div>
+        <div class="tally" style="background:#213354;color:#EEF3F8;margin-top:16px"><div><div style="font-size:12px;color:#7FD1B9;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Stamps collected</div><div class="n"><span class="gotN">0</span> / ${NSTAMPS}</div></div><div style="font-size:30px">◈</div></div>
+        <ul class="chk" id="chk"></ul>`;
+      label = '✈︎ ' + s.title;
+    }
+    pageOfStop[s.k] = addPage('', html, label, d, p => {
+      const m = p.querySelector('[data-map]');
+      const [a, b] = m.dataset.map.split(',');
+      buildMap(m, { focus: [a, b], leg: [a, b], now: s.k, aspect: 1.7, pad: 80, minW: TRIP.legMinW || 400, dayFocus: d, pinR: 22 });
+    });
+  });
+}
+
+/* ---------- legend, checklist, stamps ---------- */
+document.getElementById('legend').innerHTML = DAYS.slice(1).map((D, i) =>
+  `<button data-jumpday="${i + 1}"><span class="sw" style="background:${D.color}"></span><span><b>${DL(i + 1)}${D.dow ? ' · ' + D.dow : ''}</b><span class="s">${esc(D.title)}${D.stamps ? ' · ' + D.stamps + (D.stamps > 1 ? ' stamps' : ' stamp') : ''}</span></span></button>`).join('');
+document.getElementById('chk').innerHTML = UNITS.map(u =>
+  `<li data-got="${u.id}"><span class="bx"></span><span>${u.label}. ${esc(u.name)}<small>${DL(u.d)} · ${esc(u.place)}</small></span></li>`).join('');
+
+function renderGot() {
+  const c = UNITS.filter(u => got[u.id]).length;
+  document.querySelectorAll('.gotN').forEach(e => e.textContent = c);
+  document.querySelectorAll('button.got').forEach(b => {
+    const on = !!got[b.dataset.got], col = UNIT[b.dataset.got].color;
+    b.classList.toggle('on', on); b.style.background = on ? col : '#E5ECF3';
+    b.textContent = on ? '✓ Stamp collected' : 'Tap when you’ve got the stamp';
+  });
+  document.querySelectorAll('.chk li').forEach(li => {
+    const on = !!got[li.dataset.got], bx = li.querySelector('.bx'), col = UNIT[li.dataset.got].color;
+    bx.textContent = on ? '✓' : ''; bx.style.background = on ? col : 'transparent'; bx.style.borderColor = on ? col : '#C4D0DF';
+  });
+}
+
+/* ---------- flipping ---------- */
+let idx = 0, busy = false;
+const pg = document.getElementById('pgnum'), bar = document.getElementById('bar'), prevB = document.getElementById('prev'), nextB = document.getElementById('next');
+function chrome() {
+  pg.textContent = (idx + 1) + ' / ' + pages.length;
+  bar.style.width = ((idx) / (pages.length - 1) * 100) + '%';
+  prevB.disabled = idx === 0; nextB.disabled = idx === pages.length - 1;
+  try { localStorage.setItem(PKEY, idx); } catch (e) {}
+  try { history.replaceState(null, '', '#p' + (idx + 1)); } catch (e) {}
+}
+function show(i) { pages.forEach((p, j) => p.el.className = p.el.className.replace(/\b(show|under|flip-out|flip-in)\b/g, '').trim() + (j === i ? ' show' : '')); idx = i; chrome(); }
+function go(i) {
+  if (busy || i === idx || i < 0 || i >= pages.length) return;
+  const cur = pages[idx].el, nxt = pages[i].el;
+  nxt.querySelector('.scroll').scrollTop = 0;
+  busy = true;
+  const done = () => { pages.forEach((p, j) => { if (j !== i) p.el.classList.remove('show'); p.el.classList.remove('under', 'flip-out', 'flip-in'); }); idx = i; busy = false; chrome(); };
+  if (i > idx) {
+    nxt.classList.add('show', 'under'); cur.classList.add('flip-out');
+    cur.addEventListener('animationend', done, { once: true });
+  } else {
+    cur.classList.add('under'); nxt.classList.add('show', 'flip-in');
+    nxt.addEventListener('animationend', done, { once: true });
+  }
+  setTimeout(() => { if (busy) done(); }, 900);
+}
+prevB.onclick = () => go(idx - 1);
+nextB.onclick = () => go(idx + 1);
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(idx + 1); if (e.key === 'ArrowLeft') go(idx - 1); });
+let tx = 0, ty = 0;
+book.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+book.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(idx + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-got]');
+  if (g) { got[g.dataset.got] = !got[g.dataset.got]; saveGot(); renderGot(); return; }
+  const jd = e.target.closest('[data-jumpday]');
+  if (jd) { e.preventDefault(); go(firstPageOfDay[jd.dataset.jumpday]); return; }
+  const js = e.target.closest('[data-stop]');
+  if (js) { go(pageOfStop[js.dataset.stop]); return; }
+  const jf = e.target.closest('[data-jump]');
+  if (jf) { go(idx + 1); return; }
+});
+
+/* ---------- contents ---------- */
+const toc = document.getElementById('toc'), tocPanel = document.getElementById('tocPanel');
+function openToc() {
+  let h = '<div class="kicker" style="color:#F0705A">Pages</div>', grp = '';
+  pages.forEach((p, i) => {
+    if (p.group !== grp) { grp = p.group; const isDay = typeof grp === 'number'; h += `<h3 style="color:${isDay ? DAYS[grp].color : '#5E6E88'}">${isDay ? DL(grp) + (DAYS[grp].dow ? ' · ' + DAYS[grp].dow : '') : grp}</h3>`; }
+    h += `<a href="#" data-p="${i}" class="${i === idx ? 'cur' : ''}">${esc(p.label)}<span>${i + 1}</span></a>`;
+  });
+  tocPanel.innerHTML = h; toc.classList.add('open');
+}
+document.getElementById('tocBtn').onclick = openToc;
+toc.addEventListener('click', e => {
+  const a = e.target.closest('[data-p]');
+  if (a) { e.preventDefault(); toc.classList.remove('open'); go(+a.dataset.p); return; }
+  if (e.target === toc) toc.classList.remove('open');
+});
+
+/* ---------- start ---------- */
+renderGot();
+let start = 0;
+const hm = /#p(\d+)/.exec(location.hash);
+if (hm) start = Math.min(pages.length - 1, Math.max(0, +hm[1] - 1));
+else { try { const s = +localStorage.getItem(PKEY); if (s > 0 && s < pages.length) start = s; } catch (e) {} }
+show(start);
+</script>
+</body>
+</html>
