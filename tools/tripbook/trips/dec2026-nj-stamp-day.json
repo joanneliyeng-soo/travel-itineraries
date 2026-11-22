@@ -106,8 +106,8 @@
     40.9703
    ],
    "morr": [
-    -74.5447,
-    40.7625
+    -74.4645,
+    40.7975
    ],
    "ewrh": [
     -74.18,
@@ -163,8 +163,8 @@
    "end": "ewrh",
    "tzline": "Eastern time · sunset ~4:30 PM",
    "cutLabel": "Hard cutoffs",
-   "cut": "Edison, Kittatinny Point and Jockey Hollow all close at 4 PM. Jockey Hollow has the least buffer, so shorten lunch if you're running late. If snow or ice is forecast, drop Kittatinny Point and keep the three close stops.",
-   "gmaps": "https://www.google.com/maps/dir/Newark+Liberty+International+Airport/211+Main+St,+West+Orange,+NJ/72+McBride+Avenue+Extension,+Paterson,+NJ/Kittatinny+Point+Visitor+Center,+Columbia,+NJ/586+Tempe+Wick+Road,+Morristown,+NJ/Newark+Liberty+International+Airport"
+   "cut": "Edison and Kittatinny Point close at 4 PM; Washington's Headquarters stays open until 4:30. If snow or ice is forecast, drop Kittatinny Point and keep the three close stops.",
+   "gmaps": "https://www.google.com/maps/dir/Newark+Liberty+International+Airport/211+Main+St,+West+Orange,+NJ/72+McBride+Avenue+Extension,+Paterson,+NJ/Kittatinny+Point+Visitor+Center,+Columbia,+NJ/30+Washington+Place,+Morristown,+NJ/Newark+Liberty+International+Airport"
   },
   {
    "n": 2,
@@ -240,7 +240,7 @@
    "state": "NJ",
    "place": "Paterson",
    "addr": "72 McBride Avenue Extension, Paterson, NJ 07501",
-   "where": "Administrative office at 72 McBride Ave Ext. There's no visitor center. Park in the Great Falls Overlook lot.",
+   "where": "Orientation table in Overlook Park by the Alexander Hamilton statue (weather and staff permitting). Otherwise knock on the brick ranger office beside the Overlook Park lot.",
    "hrs": "Rangers on site 9:00 AM–4:30 PM daily. Saturday office hours not confirmed online.",
    "warn": "Call 973-523-0370 the week before to confirm the office is open Saturday.",
    "acc": "The Overlook Park views of the falls are close to the lot. Portable toilets only.",
@@ -278,27 +278,27 @@
    "from": "Kittatinny Point",
    "z": "ET",
    "drive": "~1 hr",
-   "arrive": "~2:50 PM",
+   "arrive": "~2:45 PM",
    "name": "Morristown NHP",
    "type": "National Historical Park",
    "state": "NJ",
-   "place": "Jockey Hollow",
-   "addr": "586 Tempe Wick Road, Morristown, NJ 07960",
-   "where": "Jockey Hollow Visitor Center.",
-   "hrs": "Thu–Sun 10:00 AM–4:00 PM. The winter closure starts Jan 4, 2027.",
-   "warn": "Closes at 4 PM, about 70 minutes after you arrive.",
-   "about": "The Continental Army's encampment in the brutal winter of 1779–80. Washington's Headquarters Museum in town is a backup stamp location."
+   "place": "Washington's Headquarters",
+   "addr": "30 Washington Place, Morristown, NJ 07960",
+   "where": "Washington's Headquarters Museum, behind the Ford Mansion. Several cancellations here, including Morristown NHP.",
+   "hrs": "Fri–Mon 9:30 AM–4:30 PM, closed Tue–Thu (NPS app). The winter closure starts Jan 4, 2027.",
+   "ok": "Open until 4:30, so there's about 1¾ hours of buffer.",
+   "about": "Washington's headquarters in the brutal winter of 1779–80. The 1930s museum has three galleries; the Ford Mansion, where he stayed, is next door."
   },
   {
    "d": 1,
    "kind": "night",
    "k": "ewrh",
-   "drive": "~40 min",
+   "drive": "~35 min",
    "arrive": "~4:00 PM",
    "z": "ET",
    "name": "an EWR-area hotel",
    "note": "Not booked yet. Close to the airport for tomorrow's 11:55 AM flight.",
-   "from": "Jockey Hollow"
+   "from": "Morristown"
   },
   {
    "d": 2,
