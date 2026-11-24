@@ -146,7 +146,7 @@
    "title": "Redeye to Miami",
    "color": "#1F4E6B",
    "meta": "No stamps · travel only",
-   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">SFO → MIA overnight</h2>\n<p><b>American AA 1618</b> · SFO 9:38 PM → MIA 6:00 AM Tue · Economy · conf. <b>HZQNNS</b>. First checked bag prepaid ($50 each).</p>\n<p>Four people, cruise luggage and a 6 AM arrival. Sleep on the plane if you can; tomorrow is three visitor centers and four stamps.</p>\n<div class=\"note warn\"><b>Before you go:</b> check passport expiry for all four, confirm the port arrival time in the DCL app, and move Car 2’s drop-off from Tue Dec 1 to Mon Nov 30 (or cancel it once all four stamps are in hand).</div>"
+   "html": "<div class=\"moon\" style=\"margin-top:18px\">✈︎</div>\n<h2 class=\"serif\" style=\"font-size:21px;margin-top:4px\">SFO → MIA overnight</h2>\n<p><b>American AA 1618</b> · SFO 9:38 PM → MIA 6:00 AM Tue · Economy · conf. <b>HZQNNS</b>. First checked bag prepaid ($50 each).</p>\n<p>Four people, cruise luggage and a 6 AM arrival. Sleep on the plane if you can; tomorrow is three visitor centers and four stamps.</p>\n<div class=\"note warn\"><b>Before you go:</b> check passport expiry for all four and confirm the port arrival time in the DCL app.</div>"
   },
   {
    "n": 1,
@@ -211,9 +211,7 @@
    "color": "#7A5195",
    "start": "pev",
    "end": "mia2",
-   "tzline": "",
-   "cutLabel": "Backup plan",
-   "cut": "If a stamp was missed Tuesday, pick up Car 2 at Enterprise, 2601 S Federal Hwy, at 10 AM (954-764-3405). Big Cypress missed: I-75 west to Oasis (~11:45 AM), then ~1 hr to MIA. Biscayne or Coe missed: ~1h15 south to Homestead, then ~45 min to MIA. Doing both before a 4:40 flight is tight, so pick one. Drop the car at Enterprise MIA, 3900 NW 25th St."
+   "tzline": ""
   }
  ],
  "stops": [
