@@ -15,6 +15,7 @@
   "Party of four"
  ],
  "itinerary": "nov2026-destiny-everglades.html",
+ "collected": ["bis", "coe", "dt"],
  "legMinW": 330,
  "theme": {
   "#1E1D33": "#0D2533",
