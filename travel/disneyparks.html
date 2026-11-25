@@ -110,7 +110,7 @@ h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space
   <div class="gauges">
     <div class="gauge"><b>10<small> / 12</small></b><span>theme parks</span></div>
     <div class="gauge"><b>14</b><span>resort trips</span></div>
-    <div class="gauge"><b>28+</b><span>nights in Disney hotels</span></div>
+    <div class="gauge"><b>39+</b><span>nights in Disney hotels</span></div>
     <div class="gauge"><b>12</b><span>Disney hotels</span></div>
   </div>
 </header>
@@ -167,16 +167,16 @@ const LOG=[
  ['NOV','2025','Tokyo Disney Resort','#F6C453','Tokyo Disneyland and DisneySea','Fantasy Springs Hotel, Fantasy Chateau · 3-day vacation package from Nov 30',2],
  ['SEP','2025','Walt Disney World','#3CC6C0','Walt Disney World','Old Key West (DVC) · Sep 14–20',6],
  ['JUL','2025','Disneyland Resort','#FF6F7D','Disneyland 70th anniversary, Fourth of July','The Villas at Disneyland Hotel (DVC) · Jul 3–6 · both parks',3],
- ['DEC','2024','Disneyland Resort','#FF6F7D','Disneyland birthday trip','Disneyland Hotel · both parks',0],
+ ['DEC','2024','Disneyland Resort','#FF6F7D','Disneyland birthday trip','Disneyland Hotel · both parks',2],
  ['NOV','2024','Disneyland Paris','#B99CF2','Disneyland Paris, Thanksgiving week','Newport Bay Club · Nov 24–29 · both parks',5],
  ['JUL','2024','Walt Disney World','#3CC6C0','Orlando before the Wish','All-Star Movies · Jul 8–9 · Magic Kingdom only',1],
  ['MAY','2024','Disneyland Resort','#FF6F7D','Disneyland Pixar Fest, Memorial Day','Grand Californian · May 24–27 · both parks',3],
- ['FEB','2024','Disneyland Resort','#FF6F7D','Disneyland Lunar New Year','Grand Californian · both parks',0],
- ['DEC','2023','Disneyland Resort','#FF6F7D','Disneyland at Christmas','The Villas at Disneyland Hotel · both parks',0],
- ['OCT','2023','Disneyland Resort','#FF6F7D','Disneyland Halloween with Mom','Grand Californian · both parks',0],
- ['JUL','2023','Disneyland Resort','#FF6F7D','Disneyland, Fourth of July','Pixar Place Hotel · both parks',0],
+ ['FEB','2024','Disneyland Resort','#FF6F7D','Disneyland Lunar New Year','Grand Californian · both parks',2],
+ ['DEC','2023','Disneyland Resort','#FF6F7D','Disneyland at Christmas','The Villas at Disneyland Hotel · both parks',2],
+ ['OCT','2023','Disneyland Resort','#FF6F7D','Disneyland Halloween with Mom','Grand Californian · both parks',2],
+ ['JUL','2023','Disneyland Resort','#FF6F7D','Disneyland, Fourth of July','Pixar Place Hotel · both parks',2],
  ['APR','2023','Walt Disney World','#3CC6C0','Walt Disney World in spring','Port Orleans Riverside',0],
- ['JUN','2022','Disneyland Resort','#FF6F7D','First Disneyland trip','Disneyland Hotel · 3 park days · both parks',2]];
+ ['JUN','2022','Disneyland Resort','#FF6F7D','First Disneyland trip','Disneyland Hotel · 3 park days · both parks',3]];
 const stub=t=>'<li class="stub" style="--c:'+t[3]+'"><div class="d"><b>'+t[0]+'</b><span>'+t[1]+'</span></div><div class="m"><b>'+t[4]+'</b>'+(t[5]?'<span>'+t[5]+'</span>':'')+'</div>'+(t[6]?'<div class="n"><em>'+t[6]+'</em>night'+(t[6]>1?'s':'')+'</div>':'<div class="n"></div>')+'</li>';
 const ORDER=['Disneyland Resort','Walt Disney World','Disneyland Paris','Tokyo Disney Resort'];
 const logEl=document.getElementById('log');
