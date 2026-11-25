@@ -232,6 +232,7 @@ const html = `<!DOCTYPE html>
 
   <div class="foot2"><a href="../">← Back to My Travel Bucket List</a></div>
 </div>
+<div id="fieldkit" data-here="books" data-theme="dark" style="max-width:1032px;margin:0 auto;padding:0 16px 28px"></div>
 <template id="books">
 ${cards.join('\n')}
 </template>
@@ -273,6 +274,7 @@ ${cards.join('\n')}
   });
 })();
 </script>
+<script src="../fieldkit.js" defer></script>
 </body>
 </html>
 `;
