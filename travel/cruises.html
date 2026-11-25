@@ -57,6 +57,8 @@ h2 small{order:2;font:600 .8rem 'Karla',sans-serif;color:var(--mute);white-space
 .done .port svg{color:var(--cream)}
 .now .port{box-shadow:inset 0 0 0 7px var(--brass),inset 0 0 0 9px var(--brass-d),0 0 0 4px rgba(212,169,79,.35)}
 .now .port svg{color:var(--cream);animation:bob 3s ease-in-out infinite}
+.port img{position:relative;z-index:1;width:84px;height:auto;margin-top:-4px;filter:grayscale(1) brightness(.75);opacity:.35}
+.done .port img,.now .port img{filter:drop-shadow(0 1px 2px rgba(0,0,0,.5));opacity:1}
 @keyframes bob{50%{transform:translateY(-3px)}}
 @media (prefers-reduced-motion:reduce){.now .port svg{animation:none}}
 .ship b{font:400 1.05rem 'DM Serif Display',Georgia,serif}
@@ -107,9 +109,9 @@ h2 small{order:2;font:600 .8rem 'Karla',sans-serif;color:var(--mute);white-space
 <header class="hero">
   <div class="burgee"><svg viewBox="0 0 26 16" aria-hidden="true"><path d="M1 1h24L13 8l12 7H1z" fill="#C8102E"/><circle cx="7" cy="8" r="2.4" fill="#F3E9D2"/></svg>Ship's log</div>
   <h1>Disney Cruise Tracker</h1>
-  <div class="subtitle">Nine ships in the fleet. Every sailing so far.</div>
+  <div class="subtitle">Ten ships in the fleet. Every sailing so far.</div>
   <div class="bridge">
-    <svg class="helm" id="helm" viewBox="0 0 240 240" role="img" aria-label="Ship's wheel: 5 of 9 Disney ships sailed, aboard the Destiny now"></svg>
+    <svg class="helm" id="helm" viewBox="0 0 240 240" role="img" aria-label="Ship's wheel: 5 of 10 Disney ships sailed, aboard the Destiny now"></svg>
     <div class="side">
       <div class="gauges">
         <div class="gauge"><b>7</b><span>sailings</span></div>
@@ -131,7 +133,7 @@ h2 small{order:2;font:600 .8rem 'Karla',sans-serif;color:var(--mute);white-space
 </div>
 
 <div class="sea"><div class="wrap">
-<h2>The fleet <small>5 sailed · 4 to go</small></h2>
+<h2>The fleet <small>5 sailed · 5 to go</small></h2>
 <section class="fleet" id="fleet"></section>
 
 <h2>Themed sailings <small id="thn"></small></h2>
@@ -162,7 +164,8 @@ const FLEET=[
  ['Fantasy','','Sails from Port Canaveral',''],
  ['Treasure','','Only does 7-night sailings',''],
  ['Adventure','','Sails from Singapore',''],
- ['Believe','','Newest ship, expected to sail from Florida','']];
+ ['Believe','','Newest ship, expected to sail from Florida',''],
+ ['Imagination','','Disney Cruise Line Japan, from Tokyo starting spring 2029','']];
 const LOG=[
  ['NOV 2026','Fort Lauderdale to Nassau and Castaway Cay · 5 nights','Disney Destiny · 🎄 Very Merrytime','7510',1],
  ['SEP 2026','Port Canaveral to Nassau and Castaway Cay · 3 nights','Disney Wish · 🎃 Halloween on the High Seas','6200'],
@@ -171,11 +174,12 @@ const LOG=[
  ['MAY 2025','Fort Lauderdale to Nassau and Lookout Cay · 4 nights','Disney Dream','8034'],
  ['JUL 2024','Port Canaveral to Nassau and Castaway Cay · 3 nights','Disney Wish','6078'],
  ['SEP 2022','San Diego to Cabo San Lucas · 4 nights','Disney Wonder · 🎃 Halloween on the High Seas','2602']];
-const HOME=[['US and Caribbean',[['Port Canaveral',1],['Fort Lauderdale',1],['San Diego',1],['Galveston',1],['San Juan',0],['New York',0]]],['Canada',[['Vancouver',0]]],['Europe',[['Barcelona',0],['Rome (Civitavecchia)',0],['Southampton',0]]],['Asia',[['Singapore',0]]]];
+const HOME=[['US and Caribbean',[['Port Canaveral',1],['Fort Lauderdale',1],['San Diego',1],['Galveston',1],['San Juan',0],['New York',0]]],['Canada',[['Vancouver',0]]],['Europe',[['Barcelona',0],['Rome (Civitavecchia)',0],['Southampton',0]]],['Asia',[['Singapore',0],['Tokyo',0]]]];
 const CALLS=[['Bahamas and Bermuda',[['Nassau',1],['Bermuda',0]]],['Caribbean',[['Cozumel',0],['Costa Maya',0],['Grand Cayman',0],['Falmouth, Jamaica',0],['Puerto Plata',0],['St. Thomas',0],['Tortola',0],['St. Maarten',0],['St. Kitts',0],['Antigua',0],['Dominica',0],['Martinique',0],['St. Lucia',0],['Barbados',0],['Aruba',0],['Curaçao',0],['Bonaire',0]]],['Mexico and California',[['Cabo San Lucas',1],['Ensenada',1],['Catalina Island',1],['Progreso',1],['Puerto Vallarta',0],['Mazatlán',0]]],['Panama Canal and Central America',[['Cartagena, Colombia',0],['Colón',0],['Fuerte Amador',0],['Puntarenas, Costa Rica',0]]],['Alaska and British Columbia',[['Juneau',0],['Ketchikan',0],['Skagway',0],['Sitka',0],['Icy Strait Point',0],['Victoria',0],['Dawes Glacier',0],['Hubbard Glacier',0],['Tracy Arm',0],['Stikine Icecap',0]]],['New England and Canada',[['Boston',0],['Saint John',0],['Halifax',0]]],['Mediterranean',[['Palma de Mallorca',0],['Livorno',0],['Genoa',0],['Naples',0],['Messina',0],['Trieste',0],['Cagliari',0],['Ajaccio',0],['Valletta',0],['Dubrovnik',0],['Zadar',0],['Corfu',0],['Piraeus',0],['Mykonos',0],['Santorini',0],['Rhodes',0],['Chania',0]]],['Iberia and the Atlantic',[['Lisbon',0],['Funchal',0],['Ponta Delgada',0],['Gibraltar',0],['Cádiz',0],['Málaga',0],['Cartagena, Spain',0],['Vigo',0],['La Coruña',0],['Bilbao',0]]],['Northern Europe',[['Copenhagen',0],['Skagen',0],['Kristiansand',0],['Stavanger',0],['Haugesund',0],['Bergen',0],['Olden',0],['Hellesylt',0],['Ålesund',0],['Rotterdam',0],['Zeebrugge',0]]],['British Isles',[['Portland',0],['Liverpool',0],['Greenock',0],['Belfast',0],['Cobh',0]]],['Southeast Asia',[['Langkawi',0]]]];
 const ISLES=['Castaway Cay','Lookout Cay'];
 
-document.getElementById('fleet').innerHTML=FLEET.map(s=>'<div class="ship '+s[1]+'"><div class="port">'+SHIP+'</div><b>Disney '+s[0]+'</b>'+(s[3]?'<span class="flag">'+s[3]+'</span>':'')+'<p>'+s[2]+'</p></div>').join('');
+const LOGO=['Magic','Wonder','Dream','Wish','Destiny','Fantasy','Treasure','Adventure','Believe','Imagination'];
+document.getElementById('fleet').innerHTML=FLEET.map(s=>'<div class="ship '+s[1]+'"><div class="port">'+(LOGO.includes(s[0])?'<img src="img/ships/'+s[0].toLowerCase()+'.webp" alt="" width="84" loading="lazy" decoding="async">':SHIP)+'</div><b>Disney '+s[0]+'</b>'+(s[3]?'<span class="flag">'+s[3]+'</span>':'')+'<p>'+s[2]+'</p></div>').join('');
 document.getElementById('log').innerHTML=LOG.map(r=>'<li'+(r[4]?' class="now"':'')+'><span class="when">'+r[0]+'</span><span><span class="rt">'+r[1]+'</span><span class="sh">'+r[2]+'</span></span><span class="room'+(r[3]?'':' gty')+'"><small>Stateroom</small>'+(r[3]||'Guarantee')+'</span></li>').join('');
 const grp=G=>G.map(g=>{const d=g[1].filter(h=>h[1]).length;return '<div class="grp"><div class="rg">'+g[0]+'<em>'+d+' of '+g[1].length+'</em></div><div class="pennants">'+g[1].slice().sort((a,b)=>b[1]-a[1]).map(h=>'<span class="pen'+(h[1]?'':' no')+'">'+h[0]+'</span>').join('')+'</div></div>'}).join('');
 document.getElementById('hp').innerHTML=grp(HOME);
@@ -193,12 +197,12 @@ document.getElementById('themes').innerHTML=THEMES.map(t=>'<div class="th '+t[2]
 document.getElementById('thn').textContent=THEMES.filter(t=>t[2]==='done').length+' of '+THEMES.length+(THEMES.some(t=>t[2]==='now')?' · '+THEMES.filter(t=>t[2]==='now').length+' underway':'');
 document.getElementById('is').innerHTML=ISLES.map(c=>'<span class="pen isle">'+c+'</span>').join('');
 
-/* ship's wheel: 9 spokes, one per ship */
-const st=['done','done','done','done','done','','','',''],names=['Magic','Wonder','Dream','Wish','Destiny','Fantasy','Treasure','Adventure','Believe'];
+/* ship's wheel: 10 spokes, one per ship */
+const st=['done','done','done','done','done','','','','',''],names=['Magic','Wonder','Dream','Wish','Destiny','Fantasy','Treasure','Adventure','Believe','Imagination'];
 const C=120,BR='#D4A94F',DIM='#2A4A70';
 let d='';
-for(let i=0;i<9;i++){
-  const a=(i*40-90)*Math.PI/180,cx=Math.cos(a),sy=Math.sin(a),on=st[i];
+for(let i=0;i<10;i++){
+  const a=(i*36-90)*Math.PI/180,cx=Math.cos(a),sy=Math.sin(a),on=st[i];
   const col=on?BR:DIM;
   d+='<g><title>Disney '+names[i]+(on==='done'?': sailed':on==='now'?': underway':': not yet')+'</title>';
   d+='<line x1="'+(C+cx*30).toFixed(1)+'" y1="'+(C+sy*30).toFixed(1)+'" x2="'+(C+cx*104).toFixed(1)+'" y2="'+(C+sy*104).toFixed(1)+'" stroke="'+col+'" stroke-width="7" stroke-linecap="round"'+(on==='now'?' stroke-dasharray="7 5"':'')+'/>';
@@ -206,7 +210,7 @@ for(let i=0;i<9;i++){
 }
 d='<circle cx="120" cy="120" r="80" fill="none" stroke="#1B3556" stroke-width="16"/><circle cx="120" cy="120" r="80" fill="none" stroke="'+BR+'" stroke-width="3" opacity=".55"/><circle cx="120" cy="120" r="72" fill="none" stroke="'+BR+'" stroke-width="1.5" opacity=".35"/>'+d;
 d+='<circle cx="120" cy="120" r="34" fill="#0B2442" stroke="'+BR+'" stroke-width="3"/>';
-d+='<text x="120" y="126" text-anchor="middle" style="font:400 30px \'DM Serif Display\',Georgia,serif;fill:#F3E9D2">5</text><text x="120" y="141" text-anchor="middle" style="font:700 9px Karla,sans-serif;fill:#9DB0C8">of 9 ships</text>';
+d+='<text x="120" y="126" text-anchor="middle" style="font:400 30px \'DM Serif Display\',Georgia,serif;fill:#F3E9D2">5</text><text x="120" y="141" text-anchor="middle" style="font:700 9px Karla,sans-serif;fill:#9DB0C8">of 10 ships</text>';
 document.getElementById('helm').innerHTML=d;
 }
 </script>
