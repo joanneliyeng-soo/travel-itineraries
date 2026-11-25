@@ -109,10 +109,10 @@ h2 small{order:2;font:600 .8rem 'Karla',sans-serif;color:var(--mute);white-space
   <h1>Disney Cruise Tracker</h1>
   <div class="subtitle">Nine ships in the fleet. Every sailing so far.</div>
   <div class="bridge">
-    <svg class="helm" id="helm" viewBox="0 0 240 240" role="img" aria-label="Ship's wheel: 4 of 9 Disney ships sailed, Destiny underway"></svg>
+    <svg class="helm" id="helm" viewBox="0 0 240 240" role="img" aria-label="Ship's wheel: 5 of 9 Disney ships sailed, aboard the Destiny now"></svg>
     <div class="side">
       <div class="gauges">
-        <div class="gauge"><b>6</b><span>sailings</span></div>
+        <div class="gauge"><b>7</b><span>sailings</span></div>
         <div class="gauge"><b>21</b><span>nights at sea</span></div>
         <div class="gauge"><b>5</b><span>ports of call</span></div>
         <div class="gauge"><b>2 / 2</b><span>Disney islands</span></div>
@@ -131,7 +131,7 @@ h2 small{order:2;font:600 .8rem 'Karla',sans-serif;color:var(--mute);white-space
 </div>
 
 <div class="sea"><div class="wrap">
-<h2>The fleet <small>4 sailed · 1 underway · 4 to go</small></h2>
+<h2>The fleet <small>5 sailed · 4 to go</small></h2>
 <section class="fleet" id="fleet"></section>
 
 <h2>Themed sailings <small id="thn"></small></h2>
@@ -158,7 +158,7 @@ const FLEET=[
  ['Wonder','done','Sep 2022 and Apr 2026 from San Diego','Sailed'],
  ['Dream','done','May 2025 from Fort Lauderdale','Sailed'],
  ['Wish','done','Jul 2024 and Sep 2026 from Port Canaveral','Sailed'],
- ['Destiny','now','Nov 25–30, 2026 from Fort Lauderdale','Underway'],
+ ['Destiny','done','Boarded Nov 25, 2026 at Fort Lauderdale','Aboard now'],
  ['Fantasy','','Sails from Port Canaveral',''],
  ['Treasure','','Only does 7-night sailings',''],
  ['Adventure','','Sails from Singapore',''],
@@ -186,15 +186,15 @@ document.getElementById('pc').innerHTML=grp(CALLS);
 const THEMES=[
  ['🎃','Halloween on the High Seas','done','Disney Wonder, Sep 2022 · Disney Wish, Sep 2026','Sailed twice'],
  ['🦸','Marvel Day at Sea','done','Disney Magic, Jan 2026 from Galveston','Sailed'],
- ['🎄','Very Merrytime','now','Disney Destiny, Nov 25–30, 2026','Underway'],
+ ['🎄','Very Merrytime','done','Disney Destiny, Nov 25–30, 2026','Aboard now'],
  ['🧸','Pixar Day at Sea','','Five-night Disney Fantasy sailings from Port Canaveral',''],
  ['⭐','Star Wars Day at Sea','','Not on the current schedule','']];
 document.getElementById('themes').innerHTML=THEMES.map(t=>'<div class="th '+t[2]+'"><span class="ic" aria-hidden="true">'+t[0]+'</span><b>'+t[1]+'</b>'+(t[4]?'<span class="flag">'+t[4]+'</span>':'')+'<p>'+t[3]+'</p></div>').join('');
-document.getElementById('thn').textContent=THEMES.filter(t=>t[2]==='done').length+' of '+THEMES.length+' · '+THEMES.filter(t=>t[2]==='now').length+' underway';
+document.getElementById('thn').textContent=THEMES.filter(t=>t[2]==='done').length+' of '+THEMES.length+(THEMES.some(t=>t[2]==='now')?' · '+THEMES.filter(t=>t[2]==='now').length+' underway':'');
 document.getElementById('is').innerHTML=ISLES.map(c=>'<span class="pen isle">'+c+'</span>').join('');
 
 /* ship's wheel: 9 spokes, one per ship */
-const st=['done','done','done','done','now','','','',''],names=['Magic','Wonder','Dream','Wish','Destiny','Fantasy','Treasure','Adventure','Believe'];
+const st=['done','done','done','done','done','','','',''],names=['Magic','Wonder','Dream','Wish','Destiny','Fantasy','Treasure','Adventure','Believe'];
 const C=120,BR='#D4A94F',DIM='#2A4A70';
 let d='';
 for(let i=0;i<9;i++){
@@ -206,7 +206,7 @@ for(let i=0;i<9;i++){
 }
 d='<circle cx="120" cy="120" r="80" fill="none" stroke="#1B3556" stroke-width="16"/><circle cx="120" cy="120" r="80" fill="none" stroke="'+BR+'" stroke-width="3" opacity=".55"/><circle cx="120" cy="120" r="72" fill="none" stroke="'+BR+'" stroke-width="1.5" opacity=".35"/>'+d;
 d+='<circle cx="120" cy="120" r="34" fill="#0B2442" stroke="'+BR+'" stroke-width="3"/>';
-d+='<text x="120" y="126" text-anchor="middle" style="font:400 30px \'DM Serif Display\',Georgia,serif;fill:#F3E9D2">4</text><text x="120" y="141" text-anchor="middle" style="font:700 9px Karla,sans-serif;fill:#9DB0C8">of 9 ships</text>';
+d+='<text x="120" y="126" text-anchor="middle" style="font:400 30px \'DM Serif Display\',Georgia,serif;fill:#F3E9D2">5</text><text x="120" y="141" text-anchor="middle" style="font:700 9px Karla,sans-serif;fill:#9DB0C8">of 9 ships</text>';
 document.getElementById('helm').innerHTML=d;
 }
 </script>
