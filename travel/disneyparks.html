@@ -102,8 +102,8 @@ h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space
   <div class="gauges">
     <div class="gauge"><b>10<small> / 12</small></b><span>theme parks</span></div>
     <div class="gauge"><b>14</b><span>resort trips</span></div>
-    <div class="gauge"><b>26</b><span>nights in Disney hotels</span></div>
-    <div class="gauge"><b>9</b><span>Disney hotels</span></div>
+    <div class="gauge"><b>28+</b><span>nights in Disney hotels</span></div>
+    <div class="gauge"><b>12</b><span>Disney hotels</span></div>
   </div>
 </header>
 </div>
@@ -114,7 +114,7 @@ h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space
 
 <h2>Trip log <small>14 trips since 2022</small></h2>
 <ol class="log" id="log"></ol>
-<p class="lognote">From booking emails and Google Photos. Visits without a hotel booking show no nights.</p>
+<p class="lognote">From booking emails and Google Photos. Stays without known dates show no nights.</p>
 
 <h2>Hotels checked into <small id="kn"></small></h2>
 <section class="keys" id="keys"></section>
@@ -128,12 +128,12 @@ h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space
 const RES=[
  ['Disneyland Resort','Anaheim, California','#FF6F7D','Visited',[
    ['A','Disneyland Park','First visit Jun 2022 · 8 trips',1],
-   ['B','Disney California Adventure','Visits 2022 – 2025',1]]],
+   ['B','Disney California Adventure','First visit Jun 2022 · 8 trips',1]]],
  ['Walt Disney World','Orlando, Florida','#3CC6C0','Visited',[
    ['A','Magic Kingdom','First visit Apr 2023 · 4 trips',1],
-   ['B','EPCOT','Trips 2023 – 2026',1],
-   ['C','Hollywood Studios','Trips 2023 – 2026',1],
-   ['D','Animal Kingdom','Trips 2023 – 2026',1]]],
+   ['B','EPCOT','Trips 2023, 2025, 2026',1],
+   ['C','Hollywood Studios','Trips 2023, 2025, 2026',1],
+   ['D','Animal Kingdom','Trips 2023, 2025, 2026',1]]],
  ['Disneyland Paris','Marne-la-Vallée, France','#B99CF2','Visited',[
    ['A','Disneyland Park','Nov 2024 · 6-day both-parks ticket',1],
    ['B','Disney Adventure World','Visited Nov 2024 as Walt Disney Studios Park',1]]],
@@ -157,23 +157,23 @@ const LOG=[
  ['SEP','2026','Walt Disney World','#3CC6C0','Walt Disney World before the Wish','Coronado Springs and All-Star Sports, then Saratoga Springs (DVC) · Sep 5–11',6],
  ['NOV','2025','Tokyo Disney Resort','#F6C453','Tokyo Disneyland and DisneySea','Fantasy Springs Hotel, Fantasy Chateau · 3-day vacation package from Nov 30',2],
  ['SEP','2025','Walt Disney World','#3CC6C0','Walt Disney World','Old Key West (DVC) · Sep 14–20',6],
- ['JUL','2025','Disneyland Resort','#FF6F7D','Disneyland 70th anniversary, Fourth of July','The Villas at Disneyland Hotel (DVC) · Jul 3–6',3],
- ['DEC','2024','Disneyland Resort','#FF6F7D','Disneyland in December','',0],
+ ['JUL','2025','Disneyland Resort','#FF6F7D','Disneyland 70th anniversary, Fourth of July','The Villas at Disneyland Hotel (DVC) · Jul 3–6 · both parks',3],
+ ['DEC','2024','Disneyland Resort','#FF6F7D','Disneyland birthday trip','Disneyland Hotel · both parks',0],
  ['NOV','2024','Disneyland Paris','#B99CF2','Disneyland Paris, Thanksgiving week','Newport Bay Club · Nov 24–29 · both parks',5],
- ['JUL','2024','Walt Disney World','#3CC6C0','Orlando before the Wish','All-Star Movies · Jul 8–9',1],
- ['MAY','2024','Disneyland Resort','#FF6F7D','Disneyland Pixar Fest, Memorial Day','Grand Californian · May 24–27',3],
- ['FEB','2024','Disneyland Resort','#FF6F7D','Disneyland Lunar New Year','',0],
- ['DEC','2023','Disneyland Resort','#FF6F7D','Disneyland at Christmas','',0],
- ['OCT','2023','Disneyland Resort','#FF6F7D','Disneyland Halloween with Mom','',0],
- ['JUL','2023','Disneyland Resort','#FF6F7D','Disneyland, Fourth of July','',0],
- ['APR','2023','Walt Disney World','#3CC6C0','Walt Disney World in spring','',0],
- ['JUN','2022','Disneyland Resort','#FF6F7D','First Disneyland trip','',0]];
+ ['JUL','2024','Walt Disney World','#3CC6C0','Orlando before the Wish','All-Star Movies · Jul 8–9 · Magic Kingdom only',1],
+ ['MAY','2024','Disneyland Resort','#FF6F7D','Disneyland Pixar Fest, Memorial Day','Grand Californian · May 24–27 · both parks',3],
+ ['FEB','2024','Disneyland Resort','#FF6F7D','Disneyland Lunar New Year','Grand Californian · both parks',0],
+ ['DEC','2023','Disneyland Resort','#FF6F7D','Disneyland at Christmas','The Villas at Disneyland Hotel · both parks',0],
+ ['OCT','2023','Disneyland Resort','#FF6F7D','Disneyland Halloween with Mom','Grand Californian · both parks',0],
+ ['JUL','2023','Disneyland Resort','#FF6F7D','Disneyland, Fourth of July','Pixar Place Hotel · both parks',0],
+ ['APR','2023','Walt Disney World','#3CC6C0','Walt Disney World in spring','Port Orleans Riverside',0],
+ ['JUN','2022','Disneyland Resort','#FF6F7D','First Disneyland trip','Disneyland Hotel · 3 park days · both parks',2]];
 document.getElementById('log').innerHTML=LOG.map(t=>'<li class="stub" style="--c:'+t[3]+'"><div class="d"><b>'+t[0]+'</b><span>'+t[1]+'</span></div><div class="m"><b>'+t[4]+'</b>'+(t[5]?'<span>'+t[5]+'</span>':'')+'</div>'+(t[6]?'<div class="n"><em>'+t[6]+'</em>night'+(t[6]>1?'s':'')+'</div>':'<div class="n"></div>')+'</li>').join('');
 
 /* hotels: resort, colour, [hotel, when, dvc] */
 const KEYS=[
- ['Walt Disney World','#3CC6C0',[['Saratoga Springs','Sep 2026',1],['Coronado Springs','Sep 2026'],['All-Star Sports','Sep 2026'],['Old Key West','Sep 2025',1],['All-Star Movies','Jul 2024']]],
- ['Disneyland Resort','#FF6F7D',[['Villas at Disneyland Hotel','Jul 2025',1],['Grand Californian','May 2024']]],
+ ['Walt Disney World','#3CC6C0',[['Saratoga Springs','Sep 2026',1],['Coronado Springs','Sep 2026'],['All-Star Sports','Sep 2026'],['Old Key West','Sep 2025',1],['All-Star Movies','Jul 2024'],['Port Orleans Riverside','Apr 2023']]],
+ ['Disneyland Resort','#FF6F7D',[['Villas at Disneyland Hotel','Jul 2025 · Dec 2023',1],['Grand Californian','May 2024 · Feb 2024 · Oct 2023'],['Pixar Place Hotel','Jul 2023'],['Disneyland Hotel','Dec 2024 · Jun 2022']]],
  ['Disneyland Paris','#B99CF2',[['Newport Bay Club','Nov 2024']]],
  ['Tokyo Disney Resort','#E0A93A',[['Fantasy Springs Hotel','Nov 2025']]]];
 document.getElementById('keys').innerHTML=KEYS.map(g=>'<div class="kg"><div class="rg">'+g[0]+'<em>'+g[2].length+' hotel'+(g[2].length>1?'s':'')+'</em></div><div class="cards">'+g[2].map(h=>'<div class="key" style="--c:'+g[1]+'">'+(h[2]?'<span class="dvc">DVC</span>':'')+'<b>'+h[0]+'</b><span>'+h[1]+'</span></div>').join('')+'</div></div>').join('');
