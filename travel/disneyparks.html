@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Disney Parks Tracker</title>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Rubik:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* VOICE: a summer night at the parks: fireworks over the hub, an old-fashioned coupon ticket book
+   IDEA: six fireworks, one per resort, burst over a skyline as each resort is visited; every park is a tear-out coupon
+   PICTURE: fireworks sky up top; resort sections holding perforated park coupons; a ticket-stub trip log; hotel keycards
+   COLOUR and TYPE: plum night #1A0F33, burst gold #F6C453, coral #FF6F7D, aqua #3CC6C0, lilac #B99CF2, ticket cream #FFF3DC;
+   Alfa Slab One for coupon lettering, Rubik body, Space Mono for dates
+   LAYOUT: sky + stats over a skyline, resort coupon sheets, ticket-stub log, keycard hotels, field kit at the foot */
+html,body{background:#1A0F33 !important;color:#FFF3DC !important;color-scheme:dark}
+body{font-family:'Rubik','Helvetica Neue',Arial,sans-serif;background:linear-gradient(#0F0824 0,#1A0F33 560px,#160C2C 100%) !important}
+*{box-sizing:border-box;min-width:0}
+:root{--gold:#F6C453;--coral:#FF6F7D;--aqua:#3CC6C0;--lilac:#B99CF2;--cream:#FFF3DC;--plum:#1A0F33;--plum-2:#261548;--plum-3:#33205E;--line:rgba(246,196,83,.25);--mute:#A99BC9}
+.wrap{max-width:940px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.back{display:inline-block;color:var(--mute);text-decoration:none;font-size:.85rem;margin:24px 0 6px}
+.back:hover{color:var(--cream)}
+.hero{position:relative;text-align:center;padding-bottom:34px}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;font:700 .72rem 'Rubik',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+h1{font:400 clamp(2.1rem,6.4vw,3.4rem)/1.04 'Alfa Slab One',Georgia,serif;margin:8px 0 14px;letter-spacing:.01em;text-wrap:balance}
+.subtitle{color:var(--mute);font-size:.95rem;margin-bottom:10px}
+.sky{width:min(100%,640px);height:auto;display:block;margin:0 auto}
+.burst line{stroke-linecap:round}
+.burst.on{animation:pop 4.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.burst.on:nth-of-type(2){animation-delay:.7s}.burst.on:nth-of-type(3){animation-delay:1.4s}.burst.on:nth-of-type(4){animation-delay:2.1s}
+@keyframes pop{0%,100%{opacity:1}50%{opacity:.72}}
+@media (prefers-reduced-motion:reduce){.burst.on{animation:none}}
+.gauges{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-width:640px;margin:10px auto 0}
+@media (max-width:560px){.gauges{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gauge{border-radius:10px;padding:10px 12px;background:rgba(38,21,72,.8);border:1px solid var(--line);text-align:left}
+.gauge b{display:block;font:400 1.6rem/1 'Alfa Slab One',Georgia,serif;color:var(--cream)}
+.gauge b small{font:500 .9rem 'Rubik',sans-serif;color:var(--mute)}
+.gauge span{font-size:.76rem;color:var(--mute)}
+.ground{background:#120A26;padding:6px 0 48px}
+h2{font:400 1.45rem 'Alfa Slab One',Georgia,serif;margin:34px 0 14px;display:flex;align-items:center;gap:12px;letter-spacing:.01em}
+h2::after{content:'';flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--gold) 0 6px,transparent 6px 12px);opacity:.55}
+h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space:nowrap}
+/* resort sheets */
+.resorts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.sheet{border-radius:14px;padding:14px 14px 16px;background:var(--plum-2);border:1px solid rgba(185,156,242,.22);position:relative}
+.sheet.todo{background:transparent;border:1.5px dashed #4A3778}
+.sheet-h{display:flex;align-items:center;gap:10px;margin-bottom:4px;padding-right:86px}
+.dot{width:14px;height:14px;border-radius:50%;flex:none;background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 25%,transparent),0 0 14px var(--c)}
+.todo .dot{background:transparent;box-shadow:inset 0 0 0 2px #6A58A0}
+.sheet h3{margin:0;font:400 1.12rem/1.15 'Alfa Slab One',Georgia,serif}
+.todo h3{color:#C9BCE6}
+.sheet .where{font-size:.78rem;color:var(--mute);margin:0 0 10px 24px}
+.coupons{display:grid;gap:8px}
+.cp{display:grid;grid-template-columns:44px minmax(0,1fr);border-radius:7px;overflow:hidden;background:var(--cream);color:#2A1E3A}
+.cp .lt{display:grid;place-items:center;background:var(--c);color:#fff;font:400 1.35rem 'Alfa Slab One',Georgia,serif;border-right:2px dashed rgba(255,243,220,.8);text-shadow:0 1px 0 rgba(0,0,0,.18)}
+.cp .bd{padding:7px 10px 8px}
+.cp b{display:block;font:700 .9rem/1.2 'Rubik',sans-serif}
+.cp span{display:block;font:400 .72rem 'Space Mono',monospace;color:#6E5C86;margin-top:2px}
+.cp.no{background:transparent;color:#C9BCE6;box-shadow:inset 0 0 0 1.5px #4A3778}
+.cp.no .lt{background:transparent;color:#6A58A0;border-right:2px dashed #4A3778;text-shadow:none}
+.cp.no span{color:#8C7DB3}
+.punch{position:absolute;top:12px;right:12px;font:700 .64rem 'Rubik',sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--gold);color:#3A2508}
+.todo .punch{background:transparent;color:var(--mute);box-shadow:inset 0 0 0 1px #4A3778}
+.sheet .idea{margin:10px 0 0;font-size:.78rem;color:var(--mute);line-height:1.4}
+/* ticket-stub log */
+.log{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.stub{display:grid;grid-template-columns:96px minmax(0,1fr) auto;align-items:stretch;background:var(--cream);color:#2A1E3A;border-radius:10px;overflow:hidden;position:relative}
+.stub .d{display:grid;align-content:center;justify-items:center;padding:10px 6px;background:var(--c);color:#fff;border-right:2px dashed rgba(255,243,220,.85);text-align:center}
+.stub .d b{font:400 1.25rem/1 'Alfa Slab One',Georgia,serif}
+.stub .d span{font:700 .68rem 'Space Mono',monospace;letter-spacing:.06em;opacity:.9}
+.stub .m{padding:10px 14px}
+.stub .m b{display:block;font:700 .98rem/1.25 'Rubik',sans-serif}
+.stub .m span{display:block;font-size:.8rem;color:#5E4E78;margin-top:2px;line-height:1.35}
+.stub .n{display:grid;place-items:center;padding:0 14px;font:700 .8rem 'Space Mono',monospace;color:#6E5C86;white-space:nowrap}
+.stub .n em{display:block;font:400 1.3rem/1 'Alfa Slab One',Georgia,serif;font-style:normal;color:#2A1E3A;text-align:center}
+@media (max-width:540px){.stub{grid-template-columns:72px minmax(0,1fr)}.stub .n{grid-column:2;justify-items:start;padding:0 14px 10px;display:block}.stub .n em{display:inline;font-size:1rem;margin-right:4px}}
+.lognote{font-size:.78rem;color:var(--mute);margin:10px 2px 0}
+/* hotel keycards */
+.keys{display:grid;gap:22px}
+.kg{display:grid;grid-template-columns:180px minmax(0,1fr);gap:8px 18px;align-items:start}
+@media (max-width:680px){.kg{grid-template-columns:minmax(0,1fr)}}
+.kg .rg{font:700 .78rem 'Rubik',sans-serif;color:#DCD0F5;padding-top:6px}
+.kg .rg em{display:block;font-style:normal;font-weight:500;color:var(--mute);margin-top:2px}
+.cards{display:flex;flex-wrap:wrap;gap:10px}
+.key{position:relative;width:168px;min-height:96px;border-radius:9px;padding:10px 12px 10px;background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 55%,#1A0F33));color:#fff;display:grid;align-content:space-between;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.key::before{content:'';position:absolute;left:12px;top:12px;width:22px;height:16px;border-radius:3px;background:linear-gradient(135deg,#F9DE95,#C99A2E)}
+.key b{font:700 .84rem/1.2 'Rubik',sans-serif;margin-top:24px}
+.key span{font:400 .68rem 'Space Mono',monospace;opacity:.9}
+.key .dvc{position:absolute;top:9px;right:9px;font:700 .58rem 'Rubik',sans-serif;letter-spacing:.06em;padding:2px 6px;border-radius:3px;background:rgba(255,243,220,.92);color:#3A2508}
+#fieldkit{margin-top:44px;padding-bottom:50px}
+#fieldkit footer a{color:var(--mute)}
+</style>
+
+<div class="wrap">
+<a class="back" href="index.html">← My Travel Hub</a>
+<header class="hero">
+  <div class="eyebrow">✦ Ticket book ✦</div>
+  <h1>Disney Parks Tracker</h1>
+  <svg class="sky" id="sky" viewBox="0 0 640 300" role="img" aria-label="Six fireworks launched from the skyline, one per Disney resort: four lit for Anaheim, Orlando, Paris and Tokyo; Shanghai and Hong Kong still dark"></svg>
+  <div class="gauges">
+    <div class="gauge"><b>10<small> / 12</small></b><span>theme parks</span></div>
+    <div class="gauge"><b>7</b><span>resort trips</span></div>
+    <div class="gauge"><b>26</b><span>nights in Disney hotels</span></div>
+    <div class="gauge"><b>9</b><span>Disney hotels</span></div>
+  </div>
+</header>
+</div>
+
+<div class="ground"><div class="wrap">
+<h2>Resorts &amp; parks <small>4 of 6 resorts · 10 of 12 parks</small></h2>
+<section class="resorts" id="resorts"></section>
+
+<h2>Trip log <small>7 trips since 2024</small></h2>
+<ol class="log" id="log"></ol>
+<p class="lognote">From booking emails back to 2024. Earlier visits, and Disneyland day trips without a hotel, aren't in here yet.</p>
+
+<h2>Hotels checked into <small id="kn"></small></h2>
+<section class="keys" id="keys"></section>
+
+<div id="fieldkit" data-here="disney" data-theme="dark"><footer><a href="index.html">← My Travel Hub</a></footer></div>
+</div></div>
+
+<script>
+{
+/* resort: name, where, colour, punched?, parks [letter, park, note, visited], idea */
+const RES=[
+ ['Disneyland Resort','Anaheim, California','#FF6F7D','Visited',[
+   ['A','Disneyland Park','Original 1955 park · stays 2024, 2025',1],
+   ['B','Disney California Adventure','Stays 2024, 2025',1]]],
+ ['Walt Disney World','Orlando, Florida','#3CC6C0','Visited',[
+   ['A','Magic Kingdom','Trips 2024, 2025, 2026',1],
+   ['B','EPCOT','Trips 2024, 2025, 2026',1],
+   ['C','Hollywood Studios','Trips 2024, 2025, 2026',1],
+   ['D','Animal Kingdom','Trips 2024, 2025, 2026',1]]],
+ ['Disneyland Paris','Marne-la-Vallée, France','#B99CF2','Visited',[
+   ['A','Disneyland Park','Nov 2024 · 6-day both-parks ticket',1],
+   ['B','Disney Adventure World','Visited Nov 2024 as Walt Disney Studios Park',1]]],
+ ['Tokyo Disney Resort','Urayasu, Japan','#F6C453','Visited',[
+   ['A','Tokyo Disneyland','Nov 30 – Dec 2, 2025',1],
+   ['B','Tokyo DisneySea','Nov 30 – Dec 2, 2025',1]]],
+ ['Shanghai Disney Resort','Pudong, Shanghai','#6A58A0','',[
+   ['A','Shanghai Disneyland','One park',0]],'Pairs with Hong Kong in one loop, maybe with Disney Adventure from Singapore.'],
+ ['Hong Kong Disneyland Resort','Lantau Island, Hong Kong','#6A58A0','',[
+   ['A','Hong Kong Disneyland','One park',0]],'About 2½ hours from Shanghai by air, or a high-speed train ride away.']];
+
+document.getElementById('resorts').innerHTML=RES.map(r=>{
+  const done=!!r[3];
+  return '<div class="sheet'+(done?'':' todo')+'" style="--c:'+r[2]+'"><span class="punch">'+(done?'✓ '+r[3]:'Not yet')+'</span>'+
+   '<div class="sheet-h"><span class="dot"></span><h3>'+r[0]+'</h3></div><p class="where">'+r[1]+'</p>'+
+   '<div class="coupons">'+r[4].map(p=>'<div class="cp'+(p[3]?'':' no')+'" style="--c:'+r[2]+'"><span class="lt">'+p[0]+'</span><div class="bd"><b>'+p[1]+'</b><span>'+p[2]+'</span></div></div>').join('')+'</div>'+
+   (r[5]?'<p class="idea">'+r[5]+'</p>':'')+'</div>'}).join('');
+
+/* trip log: month, year, resort, colour, title, hotel line, nights */
+const LOG=[
+ ['SEP','2026','Walt Disney World','#3CC6C0','Walt Disney World before the Wish','Coronado Springs and All-Star Sports, then Saratoga Springs (DVC) · Sep 5–11',6],
+ ['NOV','2025','Tokyo Disney Resort','#F6C453','Tokyo Disneyland and DisneySea','Fantasy Springs Hotel, Fantasy Chateau · 3-day vacation package from Nov 30',2],
+ ['SEP','2025','Walt Disney World','#3CC6C0','Walt Disney World','Old Key West (DVC) · Sep 14–20',6],
+ ['JUL','2025','Disneyland Resort','#FF6F7D','Disneyland, Fourth of July','The Villas at Disneyland Hotel (DVC) · Jul 3–6',3],
+ ['NOV','2024','Disneyland Paris','#B99CF2','Disneyland Paris, Thanksgiving week','Newport Bay Club · Nov 24–29 · both parks',5],
+ ['JUL','2024','Walt Disney World','#3CC6C0','Orlando before the Wish','All-Star Movies · Jul 8–9',1],
+ ['MAY','2024','Disneyland Resort','#FF6F7D','Disneyland, Memorial Day','Grand Californian · May 24–27',3]];
+document.getElementById('log').innerHTML=LOG.map(t=>'<li class="stub" style="--c:'+t[3]+'"><div class="d"><b>'+t[0]+'</b><span>'+t[1]+'</span></div><div class="m"><b>'+t[4]+'</b><span>'+t[5]+'</span></div><div class="n"><em>'+t[6]+'</em>night'+(t[6]>1?'s':'')+'</div></li>').join('');
+
+/* hotels: resort, colour, [hotel, when, dvc] */
+const KEYS=[
+ ['Walt Disney World','#3CC6C0',[['Saratoga Springs','Sep 2026',1],['Coronado Springs','Sep 2026'],['All-Star Sports','Sep 2026'],['Old Key West','Sep 2025',1],['All-Star Movies','Jul 2024']]],
+ ['Disneyland Resort','#FF6F7D',[['Villas at Disneyland Hotel','Jul 2025',1],['Grand Californian','May 2024']]],
+ ['Disneyland Paris','#B99CF2',[['Newport Bay Club','Nov 2024']]],
+ ['Tokyo Disney Resort','#E0A93A',[['Fantasy Springs Hotel','Nov 2025']]]];
+document.getElementById('keys').innerHTML=KEYS.map(g=>'<div class="kg"><div class="rg">'+g[0]+'<em>'+g[2].length+' hotel'+(g[2].length>1?'s':'')+'</em></div><div class="cards">'+g[2].map(h=>'<div class="key" style="--c:'+g[1]+'">'+(h[2]?'<span class="dvc">DVC</span>':'')+'<b>'+h[0]+'</b><span>'+h[1]+'</span></div>').join('')+'</div></div>').join('');
+document.getElementById('kn').textContent=KEYS.reduce((n,g)=>n+g[2].length,0)+' hotels · 3 DVC stays';
+
+/* sky: six fireworks: a rocket trail fading up from the launch site, then tapered streaks with bright tips and falling glitter */
+const B=[[120,92,'#FF6F7D','#FFC2C8',1,'Disneyland Resort'],[240,60,'#3CC6C0','#B5F1EC',1,'Walt Disney World'],[365,88,'#B99CF2','#E6DAFF',1,'Disneyland Paris'],[480,56,'#F6C453','#FFE9B0',1,'Tokyo Disney Resort'],[565,120,'#6A58A0','',0,'Shanghai'],[52,140,'#6A58A0','',0,'Hong Kong']];
+const G0=262;
+let s='<defs>'+B.map((b,i)=>'<radialGradient id="g'+i+'"><stop offset="0" stop-color="'+b[2]+'" stop-opacity=".5"/><stop offset="1" stop-color="'+b[2]+'" stop-opacity="0"/></radialGradient><linearGradient id="t'+i+'" gradientUnits="userSpaceOnUse" x1="0" y1="'+G0+'" x2="0" y2="'+(b[1]+24)+'"><stop offset="0" stop-color="'+(b[3]||b[2])+'" stop-opacity="0"/><stop offset=".7" stop-color="'+(b[3]||b[2])+'" stop-opacity=".35"/><stop offset="1" stop-color="'+(b[3]||b[2])+'" stop-opacity=".9"/></linearGradient>').join('')+'</defs>';
+const rnd=(n)=>{const v=Math.sin(n*12.9898)*43758.5453;return v-Math.floor(v)};
+B.forEach(([x,y,c,t,on,n],bi)=>{
+  s+='<g class="burst'+(on?' on':'')+'"><title>'+n+(on?': visited':': not yet')+'</title>';
+  if(on){
+    /* rocket trail: a gentle S-curve, fading in toward the top, stopping short of the burst */
+    s+='<path d="M'+x+' '+G0+' C'+(x-6)+' '+(G0-50)+' '+(x+5)+' '+(y+70)+' '+x+' '+(y+24)+'" stroke="url(#t'+bi+')" stroke-width="2" fill="none" stroke-linecap="round"/>';
+    s+='<circle cx="'+x+'" cy="'+y+'" r="54" fill="url(#g'+bi+')"/>';
+    const k=26;
+    for(let i=0;i<k;i++){
+      const a=i*2*Math.PI/k+(rnd(bi*50+i)-.5)*.18,L=30+rnd(bi*90+i)*18,cx=Math.cos(a),sy=Math.sin(a);
+      const seg=[[.18,.4,.12,.8],[.35,.7,.3,1.2],[.7,1,.75,1.6]];
+      for(const [f0,f1,op,w] of seg){
+        const d0=L*f0,d1=L*f1,g=4;
+        s+='<line x1="'+(x+cx*d0).toFixed(1)+'" y1="'+(y+sy*d0+g*f0*f0).toFixed(1)+'" x2="'+(x+cx*d1).toFixed(1)+'" y2="'+(y+sy*d1+g*f1*f1).toFixed(1)+'" stroke="'+c+'" stroke-width="'+w+'" stroke-linecap="round" opacity="'+op+'"/>';}
+      s+='<circle cx="'+(x+cx*L).toFixed(1)+'" cy="'+(y+sy*L+4).toFixed(1)+'" r="1.9" fill="'+t+'"/>';
+      if(i%3===0)for(let j=1;j<=3;j++)s+='<circle cx="'+(x+cx*(L+3)).toFixed(1)+'" cy="'+(y+sy*(L+3)+4+j*5).toFixed(1)+'" r="'+(1.1-j*.25).toFixed(2)+'" fill="'+t+'" opacity="'+(0.8-j*0.22).toFixed(2)+'"/>';
+    }
+    s+='<circle cx="'+x+'" cy="'+y+'" r="3" fill="#FFF3DC"/>';
+  }else{
+    for(let i=0;i<16;i++){const a=i*2*Math.PI/16,cx=Math.cos(a),sy=Math.sin(a);
+      s+='<line x1="'+(x+cx*10).toFixed(1)+'" y1="'+(y+sy*10).toFixed(1)+'" x2="'+(x+cx*28).toFixed(1)+'" y2="'+(y+sy*28).toFixed(1)+'" stroke="'+c+'" stroke-width=".9" stroke-dasharray="1.5 3" opacity=".7"/>';}
+  }
+  s+='</g>';
+});
+/* skyline: a generic theme-park silhouette the rockets launch from behind */
+{
+const BK='#2B1A52',FR='#140B2B',LT='#F6C453';
+let k='';
+/* back layer: rolling hills, a rocky peak with a coaster drop, a coaster loop */
+k+='<path d="M0 262 C60 246 110 252 160 258 S260 244 320 252 S420 240 470 250 L505 214 L522 226 L540 196 L566 232 L600 246 C620 250 630 252 640 254 V300 H0Z" fill="'+BK+'"/>';
+k+='<path d="M528 206 C548 226 556 250 586 252" stroke="#4A3778" stroke-width="2" fill="none"/>';
+k+='<circle cx="196" cy="236" r="16" fill="none" stroke="#4A3778" stroke-width="2.4"/><path d="M160 256 C176 256 182 252 196 252 S226 236 250 250" stroke="#4A3778" stroke-width="2" fill="none"/>';
+/* front layer */
+let f='';
+/* ferris wheel */
+const wx=62,wy=232,wr=30;
+f+='<circle cx="'+wx+'" cy="'+wy+'" r="'+wr+'" fill="none" stroke="'+FR+'" stroke-width="3"/><circle cx="'+wx+'" cy="'+wy+'" r="'+(wr-8)+'" fill="none" stroke="'+FR+'" stroke-width="1.2"/>';
+for(let i=0;i<12;i++){const a=i*Math.PI/6,cx=Math.cos(a),sy=Math.sin(a);
+  f+='<line x1="'+wx+'" y1="'+wy+'" x2="'+(wx+cx*wr).toFixed(1)+'" y2="'+(wy+sy*wr).toFixed(1)+'" stroke="'+FR+'" stroke-width="1.2"/>';
+  f+='<rect x="'+(wx+cx*wr-3.5).toFixed(1)+'" y="'+(wy+sy*wr+1).toFixed(1)+'" width="7" height="6" rx="2" fill="'+FR+'"/>';
+  f+='<circle cx="'+(wx+cx*wr).toFixed(1)+'" cy="'+(wy+sy*wr).toFixed(1)+'" r="1.1" fill="'+LT+'" opacity=".85"/>';}
+f+='<path d="M'+wx+' '+wy+' L'+(wx-20)+' 300 M'+wx+' '+wy+' L'+(wx+20)+' 300" stroke="'+FR+'" stroke-width="3"/><circle cx="'+wx+'" cy="'+wy+'" r="4" fill="'+FR+'"/>';
+/* main-street storefronts with little gables */
+const shops=[[96,30,256],[126,24,248],[150,32,260],[182,26,244],[208,30,254]];
+for(const [x0,w,t] of shops){f+='<path d="M'+x0+' 300 V'+t+' L'+(x0+w/2)+' '+(t-9)+' L'+(x0+w)+' '+t+' V300Z" fill="'+FR+'"/>';
+  for(let r=0;r<2;r++)for(let c2=0;c2<2;c2++)f+='<rect x="'+(x0+5+c2*(w/2))+'" y="'+(t+8+r*12)+'" width="'+(w/2-9)+'" height="6" rx="1" fill="'+LT+'" opacity="'+((r+c2+x0)%3?.55:.25)+'"/>';}
+/* storybook castle: keep, two towers, spires and pennants (generic) */
+const cx0=320;
+f+='<path d="M'+(cx0-58)+' 300 V262 H'+(cx0-50)+' V256 H'+(cx0-44)+' V262 H'+(cx0+44)+' V256 H'+(cx0+50)+' V262 H'+(cx0+58)+' V300Z" fill="'+FR+'"/>';
+const tow=[[-38,10,236,22],[38,10,236,22],[-18,12,222,30],[18,12,222,30],[0,16,206,40]];
+for(const [dx,w,t,h] of tow){const x0=cx0+dx;
+  f+='<rect x="'+(x0-w/2)+'" y="'+t+'" width="'+w+'" height="'+(300-t)+'" fill="'+FR+'"/>';
+  f+='<path d="M'+(x0-w/2-2)+' '+t+' L'+x0+' '+(t-h)+' L'+(x0+w/2+2)+' '+t+'Z" fill="'+FR+'"/>';
+  f+='<path d="M'+x0+' '+(t-h)+' V'+(t-h-8)+'" stroke="'+FR+'" stroke-width="1.2"/><path d="M'+x0+' '+(t-h-8)+' l7 2.5 l-7 2.5z" fill="#FF6F7D"/>';
+  f+='<rect x="'+(x0-1.6)+'" y="'+(t+8)+'" width="3.2" height="6" rx="1.6" fill="'+LT+'" opacity=".8"/>';}
+f+='<path d="M'+(cx0-9)+' 300 V286 A9 9 0 0 1 '+(cx0+9)+' 286 V300Z" fill="'+LT+'" opacity=".35"/>';
+/* carousel tent */
+const tx=430;
+f+='<path d="M'+(tx-30)+' 266 L'+tx+' 238 L'+(tx+30)+' 266Z" fill="'+FR+'"/>';
+for(let i=-2;i<=2;i++)f+='<path d="M'+tx+' 240 L'+(tx+i*12)+' 266" stroke="#2B1A52" stroke-width="1.4"/>';
+f+='<path d="M'+(tx-30)+' 266 Q'+(tx-24)+' 272 '+(tx-18)+' 266 Q'+(tx-12)+' 272 '+(tx-6)+' 266 Q'+tx+' 272 '+(tx+6)+' 266 Q'+(tx+12)+' 272 '+(tx+18)+' 266 Q'+(tx+24)+' 272 '+(tx+30)+' 266" fill="'+FR+'" stroke="'+FR+'"/>';
+f+='<rect x="'+(tx-26)+'" y="268" width="52" height="32" fill="'+FR+'"/><path d="M'+tx+' 238 V228" stroke="'+FR+'" stroke-width="1.2"/><path d="M'+tx+' 228 l7 2.5 l-7 2.5z" fill="#3CC6C0"/>';
+for(let i=0;i<5;i++)f+='<circle cx="'+(tx-22+i*11)+'" cy="276" r="1.3" fill="'+LT+'" opacity=".8"/>';
+/* clock tower + low pavilions on the right */
+f+='<rect x="486" y="240" width="16" height="60" fill="'+FR+'"/><path d="M484 240 L494 222 L504 240Z" fill="'+FR+'"/><circle cx="494" cy="250" r="4" fill="'+LT+'" opacity=".55"/>';
+f+='<path d="M460 300 V272 Q474 262 488 272 V300Z M502 300 V268 H560 V276 H600 V300Z" fill="'+FR+'"/>';
+for(let i=0;i<6;i++)f+='<rect x="'+(508+i*15)+'" y="282" width="7" height="5" rx="1" fill="'+LT+'" opacity="'+(i%2?.5:.25)+'"/>';
+/* trees and the ground line */
+for(const tx2 of [240,262,372,394,618]){f+='<ellipse cx="'+tx2+'" cy="'+(286-(tx2%3)*3)+'" rx="10" ry="13" fill="'+FR+'"/>';}
+f+='<rect x="0" y="282" width="640" height="18" fill="'+FR+'"/>';
+s+='<defs><linearGradient id="edge"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".08" stop-color="#fff"/><stop offset=".92" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><mask id="fade"><rect width="640" height="300" fill="url(#edge)"/></mask></defs><g mask="url(#fade)">'+k+f+'</g>';
+}
+/* launch-site labels along the skyline */
+B.forEach(([x,y,c,t,on,n])=>{
+  const lb=n.replace(' Disney Resort','').replace(' Resort','').replace('Walt Disney World','Orlando').replace('Disneyland Paris','Paris').replace('Disneyland','Anaheim'),ly=on?290:y+46,lw=lb.length*6.2+14;
+  if(on)s+='<rect x="'+(x-lw/2).toFixed(1)+'" y="'+(ly-11)+'" width="'+lw.toFixed(1)+'" height="16" rx="8" fill="#140B2B" stroke="'+c+'" stroke-opacity=".5"/>';
+  s+='<text x="'+x+'" y="'+ly+'" text-anchor="middle" style="font:700 10px Rubik,sans-serif;fill:'+(on?'#FFF3DC':'#8C7DB3')+'">'+lb+'</text>';
+});
+/* stars */
+for(let i=0;i<40;i++){const x=(i*157)%640,y=(i*83)%220+6;s='<circle cx="'+x+'" cy="'+y+'" r="'+(i%3?0.9:1.4)+'" fill="#FFF3DC" opacity="'+(i%4?0.35:0.7)+'"/>'+s;}
+document.getElementById('sky').innerHTML=s;
+}
+</script>
+<script src="fieldkit.js" defer></script>
+</body>
+</html>

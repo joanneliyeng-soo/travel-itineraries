@@ -1,5 +1,5 @@
 /* Field kit strip — the ticket cards from the bottom of travel/index.html, shared by the other kit pages.
-   Usage: <div id="fieldkit" data-here="parks|units|books|cruises" data-theme="auto|dark">fallback links</div>
+   Usage: <div id="fieldkit" data-here="parks|units|books|cruises|disney" data-theme="auto|dark">fallback links</div>
           <script src="../fieldkit.js" defer></script>   (path relative to the page)
    The cards are copied live from index.html, so they stay in step with it; the current page's card
    is dropped and a "My Travel Hub" card leads back home. Counts and art are refreshed from
@@ -10,7 +10,7 @@
   if(!mount||!me||!window.fetch||!window.DOMParser)return;
   var BASE=me.src.replace(/[^\/]*$/,'');              /* .../travel/ */
   var here=mount.getAttribute('data-here')||'';
-  var HREF={parks:'nationalparks.html',units:'npsunits.html',books:'books/',cruises:'cruises.html'};
+  var HREF={parks:'nationalparks.html',units:'npsunits.html',books:'books/',cruises:'cruises.html',disney:'disneyparks.html'};
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function get(u){return fetch(BASE+u).then(function(r){return r.ok?r.text():Promise.reject()}).then(function(h){return new DOMParser().parseFromString(h,'text/html')})}
 
