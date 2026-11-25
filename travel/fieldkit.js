@@ -2,7 +2,7 @@
    Usage: <div id="fieldkit" data-here="parks|units|books" data-theme="auto|dark">fallback links</div>
           <script src="../fieldkit.js" defer></script>   (path relative to the page)
    The cards are copied live from index.html, so they stay in step with it; the current page's card
-   is dropped and a "Travel bucket list" card leads back home. Counts and art are refreshed from
+   is dropped and a "My Travel Hub" card leads back home. Counts and art are refreshed from
    nationalparks.html, npsunits.html and books/. If anything fails, the fallback links stay. */
 (function(){
   var mount=document.getElementById('fieldkit');
@@ -48,7 +48,7 @@
    '<rect x="94" y="14" width="32" height="44" rx="5" fill="var(--home)"/><path d="M94 16 L94 56" stroke="var(--paper)" stroke-width="1.6" stroke-dasharray="3 3"/>'+
    '<rect x="24" y="24" width="52" height="5" rx="2" fill="var(--ink-3)"/><rect x="24" y="34" width="38" height="4" rx="2" fill="var(--perf)"/><rect x="24" y="43" width="44" height="4" rx="2" fill="var(--perf)"/>'+
    '<rect x="100" y="27" width="20" height="4" rx="2" fill="var(--paper)" opacity=".85"/><rect x="103" y="36" width="14" height="9" rx="2" fill="var(--paper)" opacity=".85"/></g>'+
-   '</svg></div><div class="perf"><span class="kind">Home base</span><b>Travel bucket list</b><span class="meta">Upcoming trips, ideas and goals</span></div></a>';
+   '</svg></div><div class="perf"><span class="kind">Home base</span><b>My Travel Hub</b><span class="meta">Upcoming trips, ideas and goals</span></div></a>';
 
   get('index.html').then(function(doc){
     var nav=doc.querySelector('nav.kit');if(!nav)return Promise.reject();
