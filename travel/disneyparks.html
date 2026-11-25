@@ -70,7 +70,7 @@ h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space
 .stub .d{display:grid;align-content:center;justify-items:center;padding:10px 6px;background:var(--c);color:#fff;border-right:2px dashed rgba(255,243,220,.85);text-align:center}
 .stub .d b{font:400 1.25rem/1 'Alfa Slab One',Georgia,serif}
 .stub .d span{font:700 .68rem 'Space Mono',monospace;letter-spacing:.06em;opacity:.9}
-.stub .m{padding:10px 14px}
+.stub .m{padding:10px 14px;display:grid;align-content:center}
 .stub .m b{display:block;font:700 .98rem/1.25 'Rubik',sans-serif}
 .stub .m span{display:block;font-size:.8rem;color:#5E4E78;margin-top:2px;line-height:1.35}
 .stub .n{display:grid;place-items:center;padding:0 14px;font:700 .8rem 'Space Mono',monospace;color:#6E5C86;white-space:nowrap}
@@ -101,7 +101,7 @@ h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space
   <svg class="sky" id="sky" viewBox="0 0 640 300" role="img" aria-label="Six fireworks launched from the skyline, one per Disney resort: four lit for Anaheim, Orlando, Paris and Tokyo; Shanghai and Hong Kong still dark"></svg>
   <div class="gauges">
     <div class="gauge"><b>10<small> / 12</small></b><span>theme parks</span></div>
-    <div class="gauge"><b>7</b><span>resort trips</span></div>
+    <div class="gauge"><b>14</b><span>resort trips</span></div>
     <div class="gauge"><b>26</b><span>nights in Disney hotels</span></div>
     <div class="gauge"><b>9</b><span>Disney hotels</span></div>
   </div>
@@ -112,9 +112,9 @@ h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space
 <h2>Resorts &amp; parks <small>4 of 6 resorts · 10 of 12 parks</small></h2>
 <section class="resorts" id="resorts"></section>
 
-<h2>Trip log <small>7 trips since 2024</small></h2>
+<h2>Trip log <small>14 trips since 2022</small></h2>
 <ol class="log" id="log"></ol>
-<p class="lognote">From booking emails back to 2024. Earlier visits, and Disneyland day trips without a hotel, aren't in here yet.</p>
+<p class="lognote">From booking emails and Google Photos. Visits without a hotel booking show no nights.</p>
 
 <h2>Hotels checked into <small id="kn"></small></h2>
 <section class="keys" id="keys"></section>
@@ -127,13 +127,13 @@ h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space
 /* resort: name, where, colour, punched?, parks [letter, park, note, visited], idea */
 const RES=[
  ['Disneyland Resort','Anaheim, California','#FF6F7D','Visited',[
-   ['A','Disneyland Park','Original 1955 park · stays 2024, 2025',1],
-   ['B','Disney California Adventure','Stays 2024, 2025',1]]],
+   ['A','Disneyland Park','First visit Jun 2022 · 8 trips',1],
+   ['B','Disney California Adventure','Visits 2022 – 2025',1]]],
  ['Walt Disney World','Orlando, Florida','#3CC6C0','Visited',[
-   ['A','Magic Kingdom','Trips 2024, 2025, 2026',1],
-   ['B','EPCOT','Trips 2024, 2025, 2026',1],
-   ['C','Hollywood Studios','Trips 2024, 2025, 2026',1],
-   ['D','Animal Kingdom','Trips 2024, 2025, 2026',1]]],
+   ['A','Magic Kingdom','First visit Apr 2023 · 4 trips',1],
+   ['B','EPCOT','Trips 2023 – 2026',1],
+   ['C','Hollywood Studios','Trips 2023 – 2026',1],
+   ['D','Animal Kingdom','Trips 2023 – 2026',1]]],
  ['Disneyland Paris','Marne-la-Vallée, France','#B99CF2','Visited',[
    ['A','Disneyland Park','Nov 2024 · 6-day both-parks ticket',1],
    ['B','Disney Adventure World','Visited Nov 2024 as Walt Disney Studios Park',1]]],
@@ -157,11 +157,18 @@ const LOG=[
  ['SEP','2026','Walt Disney World','#3CC6C0','Walt Disney World before the Wish','Coronado Springs and All-Star Sports, then Saratoga Springs (DVC) · Sep 5–11',6],
  ['NOV','2025','Tokyo Disney Resort','#F6C453','Tokyo Disneyland and DisneySea','Fantasy Springs Hotel, Fantasy Chateau · 3-day vacation package from Nov 30',2],
  ['SEP','2025','Walt Disney World','#3CC6C0','Walt Disney World','Old Key West (DVC) · Sep 14–20',6],
- ['JUL','2025','Disneyland Resort','#FF6F7D','Disneyland, Fourth of July','The Villas at Disneyland Hotel (DVC) · Jul 3–6',3],
+ ['JUL','2025','Disneyland Resort','#FF6F7D','Disneyland 70th anniversary, Fourth of July','The Villas at Disneyland Hotel (DVC) · Jul 3–6',3],
+ ['DEC','2024','Disneyland Resort','#FF6F7D','Disneyland in December','',0],
  ['NOV','2024','Disneyland Paris','#B99CF2','Disneyland Paris, Thanksgiving week','Newport Bay Club · Nov 24–29 · both parks',5],
  ['JUL','2024','Walt Disney World','#3CC6C0','Orlando before the Wish','All-Star Movies · Jul 8–9',1],
- ['MAY','2024','Disneyland Resort','#FF6F7D','Disneyland, Memorial Day','Grand Californian · May 24–27',3]];
-document.getElementById('log').innerHTML=LOG.map(t=>'<li class="stub" style="--c:'+t[3]+'"><div class="d"><b>'+t[0]+'</b><span>'+t[1]+'</span></div><div class="m"><b>'+t[4]+'</b><span>'+t[5]+'</span></div><div class="n"><em>'+t[6]+'</em>night'+(t[6]>1?'s':'')+'</div></li>').join('');
+ ['MAY','2024','Disneyland Resort','#FF6F7D','Disneyland Pixar Fest, Memorial Day','Grand Californian · May 24–27',3],
+ ['FEB','2024','Disneyland Resort','#FF6F7D','Disneyland Lunar New Year','',0],
+ ['DEC','2023','Disneyland Resort','#FF6F7D','Disneyland at Christmas','',0],
+ ['OCT','2023','Disneyland Resort','#FF6F7D','Disneyland Halloween with Mom','',0],
+ ['JUL','2023','Disneyland Resort','#FF6F7D','Disneyland, Fourth of July','',0],
+ ['APR','2023','Walt Disney World','#3CC6C0','Walt Disney World in spring','',0],
+ ['JUN','2022','Disneyland Resort','#FF6F7D','First Disneyland trip','',0]];
+document.getElementById('log').innerHTML=LOG.map(t=>'<li class="stub" style="--c:'+t[3]+'"><div class="d"><b>'+t[0]+'</b><span>'+t[1]+'</span></div><div class="m"><b>'+t[4]+'</b>'+(t[5]?'<span>'+t[5]+'</span>':'')+'</div>'+(t[6]?'<div class="n"><em>'+t[6]+'</em>night'+(t[6]>1?'s':'')+'</div>':'<div class="n"></div>')+'</li>').join('');
 
 /* hotels: resort, colour, [hotel, when, dvc] */
 const KEYS=[
