@@ -62,6 +62,16 @@ h2 small{order:2;font:600 .8rem 'Karla',sans-serif;color:var(--mute);white-space
 .ship b{font:400 1.05rem 'DM Serif Display',Georgia,serif}
 .ship p{margin:0;font-size:.78rem;color:var(--mute);line-height:1.35;max-width:150px}
 .done p,.now p{color:#C9D6E6}
+.themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px}
+.th{border-radius:12px;padding:14px;background:rgba(11,36,66,.7);border:1px dashed #2A4A70;display:grid;gap:6px;align-content:start}
+.th .ic{font-size:1.8rem;line-height:1;filter:grayscale(1);opacity:.45}
+.th b{font:400 1.08rem 'DM Serif Display',Georgia,serif;color:#9DB0C8}
+.th p{margin:0;font-size:.78rem;color:var(--mute);line-height:1.4}
+.th.done{background:var(--cream);border:1px solid var(--brass);color:#2B2418}
+.th.done .ic{filter:none;opacity:1}.th.done b{color:#2B2418}.th.done p{color:#6B5A3A}
+.th.now{border:1.5px dashed var(--brass);background:rgba(15,51,87,.8)}
+.th.now .ic{filter:none;opacity:1}.th.now b{color:var(--cream)}
+.th .flag{justify-self:start}
 .flag{font:700 .66rem 'Karla',sans-serif;padding:2px 8px;border-radius:3px;background:var(--red);color:#fff}
 .now .flag{background:var(--brass);color:#2A1D05}
 .book{background:var(--cream);color:#2B2418;border-radius:4px 10px 10px 4px;padding:8px 0;box-shadow:0 10px 30px rgba(0,0,0,.35),inset 10px 0 0 #E4D6B5}
@@ -75,13 +85,12 @@ h2 small{order:2;font:600 .8rem 'Karla',sans-serif;color:var(--mute);white-space
 .log .sh{display:block;font:600 .78rem 'Karla',sans-serif;color:#7A5A1E;margin-top:1px}
 .log .now .rt::after{content:'underway';margin-left:8px;font:700 .66rem 'Karla',sans-serif;padding:1px 7px;border-radius:3px;background:var(--red);color:#fff;vertical-align:2px}
 @media (max-width:540px){.log{padding:0 12px 0 20px}.log li{grid-template-columns:62px minmax(0,1fr);gap:8px}.room{grid-column:2;justify-self:start;display:flex;gap:6px;align-items:baseline;min-width:0;padding:2px 8px;font-size:.85rem}}
-.ports{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
-.ports>div:first-child{grid-column:1/-1}
-#hp{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:4px 28px}
-#hp>.rg{grid-row:1;margin:0}
-#hp>.pennants{grid-row:2;align-content:start}
-@media (max-width:680px){#hp{display:block}#hp>.rg{margin:10px 0 6px}}
-@media (max-width:680px){.ports{grid-template-columns:minmax(0,1fr)}}
+.ports{display:grid;gap:26px}
+.grp{display:grid;grid-template-columns:190px minmax(0,1fr);gap:8px 18px;align-items:start;padding:10px 0;border-top:1px solid rgba(212,169,79,.14)}
+.grp:first-child{border-top:0;padding-top:0}
+.grp .rg{margin:6px 0 0;font:700 .74rem 'Karla',sans-serif;color:var(--soft,#C9D6E6)}
+.grp .rg em{display:block;font-style:normal;font-weight:600;color:var(--mute);margin-top:2px}
+@media (max-width:680px){.grp{grid-template-columns:minmax(0,1fr)}.grp .rg{margin:0}}
 .pk{font:400 1.05rem 'DM Serif Display',Georgia,serif;color:var(--brass);margin-bottom:10px}
 .pennants{display:flex;flex-wrap:wrap;gap:8px}
 .rg{font:700 .68rem 'Karla',sans-serif;color:var(--mute);margin:10px 0 6px}.rg:first-child{margin-top:0}
@@ -128,10 +137,13 @@ h2 small{order:2;font:600 .8rem 'Karla',sans-serif;color:var(--mute);white-space
 <h2>Captain's log <small>7 sailings since 2022</small></h2>
 <div class="book"><ol class="log" id="log"></ol></div>
 
+<h2>Themed sailings <small id="thn"></small></h2>
+<section class="themes" id="themes"></section>
+
 <h2>Ports</h2>
 <section class="ports">
   <div><div class="pk">Home ports <span class="pkn" id="hpn"></span></div><div id="hp"></div></div>
-  <div><div class="pk">Ports of call</div><div class="pennants" id="pc"></div></div>
+  <div><div class="pk">Ports of call <span class="pkn" id="pcn"></span></div><div id="pc"></div></div>
   <div><div class="pk">Disney islands</div><div class="pennants" id="is"></div></div>
 </section>
 
@@ -160,14 +172,25 @@ const LOG=[
  ['JUL 2024','Port Canaveral to Nassau and Castaway Cay · 3 nights','Disney Wish','6078'],
  ['SEP 2022','San Diego to Cabo San Lucas · 4 nights','Disney Wonder · 🎃 Halloween on the High Seas','2602']];
 const HOME=[['US and Caribbean',[['Port Canaveral',1],['Fort Lauderdale',1],['San Diego',1],['Galveston',1],['San Juan',0],['New York',0]]],['Canada',[['Vancouver',0]]],['Europe',[['Barcelona',0],['Rome (Civitavecchia)',0],['Southampton',0]]],['Asia',[['Singapore',0]]]];
-const CALLS=['Nassau','Cabo San Lucas','Progreso','Catalina','Ensenada'];
+const CALLS=[['Bahamas and Bermuda',[['Nassau',1],['Bermuda',0]]],['Caribbean',[['Cozumel',0],['Costa Maya',0],['Grand Cayman',0],['Falmouth, Jamaica',0],['Puerto Plata',0],['St. Thomas',0],['Tortola',0],['St. Maarten',0],['St. Kitts',0],['Antigua',0],['Dominica',0],['Martinique',0],['St. Lucia',0],['Barbados',0],['Aruba',0],['Curaçao',0],['Bonaire',0]]],['Mexico and California',[['Cabo San Lucas',1],['Ensenada',1],['Catalina Island',1],['Progreso',1],['Puerto Vallarta',0],['Mazatlán',0]]],['Panama Canal and Central America',[['Cartagena, Colombia',0],['Colón',0],['Fuerte Amador',0],['Puntarenas, Costa Rica',0]]],['Alaska and British Columbia',[['Juneau',0],['Ketchikan',0],['Skagway',0],['Sitka',0],['Icy Strait Point',0],['Victoria',0],['Dawes Glacier',0],['Hubbard Glacier',0],['Tracy Arm',0],['Stikine Icecap',0]]],['New England and Canada',[['Boston',0],['Saint John',0],['Halifax',0]]],['Mediterranean',[['Palma de Mallorca',0],['Livorno',0],['Genoa',0],['Naples',0],['Messina',0],['Trieste',0],['Cagliari',0],['Ajaccio',0],['Valletta',0],['Dubrovnik',0],['Zadar',0],['Corfu',0],['Piraeus',0],['Mykonos',0],['Santorini',0],['Rhodes',0],['Chania',0]]],['Iberia and the Atlantic',[['Lisbon',0],['Funchal',0],['Ponta Delgada',0],['Gibraltar',0],['Cádiz',0],['Málaga',0],['Cartagena, Spain',0],['Vigo',0],['La Coruña',0],['Bilbao',0]]],['Northern Europe',[['Copenhagen',0],['Skagen',0],['Kristiansand',0],['Stavanger',0],['Haugesund',0],['Bergen',0],['Olden',0],['Hellesylt',0],['Ålesund',0],['Rotterdam',0],['Zeebrugge',0]]],['British Isles',[['Portland',0],['Liverpool',0],['Greenock',0],['Belfast',0],['Cobh',0]]],['Southeast Asia',[['Langkawi',0]]]];
 const ISLES=['Castaway Cay','Lookout Cay'];
 
 document.getElementById('fleet').innerHTML=FLEET.map(s=>'<div class="ship '+s[1]+'"><div class="port">'+SHIP+'</div><b>Disney '+s[0]+'</b>'+(s[3]?'<span class="flag">'+s[3]+'</span>':'')+'<p>'+s[2]+'</p></div>').join('');
 document.getElementById('log').innerHTML=LOG.map(r=>'<li'+(r[4]?' class="now"':'')+'><span class="when">'+r[0]+'</span><span><span class="rt">'+r[1]+'</span><span class="sh">'+r[2]+'</span></span><span class="room'+(r[3]?'':' gty')+'"><small>Stateroom</small>'+(r[3]||'Guarantee')+'</span></li>').join('');
-document.getElementById('hp').innerHTML=HOME.map(g=>'<div class="rg">'+g[0]+'</div><div class="pennants">'+g[1].map(h=>'<span class="pen'+(h[1]?'':' no')+'">'+h[0]+'</span>').join('')+'</div>').join('');
+const grp=G=>G.map(g=>{const d=g[1].filter(h=>h[1]).length;return '<div class="grp"><div class="rg">'+g[0]+'<em>'+d+' of '+g[1].length+'</em></div><div class="pennants">'+g[1].slice().sort((a,b)=>b[1]-a[1]).map(h=>'<span class="pen'+(h[1]?'':' no')+'">'+h[0]+'</span>').join('')+'</div></div>'}).join('');
+document.getElementById('hp').innerHTML=grp(HOME);
+document.getElementById('pc').innerHTML=grp(CALLS);
+{const all=CALLS.flatMap(g=>g[1]);document.getElementById('pcn').textContent=all.filter(h=>h[1]).length+' of '+all.length;}
 {const all=HOME.flatMap(g=>g[1]);document.getElementById('hpn').textContent=all.filter(h=>h[1]).length+' of '+all.length;}
-document.getElementById('pc').innerHTML=CALLS.map(c=>'<span class="pen">'+c+'</span>').join('');
+
+const THEMES=[
+ ['🎃','Halloween on the High Seas','done','Disney Wonder, Sep 2022 · Disney Wish, Sep 2026','Sailed twice'],
+ ['🦸','Marvel Day at Sea','done','Disney Magic, Jan 2026 from Galveston','Sailed'],
+ ['🎄','Very Merrytime','now','Disney Destiny, Nov 25–30, 2026','Underway'],
+ ['🧸','Pixar Day at Sea','','Five-night Disney Fantasy sailings from Port Canaveral',''],
+ ['⭐','Star Wars Day at Sea','','Not on the current schedule','']];
+document.getElementById('themes').innerHTML=THEMES.map(t=>'<div class="th '+t[2]+'"><span class="ic" aria-hidden="true">'+t[0]+'</span><b>'+t[1]+'</b>'+(t[4]?'<span class="flag">'+t[4]+'</span>':'')+'<p>'+t[3]+'</p></div>').join('');
+document.getElementById('thn').textContent=THEMES.filter(t=>t[2]==='done').length+' of '+THEMES.length+' · '+THEMES.filter(t=>t[2]==='now').length+' underway';
 document.getElementById('is').innerHTML=ISLES.map(c=>'<span class="pen isle">'+c+'</span>').join('');
 
 /* ship's wheel: 9 spokes, one per ship */
