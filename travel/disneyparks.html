@@ -76,6 +76,14 @@ h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space
 .stub .n{display:grid;place-items:center;padding:0 14px;font:700 .8rem 'Space Mono',monospace;color:#6E5C86;white-space:nowrap}
 .stub .n em{display:block;font:400 1.3rem/1 'Alfa Slab One',Georgia,serif;font-style:normal;color:#2A1E3A;text-align:center}
 @media (max-width:540px){.stub{grid-template-columns:72px minmax(0,1fr)}.stub .n{grid-column:2;justify-items:start;padding:0 14px 10px;display:block}.stub .n em{display:inline;font-size:1rem;margin-right:4px}}
+.seg{display:inline-flex;padding:4px;gap:4px;border-radius:999px;background:var(--plum-2);border:1px solid rgba(185,156,242,.25);margin:0 0 14px}
+.seg button{min-height:40px;padding:0 18px;border:0;border-radius:999px;background:transparent;color:var(--mute);font:600 .88rem 'Rubik',sans-serif;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--gold);color:#3A2508}
+.seg button:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
+.lg{display:flex;align-items:center;gap:10px;margin:18px 0 10px;font:400 1.05rem 'Alfa Slab One',Georgia,serif}
+.lg:first-child{margin-top:0}
+.lg i{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
+.lg small{font:500 .78rem 'Rubik',sans-serif;color:var(--mute)}
 .lognote{font-size:.78rem;color:var(--mute);margin:10px 2px 0}
 /* hotel keycards */
 .keys{display:grid;gap:22px}
@@ -113,7 +121,8 @@ h2 small{order:2;font:500 .8rem 'Rubik',sans-serif;color:var(--mute);white-space
 <section class="resorts" id="resorts"></section>
 
 <h2>Trip log <small>14 trips since 2022</small></h2>
-<ol class="log" id="log"></ol>
+<div class="seg" role="group" aria-label="Sort the trip log"><button type="button" data-v="date" aria-pressed="true">By date</button><button type="button" data-v="resort" aria-pressed="false">By resort</button></div>
+<div id="log"></div>
 <p class="lognote">From booking emails and Google Photos. Stays without known dates show no nights.</p>
 
 <h2>Hotels checked into <small id="kn"></small></h2>
@@ -168,7 +177,20 @@ const LOG=[
  ['JUL','2023','Disneyland Resort','#FF6F7D','Disneyland, Fourth of July','Pixar Place Hotel · both parks',0],
  ['APR','2023','Walt Disney World','#3CC6C0','Walt Disney World in spring','Port Orleans Riverside',0],
  ['JUN','2022','Disneyland Resort','#FF6F7D','First Disneyland trip','Disneyland Hotel · 3 park days · both parks',2]];
-document.getElementById('log').innerHTML=LOG.map(t=>'<li class="stub" style="--c:'+t[3]+'"><div class="d"><b>'+t[0]+'</b><span>'+t[1]+'</span></div><div class="m"><b>'+t[4]+'</b>'+(t[5]?'<span>'+t[5]+'</span>':'')+'</div>'+(t[6]?'<div class="n"><em>'+t[6]+'</em>night'+(t[6]>1?'s':'')+'</div>':'<div class="n"></div>')+'</li>').join('');
+const stub=t=>'<li class="stub" style="--c:'+t[3]+'"><div class="d"><b>'+t[0]+'</b><span>'+t[1]+'</span></div><div class="m"><b>'+t[4]+'</b>'+(t[5]?'<span>'+t[5]+'</span>':'')+'</div>'+(t[6]?'<div class="n"><em>'+t[6]+'</em>night'+(t[6]>1?'s':'')+'</div>':'<div class="n"></div>')+'</li>';
+const ORDER=['Disneyland Resort','Walt Disney World','Disneyland Paris','Tokyo Disney Resort'];
+const logEl=document.getElementById('log');
+function drawLog(v){
+  if(v==='resort'){
+    logEl.innerHTML=ORDER.map(r=>{const ts=LOG.filter(t=>t[2]===r);if(!ts.length)return '';
+      const c=ts[0][3];
+      return '<h3 class="lg" style="--c:'+c+'"><i></i>'+r+' <small>'+ts.length+' trip'+(ts.length>1?'s':'')+'</small></h3><ol class="log">'+ts.map(stub).join('')+'</ol>'}).join('');
+  }else logEl.innerHTML='<ol class="log">'+LOG.map(stub).join('')+'</ol>';
+  document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===v)));
+}
+let lv='date';try{lv=localStorage.getItem('dp-log')||'date'}catch(e){}
+drawLog(lv);
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{drawLog(b.dataset.v);try{localStorage.setItem('dp-log',b.dataset.v)}catch(e){}}));
 
 /* hotels: resort, colour, [hotel, when, dvc] */
 const KEYS=[
