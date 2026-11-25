@@ -1,5 +1,5 @@
 /* Field kit strip — the ticket cards from the bottom of travel/index.html, shared by the other kit pages.
-   Usage: <div id="fieldkit" data-here="parks|units|books" data-theme="auto|dark">fallback links</div>
+   Usage: <div id="fieldkit" data-here="parks|units|books|cruises" data-theme="auto|dark">fallback links</div>
           <script src="../fieldkit.js" defer></script>   (path relative to the page)
    The cards are copied live from index.html, so they stay in step with it; the current page's card
    is dropped and a "My Travel Hub" card leads back home. Counts and art are refreshed from
@@ -10,7 +10,7 @@
   if(!mount||!me||!window.fetch||!window.DOMParser)return;
   var BASE=me.src.replace(/[^\/]*$/,'');              /* .../travel/ */
   var here=mount.getAttribute('data-here')||'';
-  var HREF={parks:'nationalparks.html',units:'npsunits.html',books:'books/'};
+  var HREF={parks:'nationalparks.html',units:'npsunits.html',books:'books/',cruises:'cruises.html'};
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function get(u){return fetch(BASE+u).then(function(r){return r.ok?r.text():Promise.reject()}).then(function(h){return new DOMParser().parseFromString(h,'text/html')})}
 
@@ -25,7 +25,7 @@
   '.fk *{box-sizing:border-box}.fk a{color:inherit;text-decoration:none}'+
   '.fk-h{display:flex;align-items:center;gap:12px;margin:0 0 14px;font:400 1.6rem/1 var(--display);letter-spacing:.04em;color:var(--ink)}'+
   '.fk-h small{font:500 .78rem var(--body);letter-spacing:0;color:var(--ink-2);margin-left:auto}'+
-  '.fk .kit{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}'+
+  '.fk .kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}'+
   '@media (max-width:820px){.fk .kit{grid-template-columns:repeat(2,minmax(0,1fr))}}'+
   '.fk .tix{position:relative;background:var(--paper);border-radius:10px;display:grid;min-width:0}'+
   '.fk .tix .perf{position:relative}'+
