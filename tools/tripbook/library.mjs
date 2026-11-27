@@ -41,7 +41,7 @@ const cards = trips.map(t => {
   // spine thickness = stamps on the trip (2 stamps → thin, 19 → chunky); height stays random
   const h = hash(t.slug), sh = 182 + (h % 4) * 6, sw = Math.round(Math.min(52, Math.max(24, 22 + units * 1.6)));
   const pa = art(t, 'art'), title = t.short || t.title;
-  return `<a class="bk" href="${esc(t.book)}.html" data-slug="${esc(t.slug)}" data-units="${units}" data-collected="${esc((t.collected || []).filter(id => !bonus.includes(id)).join(' '))}" data-bonus="${esc(bonus.join(' '))}" data-start="${esc(t.start || '')}" data-end="${esc(t.end || '')}" aria-label="${esc(t.title)}, ${esc(range(t))}" style="--bg:${bg};--panel:${panel};--ac:${accent};--ink:${ps.ink};--sh:${sh}px;--sw:${sw}px">
+  return `<a class="bk" href="${esc(t.book)}.html" data-slug="${esc(t.slug)}" data-units="${units}" data-collected="${esc((t.collected || []).filter(id => !bonus.includes(id)).join(' '))}" data-bonus="${esc(bonus.join(' '))}" data-shelf="${esc(t.shelf || '')}" data-start="${esc(t.start || '')}" data-end="${esc(t.end || '')}" aria-label="${esc(t.title)}, ${esc(range(t))}" style="--bg:${bg};--panel:${panel};--ac:${accent};--ink:${ps.ink};--sh:${sh}px;--sw:${sw}px">
   <span class="face">
     <span class="pic">${pa}<span class="when">${esc(range(t))}</span><span class="badge"></span></span>
     <span class="plate2">
@@ -243,7 +243,7 @@ ${cards.join('\n')}
   var next = [], some = [], past = [];
   books.forEach(function (b) {
     var e = b.dataset.end;
-    if (!e) some.push(b); else if (e < today) past.push(b); else next.push(b);
+    if (!e) some.push(b); else if (e < today || b.dataset.shelf === 'past') past.push(b); else next.push(b);
     var got = {};
     try { got = JSON.parse(localStorage.getItem(b.dataset.slug + '-book-stamps') || '{}') || {}; } catch (x) {}
     (b.dataset.collected ? b.dataset.collected.split(' ') : []).forEach(function (id) { if (!(id in got)) got[id] = true; });
